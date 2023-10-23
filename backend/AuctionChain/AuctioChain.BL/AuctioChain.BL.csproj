@@ -10,4 +10,8 @@
       <ProjectReference Include="..\AuctioChain.DAL\AuctioChain.DAL.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="11.1.0" />
+    </ItemGroup>
+
 </Project>

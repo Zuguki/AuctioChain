@@ -1,7 +1,7 @@
 ﻿using Serilog.Core;
 using Serilog.Events;
 
-namespace AuctioChain.Serilog;
+namespace AuctioChain.Libs.Serilog;
 
 public class SerilogFilter : ILogEventFilter
 {

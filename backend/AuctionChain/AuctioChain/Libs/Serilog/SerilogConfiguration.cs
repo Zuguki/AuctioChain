@@ -3,9 +3,9 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 
-namespace AuctioChain.Serilog;
+namespace AuctioChain.Libs.Serilog;
 
-public static class SerilogSetting
+public static class SerilogConfiguration
 {
     public static void Connect(HostBuilderContext context, LoggerConfiguration configuration)
     {

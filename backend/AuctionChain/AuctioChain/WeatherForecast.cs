@@ -1,4 +1,4 @@
-namespace AuctionChain;
+namespace AuctioChain;
 
 public class WeatherForecast
 {

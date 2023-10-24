@@ -1,15 +1,15 @@
 ﻿using AuctioChain.BL.Mediator;
 using FluentResults;
 
-namespace AuctioChain.BL.Auctions.CreateAuction;
+namespace AuctioChain.BL.Auctions.Update;
 
 /// <summary>
-/// Валидатор комманды создания аукциона
+/// Валидация команды обновления аукциона
 /// </summary>
-public class CreateAuctionCommandValidator : IValidator<CreateAuctionCommand>
+public class UpdateAuctionCommandValidator : IValidator<UpdateAuctionCommand>
 {
     /// <inheritdoc />
-    public Result Validate(CreateAuctionCommand? request)
+    public Result Validate(UpdateAuctionCommand? request)
     {
         if (request is null)
             return Result.Fail("Не удалось распознать данные");

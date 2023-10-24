@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using FluentResults;
 
@@ -8,48 +9,63 @@ namespace AuctioChain.DAL.Models;
 /// <summary>
 /// Лот
 /// </summary>
+[Table("lots")]
 public class Lot
 {
     /// <summary>
     /// Id лота
     /// </summary>
+    [Column("Id")]
     public Guid Id { get; init; }
     
     /// <summary>
     /// Id аукциона
     /// </summary>
+    [Column("auctionId")]
     public Guid AuctionId { get; init; }
+
+    /// <summary>
+    /// Аукцион
+    /// </summary>
+    [Column("auction")]
+    [ForeignKey(nameof(AuctionId))]
+    public Auction? Auction { get; init; }
     
     /// <summary>
     /// Название лота
     /// </summary>
+    [Column("name")]
     public string? Name { get; init; }
     
     /// <summary>
     /// Описание лота
     /// </summary>
+    [Column("description")]
     public string? Description { get; init; }
     
     /// <summary>
     /// Код лота
     /// </summary>
+    [Column("code")]
     public string? Code { get; init; }
     
     /// <summary>
     /// Статус лота
     /// </summary>
+    [Column("status")]
     public LotStatus Status { get; init; }
 
     /// <summary>
     /// Ставки на лот
     /// </summary>
-    public List<Bet> Bets => _bets;
-    private readonly List<Bet> _bets = new();
+    [Column("bets")]
+    public List<Bet> Bets = new();
 
     /// <summary>
     /// Изображения лота
     /// </summary>
-    public List<string> Images { get; init; } = new List<string>();
+    [Column("images")]
+    public List<string>? Images { get; init; } = new();
 
     /// <summary>
     /// Попытка сделать ставку
@@ -61,10 +77,10 @@ public class Lot
         if (Status == LotStatus.Complete)
             return Result.Fail("На данный лот невозможно сделать ставку, т.к. торги завершенны");
 
-        if (_bets.Any(b => b.Amount >= bet.Amount))
+        if (Bets.Any(b => b.Amount >= bet.Amount))
             return Result.Fail("Ваша была перекрыта, пожалуйста, повторите попытку");
         
-        _bets.Add(bet);
+        Bets.Add(bet);
         return Result.Ok();
     }
 }

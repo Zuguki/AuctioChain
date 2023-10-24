@@ -18,6 +18,7 @@ builder.Host.UseSerilog(SerilogConfiguration.Connect);
 
 builder.Services.AddDbContext<ApplicationDbContext>();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

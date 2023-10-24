@@ -6,7 +6,7 @@ using AuctioChain.DAL.Models;
 using FluentResults;
 using MediatR;
 
-namespace AuctioChain.BL.Auctions.CreateAuction;
+namespace AuctioChain.BL.Auctions.Create;
 
 /// <summary>
 /// Обработчик комманды создания аукциона

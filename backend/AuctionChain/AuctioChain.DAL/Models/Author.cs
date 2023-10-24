@@ -1,24 +1,29 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AuctioChain.DAL.Models;
 
 /// <summary>
 /// Пользователь
 /// </summary>
-public class User
+[Table("authors")]
+public class Author
 {
     /// <summary>
     /// Id пользователя
     /// </summary>
+    [Column("Id")]
     public Guid Id { get; init; }
     
     /// <summary>
     /// Имя пользователя
     /// </summary>
+    [Column("name")]
     public string? Name { get; init; }
     
     /// <summary>
     /// Email пользователя
     /// </summary>
+    [Column("email")]
     public string? Email { get; init; }
 }

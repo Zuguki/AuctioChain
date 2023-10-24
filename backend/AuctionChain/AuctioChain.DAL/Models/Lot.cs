@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using FluentResults;
@@ -16,6 +17,7 @@ public class Lot
     /// Id лота
     /// </summary>
     [Column("Id")]
+    [Key]
     public Guid Id { get; init; }
     
     /// <summary>

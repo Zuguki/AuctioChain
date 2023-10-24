@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AuctioChain.DAL.Models;
@@ -13,6 +14,7 @@ public class Author
     /// Id пользователя
     /// </summary>
     [Column("Id")]
+    [Key]
     public Guid Id { get; init; }
     
     /// <summary>

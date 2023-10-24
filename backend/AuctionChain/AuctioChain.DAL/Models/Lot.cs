@@ -43,13 +43,13 @@ public class Lot
     /// <summary>
     /// Ставки на лот
     /// </summary>
-    public IReadOnlyCollection<Bet> Bets => _bets;
+    public List<Bet> Bets => _bets;
     private readonly List<Bet> _bets = new();
 
     /// <summary>
     /// Изображения лота
     /// </summary>
-    public IReadOnlyCollection<string> Images { get; init; } = new List<string>();
+    public List<string> Images { get; init; } = new List<string>();
 
     /// <summary>
     /// Попытка сделать ставку

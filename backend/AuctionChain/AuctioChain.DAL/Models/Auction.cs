@@ -64,13 +64,24 @@ public class Auction
     {
         get
         {
-            var maxBetDate = Lots!.Values.SelectMany(lot => lot.Bets!).Max(bet => bet.DateTime).AddMinutes(1);
+            var maxBetDate = Lots!.SelectMany(lot => lot.Bets!).Max(bet => bet.DateTime).AddMinutes(1);
             return _dateEnd > maxBetDate ? _dateEnd : maxBetDate;
         }
+        init => _dateEnd = value;
     }
 
     /// <summary>
     /// Лоты на аукционее
     /// </summary>
-    public Dictionary<Guid, Lot>? Lots { get; init; } = new();
+    public List<Lot>? Lots { get; init; } = new();
+
+    public Auction(string name, Guid authorId, DateTime dateStart, DateTime dateEnd)
+    {
+        Id = Guid.NewGuid();
+        Name = name;
+        AuthorId = authorId;
+        DateStart = dateStart;
+        DateEnd = dateEnd;
+        IsCreation = true;
+    }
 }

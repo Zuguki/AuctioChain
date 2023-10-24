@@ -2,7 +2,10 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AuctioChain.BL;
 using AuctioChain.BL.Auctions.CreateAuction;
+using AuctioChain.DAL.EF;
+using AuctioChain.DAL.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

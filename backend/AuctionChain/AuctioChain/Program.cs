@@ -3,6 +3,7 @@ using MediatR;
 using System.Linq;
 using AuctioChain.BL.Behaviours;
 using AuctioChain.BL.Mediator;
+using AuctioChain.DAL.EF;
 using AuctioChain.Libs.Mediatr;
 using AuctioChain.Libs.Serilog;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
 builder.Host.UseSerilog(SerilogConfiguration.Connect);
+
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

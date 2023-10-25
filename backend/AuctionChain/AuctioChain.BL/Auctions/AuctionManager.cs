@@ -12,12 +12,12 @@ namespace AuctioChain.BL.Auctions;
 /// <inheritdoc />
 public class AuctionManager : IAuctionManager
 {
-    private readonly ApplicationDbContext _context;
+    private readonly DataContext _context;
 
     /// <summary>
     /// .ctor
     /// </summary>
-    public AuctionManager(ApplicationDbContext context)
+    public AuctionManager(DataContext context)
     {
         _context = context;
     }

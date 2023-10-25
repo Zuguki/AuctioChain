@@ -1,13 +1,17 @@
-﻿using AuctioChain.DAL.Models;
+﻿using System;
+using AuctioChain.DAL.EF.Entities;
+using AuctioChain.DAL.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace AuctioChain.DAL.EF;
 
 /// <inheritdoc />
-public sealed class ApplicationDbContext : DbContext
+public sealed class DataContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
-    public DbSet<AuctionDal?> Auctions{ get; set; } = null!;
+    public DbSet<AuctionDal> Auctions { get; set; } = null!;
     public DbSet<Lot> Lots { get; set; } = null!;
     public DbSet<Bet> Bets { get; set; } = null!;
     public DbSet<Author> Authors { get; set; } = null!;
@@ -17,7 +21,7 @@ public sealed class ApplicationDbContext : DbContext
     /// <summary>
     /// .ctor
     /// </summary>
-    public ApplicationDbContext(IConfiguration configuration)
+    public DataContext(IConfiguration configuration)
     {
         _configuration = configuration;
         Database.EnsureCreated();

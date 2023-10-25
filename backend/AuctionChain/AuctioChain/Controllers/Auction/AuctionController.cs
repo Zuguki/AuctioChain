@@ -5,7 +5,7 @@ using AuctioChain.BL.Auctions;
 using AuctioChain.Controllers.Auction.Dto;
 using AuctioChain.DAL.Models;
 using AutoMapper;
-using FluentResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctioChain.Controllers.Auction;
@@ -33,6 +33,7 @@ public class AuctionController : ControllerBase
     /// Создание аукциона
     /// </summary>
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> CreateAuctionAsync([FromBody] CreateAuctionRequest request)
     {
         if (!ModelState.IsValid)
@@ -50,6 +51,7 @@ public class AuctionController : ControllerBase
     /// Отменя аукциона
     /// </summary>
     [HttpPatch("cancel")]
+    [Authorize]
     public async Task<IActionResult> CancelAuctionAsync([FromQuery] CancelAuctionRequest request)
     {
         if (!ModelState.IsValid)
@@ -67,6 +69,7 @@ public class AuctionController : ControllerBase
     /// Изменение состояния готовности аукциона
     /// </summary>
     [HttpPatch("changeCreationState")]
+    [Authorize]
     public async Task<IActionResult> ChangeAuctionCreationStateAsync([FromQuery] ChangeAuctionCreationStateRequest request)
     {
         if (!ModelState.IsValid)
@@ -84,6 +87,7 @@ public class AuctionController : ControllerBase
     /// Удаление аукциона
     /// </summary>
     [HttpDelete]
+    [Authorize]
     public async Task<IActionResult> DeleteAuctionAsync([FromQuery] DeleteAuctionRequest request)
     {
         if (!ModelState.IsValid)
@@ -101,6 +105,7 @@ public class AuctionController : ControllerBase
     /// Обновление аукциона
     /// </summary>
     [HttpPut]
+    [Authorize]
     public async Task<IActionResult> UpdateAuctionAsync([FromBody] UpdateAuctionRequest request)
     {
         if (!ModelState.IsValid)

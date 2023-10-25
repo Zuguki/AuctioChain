@@ -7,7 +7,7 @@ namespace AuctioChain.DAL.EF;
 /// <inheritdoc />
 public sealed class ApplicationDbContext : DbContext
 {
-    public DbSet<Auction> Auctions{ get; set; } = null!;
+    public DbSet<AuctionDal?> Auctions{ get; set; } = null!;
     public DbSet<Lot> Lots { get; set; } = null!;
     public DbSet<Bet> Bets { get; set; } = null!;
     public DbSet<Author> Authors { get; set; } = null!;

@@ -1,15 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using FluentResults;
-using MediatR;
 
-namespace AuctioChain.BL.Auctions.Update;
+namespace AuctioChain.Controllers.Auction.Dto;
 
-/// <summary>
-/// Команда обновления аукциона
-/// </summary>
-public class UpdateAuctionCommand : IRequest<Result>
+public class UpdateAuctionRequest
 {
     /// <summary>
     /// Id аукциона

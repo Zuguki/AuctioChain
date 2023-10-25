@@ -1,15 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using FluentResults;
-using MediatR;
 
-namespace AuctioChain.BL.Auctions.Delete;
+namespace AuctioChain.Controllers.Auction.Dto;
 
-/// <summary>
-/// Команда удаления аукциона
-/// </summary>
-public class DeleteAuctionCommand : IRequest<Result>
+public class DeleteAuctionRequest
 {
     /// <summary>
     /// Id автора аукциона

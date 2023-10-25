@@ -3,7 +3,7 @@ using AuctioChain.DAL.Models;
 
 namespace AuctioChain.Controllers.Auction.Dto;
 
-public class GetAuctionResponse
+public class GetAuctionByIdResponse
 {
     /// <summary>
     /// Название аукциона

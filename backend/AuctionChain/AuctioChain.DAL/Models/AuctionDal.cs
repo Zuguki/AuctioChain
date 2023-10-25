@@ -10,7 +10,7 @@ namespace AuctioChain.DAL.Models;
 /// Аукцион
 /// </summary>
 [Table("auctions")]
-public class Auction
+public class AuctionDal
 {
     /// <summary>
     /// Id аукциона 
@@ -37,7 +37,7 @@ public class Auction
     /// Название аукциона
     /// </summary>
     [Column("name")]
-    public string? Name { get; private set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Статус торгов
@@ -72,19 +72,19 @@ public class Auction
     /// Флаг, этапа создания аукциона 
     /// </summary>
     [Column("isCreation")]
-    public bool IsCreation { get; private set; }
+    public bool IsCreation { get; set; }
     
     /// <summary>
     /// Флаг, отмены аукциона
     /// </summary>
     [Column("isCanceled")]
-    public bool IsCanceled { get; private set; }
+    public bool IsCanceled { get; set; }
     
     /// <summary>
     /// Дата начала аукциона
     /// </summary>
     [Column("dateStart")]
-    public DateTime DateStart { get; private set; }
+    public DateTime DateStart { get; set; }
 
     private DateTime _dateEnd;
     /// <summary>
@@ -101,7 +101,7 @@ public class Auction
             var maxBetDate = Lots.SelectMany(lot => lot.Bets!).Max(bet => bet.DateTime).AddMinutes(1);
             return _dateEnd > maxBetDate ? _dateEnd : maxBetDate;
         }
-        private set => _dateEnd = value;
+        set => _dateEnd = value;
     }
 
     /// <summary>
@@ -113,11 +113,18 @@ public class Auction
     /// <summary>
     /// .ctor
     /// </summary>
+    public AuctionDal()
+    {
+    }
+
+    /// <summary>
+    /// .ctor
+    /// </summary>
     /// <param name="name">Название аукциона</param>
     /// <param name="authorId">Id автора аукциона</param>
     /// <param name="dateStart">Дата начала аукциона</param>
     /// <param name="dateEnd">Дата завершения аукциона</param>
-    public Auction(string name, Guid authorId, DateTime dateStart, DateTime dateEnd)
+    public AuctionDal(string name, Guid authorId, DateTime dateStart, DateTime dateEnd)
     {
         Id = Guid.NewGuid();
         Name = name;
@@ -127,32 +134,31 @@ public class Auction
         IsCreation = true;
         IsCanceled = false;
     }
-    
-    /// <summary>
-    /// Изменить название аукциона
-    /// </summary>
-    /// <param name="name">Новое название аукциона</param>
-    public void UpdateName(string name) => Name = name;
-
-    /// <summary>
-    /// Изменить дату начала аукциона
-    /// </summary>
-    /// <param name="dateTime">Новая дата начала аукциона</param>
-    public void UpdateDateStart(DateTime dateTime) => DateStart = dateTime;
-    
-    /// <summary>
-    /// Изменить дату завершения аукциона
-    /// </summary>
-    /// <param name="dateTime">Новая дата завершения аукциона</param>
-    public void UpdateDateEnd(DateTime dateTime) => DateEnd = dateTime;
-
-    /// <summary>
-    /// Изменить состояние создания аукциона
-    /// </summary>
-    public void ChangeCreationState() => IsCreation = !IsCreation;
-
-    /// <summary>
-    /// Отменить аукцион
-    /// </summary>
-    public void Cancel() => IsCanceled = true;
+    // /// <summary>
+    // /// Изменить название аукциона
+    // /// </summary>
+    // /// <param name="name">Новое название аукциона</param>
+    // public void UpdateName(string name) => Name = name;
+    //
+    // /// <summary>
+    // /// Изменить дату начала аукциона
+    // /// </summary>
+    // /// <param name="dateTime">Новая дата начала аукциона</param>
+    // public void UpdateDateStart(DateTime dateTime) => DateStart = dateTime;
+    //
+    // /// <summary>
+    // /// Изменить дату завершения аукциона
+    // /// </summary>
+    // /// <param name="dateTime">Новая дата завершения аукциона</param>
+    // public void UpdateDateEnd(DateTime dateTime) => DateEnd = dateTime;
+    //
+    // /// <summary>
+    // /// Изменить состояние создания аукциона
+    // /// </summary>
+    // public void ChangeCreationState() => IsCreation = !IsCreation;
+    //
+    // /// <summary>
+    // /// Отменить аукцион
+    // /// </summary>
+    // public void Cancel() => IsCanceled = true;
 }

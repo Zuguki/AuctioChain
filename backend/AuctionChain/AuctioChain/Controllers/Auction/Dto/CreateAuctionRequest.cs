@@ -1,15 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using FluentResults;
-using MediatR;
 
-namespace AuctioChain.BL.Auctions.Create;
+namespace AuctioChain.Controllers.Auction.Dto;
 
-/// <summary>
-/// Команда для создания аукциона
-/// </summary>
-public class CreateAuctionCommand : IRequest<Result>
+public class CreateAuctionRequest
 {
     /// <summary>
     /// Название аукциона

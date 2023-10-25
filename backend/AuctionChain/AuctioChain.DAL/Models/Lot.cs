@@ -31,7 +31,7 @@ public class Lot
     /// </summary>
     [Column("auction")]
     [ForeignKey(nameof(AuctionId))]
-    public Auction? Auction { get; init; }
+    public AuctionDal? Auction { get; init; }
     
     /// <summary>
     /// Название лота

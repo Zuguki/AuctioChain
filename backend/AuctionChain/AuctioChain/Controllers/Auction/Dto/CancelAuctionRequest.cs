@@ -1,15 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using FluentResults;
-using MediatR;
 
-namespace AuctioChain.BL.Auctions.Cancel;
+namespace AuctioChain.Controllers.Auction.Dto;
 
-/// <summary>
-/// Команда для отмены аукциона
-/// </summary>
-public class CancelAuctionCommand : IRequest<Result>
+public class CancelAuctionRequest
 {
     /// <summary>
     ///  Id аукциона

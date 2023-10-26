@@ -2,5 +2,5 @@ body {
     margin: 0;
     padding: 0;
     background: #FBFBFB url("../public/bacground-image.png") no-repeat fixed 50% 55%;
-    font-family: "SF Pro Display", "Montserrat", serif;
+    font-family: SF Pro Display, Montserrat, serif;
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AuctioChain.DAL.EF.Entities;
+using AuctioChain.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace AuctioChain.Controllers.Accounts;

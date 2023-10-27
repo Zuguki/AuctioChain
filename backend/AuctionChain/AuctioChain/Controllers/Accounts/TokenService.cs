@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using AuctioChain.DAL.EF.Entities;
+using AuctioChain.DAL.Models;
 using AuctioChain.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

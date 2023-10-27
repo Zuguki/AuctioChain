@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.Controllers.Accounts.Dto;
 using AuctioChain.DAL.EF;
-using AuctioChain.DAL.EF.Entities;
+using AuctioChain.DAL.Models;
 using AuctioChain.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

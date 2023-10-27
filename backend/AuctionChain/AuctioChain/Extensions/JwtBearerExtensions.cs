@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using AuctioChain.DAL.EF.Entities;
+using AuctioChain.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -21,7 +21,7 @@ public static class JwtBearerExtensions
         {
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)),
-            new(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
+            new("userId", user.Id.ToString()),
             new(JwtRegisteredClaimNames.Name, user.UserName!),
             new(JwtRegisteredClaimNames.Email, user.Email!),
             new("roles", string.Join(" ", roles.Select(x => x.Name))),

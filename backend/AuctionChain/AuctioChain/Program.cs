@@ -3,7 +3,7 @@ using System.Text;
 using AuctioChain.BL.Auctions;
 using AuctioChain.Controllers.Accounts;
 using AuctioChain.DAL.EF;
-using AuctioChain.DAL.EF.Entities;
+using AuctioChain.DAL.Models;
 using AuctioChain.Libs.Serilog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

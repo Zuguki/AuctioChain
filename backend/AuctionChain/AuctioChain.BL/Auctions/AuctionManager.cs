@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
@@ -42,7 +44,7 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public async Task<Result> CreateAsync(AuctionDal model)
     {
-        var auction = new AuctionDal(model.Name!, model.AuthorId, model.DateStart, model.DateEnd);
+        var auction = new AuctionDal(model.Name!, model.UserId, model.DateStart, model.DateEnd);
 
         await _context.Auctions.AddAsync(auction);
         await _context.SaveChangesAsync();
@@ -68,7 +70,7 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public async Task<Result> UpdateAsync(AuctionDal model)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == model.Id);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == model.Id);
 
         if (auction is null)
             return Result.Fail("Аукцион не найден");
@@ -84,6 +86,13 @@ public class AuctionManager : IAuctionManager
 
         await _context.SaveChangesAsync();
         return Result.Ok();
+    }
+
+    /// <inheritdoc />
+    public Task<Result<IEnumerable<AuctionDal>>> GetUserAuctions(Guid id)
+    {
+        var result = (IEnumerable<AuctionDal>) _context.Auctions.Where(auc => auc.UserId == id).ToList();
+        return Task.FromResult(Result.Ok(result));
     }
 
     /// <inheritdoc />

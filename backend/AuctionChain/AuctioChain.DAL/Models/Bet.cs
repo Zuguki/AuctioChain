@@ -20,15 +20,15 @@ public class Bet
     /// <summary>
     /// Id пользователя, сделавшего ставку
     /// </summary>
-    [Column("authorId")]
-    public Guid AuthorId { get; init; }
+    [Column("userId")]
+    public Guid UserId { get; init; }
     
     /// <summary>
     /// Пользователь, сделавший ставку
     /// </summary>
-    [Column("author")]
-    [ForeignKey(nameof(AuthorId))]
-    public Author? Author { get; init; }
+    [Column("user")]
+    [ForeignKey(nameof(UserId))]
+    public Author? User { get; init; }
     
     /// <summary>
     /// Id лота, на который сделана ставка

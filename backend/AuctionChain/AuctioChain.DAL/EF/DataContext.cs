@@ -1,5 +1,4 @@
 ﻿using System;
-using AuctioChain.DAL.EF.Entities;
 using AuctioChain.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -14,7 +13,6 @@ public sealed class DataContext : IdentityDbContext<ApplicationUser, IdentityRol
     public DbSet<AuctionDal> Auctions { get; set; } = null!;
     public DbSet<Lot> Lots { get; set; } = null!;
     public DbSet<Bet> Bets { get; set; } = null!;
-    public DbSet<Author> Authors { get; set; } = null!;
 
     private readonly IConfiguration _configuration;
 

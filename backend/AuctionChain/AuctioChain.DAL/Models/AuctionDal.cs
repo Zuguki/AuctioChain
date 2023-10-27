@@ -22,16 +22,15 @@ public class AuctionDal
     /// <summary>
     /// Id пользователя, создавшего аукцион
     /// </summary>
-    [Column("authorId")]
-    public Guid AuthorId { get; init; }
+    [Column("userId")]
+    public Guid UserId { get; set; }
 
-    // TODO: Добавить свойство автора
-    // /// <summary>
-    // /// Пользователь, создавший аукцион
-    // /// </summary>
-    // [Column("author")]
-    // [ForeignKey(nameof(AuthorId))]
-    // public Author? Author { get; init; }
+    /// <summary>
+    /// Пользователь, создавший аукцион
+    /// </summary>
+    [Column("user")]
+    [ForeignKey(nameof(UserId))]
+    public ApplicationUser? User { get; init; }
     
     /// <summary>
     /// Название аукциона
@@ -121,14 +120,14 @@ public class AuctionDal
     /// .ctor
     /// </summary>
     /// <param name="name">Название аукциона</param>
-    /// <param name="authorId">Id автора аукциона</param>
+    /// <param name="userId">Id автора аукциона</param>
     /// <param name="dateStart">Дата начала аукциона</param>
     /// <param name="dateEnd">Дата завершения аукциона</param>
-    public AuctionDal(string name, Guid authorId, DateTime dateStart, DateTime dateEnd)
+    public AuctionDal(string name, Guid userId, DateTime dateStart, DateTime dateEnd)
     {
         Id = Guid.NewGuid();
         Name = name;
-        AuthorId = authorId;
+        UserId = userId;
         DateStart = dateStart;
         DateEnd = dateEnd;
         IsCreation = true;

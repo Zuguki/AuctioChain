@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AuctioChain.BL.Auctions;
 using AuctioChain.Controllers.Auction.Dto;
 using AuctioChain.DAL.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctioChain.Controllers.Auction;
@@ -43,6 +46,12 @@ public class AuctionController : ControllerBase
             return BadRequest("Дата завершения аукциона должна быть больше даты начала аукциона");
         
         var auction = _mapper.Map<AuctionDal>(request);
+        var userClaims = HttpContext.User.Claims;
+        var userId = userClaims.FirstOrDefault(t => t.Type == "userId")?.Value;
+        if (userId is null)
+            return Unauthorized();
+        
+        auction.UserId = Guid.Parse(userId);
         await _manager.CreateAsync(auction);
         return Ok();
     }
@@ -129,14 +138,11 @@ public class AuctionController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var list = new List<AuctionDal>();
-        
         var result = await _manager.GetAllAsync();
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
-        list.AddRange(result.Value);
-        var response = new GetAuctionsResponse {Auctions = list};
+        var response = new GetAuctionsResponse {Auctions = result.Value};
         
         return Ok(response);
     }
@@ -157,5 +163,36 @@ public class AuctionController : ControllerBase
         
         var response = _mapper.Map<GetAuctionByIdResponse>(result.Value);
         return Ok(response);
+    }
+    
+    /// <summary>
+    /// Получение аукционов пользователя
+    /// </summary>
+    [Authorize]
+    [HttpGet("us")]
+    public async Task<IActionResult> GetUserAuctionsAsync()
+    {
+        var userId = GetUserId(HttpContext);
+        if (userId is null)
+            return Unauthorized();
+
+        var result = await _manager.GetUserAuctions((Guid) userId);
+        
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+
+        var response = new GetUserAuctionsResponse {Auctions = result.Value};
+        return Ok(response);
+    }
+
+    private Guid? GetUserId(HttpContext context)
+    {
+        var userClaims = context.User.Claims;
+        var userId = userClaims.FirstOrDefault(t => t.Type == "userId")?.Value;
+        
+        if (userId is null)
+            return null;
+        
+        return Guid.Parse(userId);
     }
 }

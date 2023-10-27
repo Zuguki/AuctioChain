@@ -2,5 +2,50 @@ body {
     margin: 0;
     padding: 0;
     background: #FBFBFB url("../public/bacground-image.png") no-repeat fixed 50% 55%;
+
     font-family: SF Pro Display, Montserrat, serif;
+    color: #818080;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 21px; /* 87.5% */
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+    color: #606060;
+}
+
+:is(h3, h4, h5, h6) {
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 56px; /* 116.667% */
+}
+
+h2 {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 48px; /* 120% */
+}
+
+h3 {
+    font-size: 36px;
+    line-height: 40px; /* 111.111% */
+}
+
+h4 {
+    font-size: 32px;
+    line-height: 32px; /* 100% */
+}
+
+h5 {
+    font-size: 28px;
+    line-height: 28px; /* 100% */
+}
+
+h6 {
+    font-size: 26px;
+    line-height: 24px; /* 92.308% */
 }

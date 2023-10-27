@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import inputStyle from './baseInput.module.css';
-import {IInput, sizeStileInput} from "../logicInput.ts";
+import {IInput, sizeStileInput} from "../../logicInput.ts";
 
 const BaseInput: FC<IInput> = ({changeValue, width = 'base', ...props}) => {
     return (

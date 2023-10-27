@@ -1,0 +1,16 @@
+.textArea {
+    width: 600px;
+    height: 200px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #F5F5F5;
+    border: 0;
+    outline: 0;
+
+    color: #818080;
+    font-family: SF Pro Display, Montserrat, sans-serif;
+    font-size: 20px;
+    line-height: 28px; /* 140% */
+    padding: 20px 30px;
+    resize: none;
+}

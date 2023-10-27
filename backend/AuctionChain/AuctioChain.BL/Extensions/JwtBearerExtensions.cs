@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace AuctioChain.Extensions;
+namespace AuctioChain.BL.Extensions;
 
 public static class JwtBearerExtensions
 {
-    public static List<Claim> CreateClaims(this ApplicationUser user, List<IdentityRole<Guid>> roles)
+    public static IEnumerable<Claim> CreateClaims(this ApplicationUser user, List<IdentityRole<Guid>> roles)
     {
         var claims = new List<Claim>
         {
@@ -26,6 +26,7 @@ public static class JwtBearerExtensions
             new(JwtRegisteredClaimNames.Email, user.Email!),
             new("roles", string.Join(" ", roles.Select(x => x.Name))),
         };
+        
         return claims;
     }
     
@@ -73,6 +74,7 @@ public static class JwtBearerExtensions
         var randomNumber = new byte[64];
         using var rng = RandomNumberGenerator.Create();
         rng.GetBytes(randomNumber);
+        
         return Convert.ToBase64String(randomNumber);
     }
 

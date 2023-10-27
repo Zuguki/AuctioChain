@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using AuctioChain.BL.Accounts;
 using AuctioChain.BL.Auctions;
 using AuctioChain.Controllers.Accounts;
 using AuctioChain.DAL.EF;
@@ -21,6 +22,7 @@ builder.Host.UseSerilog(SerilogConfiguration.Connect);
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IAuctionManager, AuctionManager>();
+builder.Services.AddScoped<IAccountManager, AccountManager>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddDbContext<DataContext>();

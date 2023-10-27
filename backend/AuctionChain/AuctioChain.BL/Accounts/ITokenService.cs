@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using AuctioChain.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace AuctioChain.Controllers.Accounts;
+namespace AuctioChain.BL.Accounts;
 
 public interface ITokenService
 {

@@ -71,16 +71,14 @@ public class AuctionManager : IAuctionManager
     public async Task<Result> UpdateAsync(AuctionDal model)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == model.Id);
-
+        
         if (auction is null)
             return Result.Fail("Аукцион не найден");
         
-        if (!auction.IsEditable)
+        if (!model.IsEditable)
             return Result.Fail("Данный аукцион нельзя редактировать");
-
+        
         auction.Name = model.Name;
-        auction.IsCanceled = model.IsCanceled;
-        auction.IsCreation = model.IsCreation;
         auction.DateStart = model.DateStart;
         auction.DateEnd = model.DateEnd;
 
@@ -117,7 +115,7 @@ public class AuctionManager : IAuctionManager
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == id);
 
         if (auction is null)
-            throw new Exception("Аукцион не найден");
+            return Result.Fail("Аукцион не найден");
 
         if (!auction.IsEditable)
             return Result.Fail("Данный аукцион нельзя отменить");

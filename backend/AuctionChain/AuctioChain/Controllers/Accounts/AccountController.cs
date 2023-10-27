@@ -2,11 +2,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using AuctioChain.BL.Accounts;
+using AuctioChain.BL.Extensions;
 using AuctioChain.Controllers.Accounts.Dto;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
 using AuctioChain.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,97 +25,67 @@ public class AccountsController : ControllerBase
     private readonly DataContext _context;
     private readonly ITokenService _tokenService;
     private readonly IConfiguration _configuration;
+    private readonly IAccountManager _accountManager;
 
-    public AccountsController(ITokenService tokenService, DataContext context, UserManager<ApplicationUser> userManager, IConfiguration configuration)
+    public AccountsController(UserManager<ApplicationUser> userManager, DataContext context, ITokenService tokenService, IConfiguration configuration, IAccountManager accountManager)
     {
-        _tokenService = tokenService;
-        _context = context;
         _userManager = userManager;
+        _context = context;
+        _tokenService = tokenService;
         _configuration = configuration;
+        _accountManager = accountManager;
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
+    public async Task<IActionResult> Authenticate([FromBody] AuthRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+            return BadRequest("Переданны некорректные данные");
         
-        var managedUser = await _userManager.FindByEmailAsync(request.Email);
-        if (managedUser == null)
+        var appUser = await _userManager.FindByEmailAsync(request.Email);
+        if (appUser == null)
             return BadRequest("Не верные данные");
         
-        var isPasswordValid = await _userManager.CheckPasswordAsync(managedUser, request.Password);
+        var isPasswordValid = await _userManager.CheckPasswordAsync(appUser, request.Password);
         if (!isPasswordValid)
             return BadRequest("Не верные данные");
-        
-        var user = _context.Users.FirstOrDefault(u => u.Email == request.Email);
-        if (user is null)
-            return Unauthorized();
-        
-        var roleIds = await _context.UserRoles.Where(r => r.UserId == user.Id).Select(x => x.RoleId).ToListAsync();
-        var roles = _context.Roles.Where(x => roleIds.Contains(x.Id)).ToList();
-        
-        var accessToken = _tokenService.CreateToken(user, roles);
-        user.RefreshToken = _configuration.GenerateRefreshToken();
-        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_configuration.GetSection("Jwt:RefreshTokenValidityInDays").Get<int>());
-        
-        await _context.SaveChangesAsync();
-        
-        return Ok(new AuthResponse
-        {
-            Email = user.Email!,
-            Token = accessToken,
-            RefreshToken = user.RefreshToken
-        });
+
+        var result = await _accountManager.GetToken(appUser);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+
+        return Ok(new AuthResponse {Token = result.Value.AccessToken, RefreshToken = result.Value.RefreshToken});
     }
     
     [HttpPost("register")]
-    public async Task<ActionResult<AuthResponse>> Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        if (!ModelState.IsValid) 
-            return BadRequest(request);
+        if (!ModelState.IsValid)
+            return BadRequest("Переданны некорректные данные");
         
-        var user = new ApplicationUser
-        {
-            Email = request.Email, 
-            UserName = request.Email
-        };
-        
-        var result = await _userManager.CreateAsync(user, request.Password);
-        foreach (var error in result.Errors)
-            ModelState.AddModelError(string.Empty, error.Description);
+        var appUser = new ApplicationUser {Email = request.Email, UserName = request.Email};
+        var result = await _accountManager.CreateAsync(appUser, request.Password);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 
-        if (!result.Succeeded) 
-            return BadRequest(request);
-        
-        var findUser = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
-        if (findUser is null) 
-            throw new Exception($"User {request.Email} not found");
-
-        await _userManager.AddToRoleAsync(findUser, RoleConsts.Member);
-            
-        return await Authenticate(new AuthRequest
-        {
-            Email = request.Email,
-            Password = request.Password
-        });
+        return Ok();
     }
     
     [HttpPost("refresh-token")]
-    public async Task<IActionResult> RefreshToken(TokenModel? tokenModel)
+    public async Task<IActionResult> RefreshToken([FromBody] TokenRequest request)
     {
-        if (tokenModel is null)
-            return BadRequest("Невалидный запрос");
-
-        var accessToken = tokenModel.AccessToken;
-        var refreshToken = tokenModel.RefreshToken;
+        var accessToken = request.AccessToken;
+        var refreshToken = request.RefreshToken;
         var principal = _configuration.GetPrincipalFromExpiredToken(accessToken);
         
         if (principal is null)
             return BadRequest("Invalid access token or refresh token");
         
         var username = principal.Identity!.Name;
-        var user = await _userManager.FindByNameAsync(username!);
+        if (username is null)
+            return BadRequest("Не найденно имя пользователя");
+        
+        var user = await _userManager.FindByNameAsync(username);
         if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             return BadRequest("Invalid access token or refresh token");
 
@@ -122,11 +95,11 @@ public class AccountsController : ControllerBase
         user.RefreshToken = newRefreshToken;
         await _userManager.UpdateAsync(user);
 
-        return new ObjectResult(new
-        {
-            accessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken),
-            refreshToken = newRefreshToken
-        });
+        return Ok(new TokenResponse
+            {
+                AccessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken),
+                RefreshToken = newRefreshToken
+            });
     }
     
     [Authorize]

@@ -2,7 +2,7 @@ import {FC} from 'react';
 import dataStyle from './dataInput.module.css'
 import {IInput} from "../../logicInput.ts";
 
-const DataInput: FC<IInput> = ({changeValue,...props}) => {
+const DataInput: FC<Omit<IInput, 'width'>> = ({changeValue,...props}) => {
     return (
         <input
             type="date"

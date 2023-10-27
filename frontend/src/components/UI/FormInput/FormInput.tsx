@@ -5,6 +5,7 @@ import formInputStyle from "./formInput.module.css";
 interface IFormInput extends IInput {
     long?: boolean
 }
+
 const FormInput: FC<IFormInput> = ({changeValue, width= 'base', long = false, ...props}) => {
     return (
         <input

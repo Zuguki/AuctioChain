@@ -22,17 +22,11 @@ namespace AuctioChain.Controllers.Accounts;
 public class AccountsController : ControllerBase
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly DataContext _context;
-    private readonly ITokenService _tokenService;
-    private readonly IConfiguration _configuration;
     private readonly IAccountManager _accountManager;
 
-    public AccountsController(UserManager<ApplicationUser> userManager, DataContext context, ITokenService tokenService, IConfiguration configuration, IAccountManager accountManager)
+    public AccountsController(UserManager<ApplicationUser> userManager, IAccountManager accountManager)
     {
         _userManager = userManager;
-        _context = context;
-        _tokenService = tokenService;
-        _configuration = configuration;
         _accountManager = accountManager;
     }
 
@@ -67,65 +61,6 @@ public class AccountsController : ControllerBase
         var result = await _accountManager.CreateAsync(appUser, request.Password);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
-
-        return Ok();
-    }
-    
-    [HttpPost("refresh-token")]
-    public async Task<IActionResult> RefreshToken([FromBody] TokenRequest request)
-    {
-        var accessToken = request.AccessToken;
-        var refreshToken = request.RefreshToken;
-        var principal = _configuration.GetPrincipalFromExpiredToken(accessToken);
-        
-        if (principal is null)
-            return BadRequest("Invalid access token or refresh token");
-        
-        var username = principal.Identity!.Name;
-        if (username is null)
-            return BadRequest("Не найденно имя пользователя");
-        
-        var user = await _userManager.FindByNameAsync(username);
-        if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
-            return BadRequest("Invalid access token or refresh token");
-
-        var newAccessToken = _configuration.CreateToken(principal.Claims.ToList());
-        var newRefreshToken = _configuration.GenerateRefreshToken();
-
-        user.RefreshToken = newRefreshToken;
-        await _userManager.UpdateAsync(user);
-
-        return Ok(new TokenResponse
-            {
-                AccessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken),
-                RefreshToken = newRefreshToken
-            });
-    }
-    
-    [Authorize]
-    [HttpPost("revoke/{username}")]
-    public async Task<IActionResult> Revoke(string username)
-    {
-        var user = await _userManager.FindByNameAsync(username);
-        if (user == null) 
-            return BadRequest("Invalid user name");
-
-        user.RefreshToken = null;
-        await _userManager.UpdateAsync(user);
-
-        return Ok();
-    }
-    
-    [Authorize]
-    [HttpPost("revoke-all")]
-    public async Task<IActionResult> RevokeAll()
-    {
-        var users = _userManager.Users.ToList();
-        foreach (var user in users)
-        {
-            user.RefreshToken = null;
-            await _userManager.UpdateAsync(user);
-        }
 
         return Ok();
     }

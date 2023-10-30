@@ -23,6 +23,7 @@ public sealed class DataContext : IdentityDbContext<ApplicationUser, IdentityRol
     public DataContext(IConfiguration configuration)
     {
         _configuration = configuration;
+        // Database.EnsureDeleted();
         Database.EnsureCreated();
     }
 

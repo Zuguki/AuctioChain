@@ -23,15 +23,14 @@ public interface IAccountManager
     /// <summary>
     /// Создать модель
     /// </summary>
-    /// <param name="appUser">Модель для создания</param>
+    /// <param name="appUser">Модель пользователя</param>
     /// <param name="password">Пароль</param>
     Task<Result> CreateAsync(ApplicationUser appUser, string password);
     
     /// <summary>
-    /// Получить пользователя по имени
+    /// Получить токен доступа и токен обновления
     /// </summary>
-    /// <param name="name">Имя пользователя</param>
-    Task<Result<ApplicationUser>> GetUserByName(string name);
-
+    /// <param name="appUser">Модель пользователя</param>
+    /// <returns></returns>
     Task<Result<TokenModel>> GetToken(ApplicationUser appUser);
 }

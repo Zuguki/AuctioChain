@@ -22,15 +22,15 @@ public static class JwtBearerExtensions
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)),
             new("userId", user.Id.ToString()),
-            new(JwtRegisteredClaimNames.Name, user.UserName!),
-            new(JwtRegisteredClaimNames.Email, user.Email!),
-            new("roles", string.Join(" ", roles.Select(x => x.Name))),
+            new(ClaimTypes.Name, user.UserName!),
+            new(ClaimTypes.Email, user.Email!),
+            new(ClaimTypes.Role, string.Join(" ", roles.Select(x => x.Name))),
         };
         
         return claims;
     }
-    
-    public static SigningCredentials CreateSigningCredentials(this IConfiguration configuration)
+
+    private static SigningCredentials CreateSigningCredentials(this IConfiguration configuration)
     {
         return new SigningCredentials(
             new SymmetricSecurityKey(

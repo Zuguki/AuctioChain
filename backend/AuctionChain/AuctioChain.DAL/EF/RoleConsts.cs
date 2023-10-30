@@ -1,4 +1,4 @@
-﻿namespace AuctioChain.Controllers.Accounts;
+﻿namespace AuctioChain.DAL.EF;
 
 public class RoleConsts
 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AuctioChain.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -29,5 +30,18 @@ public sealed class DataContext : IdentityDbContext<ApplicationUser, IdentityRol
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql(_configuration.GetConnectionString("Postgres"));
+    }
+
+    /// <inheritdoc />
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        builder.Entity<IdentityRole<Guid>>().HasData(new List<IdentityRole<Guid>>
+        {
+            new() {Id = Guid.NewGuid(), Name = RoleConsts.Member, NormalizedName = RoleConsts.Member.ToUpper()},
+            new() {Id = Guid.NewGuid(), Name = RoleConsts.Moderator, NormalizedName = RoleConsts.Moderator.ToUpper()},
+            new() {Id = Guid.NewGuid(), Name = RoleConsts.Administrator, NormalizedName = RoleConsts.Administrator.ToUpper()},
+        });
     }
 }

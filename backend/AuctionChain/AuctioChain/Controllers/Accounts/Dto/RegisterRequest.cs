@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace AuctioChain.Controllers.Accounts.Dto;
@@ -12,8 +13,9 @@ public class RegisterRequest
  
     [Required]
     [DataType(DataType.Password)]
-    [JsonPropertyName("password")]
     [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Пароль слишком простой")]
+    [DefaultValue("string")]
+    [JsonPropertyName("password")]
     public string Password { get; set; } = null!;
 
     [Required]

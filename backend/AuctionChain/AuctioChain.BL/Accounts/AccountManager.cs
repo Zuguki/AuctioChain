@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Extensions;
 using AuctioChain.BL.Models;
-using AuctioChain.Controllers.Accounts;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
 using FluentResults;

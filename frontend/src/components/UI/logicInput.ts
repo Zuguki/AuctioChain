@@ -3,6 +3,7 @@ import {CSSModulesOptions} from "vite";
 
 interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     width?: 'small' | 'base' | 'large';
+    title: string;
     name: string;
     changeValue: (e: ChangeEvent<HTMLInputElement>) => void;
 }

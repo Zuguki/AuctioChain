@@ -3,7 +3,12 @@ import BaseInput from "./components/UI/inputs/BaseInput/BaseInput.tsx";
 import FormTextArea from "./components/UI/inputs/FormTextArea/FormTextArea.tsx";
 import DataInput from "./components/UI/inputs/DataInput/DataInput.tsx";
 import BaseButton from "./components/UI/BaseButton/BaseButton.tsx";
-import {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
+import ImageInput from "./components/UI/inputs/ImageInput/ImageInput.tsx";
+import Tag from "./components/UI/Tag/Tag.tsx";
+import FormDiv from "./components/UI/FormDiv/FormDiv.tsx";
+import FormRegistration from "./pages/registration/FormRegistration.tsx";
+
 
 function App() {
     const [actio, setActio] = useState({
@@ -11,15 +16,34 @@ function App() {
         description: '',
         price: 0,
         data: '',
-        step: 0
+        step: 0,
+        image: ''
     });
-    const changeActio = (data: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-        const {name, value} = data.target;
-        setActio(prevActio => ({...prevActio, [name]: value }));
-        console.log(actio)
+    const [tags, setTags] = useState<string []>([]);
+    const changeActio = (data: ChangeEvent<HTMLInputElement>): void => {
+        const reader = new FileReader();
+        let {name, value} = data.target;
+        setActio(prevState => ({...prevState, [name]: value}))
     }
 
+    const addTags = (tag) => {
+        setTags((prevTags) => [...prevTags, tag.target.value])
+    }
+
+    useEffect(() => {
+        console.log(tags)
+    }, [tags])
+
+
+     useEffect(() => {
+        console.log(actio)
+     }, [actio])
+
     return (
+        <>
+            <FormRegistration />
+
+        {/*<ImageInput name="image" changeValue={changeActio} />
         <div style={{padding: 30}}>
             <h1>Создание аукциона</h1>
             <p>Название аукциона</p>
@@ -33,8 +57,19 @@ function App() {
             <p>Шаг аукциона</p>
             <FormInput name="step" type="number" changeValue={changeActio} width="small"/>
             <div style={{padding: 20}}></div>
+            <input type="file" name="image" onChange={changeActio} accept="image/jpeg,image/png" />
+            <div style={{padding: 20}}></div>
+            <div style={{display: "inline-block"}}>
+
+
+            </div>
+            <div style={{padding: 20}}></div>
+
+            <img src={actio.image} />
+            <div style={{padding: 20}}></div>
             <BaseButton>Создать аукцион</BaseButton>
-        </div>
+        </div>*/}
+            </>
     )
 }
 

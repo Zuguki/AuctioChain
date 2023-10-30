@@ -1,9 +1,14 @@
 .forgotPassword {
     color: #727171;
-    font-family: SF Pro Display;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    text-decoration-line: underline;
+}
+
+
+.link {
+    color: #615EF3;
     text-decoration-line: underline;
 }

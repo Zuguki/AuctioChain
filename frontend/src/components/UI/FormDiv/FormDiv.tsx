@@ -17,7 +17,7 @@ const FormDiv: FC<IFormDiv> = ({title, textButton, registration = false, childre
                 <div className={styleDiv.align}>
                     {children}
                 </div>
-                <div className={styleDiv.positionBtn}>
+                <div className= {!registration ? styleDiv.positionBtn : styleDiv.positionBtnS}>
                     <BaseButton>
                         {textButton}
                     </BaseButton>

@@ -7,11 +7,13 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import ImageInput from "./components/UI/inputs/ImageInput/ImageInput.tsx";
 import Tag from "./components/UI/Tag/Tag.tsx";
 import FormDiv from "./components/UI/FormDiv/FormDiv.tsx";
-import FormRegistration from "./pages/registration/FormRegistration.tsx";
+import FormAuthorization from "./pages/authorization/FormAuthorization/FormAuthorization.tsx";
+import FormRegistration from "./pages/authorization/FormRegistration/FormRegistration.tsx";
+import FormRecoverCode from "./pages/authorization/FormRecoverCode.tsx";
 
 
 function App() {
-    const [actio, setActio] = useState({
+   /* const [actio, setActio] = useState({
         name: '',
         description: '',
         price: 0,
@@ -37,12 +39,11 @@ function App() {
 
      useEffect(() => {
         console.log(actio)
-     }, [actio])
+     }, [actio])*/
 
     return (
         <>
-            <FormRegistration />
-
+            <FormRecoverCode />
         {/*<ImageInput name="image" changeValue={changeActio} />
         <div style={{padding: 30}}>
             <h1>Создание аукциона</h1>

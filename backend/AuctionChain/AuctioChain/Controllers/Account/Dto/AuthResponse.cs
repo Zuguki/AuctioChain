@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AuctioChain.Controllers.Accounts.Dto;
+namespace AuctioChain.Controllers.Account.Dto;
 
 public class AuthResponse
 {

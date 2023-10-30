@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuctioChain.Controllers;
+namespace AuctioChain.Controllers.Bet;
 
 /// <summary>
 /// Контроллер для ставок

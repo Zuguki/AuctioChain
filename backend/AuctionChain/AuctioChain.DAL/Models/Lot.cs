@@ -18,71 +18,54 @@ public class Lot
     /// </summary>
     [Column("Id")]
     [Key]
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     
     /// <summary>
     /// Id аукциона
     /// </summary>
     [Column("auctionId")]
-    public Guid AuctionId { get; init; }
+    public Guid AuctionId { get; set; }
 
     /// <summary>
     /// Аукцион
     /// </summary>
     [Column("auction")]
     [ForeignKey(nameof(AuctionId))]
-    public AuctionDal? Auction { get; init; }
+    public AuctionDal? Auction { get; set; }
     
     /// <summary>
     /// Название лота
     /// </summary>
     [Column("name")]
-    public string? Name { get; init; }
+    public string? Name { get; set; }
     
     /// <summary>
     /// Описание лота
     /// </summary>
     [Column("description")]
-    public string? Description { get; init; }
+    public string? Description { get; set; }
     
     /// <summary>
     /// Код лота
     /// </summary>
     [Column("code")]
-    public string? Code { get; init; }
+    public string? Code { get; set; }
     
     /// <summary>
     /// Статус лота
     /// </summary>
     [Column("status")]
-    public LotStatus Status { get; init; }
+    public LotStatus Status { get; set; }
 
     /// <summary>
     /// Ставки на лот
     /// </summary>
     [Column("bets")]
-    public List<Bet> Bets = new();
+    public List<Bet> Bets { get; set; } = new();
 
     /// <summary>
     /// Изображения лота
     /// </summary>
     [Column("images")]
-    public List<string>? Images { get; init; } = new();
-
-    /// <summary>
-    /// Попытка сделать ставку
-    /// </summary>
-    /// <param name="bet">Ставка</param>
-    /// <returns>Результат выполнения операции. Если по лоту торги завершенны или ставка с таким размером уже сделана, то вернет Fail</returns>
-    public Result TryDoBet(Bet bet)
-    {
-        if (Status == LotStatus.Complete)
-            return Result.Fail("На данный лот невозможно сделать ставку, т.к. торги завершенны");
-
-        if (Bets.Any(b => b.Amount >= bet.Amount))
-            return Result.Fail("Ваша была перекрыта, пожалуйста, повторите попытку");
-        
-        Bets.Add(bet);
-        return Result.Ok();
-    }
+    public List<string>? Images { get; set; } = new();
 }

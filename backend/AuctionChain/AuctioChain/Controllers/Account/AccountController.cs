@@ -1,21 +1,12 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Accounts;
-using AuctioChain.BL.Extensions;
-using AuctioChain.Controllers.Accounts.Dto;
-using AuctioChain.DAL.EF;
+using AuctioChain.Controllers.Account.Dto;
 using AuctioChain.DAL.Models;
-using AuctioChain.Extensions;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
-namespace AuctioChain.Controllers.Accounts;
+namespace AuctioChain.Controllers.Account;
 
 [ApiController]
 [Route("accounts")]

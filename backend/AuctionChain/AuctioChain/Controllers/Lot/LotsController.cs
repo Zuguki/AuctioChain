@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuctioChain.Controllers;
+namespace AuctioChain.Controllers.Lot;
 
 /// <summary>
 /// Контроллер для лотов

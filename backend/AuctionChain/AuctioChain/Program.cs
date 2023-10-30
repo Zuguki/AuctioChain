@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using AuctioChain.BL.Accounts;
 using AuctioChain.BL.Auctions;
-using AuctioChain.Controllers.Accounts;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
 using AuctioChain.Libs.Serilog;

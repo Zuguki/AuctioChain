@@ -1,5 +1,6 @@
 import {ChangeEvent, useEffect, useState} from "react";
 import {ICorrectPassword, IPasswords, IUseLogicRequirement} from "./interfaceCardRequirement.ts";
+import {hasNumber, hasUppercase} from "../../../auxiliaryTools/hasSymbol.ts";
 
 
 const useLogicRequirement = (): IUseLogicRequirement => {
@@ -24,14 +25,6 @@ const useLogicRequirement = (): IUseLogicRequirement => {
 
 
     useEffect(() => {
-        function hasUppercase(str: string) {
-            return str.match(/[A-Z]/) !== null;
-        }
-
-        function hasNumber(myString: string) {
-            return /\d/.test(myString);
-        }
-
         const newIsCorrect: ICorrectPassword = {...isCorrectPassword};
 
         newIsCorrect["lengthPassword"] = passwords.userPassword.length >= 8;

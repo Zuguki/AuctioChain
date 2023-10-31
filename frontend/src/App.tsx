@@ -1,8 +1,6 @@
 import FormRecoverCode from "./pages/authorization/FormRecoverCode.tsx";
 import FormNewPassword from "./pages/authorization/FormNewPassword/FormNewPassword.tsx";
-import CardRequirementsPassword from "./pages/authorization/CardRequirementsPassword/CardRequirementsPassword.tsx";
 import FormRegistration from "./pages/authorization/FormRegistration/FormRegistration.tsx";
-
 
 function App() {
    /* const [actio, setActio] = useState({
@@ -32,7 +30,6 @@ function App() {
      useEffect(() => {
         console.log(actio)
      }, [actio])*/
-
     return (
         <>
             <FormNewPassword />

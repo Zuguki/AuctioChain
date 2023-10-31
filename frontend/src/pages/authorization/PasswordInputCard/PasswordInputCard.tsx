@@ -5,7 +5,7 @@ import {passwordChars} from "../../../auxiliaryTools/bloclnvalidChar.ts";
 
 const PasswordInputCard = () => {
     const [password, showRequirement, isCorrectPassword, focusInputPassword, blurInputPassword, changeUserValue] = useLogicRequirement();
-    console.log(password)
+
     return (
         <>
             <FormInput

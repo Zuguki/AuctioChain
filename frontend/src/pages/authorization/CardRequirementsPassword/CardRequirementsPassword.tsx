@@ -1,5 +1,6 @@
 import {FC, ReactElement} from 'react';
 import styleCard from './cardRequirementsPassword.module.css';
+import {ICorrectPassword} from "./interfaceCardRequirement.ts";
 
 const requirementsPassword = {
     lengthPassword: 'Минимум 8 символов',
@@ -8,10 +9,11 @@ const requirementsPassword = {
 }
 
 interface ICardCardRequirement {
-    show?: boolean
+    show: boolean,
+    isCorrect: ICorrectPassword
 }
 
-const CardRequirementsPassword: FC<ICardCardRequirement> = ({ show = false, isCorrect}) => {
+const CardRequirementsPassword: FC<ICardCardRequirement> = ({ show, isCorrect}) => {
     return (
         <>
         {show && <div className={styleCard.card}>

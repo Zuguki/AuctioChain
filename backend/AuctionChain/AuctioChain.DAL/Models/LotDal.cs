@@ -11,7 +11,7 @@ namespace AuctioChain.DAL.Models;
 /// Лот
 /// </summary>
 [Table("lots")]
-public class Lot
+public class LotDal
 {
     /// <summary>
     /// Id лота
@@ -46,16 +46,22 @@ public class Lot
     public string? Description { get; set; }
     
     /// <summary>
+    /// Шаг ставки
+    /// </summary>
+    [Column("betStep")]
+    public decimal BetStep { get; set; }
+    
+    /// <summary>
+    /// Стоимость выкупа
+    /// </summary>
+    [Column("buyoutPrice")]
+    public decimal? BuyoutPrice { get; set; }
+    
+    /// <summary>
     /// Код лота
     /// </summary>
     [Column("code")]
     public string? Code { get; set; }
-    
-    /// <summary>
-    /// Статус лота
-    /// </summary>
-    [Column("status")]
-    public LotStatus Status { get; set; }
 
     /// <summary>
     /// Ставки на лот
@@ -68,4 +74,23 @@ public class Lot
     /// </summary>
     [Column("images")]
     public List<string>? Images { get; set; } = new();
+    
+    /// <summary>
+    /// Выкуплен ли лот
+    /// </summary>
+    public bool IsPurchased => Bets.Count > 0 && Bets.Max(b => b.Amount) == BuyoutPrice;
+
+    /// <summary>
+    /// .ctor
+    /// </summary>
+    public LotDal(Guid auctionId, string? name, string? description, string? code, decimal betStep, decimal? buyoutPrice = null)
+    {
+        Id = Guid.NewGuid();
+        AuctionId = auctionId;
+        Name = name;
+        Description = description;
+        BetStep = betStep;
+        BuyoutPrice = buyoutPrice;
+        Code = code;
+    }
 }

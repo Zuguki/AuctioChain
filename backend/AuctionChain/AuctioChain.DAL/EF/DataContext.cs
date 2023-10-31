@@ -12,7 +12,7 @@ namespace AuctioChain.DAL.EF;
 public sealed class DataContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
     public DbSet<AuctionDal> Auctions { get; set; } = null!;
-    public DbSet<Lot> Lots { get; set; } = null!;
+    public DbSet<LotDal> Lots { get; set; } = null!;
     public DbSet<Bet> Bets { get; set; } = null!;
 
     private readonly IConfiguration _configuration;

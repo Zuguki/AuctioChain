@@ -9,26 +9,26 @@ namespace AuctioChain.BL.Lots;
 public interface ILotManager 
 {
     /// <summary>
-    /// Получить лоты по Id
+    /// Получить лоты по Id аукциона
     /// </summary>
-    /// <param name="id">Id модели</param>
-    Task<Result<IEnumerable<Lot>>> GetByIdAsync(Guid id);
+    /// <param name="auctionId">Id аукциона</param>
+    Task<Result<IEnumerable<LotDal>>> GetByIdAsync(Guid auctionId);
 
     /// <summary>
     /// Создать модель
     /// </summary>
     /// <param name="model">Модель для создания</param>
-    Task<Result> CreateAsync(Lot model);
+    Task<Result> CreateAsync(LotDal model);
     
     /// <summary>
-    /// Удалить модель
+    /// Удалить лот
     /// </summary>
-    /// <param name="id">Id модели</param>
+    /// <param name="id">Id лота</param>
     Task<Result> DeleteAsync(Guid id);
 
     /// <summary>
     /// Обновить модель
     /// </summary>
     /// <param name="model">Модель для обновления</param>
-    Task<Result> UpdateAsync(Lot model);
+    Task<Result> UpdateAsync(LotDal model);
 }

@@ -18,16 +18,27 @@ public class LotManager : ILotManager
         _context = context;
     }
 
-    public Task<Result<IEnumerable<Lot>>> GetByIdAsync(Guid id)
+    public Task<Result<IEnumerable<LotDal>>> GetByIdAsync(Guid auctionId)
     {
-        var lots = (IEnumerable<Lot>) _context.Lots.Where(lot => lot.AuctionId == id);
+        var lots = (IEnumerable<LotDal>) _context.Lots.Where(lot => lot.AuctionId == auctionId);
         return Task.FromResult(Result.Ok(lots));
     }
 
-    public async Task<Result> CreateAsync(Lot model)
+    public async Task<Result> CreateAsync(LotDal model)
     {
-        await _context.Lots.AddAsync(model);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(i => i.Id == model.AuctionId);
+        if (auction is null)
+            return Result.Fail("Аукцион с переданным идентификатором не найден");
+        
+        if (!auction.IsEditable)
+            return Result.Fail("Данный аукцион нельзя редактировать");
+
+        var lot = new LotDal(model.AuctionId, model.Name, model.Description, model.Code, model.BetStep,
+            model.BuyoutPrice);
+
+        await _context.Lots.AddAsync(lot);
         await _context.SaveChangesAsync();
+
         return Result.Ok();
     }
 
@@ -42,7 +53,7 @@ public class LotManager : ILotManager
         return Result.Ok();
     }
 
-    public async Task<Result> UpdateAsync(Lot model)
+    public async Task<Result> UpdateAsync(LotDal model)
     {
         throw new Exception();
     }

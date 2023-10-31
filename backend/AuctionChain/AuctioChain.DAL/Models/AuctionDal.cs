@@ -107,7 +107,7 @@ public class AuctionDal
     /// Лоты на аукционее
     /// </summary>
     [Column("lots")]
-    public List<Lot>? Lots { get; init; } = new();
+    public List<LotDal>? Lots { get; init; } = new();
 
     /// <summary>
     /// .ctor

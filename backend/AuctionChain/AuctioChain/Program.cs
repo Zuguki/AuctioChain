@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using AuctioChain.BL.Accounts;
 using AuctioChain.BL.Auctions;
+using AuctioChain.BL.Lots;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
 using AuctioChain.Libs.Serilog;
@@ -22,6 +23,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IAuctionManager, AuctionManager>();
 builder.Services.AddScoped<IAccountManager, AccountManager>();
+builder.Services.AddScoped<ILotManager, LotManager>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddDbContext<DataContext>();

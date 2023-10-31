@@ -32,8 +32,4 @@
       <ProjectReference Include="..\AuctioChain.DAL\AuctioChain.DAL.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controllers\Lot\Dto\" />
-    </ItemGroup>
-
 </Project>

@@ -41,7 +41,7 @@ public class Bet
     /// </summary>
     [Column("lot")]
     [ForeignKey(nameof(LotId))]
-    public Lot? Lot { get; init; }
+    public LotDal? Lot { get; init; }
     
     /// <summary>
     /// Размер ставки

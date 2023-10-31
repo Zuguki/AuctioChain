@@ -6,16 +6,14 @@ import styleRegistration from "../FormAuthorization/formAuthorization.module.css
 import CardRequirementsPassword from "../CardRequirementsPassword/CardRequirementsPassword.tsx";
 import useLogicRequirement from "../CardRequirementsPassword/useLogicRequirement.ts";
 import {ICorrectPassword} from "../CardRequirementsPassword/interfaceCardRequirement.ts";
+import PasswordInputCard from "../PasswordInputCard/PasswordInputCard.tsx";
 
 const FormRegistration = () => {
-    const [password, showRequirement, isCorrectPassword, focusInputPassword, blurInputPassword, changeUserValue] = useLogicRequirement();
-    const blockInvalidChar = (e: KeyboardEvent<HTMLElement>) => ['e', 'E', '+', '-', '.', ','].includes(e.key) && e.preventDefault();
     return (
         <FormDiv title='Регистрация' textButton='Зарегестрироваться'>
             <FormInput title='Имя пользователя' name='userName' changeValue={() => ({})} />
             <FormInput title='Телефон' name='phone' type='tel' changeValue={() => ({})} />
-            <FormInput title='Пароль' name='password' changeValue={changeUserValue} onBlur={blurInputPassword}  onKeyDown={blockInvalidChar} onFocus={focusInputPassword}/>
-            <CardRequirementsPassword  show={showRequirement} isCorrect={isCorrectPassword}/>
+            <PasswordInputCard />
             <CheckboxInput><p style={{display: "inline"}}>Принимаете <span className={styleRegistration.link}> условия соглашения</span> сайта</p></CheckboxInput>
         </FormDiv>
     );

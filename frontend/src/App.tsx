@@ -37,6 +37,7 @@ function App() {
         <>
             <FormNewPassword />
             <FormRegistration />
+            <FormRecoverCode />
         </>
     )
 }

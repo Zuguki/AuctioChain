@@ -1,15 +1,7 @@
-import FormInput from "./components/UI/inputs/FormInput/FormInput.tsx";
-import BaseInput from "./components/UI/inputs/BaseInput/BaseInput.tsx";
-import FormTextArea from "./components/UI/inputs/FormTextArea/FormTextArea.tsx";
-import DataInput from "./components/UI/inputs/DataInput/DataInput.tsx";
-import BaseButton from "./components/UI/BaseButton/BaseButton.tsx";
-import React, {ChangeEvent, useEffect, useState} from "react";
-import ImageInput from "./components/UI/inputs/ImageInput/ImageInput.tsx";
-import Tag from "./components/UI/Tag/Tag.tsx";
-import FormDiv from "./components/UI/FormDiv/FormDiv.tsx";
-import FormAuthorization from "./pages/authorization/FormAuthorization/FormAuthorization.tsx";
-import FormRegistration from "./pages/authorization/FormRegistration/FormRegistration.tsx";
 import FormRecoverCode from "./pages/authorization/FormRecoverCode.tsx";
+import FormNewPassword from "./pages/authorization/FormNewPassword/FormNewPassword.tsx";
+import CardRequirementsPassword from "./pages/authorization/CardRequirementsPassword/CardRequirementsPassword.tsx";
+import FormRegistration from "./pages/authorization/FormRegistration/FormRegistration.tsx";
 
 
 function App() {
@@ -43,7 +35,7 @@ function App() {
 
     return (
         <>
-            <FormRecoverCode />
+            <FormNewPassword />
         </>
     )
 }

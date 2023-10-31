@@ -44,33 +44,7 @@ function App() {
     return (
         <>
             <FormRecoverCode />
-        {/*<ImageInput name="image" changeValue={changeActio} />
-        <div style={{padding: 30}}>
-            <h1>Создание аукциона</h1>
-            <p>Название аукциона</p>
-            <FormInput name="name" changeValue={changeActio} />
-            <p>Описание товара</p>
-            <FormTextArea name="description" changeValue={changeActio} />
-            <p>Начальная цена (₽)</p>
-            <FormInput name="price" type="number" changeValue={changeActio} width="small"/>
-            <p>Дата окончания</p>
-            <DataInput name="data" changeValue={changeActio}/>
-            <p>Шаг аукциона</p>
-            <FormInput name="step" type="number" changeValue={changeActio} width="small"/>
-            <div style={{padding: 20}}></div>
-            <input type="file" name="image" onChange={changeActio} accept="image/jpeg,image/png" />
-            <div style={{padding: 20}}></div>
-            <div style={{display: "inline-block"}}>
-
-
-            </div>
-            <div style={{padding: 20}}></div>
-
-            <img src={actio.image} />
-            <div style={{padding: 20}}></div>
-            <BaseButton>Создать аукцион</BaseButton>
-        </div>*/}
-            </>
+        </>
     )
 }
 

@@ -1,9 +1,9 @@
-import {KeyboardEvent, FC} from 'react';
+import {KeyboardEvent, FC, ReactElement} from 'react';
 import styleCodeInput from './codeInput.module.css';
 import useCode from "./useCode.ts";
 
 const CodeInput: FC<{children: string, numbers?: number}> = ({children, numbers = 4}) => {
-    const blockInvalidChar = (e: KeyboardEvent<HTMLElement>) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
+    const blockInvalidChar = (e: KeyboardEvent<HTMLElement>) => ['e', 'E', '+', '-', '.', ','].includes(e.key) && e.preventDefault();
     const [code, changeData, ref] = useCode(numbers);
     return (
         <>
@@ -11,7 +11,7 @@ const CodeInput: FC<{children: string, numbers?: number}> = ({children, numbers 
             <form className={styleCodeInput.form}>
                 {Array(numbers)
                     .fill('')
-                    .map((_, index) =>
+                    .map((_, index: number): ReactElement<HTMLInputElement> =>
                         <input
                             type='number'
                             id={index.toString()}
@@ -23,7 +23,7 @@ const CodeInput: FC<{children: string, numbers?: number}> = ({children, numbers 
                         />)
                 }
             </form>
-            {/*{code && <p>Code is: {code}</p>}*/}
+            {code && <p>Code is: {code}</p>}
         </>
     );
 };

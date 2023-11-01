@@ -27,7 +27,7 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public Task<Result<IEnumerable<AuctionDal>>> GetAllAsync()
     {
-        var result = (IEnumerable<AuctionDal>) _context.Auctions.Include(a => a.Lots).ToList();
+        var result = (IEnumerable<AuctionDal>) _context.Auctions.ToList();
         return Task.FromResult(Result.Ok(result));
     }
 

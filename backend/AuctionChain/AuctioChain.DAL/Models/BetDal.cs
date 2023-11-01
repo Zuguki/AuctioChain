@@ -8,7 +8,7 @@ namespace AuctioChain.DAL.Models;
 /// Ставка
 /// </summary>
 [Table("bets")]
-public class Bet
+public class BetDal
 {
     /// <summary>
     /// Id ставки
@@ -28,7 +28,7 @@ public class Bet
     /// </summary>
     [Column("user")]
     [ForeignKey(nameof(UserId))]
-    public Author? User { get; init; }
+    public ApplicationUser? User { get; init; }
     
     /// <summary>
     /// Id лота, на который сделана ставка
@@ -40,7 +40,6 @@ public class Bet
     /// Лот, на который сделана ставка
     /// </summary>
     [Column("lot")]
-    [ForeignKey(nameof(LotId))]
     public LotDal? Lot { get; init; }
     
     /// <summary>
@@ -54,4 +53,23 @@ public class Bet
     /// </summary>
     [Column("dateTime")]
     public DateTime DateTime { get; init; }
+
+    /// <summary>
+    /// .ctor
+    /// </summary>
+    public BetDal()
+    {
+    }
+
+    /// <summary>
+    /// .ctor
+    /// </summary>
+    public BetDal(Guid userId, Guid lotId, decimal amount)
+    {
+        Id = Guid.NewGuid();
+        UserId = userId;
+        LotId = lotId;
+        Amount = amount;
+        DateTime = DateTime.UtcNow;
+    }
 }

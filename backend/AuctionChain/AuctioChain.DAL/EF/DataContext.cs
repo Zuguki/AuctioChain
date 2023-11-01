@@ -13,7 +13,7 @@ public sealed class DataContext : IdentityDbContext<ApplicationUser, IdentityRol
 {
     public DbSet<AuctionDal> Auctions { get; set; } = null!;
     public DbSet<LotDal> Lots { get; set; } = null!;
-    public DbSet<Bet> Bets { get; set; } = null!;
+    public DbSet<BetDal> Bets { get; set; } = null!;
 
     private readonly IConfiguration _configuration;
 

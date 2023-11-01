@@ -66,7 +66,7 @@ public class LotDal
     /// Ставки на лот
     /// </summary>
     [Column("bets")]
-    public List<Bet> Bets { get; set; } = new();
+    public List<BetDal> Bets { get; set; } = new();
 
     /// <summary>
     /// Изображения лота

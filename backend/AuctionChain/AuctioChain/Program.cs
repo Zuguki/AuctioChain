@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using AuctioChain.BL.Accounts;
 using AuctioChain.BL.Auctions;
+using AuctioChain.BL.Bets;
 using AuctioChain.BL.Lots;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
@@ -24,6 +25,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IAuctionManager, AuctionManager>();
 builder.Services.AddScoped<IAccountManager, AccountManager>();
 builder.Services.AddScoped<ILotManager, LotManager>();
+builder.Services.AddScoped<IBetManager, BetManager>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddDbContext<DataContext>();

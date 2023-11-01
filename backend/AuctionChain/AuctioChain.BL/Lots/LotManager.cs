@@ -44,10 +44,14 @@ public class LotManager : ILotManager
 
     public async Task<Result> DeleteAsync(Guid id)
     {
-        var lot = await _context.Lots.FirstOrDefaultAsync(lo => lo!.Id == id);
+        var lot = await _context.Lots.Include(l => l.Auction).FirstOrDefaultAsync(lo => lo.Id == id);
         if (lot is null)
             return Result.Ok();
-        
+
+        var auction = lot.Auction;
+        if (auction is null || !auction.IsEditable)
+            return Result.Fail("Данный лот нельзя удалить");
+
         _context.Lots.Remove(lot);
         await _context.SaveChangesAsync();
         return Result.Ok();
@@ -55,6 +59,24 @@ public class LotManager : ILotManager
 
     public async Task<Result> UpdateAsync(LotDal model)
     {
-        throw new Exception();
+        var lot = await _context.Lots.Include(c => c.Auction).FirstOrDefaultAsync(l => l.Id == model.Id);
+
+        if (lot is null)
+            return Result.Fail("Данный лот не найден");
+
+        if (lot.Auction is null || !lot.Auction.IsEditable)
+            return Result.Fail("Нельзя обновить данный лот, т.к. для ауцкиона запрещено редактирование");
+        
+        if (lot.IsPurchased)
+            return Result.Fail("По данному лоту запрещено делать ставки, т.к. он выкуплен");
+
+        lot.Name = model.Name;
+        lot.Code = model.Code;
+        lot.Description = model.Description;
+        lot.BetStep = model.BetStep;
+        lot.BuyoutPrice = model.BuyoutPrice;
+
+        await _context.SaveChangesAsync();
+        return Result.Ok();
     }
 }

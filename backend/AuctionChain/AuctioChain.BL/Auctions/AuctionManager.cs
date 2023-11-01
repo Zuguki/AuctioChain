@@ -27,7 +27,7 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public Task<Result<IEnumerable<AuctionDal>>> GetAllAsync()
     {
-        var result = (IEnumerable<AuctionDal>) _context.Auctions.ToList();
+        var result = (IEnumerable<AuctionDal>) _context.Auctions.Include(a => a.Lots).ToList();
         return Task.FromResult(Result.Ok(result));
     }
 
@@ -89,7 +89,7 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public Task<Result<IEnumerable<AuctionDal>>> GetUserAuctions(Guid id)
     {
-        var result = (IEnumerable<AuctionDal>) _context.Auctions.Where(auc => auc.UserId == id).ToList();
+        var result = (IEnumerable<AuctionDal>) _context.Auctions.Include(a => a.Lots).Where(auc => auc.UserId == id).ToList();
         return Task.FromResult(Result.Ok(result));
     }
 

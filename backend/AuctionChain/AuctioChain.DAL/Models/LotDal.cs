@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using FluentResults;
 
 namespace AuctioChain.DAL.Models;
 
@@ -79,6 +78,13 @@ public class LotDal
     /// Выкуплен ли лот
     /// </summary>
     public bool IsPurchased => Bets.Count > 0 && Bets.Max(b => b.Amount) == BuyoutPrice;
+
+    /// <summary>
+    /// .ctor
+    /// </summary>
+    public LotDal()
+    {
+    }
 
     /// <summary>
     /// .ctor

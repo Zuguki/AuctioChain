@@ -68,6 +68,13 @@ public class LotsController : ControllerBase
     [Authorize]
     public async Task<IActionResult> DeleteLotAsync([FromQuery] DeleteLotRequest request)
     {
+        if (request.LotId == Guid.Empty)
+            return BadRequest("Передан некорректный идентификатор лота");
+
+        var result = await _lotManager.DeleteAsync(request.LotId);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+        
         return Ok();
     }
 
@@ -78,6 +85,29 @@ public class LotsController : ControllerBase
     [Authorize]
     public async Task<IActionResult> UpdateLotAsync([FromBody] UpdateLotRequest request)
     {
+        if (request.LotId == Guid.Empty)
+            return BadRequest("Передан некорректный идентификатор лота");
+        
+        if (request.BetStep <= 0m)
+            return BadRequest("Шаг ставки не может быть меньше или равен нуля");
+        
+        if (request.BuyoutPrice <= 0m)
+            return BadRequest("Стоимость выкупа не может быть меньше или равна нуля");
+        
+        if (string.IsNullOrWhiteSpace(request.Code))
+            return BadRequest("Передан пустой код");
+        
+        if (string.IsNullOrWhiteSpace(request.Name))
+            return BadRequest("Передано пустое название лота");
+        
+        if (string.IsNullOrWhiteSpace(request.Description))
+            return BadRequest("Передано пустое описание лота");
+
+        var model = _mapper.Map<LotDal>(request);
+        var result = await _lotManager.UpdateAsync(model);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+        
         return Ok();
     }
 

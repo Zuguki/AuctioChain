@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import dataStyle from './dataInput.module.css'
-import {IInput} from "../../logicInput.ts";
+import IInput from "../../IInput.ts";
 
 const DataInput: FC<Omit<IInput, 'width'>> = ({changeValue,...props}) => {
     return (

@@ -1,0 +1,49 @@
+.position {
+    display: flex ;
+    flex-direction: row;
+    justify-content: center;
+    height: 28px;
+}
+
+.btnSwipe {
+    background: url("../../../design/icons/pagination/forvard.svg") no-repeat;
+    width: 14px;
+    height: 16px;
+    border: 0;
+    padding: 0;
+    margin-right: 15px;
+    margin-top: 7px;
+    display: inline-block;
+}
+
+.btnSwipeBack {
+    background: url("../../../design/icons/pagination/back.svg") no-repeat;
+}
+
+.number {
+    color: #615EF3;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; /* 142.857% */
+    margin-right: 20px;
+    border: 0;
+    background: rgba(0, 0, 0, 0);
+    padding: 0;
+    text-align: center;
+    width: 13px;
+}
+
+.currentNumber {
+    background: var(--Gradient, linear-gradient(180deg, #D72828 0%, #8E8CEF 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.line {
+    background: url("../../../design/icons/pagination/linePagination.svg") no-repeat;
+    width: 14px;
+    height: 2px;
+
+}

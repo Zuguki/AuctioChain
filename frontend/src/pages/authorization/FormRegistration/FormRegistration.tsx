@@ -1,16 +1,19 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
-import FormDiv from "../../../components/UI/FormDiv/FormDiv.tsx";
+import FormDiv from "../../../components/UI/div/FormDiv/FormDiv.tsx";
 import FormInput from "../../../components/UI/inputs/FormInput/FormInput.tsx";
 import CheckboxInput from "../../../components/UI/inputs/CheckboxInput/CheckboxInput.tsx";
 import styleRegistration from "../FormAuthorization/formAuthorization.module.css";
-import CardRequirementsPassword from "../CardRequirementsPassword/CardRequirementsPassword.tsx";
-import useLogicRequirement from "../CardRequirementsPassword/useLogicRequirement.ts";
-import {ICorrectPassword} from "../CardRequirementsPassword/interfaceCardRequirement.ts";
 import PasswordInputCard from "../PasswordInputCard/PasswordInputCard.tsx";
+import ILogicFormDivButton from "../../../components/UI/div/FormDiv/logicFormDivButton.ts";
 
 const FormRegistration = () => {
+    const logicButton: ILogicFormDivButton = {
+        textButton: 'Зарегестрироваться',
+        path: '/'
+    }
+
     return (
-        <FormDiv title='Регистрация' textButton='Зарегестрироваться'>
+        <FormDiv title='Регистрация' logicButton={logicButton}>
             <FormInput title='Имя пользователя' name='userName' changeValue={() => ({})} />
             <FormInput title='Телефон' name='phone' type='tel' changeValue={() => ({})} />
             <PasswordInputCard />

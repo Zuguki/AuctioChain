@@ -1,5 +1,5 @@
 import { FC} from 'react';
-import {IInput} from "../../logicInput.ts";
+import {IInput} from "../../IInput.ts";
 import inputStyle from './imageInput.module.css'
 
 // in development

@@ -6,7 +6,7 @@ const BaseSelect: FC<ISelect> = ({ title, selectors, changeValue, ...props}) => 
         <div className={styleSelect.div}>
             <label className={styleSelect.title}>{title}</label>
             <select className={styleSelect.select} {...props} onChange={changeValue}>
-            {selectors.map((element: string): ReactElement<HTMLOptionElement> => <option value={element}>{element}</option>)}
+            {selectors.map((element: string): ReactElement<HTMLOptionElement> => <option key={element} value={element}>{element}</option>)}
             </select>
         </div>
     );

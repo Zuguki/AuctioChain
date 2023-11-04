@@ -3,7 +3,7 @@
     height: 50px;
     flex-shrink: 0;
     border-radius: 10px;
-    background: #F5F5F5 url("design/icons/calendar.svg") 95% 50% no-repeat ;
+    background: #F5F5F5 url("../../../../design/icons/calendar.svg") 95% 50% no-repeat ;
     color:  #818080;
     font-family: SF Pro Display, Montserrat, sans-serif;
     font-size: 20px;
@@ -16,10 +16,10 @@
 }
 
 
-[type="date"]::-webkit-inner-spin-button {
+[type="datetime-local"]::-webkit-inner-spin-button {
     display: none;
 }
-[type="date"]::-webkit-calendar-picker-indicator {
+[type="datetime-local"]::-webkit-calendar-picker-indicator {
     opacity: 0;
     padding-left: 40px;
 }

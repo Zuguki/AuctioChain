@@ -9,26 +9,16 @@ import CardAuction from "./pages/auctions/ListAuctions/CardAuction/CardAuction.t
 import ListAuctions from "./pages/auctions/ListAuctions/ListAuctions.tsx";
 import Pagination from "./components/UI/Pagination/Pagination.tsx";
 import SearcherAuction from "./pages/auctions/SearcherAuction/SearcherAuction.tsx";
+import DataInput from "./components/UI/inputs/DataInput/DataInput.tsx";
+import PageAuctions from "./pages/auctions/PageAuctions.tsx";
 
 
 function App() {
     return (
         <BrowserRouter>
             <Header />
-            {/*<div style={{margin: 150}}>
-                <CardAuction />
-                <CardAuction />
-                <CardAuction />
-                <CardAuction />
-                <CardAuction />
-                <CardAuction />
-            </div>=*/}
             <Routes>
-                <Route path='/' element={<div style={{marginLeft: 150, marginRight: 150}}>
-                    <h1>Список аукционов</h1>
-                    <SearcherAuction />
-                    <ListAuctions />
-                </div>} />
+                <Route path='/' element={<PageAuctions />} />
                 <Route path='/authorization' element={<FormAuthorization />} />
                 <Route path='/authorization/registration' element={<FormRegistration />} />
                 <Route path='/authorization/recovery' element={<FormRecoveryEntry />} />

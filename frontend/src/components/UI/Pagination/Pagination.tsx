@@ -13,10 +13,6 @@ const Pagination = ({endPage, sendCurrentPage}) => {
         setPaginationArray(() => numberArray(currentPage, endPage));
     }, [currentPage]);
 
-    const refEl = (el) => {
-        refButtonPage.current[el.target.value] = el;
-    }
-
     return (
         <div className={stylePagination.position}>
             <ButtonSwipe back onClick={() => {
@@ -65,7 +61,6 @@ interface IButtonSwipe extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 interface IButtonPage extends ButtonHTMLAttributes<HTMLButtonElement> {
     current?: boolean;
-    children: number | '...';/*
-    refEl: LegacyRef<HTMLButtonElement>*/
+    children: number | '...';
 }
 export default Pagination;

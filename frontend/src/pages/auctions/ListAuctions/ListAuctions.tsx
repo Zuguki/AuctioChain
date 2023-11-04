@@ -47,7 +47,7 @@ const ListAuctions: FC = () => {
     return (
         // change
         <div className={styleList.position}>
-            {auctions.map((auction: ICardAuction): ReactElement => <CardAuction auction={auction}/>)}
+            {auctions.map((auction: ICardAuction): ReactElement => <CardAuction key={auction.id} auction={auction}/>)}
             <Pagination endPage={10} sendCurrentPage={a}/>
         </div>
     );

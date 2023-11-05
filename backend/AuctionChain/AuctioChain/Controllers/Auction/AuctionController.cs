@@ -137,8 +137,9 @@ public class AuctionController : ControllerBase
         var result = await _manager.GetAllAsync();
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
-        
-        var response = new GetAuctionsResponse {Auctions = result.Value};
+
+        var response = new GetAuctionsResponse
+            {Auctions = result.Value.Select(a => _mapper.Map<AuctionsResponse>(a)).ToList()};
         
         return Ok(response);
     }

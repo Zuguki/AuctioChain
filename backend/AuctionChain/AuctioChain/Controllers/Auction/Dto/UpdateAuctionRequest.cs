@@ -20,6 +20,18 @@ public class UpdateAuctionRequest
     public string? Name { get; init; }
     
     /// <summary>
+    /// Описание аукциона
+    /// </summary>
+    [JsonPropertyName("description")]
+    public string? Description { get; init; }
+    
+    /// <summary>
+    /// Картинка аукциона
+    /// </summary>
+    [JsonPropertyName("image")]
+    public string? Image { get; init; }
+    
+    /// <summary>
     /// Новая Дата начала аукциона
     /// </summary>
     [JsonPropertyName("dateStart")]

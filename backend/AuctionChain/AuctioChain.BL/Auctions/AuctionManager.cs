@@ -44,7 +44,8 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public async Task<Result> CreateAsync(AuctionDal model)
     {
-        var auction = new AuctionDal(model.Name!, model.UserId, model.DateStart, model.DateEnd);
+        var auction = new AuctionDal(model.Name!, model.UserId, model.DateStart, model.DateEnd, model.Description,
+            model.Image);
 
         await _context.Auctions.AddAsync(auction);
         await _context.SaveChangesAsync();
@@ -89,7 +90,12 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public Task<Result<IEnumerable<AuctionDal>>> GetUserAuctions(Guid id)
     {
-        var result = (IEnumerable<AuctionDal>) _context.Auctions.Include(a => a.Lots).Where(auc => auc.UserId == id).ToList();
+        var result = (IEnumerable<AuctionDal>) _context.Auctions
+            .Include(a => a.Lots)
+            .Include(a => a.User)
+            .Where(auc => auc.UserId == id)
+            .ToList();
+        
         return Task.FromResult(Result.Ok(result));
     }
 

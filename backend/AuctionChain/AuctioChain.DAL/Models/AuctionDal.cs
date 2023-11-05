@@ -33,6 +33,12 @@ public class AuctionDal
     public ApplicationUser? User { get; init; }
     
     /// <summary>
+    /// Описание аукциона
+    /// </summary>
+    [Column("description")]
+    public string? Description { get; set; }
+    
+    /// <summary>
     /// Название аукциона
     /// </summary>
     [Column("name")]
@@ -61,6 +67,11 @@ public class AuctionDal
             return AuctionStatus.Unknown;
         }
     }
+    
+    /// <summary>
+    /// Картинка аукциона
+    /// </summary>
+    public string? Image { get; set; }
 
     /// <summary>
     /// Флаг, можно ли редактировать аукцион
@@ -123,41 +134,16 @@ public class AuctionDal
     /// <param name="userId">Id автора аукциона</param>
     /// <param name="dateStart">Дата начала аукциона</param>
     /// <param name="dateEnd">Дата завершения аукциона</param>
-    public AuctionDal(string name, Guid userId, DateTime dateStart, DateTime dateEnd)
+    public AuctionDal(string name, Guid userId, DateTime dateStart, DateTime dateEnd, string? description, string? image)
     {
         Id = Guid.NewGuid();
         Name = name;
         UserId = userId;
         DateStart = dateStart;
         DateEnd = dateEnd;
+        Description = description;
+        Image = image;
         IsCreation = true;
         IsCanceled = false;
     }
-    // /// <summary>
-    // /// Изменить название аукциона
-    // /// </summary>
-    // /// <param name="name">Новое название аукциона</param>
-    // public void UpdateName(string name) => Name = name;
-    //
-    // /// <summary>
-    // /// Изменить дату начала аукциона
-    // /// </summary>
-    // /// <param name="dateTime">Новая дата начала аукциона</param>
-    // public void UpdateDateStart(DateTime dateTime) => DateStart = dateTime;
-    //
-    // /// <summary>
-    // /// Изменить дату завершения аукциона
-    // /// </summary>
-    // /// <param name="dateTime">Новая дата завершения аукциона</param>
-    // public void UpdateDateEnd(DateTime dateTime) => DateEnd = dateTime;
-    //
-    // /// <summary>
-    // /// Изменить состояние создания аукциона
-    // /// </summary>
-    // public void ChangeCreationState() => IsCreation = !IsCreation;
-    //
-    // /// <summary>
-    // /// Отменить аукцион
-    // /// </summary>
-    // public void Cancel() => IsCanceled = true;
 }

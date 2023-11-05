@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace AuctioChain.Controllers.Lot.Dto;
+namespace AuctioChain.Controllers.PageLot.Dto;
 
 public class CreateLotRequest
 {

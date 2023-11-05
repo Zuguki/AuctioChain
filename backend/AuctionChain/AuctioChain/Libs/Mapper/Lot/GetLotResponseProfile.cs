@@ -1,8 +1,8 @@
-﻿using AuctioChain.Controllers.Lot.Dto;
+﻿using AuctioChain.Controllers.PageLot.Dto;
 using AuctioChain.DAL.Models;
 using AutoMapper;
 
-namespace AuctioChain.Libs.Mapper.Lot;
+namespace AuctioChain.Libs.Mapper.PageLot;
 
 public class GetLotResponseProfile : Profile
 {

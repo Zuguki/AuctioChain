@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using AuctioChain.DAL.Models;
 
-namespace AuctioChain.Controllers.Lot.Dto;
+namespace AuctioChain.Controllers.PageLot.Dto;
 
 public class GetLotsResponse
 {

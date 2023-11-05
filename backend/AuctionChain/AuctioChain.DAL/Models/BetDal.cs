@@ -40,7 +40,7 @@ public class BetDal
     /// Лот, на который сделана ставка
     /// </summary>
     [Column("lot")]
-    public LotDal? Lot { get; init; }
+    public LotDal? PageLot { get; init; }
     
     /// <summary>
     /// Размер ставки

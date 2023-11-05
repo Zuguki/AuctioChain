@@ -15,6 +15,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import PageOneAuction from "./pages/auction/PageOneAuction.tsx";
 import logo from './pages/auctions/ListAuctions/CardAuction/testPhoto.png'
+import PageLot from "./pages/PageLot/PageLot.tsx";
 
 function App() {
     useEffect(() => {
@@ -36,7 +37,9 @@ function App() {
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route path='/' element={<PageOneAuction auction={auction}/>} />
+                <Route path='/' element={<>
+                    <PageLot nameAuction='haha' />
+                </>} />
                 <Route path='/authorization' element={<FormAuthorization />} />
                 <Route path='/authorization/registration' element={<FormRegistration />} />
                 <Route path='/authorization/recovery' element={<FormRecoveryEntry />} />

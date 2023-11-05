@@ -1,0 +1,58 @@
+.left {
+    float: left;
+    width: 40%;
+    padding: 80px 0 0 80px;
+}
+
+.right {
+    float: right;
+    width: 60%;
+    padding: 75px 150px 0 80px;
+}
+
+.information {
+    margin-bottom: 30px;
+}
+
+.information>p {
+    color: #818080;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+
+}
+
+.img {
+    width: 650px;
+    height: 650px;
+    object-fit: cover;
+    margin-bottom: 30px;
+}
+
+.auxiliaryText {
+    color: #818080;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.textUser {
+    color: #615EF3;
+}
+
+.protectedText {
+    color: #D9D9D9;
+    font-size: 12px;
+}
+
+
+@media screen and (max-width: 1600px) {
+    .img {
+        width: 500px;
+        height: 500px;
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+
+}

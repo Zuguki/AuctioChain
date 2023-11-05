@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Lots;
-using AuctioChain.Controllers.Lot.Dto;
+using AuctioChain.Controllers.PageLot.Dto;
 using AuctioChain.DAL.Models;
 using AutoMapper;
 using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuctioChain.Controllers.Lot;
+namespace AuctioChain.Controllers.PageLot;
 
 /// <summary>
 /// Контроллер для лотов

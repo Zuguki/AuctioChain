@@ -11,9 +11,14 @@ import Pagination from "./components/UI/Pagination/Pagination.tsx";
 import SearcherAuction from "./pages/auctions/SearcherAuction/SearcherAuction.tsx";
 import DataInput from "./components/UI/inputs/DataInput/DataInput.tsx";
 import PageAuctions from "./pages/auctions/PageAuctions.tsx";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 
 function App() {
+    useEffect(() => {
+        axios.get('http://localhost:5121/api/v1/auctions').then(el => console.log(el))
+    }, [])
     return (
         <BrowserRouter>
             <Header />

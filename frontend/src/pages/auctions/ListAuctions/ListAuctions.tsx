@@ -3,6 +3,7 @@ import ICardAuction from "./ICardAuction.ts";
 import CardAuction from "./CardAuction/CardAuction.tsx";
 import styleList from './listAuctions.module.css'
 import Pagination from "../../../components/UI/Pagination/Pagination.tsx";
+
 const ListAuctions: FC = () => {
     const auctions: ICardAuction[] = [{
         id: 'sdsdsd',
@@ -15,7 +16,7 @@ const ListAuctions: FC = () => {
         id: 'sdsdsd1',
         name: 'string',
         img: 'string',
-        description: 'string',
+        description: 'aknksssssssssssssss;dddddddddddddddddddddddddddddddddd/;fvsfvbmgcfcggggggggggggggggggggggggggggggg',
         countPersons: 25,
         dataEnd: 'string'
     }, {
@@ -46,8 +47,10 @@ const ListAuctions: FC = () => {
     
     return (
         // change
-        <div className={styleList.position}>
-            {auctions.map((auction: ICardAuction): ReactElement => <CardAuction key={auction.id} auction={auction}/>)}
+        <div>
+            <div className={styleList.position}>
+                {auctions.map((auction: ICardAuction): ReactElement => <CardAuction key={auction.id} auction={auction}/>)}
+            </div>
             <Pagination endPage={10} sendCurrentPage={a}/>
         </div>
     );

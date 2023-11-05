@@ -19,7 +19,7 @@ const Pagination = ({endPage, sendCurrentPage}) => {
                 if (currentPage == 1) return;
                 setCurrentPage((prevState) => prevState - 1)}}>
             </ButtonSwipe>
-            {paginationArray.map((el: (string | number), index: number): ReactElement => <ButtonPage
+            {paginationArray.map((el: ('...' | number)): ReactElement => <ButtonPage
                 current={el === currentPage} key={el} value={el} onClick={(e) => {
                 if (e.target.value === '...') return;
                 setCurrentPage(() => Number(e.target.value))

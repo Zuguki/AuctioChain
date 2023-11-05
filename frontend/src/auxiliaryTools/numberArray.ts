@@ -1,6 +1,6 @@
 
-const numberArray = (start: number, end: number, step: number = 1): (string | number)[] => {
-    const result: (string | number)[] = [];
+const numberArray = (start: number, end: number, step: number = 1): ('...' | number)[] => {
+    const result: ('...' | number)[] = [];
     if (end - start > 3) return [start, start + 1, '...', end];
     for (let i = start; i <= end; i += step) {
         result.push(i);

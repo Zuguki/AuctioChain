@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -32,6 +33,14 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
+{
+    opt.AllowAnyHeader();
+    opt.AllowCredentials();
+    opt.AllowAnyMethod();
+    opt.WithOrigins(builder.Configuration.GetSection("Cors:Urls").Get<string[]>()!);
+}));
 
 builder.Services.AddAuthentication(opt =>
     {

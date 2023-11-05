@@ -22,9 +22,9 @@ public sealed class DataContext : IdentityDbContext<ApplicationUser, IdentityRol
     /// </summary>
     public DataContext(IConfiguration configuration)
     {
-        _configuration = configuration;
-        // Database.EnsureDeleted();
-        Database.EnsureCreated();
+        _configuration = configuration; 
+        Database.EnsureDeleted();
+        //Database.EnsureCreated();
     }
 
     /// <inheritdoc />

@@ -1,0 +1,24 @@
+.title {
+    margin: 25px 0 10px 0;
+}
+
+.userName {
+    color: #818080;
+    margin-bottom: 20px;
+}
+
+.position {
+    margin: 0 165px;
+}
+
+.countLots {
+    color: #818080;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.date {
+    color: #818080;
+    font-size: 18px;
+    line-height: 18px;
+}

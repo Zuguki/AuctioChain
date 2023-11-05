@@ -18,7 +18,10 @@ import logo from './pages/auctions/ListAuctions/CardAuction/testPhoto.png'
 
 function App() {
     useEffect(() => {
-        axios.get('http://localhost:5121/api/v1/auctions').then(el => console.log(el))
+        fetch('http://localhost:5121/api/v1/auctions', {
+            method: 'GET',
+            mode: 'no-cors'
+        }).then(el => console.log(el))
     }, [])
 
     const auction = {name: 'base_auuctio',

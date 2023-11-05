@@ -1,5 +1,5 @@
 import {FC, ReactElement} from 'react';
-import ICardAuction from "./ICardAuction.ts";
+import ICardAuction from "./CardAuction/ICardAuction.ts";
 import CardAuction from "./CardAuction/CardAuction.tsx";
 import styleList from './listAuctions.module.css'
 import Pagination from "../../../components/UI/Pagination/Pagination.tsx";

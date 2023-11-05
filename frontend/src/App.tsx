@@ -13,17 +13,27 @@ import DataInput from "./components/UI/inputs/DataInput/DataInput.tsx";
 import PageAuctions from "./pages/auctions/PageAuctions.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-
+import PageOneAuction from "./pages/auction/PageOneAuction.tsx";
+import logo from './pages/auctions/ListAuctions/CardAuction/testPhoto.png'
 
 function App() {
     useEffect(() => {
         axios.get('http://localhost:5121/api/v1/auctions').then(el => console.log(el))
     }, [])
+
+    const auction = {name: 'base_auuctio',
+        userName: 'user',
+        countLots: 25,
+        lots: [
+            {name: 'hi', img: {logo}, description: 'dffd', price: 120},
+            {name: 'hi', img: {logo}, description: 'dffd', price: 120},
+            {name: 'hi', img: {logo}, description: 'dffd', price: 120}
+        ]}
     return (
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route path='/' element={<PageAuctions />} />
+                <Route path='/' element={<PageOneAuction auction={auction}/>} />
                 <Route path='/authorization' element={<FormAuthorization />} />
                 <Route path='/authorization/registration' element={<FormRegistration />} />
                 <Route path='/authorization/recovery' element={<FormRecoveryEntry />} />

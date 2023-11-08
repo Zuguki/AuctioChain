@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using AuctioChain.BL.Auctions;
 using AuctioChain.Controllers.Auction.Dto;
@@ -9,7 +7,6 @@ using AuctioChain.DAL.Models;
 using AuctioChain.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctioChain.Controllers.Auction;

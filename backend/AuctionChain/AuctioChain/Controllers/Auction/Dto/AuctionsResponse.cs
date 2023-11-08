@@ -7,6 +7,11 @@ namespace AuctioChain.Controllers.Auction.Dto;
 public class AuctionsResponse
 {
     /// <summary>
+    /// Id аукциона
+    /// </summary>
+    public Guid Id { get; init; }
+    
+    /// <summary>
     /// Название аукциона
     /// </summary>
     public string? Name { get; init; }
@@ -19,7 +24,7 @@ public class AuctionsResponse
     /// <summary>
     /// Количество лотов
     /// </summary>
-    public List<LotDal> Lots { get; init; } = null!;
+    public int LotsCount { get; init; }
     
     /// <summary>
     /// Картинка аукциона

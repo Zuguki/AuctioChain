@@ -1,4 +1,4 @@
-import {BrowserRouter, NavLink, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Link, NavLink, Route, Routes} from "react-router-dom";
 import FormAuthorization from "./pages/authorization/FormAuthorization/FormAuthorization.tsx";
 import FormRegistration from "./pages/authorization/FormRegistration/FormRegistration.tsx";
 import FormRecoveryEntry from "./pages/authorization/FormRecoveryEntry.tsx";
@@ -17,34 +17,13 @@ import PageOneAuction from "./pages/auction/PageOneAuction.tsx";
 import logo from './pages/auctions/ListAuctions/CardAuction/testPhoto.png'
 
 function App() {
-    useEffect(() => {
-        fetch('http://localhost:5121/api/v1/auctions', {
-            method: 'GET',
-            mode: 'no-cors'
-        }).then(el => console.log(el))
-    }, [])
-
-    const auction = {name: 'base_auuctio',
-        userName: 'user',
-        countLots: 25,
-        lots: [
-            {name: 'hi', img: {logo}, description: 'dffd', price: 120},
-            {name: 'hi', img: {logo}, description: 'dffd', price: 120},
-            {name: 'hi', img: {logo}, description: 'dffd', price: 120}
-        ]}
     return (
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route path='/' element={<PageOneAuction auction={auction}/>} />
-                <Route path='/authorization' element={<FormAuthorization />} />
-                <Route path='/authorization/registration' element={<FormRegistration />} />
-                <Route path='/authorization/recovery' element={<FormRecoveryEntry />} />
-                <Route path='/authorization/recovery/code' element={<FormRecoverCode />} />
-                <Route path='/authorization/recovery/newPassword' element={<FormNewPassword />} />
-            </Routes>
-            <Routes>
-                <Route path='/test' element={<p>test</p>} />
+                <Route path='/' element={<Link to='/auctions'><button>click</button></Link>}/>
+                <Route path='/auctions' element={<PageAuctions />} />
+                <Route path='/auction/:id' element={<PageOneAuction />} />
             </Routes>
         </BrowserRouter>
     )

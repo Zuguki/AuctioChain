@@ -6,12 +6,13 @@ import Pagination from "../../../components/UI/Pagination/Pagination.tsx";
 import styleList from "./listLot.module.css";
 
 const ListLot = ({lots}) => {
+    console.log(lots)
     return (
         <div>
             <div className={styleList.position}>
                 {lots.map((lot): ReactElement => <CardLot key={lot.id} lot={lot}/>)}
             </div>
-            <Pagination endPage={10} sendCurrentPage={() => ({})}/>
+            {lots.length !== 0 && <Pagination endPage={10} sendCurrentPage={() => ({})}/>}
         </div>
     );
 };

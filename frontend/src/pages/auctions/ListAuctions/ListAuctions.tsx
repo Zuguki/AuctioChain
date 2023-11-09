@@ -1,57 +1,39 @@
-import {FC, ReactElement} from 'react';
+import {FC, ReactElement, useEffect, useState} from 'react';
 import ICardAuction from "./CardAuction/ICardAuction.ts";
 import CardAuction from "./CardAuction/CardAuction.tsx";
 import styleList from './listAuctions.module.css'
 import Pagination from "../../../components/UI/Pagination/Pagination.tsx";
+import axios from 'axios';
+import {IElementAuctions} from "../../../interfaces/auctionsTypes.ts";
 
 const ListAuctions: FC = () => {
-    const auctions: ICardAuction[] = [{
-        id: 'sdsdsd',
-        name: 'string',
-        img: 'string',
-        description: 'string',
-        countPersons: 25,
-        dataEnd: 'string'
-    },{
-        id: 'sdsdsd1',
-        name: 'string',
-        img: 'string',
-        description: 'aknksssssssssssssss;dddddddddddddddddddddddddddddddddd/;fvsfvbmgcfcggggggggggggggggggggggggggggggg',
-        countPersons: 25,
-        dataEnd: 'string'
-    }, {
-        id: 'sdsdsd2',
-        name: 'string',
-        img: 'string',
-        description: 'string',
-        countPersons: 25,
-        dataEnd: 'string'
-    }, {
-        id: 'sdsdsd3',
-        name: 'string',
-        img: 'string',
-        description: 'string',
-        countPersons: 25,
-        dataEnd: 'string'
-    }, {
-        id: 'sdsdsd4',
-        name: 'string',
-        img: 'string',
-        description: 'string',
-        countPersons: 25,
-        dataEnd: 'string'
-    }];
-    const a = (page) => {
-        console.log(page)
-    }
-    
+    const [auctions, setAuctions] = useState<IElementAuctions[]>([]);
+    const [currentPage, seCurrentPage] = useState<number>(1);
+    console.log('l', auctions.length)
+    useEffect(() => {
+        axios.get('http://localhost:5121/api/v1/auctions')
+            .then((result) => setAuctions(() => result.data.auctions))
+    }, []);
+
+    useEffect(() => {
+        console.log(currentPage)
+    }, [currentPage]);
+
     return (
         // change
         <div>
             <div className={styleList.position}>
-                {auctions.map((auction: ICardAuction): ReactElement => <CardAuction key={auction.id} auction={auction}/>)}
+                {auctions.filter((_, index) => {
+                    console.log(index, index / 6)
+                    return (Math.floor(index / 6) + 1) === currentPage;
+                }).map((auction: IElementAuctions): ReactElement =>
+                    <CardAuction
+                        key={auction.id}
+                        auction={auction}
+                    />)}
             </div>
-            <Pagination endPage={10} sendCurrentPage={a}/>
+            {auctions.length !== 0 && <Pagination endPage={Math.ceil(auctions.length / 6)}
+                                                  sendCurrentPage={(page: number) => seCurrentPage(() => page)}/>}
         </div>
     );
 };

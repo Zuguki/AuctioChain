@@ -17,8 +17,17 @@
     font-weight: 700;
 }
 
-.date {
+.information {
     color: #818080;
     font-size: 18px;
     line-height: 18px;
+}
+
+.description {
+    font-weight: bold;
+}
+
+.blockInformation {
+    word-break: break-word;
+    width: 60%;
 }

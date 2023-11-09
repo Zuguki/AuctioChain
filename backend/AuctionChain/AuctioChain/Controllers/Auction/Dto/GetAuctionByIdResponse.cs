@@ -22,11 +22,6 @@ public class GetAuctionByIdResponse
     public string? Description { get; init; }
 
     /// <summary>
-    /// Лоты аукциона
-    /// </summary>
-    public List<LotDal> Lots { get; init; } = null!;
-    
-    /// <summary>
     /// Картинка аукциона
     /// </summary>
     public string? Image { get; init; }

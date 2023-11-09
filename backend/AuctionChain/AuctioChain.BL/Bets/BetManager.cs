@@ -37,7 +37,7 @@ public class BetManager : IBetManager
         if (lot.IsPurchased)
             return Result.Fail("По данному лоту запрещено делать ставки, т.к. он выкуплен");
 
-        if (amount is not null && amount < lot.Bets.Max(b => b.Amount) + lot.BetStep ||
+        if (amount is not null && lot.Bets.Count > 0 && amount < lot.Bets.Max(b => b.Amount) + lot.BetStep ||
             amount is not null && lot.Bets.Count > 0 && amount <= lot.Bets.Max(b => b.Amount)) 
             return Result.Fail("Ставка должна быть больше");
 

@@ -77,7 +77,7 @@ public class LotDal
     /// <summary>
     /// Выкуплен ли лот
     /// </summary>
-    public bool IsPurchased => Bets.Count > 0 && Bets.Max(b => b.Amount) == BuyoutPrice;
+    public bool IsPurchased => Bets.Count > 0 && Bets.Max(b => b.Amount) >= BuyoutPrice;
 
     /// <summary>
     /// .ctor

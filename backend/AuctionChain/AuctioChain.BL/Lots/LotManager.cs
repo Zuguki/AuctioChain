@@ -20,7 +20,7 @@ public class LotManager : ILotManager
 
     public Task<Result<IEnumerable<LotDal>>> GetByIdAsync(Guid auctionId)
     {
-        var lots = (IEnumerable<LotDal>) _context.Lots.Where(lot => lot.AuctionId == auctionId);
+        var lots = (IEnumerable<LotDal>) _context.Lots.Include(f => f.Bets).Where(lot => lot.AuctionId == auctionId);
         return Task.FromResult(Result.Ok(lots));
     }
 

@@ -1,4 +1,5 @@
-﻿using AuctioChain.Controllers.Lot.Dto;
+﻿using System.Linq;
+using AuctioChain.Controllers.Lot.Dto;
 using AuctioChain.DAL.Models;
 using AutoMapper;
 
@@ -10,6 +11,8 @@ public class GetLotResponseProfile : Profile
     {
         CreateMap<DeleteLotRequest, LotDal>().ReverseMap();
         CreateMap<GetLotsRequest, LotDal>().ReverseMap();
+        CreateMap<LotDal, LotResponse>()
+            .ForMember(nameof(LotResponse.CurrentMaxBet), cfg => cfg.MapFrom(src => src.Bets.Count > 0 ? src.Bets.Max(j => j.Amount) : default));
         CreateMap<CreateLotRequest, LotDal>()
             .ForMember(nameof(LotDal.AuctionId), cfg => cfg.MapFrom(src => src.AuctionId))
             .ReverseMap();

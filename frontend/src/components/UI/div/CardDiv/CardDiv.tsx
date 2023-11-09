@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import {IBaseCard, IPropsCardDiv} from "../../../../interfaces/baseCard.tsx";
 function CardDiv<T extends IBaseCard>({objCard, children} : IPropsCardDiv<T>): ReactElement {
     const {name, image, description, id} = objCard;
+
     return (
         <div className={styleCard.card}>
             <h5 className={styleCard.title}>

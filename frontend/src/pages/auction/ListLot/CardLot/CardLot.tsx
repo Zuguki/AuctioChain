@@ -5,12 +5,12 @@ import {ILot} from "../../../../interfaces/lotsTypes.ts";
 import {IBaseCard, IObjCard} from "../../../../interfaces/baseCard.tsx";
 
 const CardLot = ({lot}: {lot: ILot}) => {
-    const { buyoutPrice } = lot;
+    const { buyoutPrice, id, name, description } = lot;
     const lotObjCard: IObjCard<IBaseCard> = {
-        id: lot.id,
+        id,
         image: lot.images[0],
-        name: lot.name,
-        description: lot.description
+        name,
+        description
     };
 
     return (

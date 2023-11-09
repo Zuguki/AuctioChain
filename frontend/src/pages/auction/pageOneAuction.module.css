@@ -11,14 +11,24 @@
     margin: 0 165px;
 }
 
-.countLots {
+.informationLots {
     color: #818080;
     font-size: 24px;
     font-weight: 700;
+    margin-left: 165px;
 }
 
-.date {
+.information {
     color: #818080;
     font-size: 18px;
     line-height: 18px;
+}
+
+.description {
+    font-weight: bold;
+}
+
+.blockInformation {
+    word-break: break-word;
+    width: 60%;
 }

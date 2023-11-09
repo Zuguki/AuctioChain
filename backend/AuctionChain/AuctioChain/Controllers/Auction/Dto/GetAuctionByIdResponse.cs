@@ -7,10 +7,30 @@ namespace AuctioChain.Controllers.Auction.Dto;
 public class GetAuctionByIdResponse
 {
     /// <summary>
+    /// Id аукциона
+    /// </summary>
+    public Guid Id { get; init; }
+    
+    /// <summary>
     /// Название аукциона
     /// </summary>
     public string? Name { get; init; }
+    
+    /// <summary>
+    /// Описание аукциона
+    /// </summary>
+    public string? Description { get; init; }
 
+    /// <summary>
+    /// Картинка аукциона
+    /// </summary>
+    public string? Image { get; init; }
+
+    /// <summary>
+    /// Id владельца аукциона
+    /// </summary>
+    public Guid? UserId { get; init; } = null!;
+    
     /// <summary>
     /// Дата начала аукциона
     /// </summary>
@@ -25,4 +45,5 @@ public class GetAuctionByIdResponse
     /// Статус аукциона
     /// </summary>
     public AuctionStatus Status { get; init; }
+
 }

@@ -121,8 +121,7 @@ public class LotsController : ControllerBase
             return BadRequest("Передан некорректный идентификатор ауцкиона");
 
         var result = await _lotManager.GetByIdAsync(request.AuctionId);
-        var responseList = result.Value.ToList();
-        var response = new GetLotsResponse {Lots = responseList};
+        var response = new GetLotsResponse {Lots = result.Value.Select(r => _mapper.Map<LotResponse>(r))};
         return Ok(response);
     }
 }

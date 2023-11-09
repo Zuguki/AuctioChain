@@ -27,14 +27,14 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public Task<Result<IEnumerable<AuctionDal>>> GetAllAsync()
     {
-        var result = (IEnumerable<AuctionDal>) _context.Auctions.ToList();
+        var result = (IEnumerable<AuctionDal>) _context.Auctions.Include(a => a.Lots).ToList();
         return Task.FromResult(Result.Ok(result));
     }
 
     /// <inheritdoc />
     public async Task<Result<AuctionDal>> GetByIdAsync(Guid id)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == id);
+        var auction = await _context.Auctions.Include(a => a.Lots).FirstOrDefaultAsync(auc => auc!.Id == id);
         if (auction is null)
             return Result.Fail("Аукцион не найден");
 

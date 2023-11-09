@@ -2,13 +2,16 @@ import React from 'react';
 import imgLot from './test-lot.png';
 import styleLot from './pageLot.module.css';
 import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
-const PageLot = ({nameAuction}) => {
+import {useParams} from "react-router-dom";
+
+const PageLot = () => {
+    const {id} = useParams();
     return (
         <>
             <div className={styleLot.left}>
                 <img className={styleLot.img} src={imgLot} alt='img-lot'/>
                 <p className={styleLot.auxiliaryText}>Владелец: <span className={styleLot.textUser}>@user</span></p>
-                <p className={styleLot.auxiliaryText}>Лот: {nameAuction}</p>
+                <p className={styleLot.auxiliaryText}>Лот: {id}</p>
                 <p className={styleLot.protectedText}>Все права защищены.</p>
             </div>
             <div className={styleLot.right}>

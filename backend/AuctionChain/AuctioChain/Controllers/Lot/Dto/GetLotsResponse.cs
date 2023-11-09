@@ -10,5 +10,5 @@ public class GetLotsResponse
     /// Лоты по аукциону
     /// </summary>
     [JsonPropertyName("lots")]
-    public IEnumerable<LotDal> Lots { get; set; }
+    public IEnumerable<LotResponse> Lots { get; set; }
 }

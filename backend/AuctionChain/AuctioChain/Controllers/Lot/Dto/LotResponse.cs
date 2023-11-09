@@ -10,54 +10,50 @@ public class LotResponse
     /// <summary>
     /// Id лота
     /// </summary>
-    [JsonPropertyName("id")]
     public Guid Id { get; set; }
     
     /// <summary>
     /// Id аукциона
     /// </summary>
-    [JsonPropertyName("auctionId")]
     public Guid AuctionId { get; set; }
     
     /// <summary>
     /// Название лота
     /// </summary>
-    [JsonPropertyName("name")]
     public string? Name { get; set; }
     
     /// <summary>
     /// Описание лота
     /// </summary>
-    [JsonPropertyName("description")]
     public string? Description { get; set; }
     
     /// <summary>
     /// Шаг ставки
     /// </summary>
-    [JsonPropertyName("betStep")]
     public decimal BetStep { get; set; }
     
     /// <summary>
     /// Стоимость выкупа
     /// </summary>
-    [JsonPropertyName("buyoutPrice")]
     public decimal? BuyoutPrice { get; set; }
     
     /// <summary>
     /// Код лота
     /// </summary>
-    [JsonPropertyName("code")]
     public string? Code { get; set; }
 
     /// <summary>
-    /// Ставки на лот
+    /// Максимальная ставка
     /// </summary>
-    [JsonPropertyName("bets")]
-    public List<BetResponse> Bets { get; set; } = new();
+    public decimal? CurrentMaxBet { get; set; }
 
     /// <summary>
     /// Изображения лота
     /// </summary>
-    [JsonPropertyName("images")]
     public List<string>? Images { get; set; } = new();
+
+    /// <summary>
+    /// Выкуплен ли лот
+    /// </summary>
+    public bool IsPurchased { get; set; }
 }

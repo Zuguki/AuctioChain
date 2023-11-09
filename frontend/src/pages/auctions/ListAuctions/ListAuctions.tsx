@@ -9,24 +9,16 @@ import {IElementAuctions} from "../../../interfaces/auctionsTypes.ts";
 const ListAuctions: FC = () => {
     const [auctions, setAuctions] = useState<IElementAuctions[]>([]);
     const [currentPage, seCurrentPage] = useState<number>(1);
-    console.log('l', auctions.length)
     useEffect(() => {
         axios.get('http://localhost:5121/api/v1/auctions')
             .then((result) => setAuctions(() => result.data.auctions))
     }, []);
 
-    useEffect(() => {
-        console.log(currentPage)
-    }, [currentPage]);
-
     return (
         // change
         <div>
             <div className={styleList.position}>
-                {auctions.filter((_, index) => {
-                    console.log(index, index / 6)
-                    return (Math.floor(index / 6) + 1) === currentPage;
-                }).map((auction: IElementAuctions): ReactElement =>
+                {auctions.filter((_, index) => (Math.floor(index / 6) + 1) === currentPage).map((auction: IElementAuctions): ReactElement =>
                     <CardAuction
                         key={auction.id}
                         auction={auction}

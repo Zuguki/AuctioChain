@@ -16,6 +16,7 @@ import axios from "axios";
 import PageOneAuction from "./pages/auction/PageOneAuction.tsx";
 import logo from './pages/auctions/ListAuctions/CardAuction/testPhoto.png'
 import PageLot from "./pages/lot/PageLot.tsx";
+import Spinner from "./components/UI/Spinner/Spinner.tsx";
 
 function App() {
     return (

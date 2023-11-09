@@ -5,6 +5,7 @@ import stylePage from './pageOneAuction.module.css';
 import {BaseAuction, IAuction, IElementAuctions} from "../../interfaces/auctionsTypes.ts";
 import {useParams} from "react-router-dom";
 import axios from "axios";
+import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 
 
 const PageOneAuction = () => {
@@ -25,9 +26,8 @@ const PageOneAuction = () => {
     return (
         <>
         {isLoading ? (
-            <div className="spinner-border text-primary"  role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>) : (<div>
+            <Spinner />
+        ) : (<div>
             <div className={stylePage.position}>
                 <h1 className={stylePage.title}>Аукцион "{name}"</h1>
                 <h3 className={stylePage.userName}>@{userId}</h3>

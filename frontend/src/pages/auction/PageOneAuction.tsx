@@ -15,10 +15,12 @@ const PageOneAuction = () => {
         setIsLoading(() => true);
         axios.get(`http://localhost:5121/api/v1/auctions/id?AuctionId=${id}`)
             .then((el) => setAuction(() => el.data))
-            .then(() => setIsLoading(() => false))
+            .then(() => setIsLoading(() => false));
     }, [id]);
-
-    const {name, description, userId, lots, dateStart, dateEnd} = auction;
+    useEffect(() => {
+        console.log(auction);
+    }, [auction]);
+    const {name, userId} = auction;
 
     return (
         <>
@@ -29,21 +31,25 @@ const PageOneAuction = () => {
             <div className={stylePage.position}>
                 <h1 className={stylePage.title}>Аукцион "{name}"</h1>
                 <h3 className={stylePage.userName}>@{userId}</h3>
-                <div className={stylePage.blockInformation}>
-                    <p className={stylePage.information}>Дата начала: {dateStart}</p>
-                    <p className={stylePage.information}>Дата окончания: {dateEnd}</p>
-                    <p className={`${stylePage.information} ${stylePage.description}`} >Описание:</p>
-                    <p className={stylePage.information}>{description}</p>
-                </div>
-
+                <InformationAuction auction={auction} />
                 <Hr />
                 <h2>Лоты</h2>
-                <p className={stylePage.countLots}>Количество лотов: {0}</p>
             </div>
-            <ListLot lots={lots} />
+            <ListLot id={id} />
         </div>)}
         </>
     );
 };
 
+const InformationAuction = ({auction} : {auction: IAuction}) => {
+    const { description, dateStart, dateEnd} = auction;
+    return (
+        <div className={stylePage.blockInformation}>
+            <p className={stylePage.information}>Дата начала: {dateStart}</p>
+            <p className={stylePage.information}>Дата окончания: {dateEnd}</p>
+            <p className={`${stylePage.information} ${stylePage.description}`} >Описание:</p>
+            <p className={stylePage.information}>{description}</p>
+        </div>
+    );
+}
 export default PageOneAuction;

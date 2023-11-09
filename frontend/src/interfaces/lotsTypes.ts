@@ -1,15 +1,18 @@
-/*
-interface ElementLots {
-    auction: null,
+interface Lot {
+    id: string,
     auctionId: string,
+    name: string,
+    description: string,
     betStep: number,
-    bets: [],
     buyoutPrice: number,
     code: string,
-    description: string,
-    id: string,
-    images: [],
-    isPurchased: false,
-    name: string
+    currentMaxBet: number,
+    images: string[],
+    isPurchased: boolean
 }
-*/
+
+type ILot = Readonly<Lot>
+
+export {
+    type ILot
+}

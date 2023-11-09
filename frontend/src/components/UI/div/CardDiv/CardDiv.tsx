@@ -3,16 +3,7 @@ import styleCard from "./cardDiv.module.css";
 import logo from "../../../../pages/auctions/ListAuctions/CardAuction/testPhoto.png";
 import ButtonCard from "./ButtonCard/ButtonCard.tsx";
 import {Link} from "react-router-dom";
-
-interface IBaseCard {
-    name: string;
-    image: string;
-    description: string;
-    id: string;
-}
-
-type IPropsCardDiv<T extends IBaseCard> = { objCard: Pick<T, 'name'| 'image'| 'description'| 'id'>, children: ReactNode};
-
+import {IBaseCard, IPropsCardDiv} from "../../../../interfaces/baseCard.tsx";
 function CardDiv<T extends IBaseCard>({objCard, children} : IPropsCardDiv<T>): ReactElement {
     const {name, image, description, id} = objCard;
     return (

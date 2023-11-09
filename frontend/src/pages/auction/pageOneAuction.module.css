@@ -11,10 +11,11 @@
     margin: 0 165px;
 }
 
-.countLots {
+.informationLots {
     color: #818080;
     font-size: 24px;
     font-weight: 700;
+    margin-left: 165px;
 }
 
 .information {

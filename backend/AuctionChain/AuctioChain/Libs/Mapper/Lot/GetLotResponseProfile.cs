@@ -1,13 +1,10 @@
-<<<<<<< HEAD
-﻿using AuctioChain.Controllers.PageLot.Dto;
-=======
-﻿using System.Linq;
+using System.Linq;
 using AuctioChain.Controllers.Lot.Dto;
->>>>>>> develop
+using AuctioChain.Controllers.PageLot.Dto;
 using AuctioChain.DAL.Models;
 using AutoMapper;
 
-namespace AuctioChain.Libs.Mapper.PageLot;
+namespace AuctioChain.Libs.Mapper.Lot;
 
 public class GetLotResponseProfile : Profile
 {

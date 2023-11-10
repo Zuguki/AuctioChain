@@ -6,22 +6,20 @@ import {BaseAuction, IAuction, IElementAuctions} from "../../interfaces/auctions
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
+import useGetAPI from "../../hooks/useGetAPI.ts";
 
 
 const PageOneAuction = () => {
     const { id} = useParams();
-    const [auction, setAuction] = useState<IAuction>(BaseAuction);
-    const [isLoading, setIsLoading] = useState(false)
-    useEffect(() => {
-        setIsLoading(() => true);
-        axios.get(`http://localhost:5121/api/v1/auctions/id?AuctionId=${id}`)
-            .then((el) => setAuction(() => el.data))
-            .then(() => setIsLoading(() => false));
-    }, [id]);
-    useEffect(() => {
-        console.log(auction);
-    }, [auction]);
+    const [auction, setAuction] = useState(BaseAuction);
+    const {data, err, isLoading} = useGetAPI<IAuction>(`http://localhost:5121/api/v1/auctions/id?AuctionId=${id}`);
+
     const {name, userId} = auction;
+    useEffect(() => {
+        if (data) {
+            setAuction(() => data)
+        }
+    }, [data]);
 
     return (
         <>

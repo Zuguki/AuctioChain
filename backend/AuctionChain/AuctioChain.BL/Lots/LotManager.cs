@@ -33,6 +33,16 @@ public class LotManager : ILotManager
         return Task.FromResult(Result.Ok(response));
     }
 
+    public async Task<Result<LotResponse>> GetLotByIdAsync(GetLotByIdRequest request)
+    {
+        var lot = await _context.Lots.FirstOrDefaultAsync(l => l.Id == request.LotId);
+        if (lot is null)
+            return Result.Fail("Лот не найден");
+
+        var response = _mapper.Map<LotResponse>(lot);
+        return Result.Ok(response);
+    }
+
     public async Task<Result> CreateAsync(CreateLotRequest request)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(i => i.Id == request.AuctionId);

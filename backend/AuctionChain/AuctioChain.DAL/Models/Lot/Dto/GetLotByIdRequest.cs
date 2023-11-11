@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace AuctioChain.DAL.Models.Lot.Dto;
 
-public class GetLotsRequest
+public class GetLotByIdRequest
 {
     /// <summary>
-    /// Идентификатор ауцкиона
+    /// Id лота
     /// </summary>
-    [JsonPropertyName("auctionId")]
+    [JsonPropertyName("lotId")]
     [Required]
-    public Guid AuctionId { get; init; }
+    public Guid LotId { get; set; }
 }

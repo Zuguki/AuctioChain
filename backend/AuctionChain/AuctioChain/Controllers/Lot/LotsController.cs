@@ -107,12 +107,22 @@ public class LotsController : ControllerBase
     /// Получение списка лотов по идентификатору аукциона
     /// </summary>
     [HttpGet]
-    public async Task<IActionResult> GetLotsByAuctionIdAsync([FromQuery] GetLotsRequest? request)
+    public async Task<IActionResult> GetLotsByAuctionIdAsync([FromQuery] GetLotsRequest request)
     {
-        if (request is null || request.AuctionId == Guid.Empty)
+        if (!ModelState.IsValid)
             return BadRequest("Передан некорректный идентификатор ауцкиона");
 
         var result = await _lotManager.GetByIdAsync(request);
+        return Ok(result.Value);
+    }
+
+    [HttpGet("id")]
+    public async Task<IActionResult> GetLotByIdAsync([FromQuery] GetLotByIdRequest request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest("Передан некорректный идентификатор лота");
+
+        var result = await _lotManager.GetLotByIdAsync(request);
         return Ok(result.Value);
     }
 }

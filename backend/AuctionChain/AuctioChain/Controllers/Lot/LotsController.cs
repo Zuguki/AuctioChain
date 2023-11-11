@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Lots;
-using AuctioChain.DAL.Models;
 using AuctioChain.DAL.Models.Lot;
 using AuctioChain.DAL.Models.Lot.Dto;
-using AutoMapper;
-using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,12 +17,10 @@ namespace AuctioChain.Controllers.Lot;
 public class LotsController : ControllerBase
 {
     private readonly ILotManager _lotManager;
-    private readonly IMapper _mapper;
 
-    public LotsController(ILotManager lotManager, IMapper mapper)
+    public LotsController(ILotManager lotManager)
     {
         _lotManager = lotManager;
-        _mapper = mapper;
     }
 
     /// <summary>
@@ -54,8 +48,7 @@ public class LotsController : ControllerBase
         if (string.IsNullOrWhiteSpace(request.Description))
             return BadRequest("Передано пустое описание лота");
 
-        var lot = _mapper.Map<LotDal>(request);
-        var result = await _lotManager.CreateAsync(lot);
+        var result = await _lotManager.CreateAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -72,7 +65,7 @@ public class LotsController : ControllerBase
         if (request.LotId == Guid.Empty)
             return BadRequest("Передан некорректный идентификатор лота");
 
-        var result = await _lotManager.DeleteAsync(request.LotId);
+        var result = await _lotManager.DeleteAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -104,8 +97,7 @@ public class LotsController : ControllerBase
         if (string.IsNullOrWhiteSpace(request.Description))
             return BadRequest("Передано пустое описание лота");
 
-        var model = _mapper.Map<LotDal>(request);
-        var result = await _lotManager.UpdateAsync(model);
+        var result = await _lotManager.UpdateAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -121,8 +113,7 @@ public class LotsController : ControllerBase
         if (request is null || request.AuctionId == Guid.Empty)
             return BadRequest("Передан некорректный идентификатор ауцкиона");
 
-        var result = await _lotManager.GetByIdAsync(request.AuctionId);
-        var response = new GetLotsResponse {Lots = result.Value.Select(r => _mapper.Map<LotResponse>(r))};
-        return Ok(response);
+        var result = await _lotManager.GetByIdAsync(request);
+        return Ok(result);
     }
 }

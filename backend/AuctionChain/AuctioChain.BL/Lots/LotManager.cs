@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
-using AuctioChain.DAL.Models;
 using AuctioChain.DAL.Models.Lot;
+using AuctioChain.DAL.Models.Lot.Dto;
+using AutoMapper;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,29 +13,37 @@ namespace AuctioChain.BL.Lots;
 public class LotManager : ILotManager
 {
     private readonly DataContext _context;
+    private readonly IMapper _mapper;
 
-    public LotManager(DataContext context)
+    /// <summary>
+    /// .ctor
+    /// </summary>
+    public LotManager(DataContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
-    public Task<Result<IEnumerable<LotDal>>> GetByIdAsync(Guid auctionId)
+    public Task<Result<GetLotsResponse>> GetByIdAsync(GetLotsRequest request)
     {
-        var lots = (IEnumerable<LotDal>) _context.Lots.Include(f => f.Bets).Where(lot => lot.AuctionId == auctionId);
-        return Task.FromResult(Result.Ok(lots));
+        var lots = (IEnumerable<LotDal>) _context.Lots.Include(f => f.Bets)
+            .Where(lot => lot.AuctionId == request.AuctionId);
+
+        var response = new GetLotsResponse {Lots = lots.Select(l => _mapper.Map<LotResponse>(l))};
+        return Task.FromResult(Result.Ok(response));
     }
 
-    public async Task<Result> CreateAsync(LotDal model)
+    public async Task<Result> CreateAsync(CreateLotRequest request)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(i => i.Id == model.AuctionId);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(i => i.Id == request.AuctionId);
         if (auction is null)
             return Result.Fail("Аукцион с переданным идентификатором не найден");
         
         if (!auction.IsEditable)
             return Result.Fail("Данный аукцион нельзя редактировать");
 
-        var lot = new LotDal(model.AuctionId, model.Name, model.Description, model.Code, model.BetStep,
-            model.BuyoutPrice);
+        var lot = new LotDal(request.AuctionId, request.Name, request.Description, request.Code, request.BetStep,
+            request.BuyoutPrice);
 
         await _context.Lots.AddAsync(lot);
         await _context.SaveChangesAsync();
@@ -43,9 +51,9 @@ public class LotManager : ILotManager
         return Result.Ok();
     }
 
-    public async Task<Result> DeleteAsync(Guid id)
+    public async Task<Result> DeleteAsync(DeleteLotRequest request)
     {
-        var lot = await _context.Lots.Include(l => l.Auction).FirstOrDefaultAsync(lo => lo.Id == id);
+        var lot = await _context.Lots.Include(l => l.Auction).FirstOrDefaultAsync(lo => lo.Id == request.LotId);
         if (lot is null)
             return Result.Ok();
 
@@ -58,9 +66,9 @@ public class LotManager : ILotManager
         return Result.Ok();
     }
 
-    public async Task<Result> UpdateAsync(LotDal model)
+    public async Task<Result> UpdateAsync(UpdateLotRequest request)
     {
-        var lot = await _context.Lots.Include(c => c.Auction).FirstOrDefaultAsync(l => l.Id == model.Id);
+        var lot = await _context.Lots.Include(c => c.Auction).FirstOrDefaultAsync(l => l.Id == request.LotId);
 
         if (lot is null)
             return Result.Fail("Данный лот не найден");
@@ -71,11 +79,11 @@ public class LotManager : ILotManager
         if (lot.IsPurchased)
             return Result.Fail("По данному лоту запрещено делать ставки, т.к. он выкуплен");
 
-        lot.Name = model.Name;
-        lot.Code = model.Code;
-        lot.Description = model.Description;
-        lot.BetStep = model.BetStep;
-        lot.BuyoutPrice = model.BuyoutPrice;
+        lot.Name = request.Name;
+        lot.Code = request.Code;
+        lot.Description = request.Description;
+        lot.BetStep = request.BetStep;
+        lot.BuyoutPrice = request.BuyoutPrice;
 
         await _context.SaveChangesAsync();
         return Result.Ok();

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AuctioChain.BL.Models;
-using AuctioChain.DAL.Models;
+﻿using System.Threading.Tasks;
 using AuctioChain.DAL.Models.Account;
+using AuctioChain.DAL.Models.Account.Dto;
 using FluentResults;
 
 namespace AuctioChain.BL.Accounts;
@@ -11,27 +8,21 @@ namespace AuctioChain.BL.Accounts;
 public interface IAccountManager
 {
     /// <summary>
-    /// Полуить все элементы
+    /// Авторизоваться
     /// </summary>
-    Task<Result<IEnumerable<ApplicationUser>>> GetAllAsync();
-    
-    /// <summary>
-    /// Получить модель по Id
-    /// </summary>
-    /// <param name="id">Id модели</param>
-    Task<Result<ApplicationUser>> GetByIdAsync(Guid id);
+    /// <param name="request">Модель авторизации</param>
+    Task<Result<AuthResponse>> Authenticate(AuthRequest request);
 
     /// <summary>
     /// Создать модель
     /// </summary>
-    /// <param name="appUser">Модель пользователя</param>
-    /// <param name="password">Пароль</param>
-    Task<Result> CreateAsync(ApplicationUser appUser, string password);
+    /// <param name="request">Модель регистрации</param>
+    Task<Result> CreateAsync(RegisterRequest request);
     
     /// <summary>
     /// Получить токен доступа и токен обновления
     /// </summary>
     /// <param name="appUser">Модель пользователя</param>
     /// <returns></returns>
-    Task<Result<TokenModel>> GetToken(ApplicationUser appUser);
+    Task<Result<TokenResponse>> GetToken(ApplicationUser appUser);
 }

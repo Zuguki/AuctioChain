@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Extensions;
-using AuctioChain.BL.Models;
 using AuctioChain.DAL.EF;
-using AuctioChain.DAL.Models;
 using AuctioChain.DAL.Models.Account;
+using AuctioChain.DAL.Models.Account.Dto;
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -44,9 +43,27 @@ public class AccountManager : IAccountManager
         return Result.Ok(user);
     }
 
-    public async Task<Result> CreateAsync(ApplicationUser appUser, string password)
+    public async Task<Result<AuthResponse>> Authenticate(AuthRequest request)
     {
-        var result = await _userManager.CreateAsync(appUser, password);
+        var appUser = await _userManager.FindByEmailAsync(request.Email);
+        if (appUser == null)
+            return Result.Fail("Email или пароль не верны");
+        
+        var isPasswordValid = await _userManager.CheckPasswordAsync(appUser, request.Password);
+        if (!isPasswordValid)
+            return Result.Fail("Email или пароль не верны");
+
+        var result = await GetToken(appUser);
+        if (result.IsFailed)
+            return Result.Fail(string.Join(", ", result.Reasons.Select(r => r.Message)));
+        
+        return Result.Ok(new AuthResponse {Token = result.Value.AccessToken, RefreshToken = result.Value.RefreshToken});
+    }
+
+    public async Task<Result> CreateAsync(RegisterRequest request)
+    {
+        var appUser = new ApplicationUser {Email = request.Email, UserName = request.Email};
+        var result = await _userManager.CreateAsync(appUser, request.Password);
 
         if (!result.Succeeded)
             return Result.Fail(string.Join(", ", result.Errors.Select(err => err.Description)));
@@ -59,16 +76,7 @@ public class AccountManager : IAccountManager
         return Result.Ok();
     }
 
-    public async Task<Result<ApplicationUser>> GetUserByName(string name)
-    {
-        var user = await _userManager.FindByNameAsync(name);
-        if (user is null)
-            return Result.Fail("Пользователь с таким именем не найден");
-
-        return Result.Ok(user);
-    }
-
-    public async Task<Result<TokenModel>> GetToken(ApplicationUser appUser)
+    public async Task<Result<TokenResponse>> GetToken(ApplicationUser appUser)
     {
         var user = await _userManager.FindByEmailAsync(appUser.Email!);
         if (user is null)
@@ -82,6 +90,6 @@ public class AccountManager : IAccountManager
         user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_configuration.GetSection("Jwt:RefreshTokenValidityInDays").Get<int>());
         
         await _context.SaveChangesAsync();
-        return Result.Ok(new TokenModel {AccessToken = accessToken, RefreshToken = user.RefreshToken});
+        return Result.Ok(new TokenResponse {AccessToken = accessToken, RefreshToken = user.RefreshToken});
     }
 }

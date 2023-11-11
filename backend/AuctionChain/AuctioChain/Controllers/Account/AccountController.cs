@@ -1,10 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Accounts;
-using AuctioChain.DAL.Models;
-using AuctioChain.DAL.Models.Account;
 using AuctioChain.DAL.Models.Account.Dto;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctioChain.Controllers.Account;
@@ -13,12 +10,10 @@ namespace AuctioChain.Controllers.Account;
 [Route("accounts")]
 public class AccountsController : ControllerBase
 {
-    private readonly UserManager<ApplicationUser> _userManager;
     private readonly IAccountManager _accountManager;
 
-    public AccountsController(UserManager<ApplicationUser> userManager, IAccountManager accountManager)
+    public AccountsController(IAccountManager accountManager)
     {
-        _userManager = userManager;
         _accountManager = accountManager;
     }
 
@@ -27,20 +22,12 @@ public class AccountsController : ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
-        
-        var appUser = await _userManager.FindByEmailAsync(request.Email);
-        if (appUser == null)
-            return BadRequest("Не верные данные");
-        
-        var isPasswordValid = await _userManager.CheckPasswordAsync(appUser, request.Password);
-        if (!isPasswordValid)
-            return BadRequest("Не верные данные");
 
-        var result = await _accountManager.GetToken(appUser);
-        if (result.IsFailed)
-            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+        var response = await _accountManager.Authenticate(request);
+        if (response.IsFailed)
+            return BadRequest(string.Join(", ", response.Reasons.Select(r => r.Message)));
 
-        return Ok(new AuthResponse {Token = result.Value.AccessToken, RefreshToken = result.Value.RefreshToken});
+        return Ok(response.Value);
     }
     
     [HttpPost("register")]
@@ -49,8 +36,7 @@ public class AccountsController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
         
-        var appUser = new ApplicationUser {Email = request.Email, UserName = request.Email};
-        var result = await _accountManager.CreateAsync(appUser, request.Password);
+        var result = await _accountManager.CreateAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 

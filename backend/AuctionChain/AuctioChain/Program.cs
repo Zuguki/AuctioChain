@@ -5,7 +5,7 @@ using AuctioChain.BL.Auctions;
 using AuctioChain.BL.Bets;
 using AuctioChain.BL.Lots;
 using AuctioChain.DAL.EF;
-using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Account;
 using AuctioChain.Libs.Serilog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

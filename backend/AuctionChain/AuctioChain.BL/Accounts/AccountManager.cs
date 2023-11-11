@@ -6,6 +6,7 @@ using AuctioChain.BL.Extensions;
 using AuctioChain.BL.Models;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Account;
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

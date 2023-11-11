@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Bets;
-using AuctioChain.Controllers.Bet.Dto;
+using AuctioChain.DAL.Models.Bet.Dto;
 using AuctioChain.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;

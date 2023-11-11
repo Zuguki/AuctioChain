@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Lot;
 using FluentResults;
 
 namespace AuctioChain.BL.Lots;

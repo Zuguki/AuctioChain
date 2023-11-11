@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Accounts;
-using AuctioChain.Controllers.Account.Dto;
 using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Account;
+using AuctioChain.DAL.Models.Account.Dto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

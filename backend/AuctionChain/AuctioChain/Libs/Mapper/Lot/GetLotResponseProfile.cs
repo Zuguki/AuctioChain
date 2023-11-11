@@ -1,6 +1,7 @@
 ﻿using System.Linq;
-using AuctioChain.Controllers.Lot.Dto;
 using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Lot;
+using AuctioChain.DAL.Models.Lot.Dto;
 using AutoMapper;
 
 namespace AuctioChain.Libs.Mapper.Lot;

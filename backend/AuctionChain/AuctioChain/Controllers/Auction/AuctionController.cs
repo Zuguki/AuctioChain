@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Auctions;
-using AuctioChain.Controllers.Auction.Dto;
 using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Auction;
+using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.Extensions;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,15 +18,13 @@ namespace AuctioChain.Controllers.Auction;
 [Route("api/v1/auctions")]
 public class AuctionController : ControllerBase
 {
-    private readonly IMapper _mapper;
     private readonly IAuctionManager _manager;
 
     /// <summary>
     /// .ctor
     /// </summary>
-    public AuctionController(IMapper mapper, IAuctionManager manager)
+    public AuctionController(IAuctionManager manager)
     {
-        _mapper = mapper;
         _manager = manager;
     }
 
@@ -43,13 +41,11 @@ public class AuctionController : ControllerBase
         if (request.DateStart >= request.DateEnd)
             return BadRequest("Дата завершения аукциона должна быть больше даты начала аукциона");
         
-        var auction = _mapper.Map<AuctionDal>(request);
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
             return Unauthorized();
 
-        auction.UserId = (Guid) userId;
-        await _manager.CreateAsync(auction);
+        await _manager.CreateAsync(request, (Guid) userId);
         return Ok();
     }
 
@@ -63,7 +59,7 @@ public class AuctionController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var result = await _manager.CancelAsync(request.AuctionId);
+        var result = await _manager.CancelAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -80,7 +76,7 @@ public class AuctionController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var result = await _manager.ChangeCreationStateAsync(request.AuctionId);
+        var result = await _manager.ChangeCreationStateAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -97,7 +93,7 @@ public class AuctionController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var result = await _manager.DeleteAsync(request.AuctionId);
+        var result = await _manager.DeleteAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -114,8 +110,7 @@ public class AuctionController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var auction = _mapper.Map<AuctionDal>(request);
-        var result = await _manager.UpdateAsync(auction);
+        var result = await _manager.UpdateAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -135,10 +130,7 @@ public class AuctionController : ControllerBase
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 
-        var response = new GetAuctionsResponse
-            {Auctions = result.Value.Select(a => _mapper.Map<AuctionsResponse>(a)).ToList()};
-        
-        return Ok(response);
+        return Ok(result.Value);
     }
 
     /// <summary>
@@ -150,11 +142,10 @@ public class AuctionController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var result = await _manager.GetByIdAsync(request.AuctionId);
+        var result = await _manager.GetByIdAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
-        var response = _mapper.Map<GetAuctionByIdResponse>(result.Value);
-        return Ok(response);
+        return Ok(result.Value);
     }
 }

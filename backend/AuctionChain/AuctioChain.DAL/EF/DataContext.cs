@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Account;
+using AuctioChain.DAL.Models.Auction;
+using AuctioChain.DAL.Models.Bet;
+using AuctioChain.DAL.Models.Lot;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

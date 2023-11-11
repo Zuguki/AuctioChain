@@ -6,6 +6,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Auction;
+using AuctioChain.DAL.Models.Auction.Dto;
+using AutoMapper;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,36 +18,42 @@ namespace AuctioChain.BL.Auctions;
 public class AuctionManager : IAuctionManager
 {
     private readonly DataContext _context;
+    private readonly IMapper _mapper;
 
     /// <summary>
     /// .ctor
     /// </summary>
-    public AuctionManager(DataContext context)
+    public AuctionManager(DataContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     /// <inheritdoc />
-    public Task<Result<IEnumerable<AuctionDal>>> GetAllAsync()
+    public Task<Result<GetAuctionsResponse>> GetAllAsync()
     {
-        var result = (IEnumerable<AuctionDal>) _context.Auctions.Include(a => a.Lots).ToList();
-        return Task.FromResult(Result.Ok(result));
+        var result = _context.Auctions.Include(a => a.Lots).ToList() as IEnumerable<AuctionDal>;
+        
+        var response = new GetAuctionsResponse {Auctions = result.Select(a => _mapper.Map<AuctionResponse>(a))};
+        return Task.FromResult(Result.Ok(response));
     }
 
     /// <inheritdoc />
-    public async Task<Result<AuctionDal>> GetByIdAsync(Guid id)
+    public async Task<Result<GetAuctionByIdResponse>> GetByIdAsync(GetAuctionByIdRequest request)
     {
-        var auction = await _context.Auctions.Include(a => a.Lots).FirstOrDefaultAsync(auc => auc!.Id == id);
+        var auction = await _context.Auctions.Include(a => a.Lots)
+            .FirstOrDefaultAsync(auc => auc.Id == request.AuctionId);
         if (auction is null)
             return Result.Fail("Аукцион не найден");
 
-        return Result.Ok(auction);
+        var response = _mapper.Map<GetAuctionByIdResponse>(auction);
+        return Result.Ok(response);
     }
 
     /// <inheritdoc />
-    public async Task<Result> CreateAsync(AuctionDal model)
+    public async Task<Result> CreateAsync(CreateAuctionRequest model, Guid userId)
     {
-        var auction = new AuctionDal(model.Name!, model.UserId, model.DateStart, model.DateEnd, model.Description,
+        var auction = new AuctionDal(model.Name!, userId, model.DateStart, model.DateEnd, model.Description,
             model.Image);
 
         await _context.Auctions.AddAsync(auction);
@@ -53,9 +62,9 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> DeleteAsync(Guid id)
+    public async Task<Result> DeleteAsync(DeleteAuctionRequest request)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == id);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == request.AuctionId);
 
         if (auction is null)
             return Result.Ok();
@@ -69,14 +78,14 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> UpdateAsync(AuctionDal model)
+    public async Task<Result> UpdateAsync(UpdateAuctionRequest model)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == model.Id);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == model.AuctionId);
         
         if (auction is null)
             return Result.Fail("Аукцион не найден");
         
-        if (!model.IsEditable)
+        if (!auction.IsEditable)
             return Result.Fail("Данный аукцион нельзя редактировать");
         
         auction.Name = model.Name;
@@ -88,21 +97,9 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public Task<Result<IEnumerable<AuctionDal>>> GetUserAuctions(Guid id)
+    public async Task<Result> ChangeCreationStateAsync(ChangeAuctionCreationStateRequest request)
     {
-        var result = (IEnumerable<AuctionDal>) _context.Auctions
-            .Include(a => a.Lots)
-            .Include(a => a.User)
-            .Where(auc => auc.UserId == id)
-            .ToList();
-        
-        return Task.FromResult(Result.Ok(result));
-    }
-
-    /// <inheritdoc />
-    public async Task<Result> ChangeCreationStateAsync(Guid id)
-    {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == id);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == request.AuctionId);
 
         if (auction is null)
             return Result.Fail("Аукцион найден");
@@ -116,9 +113,9 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> CancelAsync(Guid id)
+    public async Task<Result> CancelAsync(CancelAuctionRequest request)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == id);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == request.AuctionId);
 
         if (auction is null)
             return Result.Fail("Аукцион не найден");

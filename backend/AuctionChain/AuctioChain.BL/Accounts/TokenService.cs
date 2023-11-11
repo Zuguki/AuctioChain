@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using AuctioChain.BL.Extensions;
 using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 

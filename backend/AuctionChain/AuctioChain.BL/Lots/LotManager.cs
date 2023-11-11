@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Lot;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 

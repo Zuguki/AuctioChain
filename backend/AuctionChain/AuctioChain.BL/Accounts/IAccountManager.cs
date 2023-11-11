@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AuctioChain.BL.Models;
 using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Account;
 using FluentResults;
 
 namespace AuctioChain.BL.Accounts;

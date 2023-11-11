@@ -1,5 +1,6 @@
-﻿using AuctioChain.Controllers.Bet.Dto;
-using AuctioChain.DAL.Models;
+﻿using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Bet;
+using AuctioChain.DAL.Models.Bet.Dto;
 using AutoMapper;
 
 namespace AuctioChain.Libs.Mapper.Bet;

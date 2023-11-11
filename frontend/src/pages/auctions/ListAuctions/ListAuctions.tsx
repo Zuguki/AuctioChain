@@ -7,6 +7,7 @@ import axios from 'axios';
 import {IElementAuctions} from "../../../interfaces/auctionsTypes.ts";
 import useGetAPI from "../../../hooks/API/useGetAPI.ts";
 import Spinner from "../../../components/UI/Spinner/Spinner.tsx";
+import LogicDownload from "../../../components/LogicDownload/LogicDownload.tsx";
 
 const ListAuctions: FC = () => {
 
@@ -15,9 +16,8 @@ const ListAuctions: FC = () => {
 
     return (
         // change
-        <div>
-            {isLoading ? (<Spinner />
-            ) : (<>
+        <LogicDownload isLoading={isLoading}>
+            <>
                 <div className={styleList.position}>
                 {auctions.filter((_, index) => (Math.floor(index / 6) + 1) === currentPage).map((auction: IElementAuctions): ReactElement =>
                     <CardAuction
@@ -27,9 +27,8 @@ const ListAuctions: FC = () => {
                 </div>
                 {auctions.length !== 0 && <Pagination endPage={Math.ceil(auctions.length / 6)}
                                                   sendCurrentPage={(page: number) => setCurrentPage(() => page)} />}
-                </>
-    )}
-        </div>
+            </>
+        </LogicDownload>
     );
 };
 

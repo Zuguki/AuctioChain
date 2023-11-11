@@ -4,12 +4,12 @@ import logo from "../../../../pages/auctions/ListAuctions/CardAuction/testPhoto.
 import ButtonCard from "./ButtonCard/ButtonCard.tsx";
 import {Link, useLocation} from "react-router-dom";
 import {IBaseCard, IPropsCardDiv} from "../../../../interfaces/baseCard.tsx";
+
 function CardDiv<T extends IBaseCard>({objCard, children} : IPropsCardDiv<T>): ReactElement {
     const {name, image, description, id} = objCard;
     const { pathname} = useLocation();
-    console.log(pathname);
-    const path = pathname === '/auctions' ? '/auction' : '/lot'
-    console.log(path)
+    const path = pathname === '/auctions' ? '/auction' : '/lot';
+
     return (
         <div className={styleCard.card}>
             <h5 className={styleCard.title}>

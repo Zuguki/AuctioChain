@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import CardDiv from "../../../../components/UI/div/CardDiv/CardDiv.tsx";
 import styleCard from './cardLot.module.css'
 import {ILot} from "../../../../interfaces/lotsTypes.ts";
 import {IBaseCard, IObjCard} from "../../../../interfaces/baseCard.tsx";
 
-const CardLot = ({lot}: {lot: ILot}) => {
+const CardLot: FC<{lot: ILot}> = ({lot}) => {
     const { buyoutPrice, id, name, description } = lot;
     const lotObjCard: IObjCard<IBaseCard> = {
         id,

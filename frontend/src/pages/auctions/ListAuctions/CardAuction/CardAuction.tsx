@@ -6,7 +6,6 @@ import {FC} from "react";
 type InformationCardAuction = { lotsCount: number; dateEnd: string };
 type ICardAuction = { auction: IElementAuctions };
 const CardAuction: FC<ICardAuction> = ({ auction }) => {
-
     const {lotsCount, dateEnd}: InformationCardAuction = auction;
 
     return (

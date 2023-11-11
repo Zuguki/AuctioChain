@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {FC, ReactElement, useEffect, useState} from 'react';
 import SearcherAuction from "../../auctions/SearcherAuction/SearcherAuction.tsx";
 import ListAuctions from "../../auctions/ListAuctions/ListAuctions.tsx";
 import CardLot from "./CardLot/CardLot.tsx";
@@ -7,25 +7,25 @@ import styleList from "./listLot.module.css";
 import axios from "axios";
 import stylePage from "../pageOneAuction.module.css";
 import {ILot} from "../../../interfaces/lotsTypes.ts";
+import useGetAPI from "../../../hooks/API/useGetAPI.ts";
+import LogicDownload from "../../../components/LogicDownload/LogicDownload.tsx";
 
-const ListLot = ({id}) => {
-    const [lots, setLots] = useState<ILot[]>([]);
-    useEffect(() => {
-        axios.get(`http://localhost:5121/api/v1/auction/lots?AuctionId=${id}`)
-            .then((res) => setLots(res.data.lots))
-
-    }, []);
+const ListLot: FC<{ id: string}> = ({id}) => {
+    const { data: {lots}, isLoading, err} = useGetAPI<{ lots: ILot[] }>(`http://localhost:5121/api/v1/auction/lots?AuctionId=${id}`, { lots: [] });
     return (
-        <div>
-            {lots.length !== 0 ? (<>
-                <p className={stylePage.informationLots}>Количество лотов: {lots.length}</p>
-                <div className={styleList.position}>
-                    {lots.map((lot): ReactElement => <CardLot key={lot.id} lot={lot}/>)}
-                </div>
-                <Pagination endPage={10} sendCurrentPage={() => ({})}/>)
-            </>) : (<p className={stylePage.informationLots}>Лотов нет</p>)}
-
-        </div>
+        <LogicDownload isLoading={isLoading}>
+            <div>
+                {lots.length !== 0 ? (<>
+                    <p className={stylePage.informationLots}>Количество лотов: {lots.length}</p>
+                    <div className={styleList.position}>
+                        {lots.map((lot): ReactElement => <CardLot key={lot.id} lot={lot}/>)}
+                    </div>
+                    <Pagination endPage={10} sendCurrentPage={() => ({})}/>)
+                </>) : (
+                    <p className={stylePage.informationLots}>Лотов нет</p>
+                )}
+            </div>
+        </LogicDownload>
     );
 };
 

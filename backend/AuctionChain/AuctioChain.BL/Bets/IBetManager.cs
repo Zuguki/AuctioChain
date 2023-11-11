@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using AuctioChain.DAL.Models;
-using AuctioChain.DAL.Models.Bet;
 using AuctioChain.DAL.Models.Bet.Dto;
 using FluentResults;
 

@@ -57,6 +57,6 @@ public class BetsController : ControllerBase
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
-        return Ok(result);
+        return Ok(result.Value);
     }
 }

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Lots;
-using AuctioChain.DAL.Models.Lot;
 using AuctioChain.DAL.Models.Lot.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,26 +31,26 @@ public class LotsController : ControllerBase
     {
         if (request.AuctionId == Guid.Empty)
             return BadRequest("Передан некорректный идентификатор аукциона");
-        
+
         if (request.BetStep <= 0m)
             return BadRequest("Шаг ставки не может быть меньше или равен нуля");
-        
+
         if (request.BuyoutPrice <= 0m)
             return BadRequest("Стоимость выкупа не может быть меньше или равна нуля");
-        
+
         if (string.IsNullOrWhiteSpace(request.Code))
             return BadRequest("Передан пустой код");
-        
+
         if (string.IsNullOrWhiteSpace(request.Name))
             return BadRequest("Передано пустое название лота");
-        
+
         if (string.IsNullOrWhiteSpace(request.Description))
             return BadRequest("Передано пустое описание лота");
 
         var result = await _lotManager.CreateAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
-        
+
         return Ok();
     }
 
@@ -68,7 +67,7 @@ public class LotsController : ControllerBase
         var result = await _lotManager.DeleteAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
-        
+
         return Ok();
     }
 
@@ -81,26 +80,26 @@ public class LotsController : ControllerBase
     {
         if (request.LotId == Guid.Empty)
             return BadRequest("Передан некорректный идентификатор лота");
-        
+
         if (request.BetStep <= 0m)
             return BadRequest("Шаг ставки не может быть меньше или равен нуля");
-        
+
         if (request.BuyoutPrice <= 0m)
             return BadRequest("Стоимость выкупа не может быть меньше или равна нуля");
-        
+
         if (string.IsNullOrWhiteSpace(request.Code))
             return BadRequest("Передан пустой код");
-        
+
         if (string.IsNullOrWhiteSpace(request.Name))
             return BadRequest("Передано пустое название лота");
-        
+
         if (string.IsNullOrWhiteSpace(request.Description))
             return BadRequest("Передано пустое описание лота");
 
         var result = await _lotManager.UpdateAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
-        
+
         return Ok();
     }
 
@@ -114,6 +113,6 @@ public class LotsController : ControllerBase
             return BadRequest("Передан некорректный идентификатор ауцкиона");
 
         var result = await _lotManager.GetByIdAsync(request);
-        return Ok(result);
+        return Ok(result.Value);
     }
 }

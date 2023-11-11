@@ -10,15 +10,8 @@ import Spinner from "../../../components/UI/Spinner/Spinner.tsx";
 
 const ListAuctions: FC = () => {
 
-    const {data, isLoading, err} = useGetAPI<IElementAuctions[]>('http://localhost:5121/api/v1/auctions');
-    const [auctions, setAuctions] = useState<IElementAuctions[]>([]);
-    const [currentPage, seCurrentPage] = useState<number>(1);
-    useEffect(() => {
-        if (data) {
-            setAuctions(() => data.auctions);
-        }
-    }, [data]);
-    console.log(err)
+    const {data: {auctions}, isLoading, err} = useGetAPI<{auctions: IElementAuctions[]}>('http://localhost:5121/api/v1/auctions', {auctions: []});
+    const [currentPage, setCurrentPage] = useState<number>(1);
 
     return (
         // change
@@ -33,7 +26,7 @@ const ListAuctions: FC = () => {
                     />)}
                 </div>
                 {auctions.length !== 0 && <Pagination endPage={Math.ceil(auctions.length / 6)}
-                                                  sendCurrentPage={(page: number) => seCurrentPage(() => page)} />}
+                                                  sendCurrentPage={(page: number) => setCurrentPage(() => page)} />}
                 </>
     )}
         </div>

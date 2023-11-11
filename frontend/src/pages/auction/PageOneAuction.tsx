@@ -11,16 +11,8 @@ import useGetAPI from "../../hooks/useGetAPI.ts";
 
 const PageOneAuction = () => {
     const { id} = useParams();
-    const [auction, setAuction] = useState(BaseAuction);
-    const {data, err, isLoading} = useGetAPI<IAuction>(`http://localhost:5121/api/v1/auctions/id?AuctionId=${id}`);
-
+    const {data: auction, err, isLoading} = useGetAPI<IAuction>(`http://localhost:5121/api/v1/auctions/id?AuctionId=${id}`, BaseAuction);
     const {name, userId} = auction;
-    useEffect(() => {
-        if (data) {
-            setAuction(() => data)
-        }
-    }, [data]);
-
     return (
         <>
         {isLoading ? (

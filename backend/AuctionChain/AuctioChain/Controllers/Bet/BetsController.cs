@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AuctioChain.BL.Bets;
 using AuctioChain.DAL.Models.Bet.Dto;
 using AuctioChain.Extensions;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,12 +17,10 @@ namespace AuctioChain.Controllers.Bet;
 public class BetsController : ControllerBase
 {
     private readonly IBetManager _betManager;
-    private readonly IMapper _mapper;
 
-    public BetsController(IBetManager betManager, IMapper mapper)
+    public BetsController(IBetManager betManager)
     {
         _betManager = betManager;
-        _mapper = mapper;
     }
 
     /// <summary>
@@ -40,7 +37,7 @@ public class BetsController : ControllerBase
         if (userId is null)
             return Unauthorized();
 
-        var result = await _betManager.CreateAsync(request.LotId, (Guid) userId, request.Amount);
+        var result = await _betManager.CreateAsync(request, (Guid) userId);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -56,16 +53,10 @@ public class BetsController : ControllerBase
         if (request.LotId == Guid.Empty)
             return BadRequest("Передан некорректный формат данных");
 
-        var result = await _betManager.GetBetsByLotAsync(request.LotId);
+        var result = await _betManager.GetBetsByLotAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
-
-        var response = result.Value.Select(g => _mapper.Map<BetResponse>(g));
-        var res = new GetBetsByLotResponse
-        {
-            Bets = response
-        };
-
-        return Ok(res);
+        
+        return Ok(result);
     }
 }

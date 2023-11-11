@@ -11,8 +11,23 @@ interface Lot {
     isPurchased: boolean
 }
 
+const BaseLot: ILot = {
+    id: '',
+    auctionId: '',
+    name: '',
+    description: '',
+    betStep: 0,
+    buyoutPrice: 0,
+    code: '',
+    currentMaxBet: 0,
+    images: [],
+    isPurchased: false
+};
+
+
 type ILot = Readonly<Lot>
 
 export {
-    type ILot
+    type ILot,
+    BaseLot
 }

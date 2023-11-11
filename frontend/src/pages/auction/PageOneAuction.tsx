@@ -6,7 +6,7 @@ import {BaseAuction, IAuction, IElementAuctions} from "../../interfaces/auctions
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
-import useGetAPI from "../../hooks/useGetAPI.ts";
+import useGetAPI from "../../hooks/API/useGetAPI.ts";
 
 
 const PageOneAuction = () => {

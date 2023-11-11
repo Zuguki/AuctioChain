@@ -5,7 +5,7 @@ import styleList from './listAuctions.module.css'
 import Pagination from "../../../components/UI/Pagination/Pagination.tsx";
 import axios from 'axios';
 import {IElementAuctions} from "../../../interfaces/auctionsTypes.ts";
-import useGetAPI from "../../../hooks/useGetAPI.ts";
+import useGetAPI from "../../../hooks/API/useGetAPI.ts";
 import Spinner from "../../../components/UI/Spinner/Spinner.tsx";
 
 const ListAuctions: FC = () => {

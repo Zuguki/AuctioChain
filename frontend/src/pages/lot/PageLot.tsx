@@ -7,6 +7,7 @@ import useGetAPI from "../../hooks/API/useGetAPI.ts";
 import {BaseLot, ILot} from "../../interfaces/lotsTypes.ts";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
+import CloseButton from "../../components/UI/CloseButton/CloseButton.tsx";
 
 interface IPathLotPage {
     lot: ILot;
@@ -18,8 +19,11 @@ const PageLot: FC = () => {
     return (
         <LogicDownload isLoading={isLoading}>
            <div>
-               <LeftPathLotPage lot={lot} />
-               <RightPathLotPage lot={lot} />
+               <CloseButton />
+               <div className={styleLot.position}>
+                   <LeftPathLotPage lot={lot} />
+                   <RightPathLotPage lot={lot} />
+               </div>
            </div>
         </LogicDownload>
     );

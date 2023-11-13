@@ -1,13 +1,17 @@
+.position {
+    margin: 80px 150px 0 80px;
+}
+
 .left {
     float: left;
     width: 40%;
-    padding: 80px 0 0 80px;
+    margin-right: 60px;
 }
 
 .right {
     float: right;
-    width: 60%;
-    padding: 75px 150px 0 80px;
+    width: 55%;
+
 }
 
 .information {

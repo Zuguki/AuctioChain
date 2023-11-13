@@ -17,13 +17,19 @@ import PageOneAuction from "./pages/auction/PageOneAuction.tsx";
 import logo from './pages/auctions/ListAuctions/CardAuction/testPhoto.png'
 import PageLot from "./pages/lot/PageLot.tsx";
 import Spinner from "./components/UI/Spinner/Spinner.tsx";
+import CloseButton from "./components/UI/CloseButton/CloseButton.tsx";
 
 function App() {
     return (
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route path='/' element={<Link to='/auctions'><button>click</button></Link>}/>
+                <Route path='/' element={
+                    <>
+                        <Link to='/auctions'><button>click</button></Link>
+                        <CloseButton />
+                    </>
+                }/>
                 <Route path='/auctions' element={<PageAuctions />} />
                 <Route path='/auction/:id' element={<PageOneAuction />} />
                 <Route path={'/lot/:id'} element={<PageLot />} />

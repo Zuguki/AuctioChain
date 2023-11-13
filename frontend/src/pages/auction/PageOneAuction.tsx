@@ -8,6 +8,7 @@ import axios from "axios";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 import useGetAPI from "../../hooks/API/useGetAPI.ts";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
+import CloseButton from "../../components/UI/CloseButton/CloseButton.tsx";
 
 
 const PageOneAuction = () => {
@@ -18,6 +19,7 @@ const PageOneAuction = () => {
     return (
         <LogicDownload isLoading={isLoading}>
             <div>
+                <CloseButton />
                 <div className={stylePage.position}>
                     <h1 className={stylePage.title}>Аукцион "{name}"</h1>
                     <h3 className={stylePage.userName}>@{userId}</h3>

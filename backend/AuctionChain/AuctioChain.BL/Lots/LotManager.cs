@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
@@ -33,9 +34,9 @@ public class LotManager : ILotManager
         return Task.FromResult(Result.Ok(response));
     }
 
-    public async Task<Result<LotResponse>> GetLotByIdAsync(GetLotByIdRequest request)
+    public async Task<Result<LotResponse>> GetLotByIdAsync(Guid request)
     {
-        var lot = await _context.Lots.FirstOrDefaultAsync(l => l.Id == request.LotId);
+        var lot = await _context.Lots.FirstOrDefaultAsync(l => l.Id == request);
         if (lot is null)
             return Result.Fail("Лот не найден");
 

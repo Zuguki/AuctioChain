@@ -113,16 +113,25 @@ public class LotsController : ControllerBase
             return BadRequest("Передан некорректный идентификатор ауцкиона");
 
         var result = await _lotManager.GetByIdAsync(request);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+        
         return Ok(result.Value);
     }
 
-    [HttpGet("id")]
-    public async Task<IActionResult> GetLotByIdAsync([FromQuery] GetLotByIdRequest request)
+    /// <summary>
+    /// Получение лота по id
+    /// </summary>
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetLotByIdAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
             return BadRequest("Передан некорректный идентификатор лота");
 
-        var result = await _lotManager.GetLotByIdAsync(request);
+        var result = await _lotManager.GetLotByIdAsync(id);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+        
         return Ok(result.Value);
     }
 }

@@ -52,14 +52,14 @@ public class AuctionController : ControllerBase
     /// <summary>
     /// Отменя аукциона
     /// </summary>
-    [HttpPatch("cancel")]
+    [HttpPatch("cancel/{id:guid}")]
     [Authorize]
-    public async Task<IActionResult> CancelAuctionAsync([FromQuery] CancelAuctionRequest request)
+    public async Task<IActionResult> CancelAuctionAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var result = await _manager.CancelAsync(request);
+        var result = await _manager.CancelAsync(id);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -69,14 +69,14 @@ public class AuctionController : ControllerBase
     /// <summary>
     /// Изменение состояния готовности аукциона
     /// </summary>
-    [HttpPatch("changeCreationState")]
+    [HttpPatch("changeCreationState/{id:guid}")]
     [Authorize]
-    public async Task<IActionResult> ChangeAuctionCreationStateAsync([FromQuery] ChangeAuctionCreationStateRequest request)
+    public async Task<IActionResult> ChangeAuctionCreationStateAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var result = await _manager.ChangeCreationStateAsync(request);
+        var result = await _manager.ChangeCreationStateAsync(id);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -86,14 +86,14 @@ public class AuctionController : ControllerBase
     /// <summary>
     /// Удаление аукциона
     /// </summary>
-    [HttpDelete]
+    [HttpDelete("{id:guid}")]
     [Authorize]
-    public async Task<IActionResult> DeleteAuctionAsync([FromQuery] DeleteAuctionRequest request)
+    public async Task<IActionResult> DeleteAuctionAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var result = await _manager.DeleteAsync(request);
+        var result = await _manager.DeleteAsync(id);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -136,13 +136,13 @@ public class AuctionController : ControllerBase
     /// <summary>
     /// Получение аукциона по Id
     /// </summary>
-    [HttpGet("id")]
-    public async Task<IActionResult> GetAuctionByIdAsync([FromQuery] GetAuctionByIdRequest request)
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetAuctionByIdAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var result = await _manager.GetByIdAsync(request);
+        var result = await _manager.GetByIdAsync(id);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         

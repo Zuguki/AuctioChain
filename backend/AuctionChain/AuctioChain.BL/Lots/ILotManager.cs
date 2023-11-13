@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AuctioChain.DAL.Models.Lot.Dto;
 using FluentResults;
 
@@ -14,8 +15,7 @@ public interface ILotManager
     /// <summary>
     /// Получение лота по id
     /// </summary>
-    /// <returns></returns>
-    Task<Result<LotResponse>> GetLotByIdAsync(GetLotByIdRequest request);
+    Task<Result<LotResponse>> GetLotByIdAsync(Guid id);
 
     /// <summary>
     /// Создать модель

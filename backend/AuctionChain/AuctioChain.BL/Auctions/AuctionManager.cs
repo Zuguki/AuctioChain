@@ -39,10 +39,10 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result<GetAuctionByIdResponse>> GetByIdAsync(GetAuctionByIdRequest request)
+    public async Task<Result<GetAuctionByIdResponse>> GetByIdAsync(Guid request)
     {
         var auction = await _context.Auctions.Include(a => a.Lots)
-            .FirstOrDefaultAsync(auc => auc.Id == request.AuctionId);
+            .FirstOrDefaultAsync(auc => auc.Id == request);
         if (auction is null)
             return Result.Fail("Аукцион не найден");
 
@@ -62,9 +62,9 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> DeleteAsync(DeleteAuctionRequest request)
+    public async Task<Result> DeleteAsync(Guid request)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == request.AuctionId);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == request);
 
         if (auction is null)
             return Result.Ok();
@@ -97,12 +97,11 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> ChangeCreationStateAsync(ChangeAuctionCreationStateRequest request)
+    public async Task<Result> ChangeCreationStateAsync(Guid request)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == request.AuctionId);
-
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == request);
         if (auction is null)
-            return Result.Fail("Аукцион найден");
+            return Result.Fail("Аукцион не найден");
         
         if (!auction.IsEditable)
             return Result.Fail("У данного аукциона нельзя изменить состояние");
@@ -113,9 +112,9 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> CancelAsync(CancelAuctionRequest request)
+    public async Task<Result> CancelAsync(Guid request)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == request.AuctionId);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == request);
 
         if (auction is null)
             return Result.Fail("Аукцион не найден");

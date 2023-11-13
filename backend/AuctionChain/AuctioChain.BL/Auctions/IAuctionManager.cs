@@ -19,7 +19,7 @@ public interface IAuctionManager
     /// Получить модель по Id
     /// </summary>
     /// <param name="id">Id модели</param>
-    Task<Result<GetAuctionByIdResponse>> GetByIdAsync(GetAuctionByIdRequest id);
+    Task<Result<GetAuctionByIdResponse>> GetByIdAsync(Guid id);
 
     /// <summary>
     /// Создать модель
@@ -32,7 +32,7 @@ public interface IAuctionManager
     /// Удалить модель
     /// </summary>
     /// <param name="id">Id модели</param>
-    Task<Result> DeleteAsync(DeleteAuctionRequest id);
+    Task<Result> DeleteAsync(Guid id);
 
     /// <summary>
     /// Обновить модель
@@ -44,11 +44,11 @@ public interface IAuctionManager
     /// Изменить состояние создания аукциона
     /// </summary>
     /// <param name="id">Id аукциона</param>
-    Task<Result> ChangeCreationStateAsync(ChangeAuctionCreationStateRequest id);
+    Task<Result> ChangeCreationStateAsync(Guid id);
 
     /// <summary>
     /// Отменить аукцион
     /// </summary>
     /// <param name="id">Id аукциона</param>
-    Task<Result> CancelAsync(CancelAuctionRequest id);
+    Task<Result> CancelAsync(Guid id);
 }

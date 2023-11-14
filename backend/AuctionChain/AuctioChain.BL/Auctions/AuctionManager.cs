@@ -97,12 +97,15 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> ChangeCreationStateAsync(Guid request)
+    public async Task<Result> ChangeCreationStateAsync(Guid auctionId, Guid userId)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == request);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == auctionId);
         if (auction is null)
             return Result.Fail("Аукцион не найден");
-        
+
+        if (auction.UserId != userId)
+            return Result.Fail("У вас нет доступа к редактированию данного аукциона");
+
         if (!auction.IsEditable)
             return Result.Fail("У данного аукциона нельзя изменить состояние");
 
@@ -112,12 +115,15 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> CancelAsync(Guid request)
+    public async Task<Result> CancelAsync(Guid auctionId, Guid userId)
     {
-        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == request);
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == auctionId);
 
         if (auction is null)
             return Result.Fail("Аукцион не найден");
+        
+        if (auction.UserId != userId)
+            return Result.Fail("У вас нет доступа к редактированию данного аукциона");
 
         if (!auction.IsEditable)
             return Result.Fail("Данный аукцион нельзя отменить");

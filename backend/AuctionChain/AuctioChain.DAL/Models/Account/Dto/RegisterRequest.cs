@@ -10,6 +10,10 @@ public class RegisterRequest
     [EmailAddress]
     [JsonPropertyName("email")]
     public string Email { get; set; } = null!;
+
+    [Required]
+    [JsonPropertyName("userName")]
+    public string UserName { get; set; } = null!;
  
     [Required]
     [DataType(DataType.Password)]

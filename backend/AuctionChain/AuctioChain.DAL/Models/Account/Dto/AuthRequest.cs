@@ -6,10 +6,9 @@ namespace AuctioChain.DAL.Models.Account.Dto;
 
 public class AuthRequest
 {
-    [EmailAddress]
     [Required]
-    [JsonPropertyName("email")]
-    public string Email { get; set; } = null!;
+    [JsonPropertyName("login")]
+    public string Login { get; set; } = null!;
     
     [Required]
     [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Пароль слишком простой")]

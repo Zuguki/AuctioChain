@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
-using AuctioChain.DAL.Models;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AutoMapper;

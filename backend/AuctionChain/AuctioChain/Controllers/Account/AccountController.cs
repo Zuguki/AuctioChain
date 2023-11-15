@@ -36,7 +36,7 @@ public class AccountsController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
         
-        var result = await _accountManager.CreateAsync(request);
+        var result = await _accountManager.CreateMemberAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 

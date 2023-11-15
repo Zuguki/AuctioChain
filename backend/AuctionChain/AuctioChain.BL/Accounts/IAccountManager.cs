@@ -17,7 +17,7 @@ public interface IAccountManager
     /// Создать модель
     /// </summary>
     /// <param name="request">Модель регистрации</param>
-    Task<Result> CreateAsync(RegisterRequest request);
+    Task<Result> CreateMemberAsync(RegisterRequest request);
     
     /// <summary>
     /// Получить токен доступа и токен обновления

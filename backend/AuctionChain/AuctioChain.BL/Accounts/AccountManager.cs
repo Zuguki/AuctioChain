@@ -28,41 +28,30 @@ public class AccountManager : IAccountManager
         _configuration = configuration;
     }
 
-    public async Task<Result<IEnumerable<ApplicationUser>>> GetAllAsync()
-    {
-        var users = (IEnumerable<ApplicationUser>) await _userManager.Users.ToListAsync();
-        return Result.Ok(users);
-    }
-
-    public async Task<Result<ApplicationUser>> GetByIdAsync(Guid id)
-    {
-        var user = await _userManager.Users.FirstOrDefaultAsync(us => us.Id == id);
-        if (user is null)
-            return Result.Fail("Данный пользователь не найден");
-
-        return Result.Ok(user);
-    }
-
     public async Task<Result<AuthResponse>> Authenticate(AuthRequest request)
     {
-        var appUser = await _userManager.FindByEmailAsync(request.Email);
-        if (appUser == null)
-            return Result.Fail("Email или пароль не верны");
+        var appUserEmail = await _userManager.FindByEmailAsync(request.Login);
+        var appUserUserName = await _userManager.FindByNameAsync(request.Login);
         
-        var isPasswordValid = await _userManager.CheckPasswordAsync(appUser, request.Password);
+        if (appUserEmail is null && appUserUserName is null)
+            return Result.Fail("Email или пароль не верны");
+
+        var appUser = appUserEmail ?? appUserUserName;
+        
+        var isPasswordValid = await _userManager.CheckPasswordAsync(appUser!, request.Password);
         if (!isPasswordValid)
             return Result.Fail("Email или пароль не верны");
 
-        var result = await GetToken(appUser);
+        var result = await GetToken(appUser!);
         if (result.IsFailed)
             return Result.Fail(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
         return Result.Ok(new AuthResponse {Token = result.Value.AccessToken, RefreshToken = result.Value.RefreshToken});
     }
 
-    public async Task<Result> CreateAsync(RegisterRequest request)
+    public async Task<Result> CreateMemberAsync(RegisterRequest request)
     {
-        var appUser = new ApplicationUser {Email = request.Email, UserName = request.Email};
+        var appUser = new ApplicationUser {Email = request.Email, UserName = request.UserName};
         var result = await _userManager.CreateAsync(appUser, request.Password);
 
         if (!result.Succeeded)

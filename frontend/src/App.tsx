@@ -1,40 +1,36 @@
-import {BrowserRouter, Link, NavLink, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import Header from "./components/Header/Header.tsx";
+import PageAuctions from "./pages/auctions/PageAuctions.tsx";
+import PageOneAuction from "./pages/auction/PageOneAuction.tsx";
+import PageLot from "./pages/lot/PageLot.tsx";
+import CloseButton from "./components/UI/CloseButton/CloseButton.tsx";
+import Store from "./authorizationLogic/store.ts";
+import {createContext, useEffect} from "react";
 import FormAuthorization from "./pages/authorization/FormAuthorization/FormAuthorization.tsx";
 import FormRegistration from "./pages/authorization/FormRegistration/FormRegistration.tsx";
-import FormRecoveryEntry from "./pages/authorization/FormRecoveryEntry.tsx";
-import FormRecoverCode from "./pages/authorization/FormRecoverCode.tsx";
-import FormNewPassword from "./pages/authorization/FormNewPassword/FormNewPassword.tsx";
-import Header from "./components/Header/Header.tsx";
-import CardAuction from "./pages/auctions/ListAuctions/CardAuction/CardAuction.tsx";
-import ListAuctions from "./pages/auctions/ListAuctions/ListAuctions.tsx";
-import Pagination from "./components/UI/Pagination/Pagination.tsx";
-import SearcherAuction from "./pages/auctions/SearcherAuction/SearcherAuction.tsx";
-import DataInput from "./components/UI/inputs/DataInput/DataInput.tsx";
-import PageAuctions from "./pages/auctions/PageAuctions.tsx";
-import {useEffect, useState} from "react";
-import axios from "axios";
-import PageOneAuction from "./pages/auction/PageOneAuction.tsx";
-import logo from './pages/auctions/ListAuctions/CardAuction/testPhoto.png'
-import PageLot from "./pages/lot/PageLot.tsx";
-import Spinner from "./components/UI/Spinner/Spinner.tsx";
-import CloseButton from "./components/UI/CloseButton/CloseButton.tsx";
+
+const store = new Store();
+export const Context = createContext({store})
 
 function App() {
     return (
-        <BrowserRouter>
-            <Header />
-            <Routes>
-                <Route path='/' element={
-                    <>
-                        <Link to='/auctions'><button>click</button></Link>
-                        <CloseButton />
-                    </>
-                }/>
-                <Route path='/auctions' element={<PageAuctions />} />
-                <Route path='/auction/:id' element={<PageOneAuction />} />
-                <Route path={'/lot/:id'} element={<PageLot />} />
-            </Routes>
-        </BrowserRouter>
+        <Context.Provider value={{store}}>
+            <BrowserRouter>
+                <Header />
+                <Routes>
+                    <Route path='/' element={
+                        <Link to='/authorization'>
+                            <button>click</button>
+                        </Link>
+                    }/>
+                    <Route path='/authorization' element={<FormAuthorization />} />
+                    <Route path='/authorization/registration' element={<FormRegistration />} />
+                    <Route path='/auctions' element={<PageAuctions />} />
+                    <Route path='/auction/:id' element={<PageOneAuction />} />
+                    <Route path={'/lot/:id'} element={<PageLot />} />
+                </Routes>
+            </BrowserRouter>
+        </Context.Provider>
     )
 }
 

@@ -1,12 +1,6 @@
-const equalsObjects = (...obj: never[]): boolean => {
+const equalsObjects = <T>(...obj: T[]): boolean => {
     const idolOdj: string = JSON.stringify(obj[0]);
-
-    for (const el of obj) {
-        if (JSON.stringify(el) !== idolOdj) {
-            return false;
-        }
-    }
-    return true;
+    return obj.every((el: T): boolean => idolOdj === JSON.stringify(el));
 }
 
 export default equalsObjects;

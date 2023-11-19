@@ -6,7 +6,7 @@ interface ICheckBoxInput {
 const CheckboxInput: FC<ICheckBoxInput> = ({children}) => {
     return (
         <div className={styleCheckbox.div}>
-            <input type='checkbox' className="form-check-input" />
+            <input type='checkbox' className="form-check-input" required/>
             <label className={styleCheckbox.label}>{children}</label>
         </div>
     );

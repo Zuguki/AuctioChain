@@ -7,6 +7,9 @@
     text-decoration-line: underline;
 }
 
+.marginForgotPassword {
+    margin-top: 10px;
+}
 
 .link {
     color: #615EF3;

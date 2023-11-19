@@ -1,6 +1,6 @@
 import {ChangeEvent, useEffect, useState} from "react";
 import {ICorrectPassword, IPasswords, IUseLogicRequirement} from "./interfaceCardRequirement.ts";
-import {hasNumber, hasUppercase} from "../../../auxiliaryTools/hasSymbol.ts";
+import HasSymbol from "../../../auxiliaryTools/hasSymbol.ts";
 
 
 const useLogicRequirement = (): IUseLogicRequirement => {
@@ -28,8 +28,8 @@ const useLogicRequirement = (): IUseLogicRequirement => {
         const newIsCorrect: ICorrectPassword = {...isCorrectPassword};
 
         newIsCorrect["lengthPassword"] = passwords.userPassword.length >= 8;
-        newIsCorrect["haveUpCase"] = hasUppercase(passwords.userPassword);
-        newIsCorrect["haveNumber"] = hasNumber(passwords.userPassword);
+        newIsCorrect["haveUpCase"] = HasSymbol.hasUppercase(passwords.userPassword);
+        newIsCorrect["haveNumber"] = HasSymbol.hasNumber(passwords.userPassword);
 
         if (JSON.stringify(newIsCorrect) !== JSON.stringify(isCorrectPassword)) {
             setIsCorrectPassword(() => newIsCorrect);
@@ -42,14 +42,14 @@ const useLogicRequirement = (): IUseLogicRequirement => {
             : setPasswords((prevState: IPasswords): IPasswords => ({...prevState, correctPassword: null}))
     }, [isCorrectPassword])
 
-    return [
-        passwords.correctPassword,
+    return {
+        password: passwords.correctPassword,
         showRequirement,
         isCorrectPassword,
         focusInputPassword,
         blurInputPassword,
         changeUserValue
-    ];
+    };
 }
 
 export default useLogicRequirement;

@@ -2,8 +2,6 @@
     border-radius: 50px;
     background: #FFFFFF;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
-    /*width: 800px;
-    height: 500px;*/
     flex-shrink: 0;
 }
 
@@ -11,9 +9,20 @@
     margin: 0 100px;
 }
 
+.error {
+    text-align: center;
+    color: #F76F7A;
+    font-size: 20px;
+    margin: 0;
+}
+
 .title {
     text-align: center;
-    margin: 25px 0 ;
+    margin: 25px 0;
+}
+
+.titleError {
+    margin: 25px 0 10px 0;
 }
 
 .positionBtn {

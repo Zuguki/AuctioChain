@@ -14,6 +14,28 @@
     margin-bottom: 10px;
 }
 
+.inputError {
+    border-radius: 10px;
+    background: #FFFFFF;
+    width: 570px;
+    height: 50px;
+    outline: 0;
+
+    color: #F76F7A;
+    border: 2px solid #F76F7A;
+    font-family: SF Pro Display, Montserrat, sans-serif;
+    font-size: 20px;
+    line-height: 28px; /* 140% */
+    padding-left: 30px;
+}
+
+.inputError:-webkit-autofill {
+    border: 2px solid #F76F7A;
+    -webkit-text-fill-color: #F76F7A;
+    -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 .input:-webkit-autofill {
     border: 0;
     -webkit-text-fill-color: #818080;

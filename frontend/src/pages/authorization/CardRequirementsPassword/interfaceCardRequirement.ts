@@ -1,24 +1,23 @@
-import useLogicRequirement from "./useLogicRequirement.ts";
 import {ChangeEvent} from "react";
 
 interface ICorrectPassword {
-    lengthPassword: boolean,
-    haveUpCase: boolean,
-    haveNumber: boolean
+    lengthPassword: boolean;
+    haveUpCase: boolean;
+    haveNumber: boolean;
 }
 
-type IUseLogicRequirement = [
-    password: string | null,
-    showRequirement: boolean,
-    isCorrectPassword: ICorrectPassword,
-    focusInputPassword: () => void,
-    blurInputPassword: () => void,
-    changeUserValue: (e: ChangeEvent<HTMLInputElement>) => void
-];
+interface IUseLogicRequirement {
+    password: string | null;
+    showRequirement: boolean;
+    isCorrectPassword: ICorrectPassword;
+    focusInputPassword: () => void;
+    blurInputPassword: () => void;
+    changeUserValue: (e: ChangeEvent<HTMLInputElement>) => void;
+}
 
 interface IPasswords {
-    userPassword: string,
-    correctPassword: string | null
+    userPassword: string;
+    correctPassword: string | null;
 }
 
 export {

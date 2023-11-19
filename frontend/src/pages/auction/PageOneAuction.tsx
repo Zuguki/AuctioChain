@@ -12,7 +12,7 @@ import CloseButton from "../../components/UI/CloseButton/CloseButton.tsx";
 
 
 const PageOneAuction = () => {
-    const { id} = useParams();
+    const {id} = useParams<string>();
     const {data: auction, err, isLoading} = useGetAPI<IAuction>(`http://localhost:5121/api/v1/auctions/id?AuctionId=${id}`, BaseAuction);
     const {name, userId} = auction;
 

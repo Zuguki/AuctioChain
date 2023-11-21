@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Bet;
 using AuctioChain.DAL.Models.Bet.Dto;
+using AuctioChain.DAL.Models.Pagination;
 using AutoMapper;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
@@ -58,17 +59,22 @@ public class BetManager : IBetManager
         return Result.Ok();
     }
 
-    public async Task<Result<GetBetsByLotResponse>> GetBetsByLotAsync(GetBetsByLotRequest request)
+    public async Task<Result<(GetBetsByLotResponse, PaginationMetadata)>> GetBetsByLotAsync(GetBetsByLotRequest request,
+        PaginationRequest pagination)
     {
         var lot = await _context.Lots.Include(b => b.Bets).FirstOrDefaultAsync(l => l.Id == request.LotId);
         if (lot is null)
             return Result.Fail("Лот не найден");
-        
+
         if (lot.Bets.Count == 0)
             return Result.Fail("Ставок на лот еще нет");
 
-        var result = new GetBetsByLotResponse {Bets = lot.Bets.Select(b => _mapper.Map<BetResponse>(b))};
-
-        return Result.Ok(result);
+        var metadata = new PaginationMetadata(lot.Bets.Count, pagination.Page, pagination.ItemsPerPage);
+        
+        var result = lot.Bets
+            .Skip((pagination.Page - 1) * pagination.ItemsPerPage)
+            .Take(pagination.ItemsPerPage);
+        var response = new GetBetsByLotResponse {Bets = result.Select(b => _mapper.Map<BetResponse>(b))};
+        return Result.Ok((response, metadata));
     }
 }

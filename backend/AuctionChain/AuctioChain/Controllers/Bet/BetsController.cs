@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AuctioChain.BL.Bets;
 using AuctioChain.DAL.Models.Bet.Dto;
+using AuctioChain.DAL.Models.Pagination;
 using AuctioChain.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -48,15 +50,16 @@ public class BetsController : ControllerBase
     /// Получить все ставки по лоту
     /// </summary>
     [HttpGet]
-    public async Task<IActionResult> GetBetsByLotAsync([FromQuery] GetBetsByLotRequest request)
+    public async Task<IActionResult> GetBetsByLotAsync([FromQuery] GetBetsByLotRequest request, [FromQuery] PaginationRequest pagination)
     {
         if (request.LotId == Guid.Empty)
             return BadRequest("Передан некорректный формат данных");
 
-        var result = await _betManager.GetBetsByLotAsync(request);
+        var result = await _betManager.GetBetsByLotAsync(request, pagination);
+        Response.Headers.Add("X-Pagination-Bets", JsonSerializer.Serialize(result.Value.Item2));
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
-        return Ok(result.Value);
+        return Ok(result.Value.Item1);
     }
 }

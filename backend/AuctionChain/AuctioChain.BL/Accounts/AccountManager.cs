@@ -42,7 +42,7 @@ public class AccountManager : IAccountManager
         if (!isPasswordValid)
             return Result.Fail("Email или пароль не верны");
 
-        var result = await GetToken(appUser!);
+        var result = await GetAndUpdateToken(appUser!);
         if (result.IsFailed)
             return Result.Fail(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -65,7 +65,7 @@ public class AccountManager : IAccountManager
         return Result.Ok();
     }
 
-    public async Task<Result<TokenResponse>> GetToken(ApplicationUser appUser)
+    public async Task<Result<TokenResponse>> GetAndUpdateToken(ApplicationUser appUser)
     {
         var user = await _userManager.FindByEmailAsync(appUser.Email!);
         if (user is null)
@@ -80,5 +80,20 @@ public class AccountManager : IAccountManager
         
         await _context.SaveChangesAsync();
         return Result.Ok(new TokenResponse {AccessToken = accessToken, RefreshToken = user.RefreshToken});
+    }
+
+    public async Task<Result<RefreshResponse>> RefreshToken(RefreshRequest request)
+    {
+        var user = await _userManager.Users.FirstOrDefaultAsync(appUser =>
+            appUser.RefreshToken == request.RefreshToken);
+
+        if (user is null)
+            return Result.Fail("Refresh token не действителен");
+
+        var token = await GetAndUpdateToken(user);
+        if (token.IsFailed)
+            return Result.Fail(string.Join(", ", token.Reasons.Select(r => r.Message)));
+
+        return Result.Ok(new RefreshResponse {Token = token.Value.AccessToken, RefreshToken = token.Value.RefreshToken});
     }
 }

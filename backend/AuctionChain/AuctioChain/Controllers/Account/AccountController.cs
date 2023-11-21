@@ -42,4 +42,17 @@ public class AccountsController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPost("refresh")]
+    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest("Переданны некорректные данные");
+
+        var response = await _accountManager.RefreshToken(request);
+        if (response.IsFailed)
+            return BadRequest(string.Join(", ", response.Reasons.Select(r => r.Message)));
+
+        return Ok(response.Value);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AuctioChain.BL.Lots;
 using AuctioChain.DAL.Models.Lot.Dto;
@@ -114,10 +115,11 @@ public class LotsController : ControllerBase
             return BadRequest("Передан некорректный идентификатор ауцкиона");
 
         var result = await _lotManager.GetByIdAsync(request, pagination);
+        Response.Headers.Add("X-Pagination-Lots", JsonSerializer.Serialize(result.Value.Item2));
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
-        return Ok(result.Value);
+        return Ok(result.Value.Item1);
     }
 
     /// <summary>

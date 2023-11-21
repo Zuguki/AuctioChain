@@ -11,7 +11,7 @@ public interface ILotManager
     /// <summary>
     /// Получить лоты по Id аукциона
     /// </summary>
-    Task<Result<GetLotsResponse>> GetByIdAsync(GetLotsRequest request, PaginationRequest pagination);
+    Task<Result<(GetLotsResponse, PaginationMetadata)>> GetByIdAsync(GetLotsRequest request, PaginationRequest pagination);
 
     /// <summary>
     /// Получение лота по id

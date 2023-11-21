@@ -26,13 +26,17 @@ public class LotManager : ILotManager
         _mapper = mapper;
     }
 
-    public Task<Result<GetLotsResponse>> GetByIdAsync(GetLotsRequest request, PaginationRequest pagination)
+    public Task<Result<(GetLotsResponse, PaginationMetadata)>> GetByIdAsync(GetLotsRequest request, PaginationRequest pagination)
     {
-        var lots = (IEnumerable<LotDal>) _context.Lots.Include(f => f.Bets)
-            .Where(lot => lot.AuctionId == request.AuctionId);
+        var lots = _context.Lots.Include(f => f.Bets)
+            .Where(lot => lot.AuctionId == request.AuctionId).ToList();
+        var metadata = new PaginationMetadata(lots.Count, pagination.Page, pagination.ItemsPerPage);
 
-        var response = new GetLotsResponse {Lots = lots.Select(l => _mapper.Map<LotResponse>(l))};
-        return Task.FromResult(Result.Ok(response));
+        var result = lots
+            .Skip((pagination.Page - 1) * pagination.ItemsPerPage)
+            .Take(pagination.ItemsPerPage);
+        var response = new GetLotsResponse {Lots = result.Select(l => _mapper.Map<LotResponse>(l))};
+        return Task.FromResult(Result.Ok((response, metadata)));
     }
 
     public async Task<Result<LotResponse>> GetLotByIdAsync(Guid request)

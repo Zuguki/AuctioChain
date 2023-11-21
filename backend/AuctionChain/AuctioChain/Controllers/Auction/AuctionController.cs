@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AuctioChain.BL.Auctions;
 using AuctioChain.DAL.Models;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
+using AuctioChain.DAL.Models.Pagination;
 using AuctioChain.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -129,23 +131,24 @@ public class AuctionController : ControllerBase
     /// Получение всех аукционов
     /// </summary>
     [HttpGet]
-    public async Task<IActionResult> GetAuctionsAsync()
+    public async Task<IActionResult> GetAuctionsAsync([FromQuery] PaginationRequest pagination)
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
-
-        var result = await _manager.GetAllAsync();
+        
+        var result = await _manager.GetAllAsync(pagination);
+        Response.Headers.Add("X-Pagination-Auctions", JsonSerializer.Serialize(result.Value.Item2));
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 
-        return Ok(result.Value);
+        return Ok(result.Value.Item1);
     }
 
     /// <summary>
     /// Получение аукциона по Id
     /// </summary>
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetAuctionByIdAsync([FromRoute] Guid id)
+    public async Task<IActionResult> GetAuctionByIdAsync([FromRoute (Name = "id")] Guid id)
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");

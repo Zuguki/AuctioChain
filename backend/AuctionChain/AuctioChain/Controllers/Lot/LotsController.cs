@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Lots;
 using AuctioChain.DAL.Models.Lot.Dto;
+using AuctioChain.DAL.Models.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -107,12 +108,12 @@ public class LotsController : ControllerBase
     /// Получение списка лотов по идентификатору аукциона
     /// </summary>
     [HttpGet]
-    public async Task<IActionResult> GetLotsByAuctionIdAsync([FromQuery] GetLotsRequest request)
+    public async Task<IActionResult> GetLotsByAuctionIdAsync([FromQuery] GetLotsRequest request, [FromQuery] PaginationRequest pagination)
     {
         if (!ModelState.IsValid)
             return BadRequest("Передан некорректный идентификатор ауцкиона");
 
-        var result = await _lotManager.GetByIdAsync(request);
+        var result = await _lotManager.GetByIdAsync(request, pagination);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AuctioChain.DAL.Models;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
+using AuctioChain.DAL.Models.Pagination;
 using FluentResults;
 
 namespace AuctioChain.BL.Auctions;
@@ -13,7 +14,7 @@ public interface IAuctionManager
     /// <summary>
     /// Полуить все элементы
     /// </summary>
-    Task<Result<GetAuctionsResponse>> GetAllAsync();
+    Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAsync(PaginationRequest pagination);
 
     /// <summary>
     /// Получить модель по Id

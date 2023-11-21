@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Lot;
 using AuctioChain.DAL.Models.Lot.Dto;
+using AuctioChain.DAL.Models.Pagination;
 using AutoMapper;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ public class LotManager : ILotManager
         _mapper = mapper;
     }
 
-    public Task<Result<GetLotsResponse>> GetByIdAsync(GetLotsRequest request)
+    public Task<Result<GetLotsResponse>> GetByIdAsync(GetLotsRequest request, PaginationRequest pagination)
     {
         var lots = (IEnumerable<LotDal>) _context.Lots.Include(f => f.Bets)
             .Where(lot => lot.AuctionId == request.AuctionId);

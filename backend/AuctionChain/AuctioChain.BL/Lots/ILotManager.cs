@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AuctioChain.DAL.Models.Lot.Dto;
+using AuctioChain.DAL.Models.Pagination;
 using FluentResults;
 
 namespace AuctioChain.BL.Lots;
@@ -10,7 +11,7 @@ public interface ILotManager
     /// <summary>
     /// Получить лоты по Id аукциона
     /// </summary>
-    Task<Result<GetLotsResponse>> GetByIdAsync(GetLotsRequest request);
+    Task<Result<GetLotsResponse>> GetByIdAsync(GetLotsRequest request, PaginationRequest pagination);
 
     /// <summary>
     /// Получение лота по id

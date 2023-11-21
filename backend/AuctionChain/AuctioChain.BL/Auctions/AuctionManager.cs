@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
+using AuctioChain.DAL.Models.Pagination;
 using AutoMapper;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
@@ -27,12 +28,17 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public Task<Result<GetAuctionsResponse>> GetAllAsync()
+    public Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAsync(PaginationRequest pagination)
     {
-        var result = _context.Auctions.Include(a => a.Lots).ToList() as IEnumerable<AuctionDal>;
+        var auctions = _context.Auctions.Include(a => a.Lots).ToList();
+        var paginationMetadata = new PaginationMetadata(auctions.Count, pagination.Page, pagination.ItemsPerPage);
+
+        var result = auctions
+            .Skip((pagination.Page - 1) * pagination.ItemsPerPage)
+            .Take(pagination.ItemsPerPage);
         
         var response = new GetAuctionsResponse {Auctions = result.Select(a => _mapper.Map<AuctionResponse>(a))};
-        return Task.FromResult(Result.Ok(response));
+        return Task.FromResult(Result.Ok((response, paginationMetadata)));
     }
 
     /// <inheritdoc />

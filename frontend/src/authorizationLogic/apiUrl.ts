@@ -1,11 +1,22 @@
 import axios, {AxiosInstance} from "axios";
+import Cookies from "js-cookie";
 
-const $apiAuth: AxiosInstance = axios.create({
-    baseURL: 'http://localhost:5121/accounts/',
+const BASE_URL: string = 'http://localhost:5121/';
+
+const $api: AxiosInstance = axios.create({
+    baseURL: BASE_URL,
     withCredentials: true
 });
 
-$apiAuth.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+$api.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${Cookies.get('token')}`;
     return config;
-})
+});
+
+$api.interceptors.response.use((config) => {
+    return config;
+}, error => {
+    throw error;
+});
+
+export default $api;

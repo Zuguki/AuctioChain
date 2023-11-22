@@ -8,11 +8,20 @@ import Store from "./authorizationLogic/store.ts";
 import {createContext, useEffect} from "react";
 import FormAuthorization from "./pages/authorization/FormAuthorization/FormAuthorization.tsx";
 import FormRegistration from "./pages/authorization/FormRegistration/FormRegistration.tsx";
+import Cookies from "js-cookie";
 
-const store = new Store();
+export const store = new Store();
+
 export const Context = createContext({store})
 
 function App() {
+    console.log('cookie', document.cookie)
+    useEffect(() => {
+        const token =  Cookies.get('token')
+        if (token) {
+            store.setAuthByToken(token);
+        }
+    }, []);
     return (
         <Context.Provider value={{store}}>
             <BrowserRouter>

@@ -1,19 +1,26 @@
-import {IUser, PostLoginUser, PostRegistrationUser} from "./IUser.ts";
-import {$api} from "../logicAuthorization/http";
+
+import $api from "./apiUrl.ts";
 import {AxiosResponse} from "axios";
+import PostLoginUser from "./postAuth/PostLoginUser.ts";
+import PostRegistrationUser from "./postAuth/PostRegistrationUser.ts";
 
 interface AuthResponse {
     token: string,
     refreshToken: string;
-    user: IUser
 }
 
 export default class AuthService {
+    private static readonly path_account: string = '/accounts';
+
     static async login(dataLogin: PostLoginUser): Promise<AxiosResponse<AuthResponse>> {
-        return $api.post<AuthResponse>('/login', dataLogin);
+        return $api.post<AuthResponse>(`${this.path_account}/login`, dataLogin);
     }
 
-    static async registration(dataLogin: PostRegistrationUser): Promise<AxiosResponse<AuthResponse>> {
-        return $api.post<AuthResponse>('/register', dataLogin);
+    static async registration(dataLogin: PostRegistrationUser): Promise<AxiosResponse> {
+        return $api.post<AxiosResponse>(`${this.path_account}/register`, dataLogin);
+    }
+
+    static async refresh(refreshToken: string): Promise<AxiosResponse<AuthResponse>> {
+        return $api.post<AuthResponse>(`${this.path_account}/refresh'`, {"refreshToken": refreshToken});
     }
 }

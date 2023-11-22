@@ -9,36 +9,45 @@ import {AxiosError, name} from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {Context} from "../../../App.tsx";
 import BaseButton from "../../../components/UI/BaseButton/BaseButton.tsx";
-import {IUser, PostLoginUser} from "../../../authorizationLogic/IUser.ts";
+import {PostLoginUser} from "../../../authorizationLogic/PostAuth.ts";
+import useDataUser from "../../../hooks/useDataUser.ts";
+import useAuthResponse from "../../../hooks/useAuthResponse.ts";
+import Spinner from "../../../components/UI/Spinner/Spinner.tsx";
 import {observer} from "mobx-react-lite";
 
-const FormAuthorization = () => {
-    const {store} = useContext(Context);
-    const [err, setErr] = useState<AxiosError | null>(null);
-    const logicButton: ILogicFormDivButton = {
-        textButton: 'Войти',
-        path: '/',
-        logicClick: () => {
-            store.login(dataUser)
-                .then((err: (AxiosError | null)) => setErr(() => err));
-        }
-    }
-    const [dataUser, setDataUser] = useState<PostLoginUser>({} as PostLoginUser);
-    const logicFormValue = (e: ChangeEvent<HTMLInputElement>): void => {
-        const { value, name} = e.target;
-        setDataUser((prevDataUser) => ({...prevDataUser, [name]: value}));
-    }
-    const nav = useNavigate();
-    store.isAuth && nav('/auctions');
+const FormAuthorization = observer(() => {
+    const {dataUser, logicFormValue} = useDataUser<PostLoginUser>();
+    const {err, logicButton, blurErr} = useAuthResponse(dataUser, 'Вход');
+
     return (
-        <FormDiv title='Вход' logicButton={logicButton} error={err} registration>
-            <FormInput title='Телефон или имя пользователя' name='login' onFocus={() => setErr(() => null)}  error={err} changeValue={logicFormValue} />
-            <FormInput title='Пароль' name='password' type='password' error={err} onFocus={() => setErr(() => null)} changeValue={logicFormValue} />
-            <div className={`${err && styleRegistration.marginForgotPassword}`}>
+        <FormDiv
+            title='Вход'
+            logicButton={logicButton}
+            error={err}
+            registration
+        >
+            <FormInput
+                title='Телефон или имя пользователя'
+                name='login'
+                autoComplete='on'
+                error={err}
+                changeValue={logicFormValue}
+                blurError={blurErr}
+            />
+            <FormInput
+                title='Пароль'
+                name='password'
+                type='password'
+                autoComplete='current-password'
+                error={err}
+                blurError={blurErr}
+                changeValue={logicFormValue}
+            />
+            {/*<div className={`${err && styleRegistration.marginForgotPassword}`}>
                 <Link to='/authorization/recovery' className={styleRegistration.forgotPassword}>Забыли пароль?</Link>
-            </div>
+            </div>*/}
         </FormDiv>
     );
-};
+});
 
 export default FormAuthorization;

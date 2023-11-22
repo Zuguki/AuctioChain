@@ -4,7 +4,7 @@ import CardAuction from "./CardAuction/CardAuction.tsx";
 import styleList from './listAuctions.module.css'
 import Pagination from "../../../components/UI/Pagination/Pagination.tsx";
 import axios from 'axios';
-import {IElementAuctions} from "../../../interfaces/auctionsTypes.ts";
+import {BaseAuction, IElementAuctions} from "../../../interfaces/auctionsTypes.ts";
 import useGetAPI from "../../../hooks/API/useGetAPI.ts";
 import Spinner from "../../../components/UI/Spinner/Spinner.tsx";
 import LogicDownload from "../../../components/LogicDownload/LogicDownload.tsx";
@@ -18,15 +18,16 @@ const ListAuctions: FC = () => {
         // change
         <LogicDownload isLoading={isLoading}>
             <>
+                {/*.filter((_, index) => (Math.floor(index / 6) + 1) === currentPage)*/}
                 <div className={styleList.position}>
-                {auctions.filter((_, index) => (Math.floor(index / 6) + 1) === currentPage).map((auction: IElementAuctions): ReactElement =>
+                {auctions.map((auction: IElementAuctions): ReactElement =>
                     <CardAuction
                         key={auction.id}
                         auction={auction}
                     />)}
                 </div>
-                {auctions.length !== 0 && <Pagination endPage={Math.ceil(auctions.length / 6)}
-                                                  sendCurrentPage={(page: number) => setCurrentPage(() => page)} />}
+                {/*{auctions.length !== 0 && <Pagination endPage={Math.ceil(auctions.length / 6)}
+                                                  sendCurrentPage={(page: number) => setCurrentPage(() => page)} />}*/}
             </>
         </LogicDownload>
     );

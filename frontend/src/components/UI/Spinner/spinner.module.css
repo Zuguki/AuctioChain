@@ -2,5 +2,12 @@
     width: 60px;
     height: 60px;
     display: flex;
-    margin: 100px 45%;
+    margin: 100px auto;
+}
+
+.spinnerForm {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    margin: 0 auto;
 }

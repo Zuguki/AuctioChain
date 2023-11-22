@@ -6,10 +6,11 @@ import {AxiosError} from "axios";
 import {ChangeEvent, FC} from "react";
 
 interface IPasswordInputCard {
-    error: AxiosError | null;
+    error: string | null;
     changeValue: (e: ChangeEvent<HTMLInputElement>) => void;
+    blurError: () => void;
 }
-const PasswordInputCard: FC<IPasswordInputCard> = ({error, changeValue }) => {
+const PasswordInputCard: FC<IPasswordInputCard> = ({error, blurError, changeValue }) => {
     const {showRequirement, isCorrectPassword, focusInputPassword, blurInputPassword, changeUserValue} = useLogicRequirement();
     return (
         <>
@@ -21,9 +22,12 @@ const PasswordInputCard: FC<IPasswordInputCard> = ({error, changeValue }) => {
                     changeValue(e);
                     changeUserValue(e);
                 }}
+                blurError={() => {
+                    blurError();
+                    focusInputPassword();
+                }}
                 onBlur={blurInputPassword}
                 blockChars={passwordChars}
-                onFocus={focusInputPassword}
             />
             <CardRequirementsPassword
                 show={showRequirement}

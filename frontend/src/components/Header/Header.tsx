@@ -3,14 +3,15 @@ import logo from '../../design/logo.png'
 import styleHeader from './header.module.css'
 import {NavLink} from "react-router-dom";
 import './Link.css'
-import {Context} from "../../App.tsx";
+import {Context} from "../../context/contextApp.ts";
 import {observer} from "mobx-react-lite";
+
 const Header: FC = observer(() => {
-    const {store} = useContext(Context)
+    const {userStore} = useContext(Context)
     return (
         <header className={styleHeader.header}>
             <div>
-                <p>{store.getUser().name}</p>
+                <p>{userStore.getUser().name}</p>
             </div>
             {/*<ul className={styleHeader.ulHeader}>
                 <li id='1'><NavLink className={styleHeader.link} to='/authorization/registration'>Условия соглашения</NavLink></li>

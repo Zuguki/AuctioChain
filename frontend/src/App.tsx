@@ -4,26 +4,23 @@ import PageAuctions from "./pages/auctions/PageAuctions.tsx";
 import PageOneAuction from "./pages/auction/PageOneAuction.tsx";
 import PageLot from "./pages/lot/PageLot.tsx";
 import CloseButton from "./components/UI/CloseButton/CloseButton.tsx";
-import Store from "./authorizationLogic/store.ts";
+import UserStore from "./authorizationLogic/userStore.ts";
 import {createContext, useEffect} from "react";
 import FormAuthorization from "./pages/authorization/FormAuthorization/FormAuthorization.tsx";
 import FormRegistration from "./pages/authorization/FormRegistration/FormRegistration.tsx";
 import Cookies from "js-cookie";
-
-export const store = new Store();
-
-export const Context = createContext({store})
+import {Context, userStore} from "./context/contextApp.ts";
 
 function App() {
-    console.log('cookie', document.cookie)
     useEffect(() => {
         const token =  Cookies.get('token')
         if (token) {
-            store.setAuthByToken(token);
+            userStore.setAuthByToken(token);
         }
     }, []);
+
     return (
-        <Context.Provider value={{store}}>
+        <Context.Provider value={{userStore}}>
             <BrowserRouter>
                 <Header />
                 <Routes>

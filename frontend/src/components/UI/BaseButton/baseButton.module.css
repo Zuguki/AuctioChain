@@ -16,6 +16,6 @@
     background-color: #CE2D39;
 }
 
-.base:hover {
+.base:hover:enabled {
     transform: scale(1.01);
 }

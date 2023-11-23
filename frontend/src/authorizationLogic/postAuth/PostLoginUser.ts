@@ -4,4 +4,3 @@ interface PostLoginUser {
 }
 
 export default PostLoginUser;
-

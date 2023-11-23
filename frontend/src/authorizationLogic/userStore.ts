@@ -6,8 +6,9 @@ import IUser from "./IUser.ts";
 import PostLoginUser from "./postAuth/PostLoginUser.ts";
 import convertTokenToUser from "../tokenLogic/convertTokenToUser.ts";
 import PostRegistrationUser from "./postAuth/PostRegistrationUser.ts";
+import TokenLogic from "../tokenLogic/tokenLogic.ts";
 
-export default class Store {
+export default class UserStore {
     private isAuth: boolean = false;
     private user: IUser = {} as IUser;
     private isLoading: boolean = false;
@@ -16,40 +17,40 @@ export default class Store {
         makeAutoObservable(this);
     }
 
-    getAuth(): boolean {
+    public getAuth(): boolean {
         return this.isAuth;
     }
 
-    getUser(): IUser {
+    public getUser(): IUser {
         return this.user;
     }
 
-    getLoading(): boolean {
+    public getLoading(): boolean {
         return this.isLoading;
     }
 
-    setAuth(status: boolean): void {
+    private setAuth(status: boolean): void {
         this.isAuth = status;
     }
 
-    setLoading(status: boolean): void {
+    private setLoading(status: boolean): void {
         this.isLoading = status;
     }
 
-    setUser(user: IUser): void {
+    private setUser(user: IUser): void {
         this.user = user;
     }
 
-    async login(loginData: PostLoginUser): Promise<AxiosError | null> {
+    public async login(loginData: PostLoginUser): Promise<AxiosError | null> {
         let errorLogin = null;
         this.setLoading(true);
         try {
             const res = await AuthService.login(loginData);
             const {token, refreshToken} = res.data;
             this.setAuth(true);
-            this.setUser(convertTokenToUser(token));
-            Cookies.set('token', token);
-            Cookies.set('refresh', refreshToken);
+            this.setUser(TokenLogic.convertTokenToUser(token));
+            Cookies.set(TokenLogic.TOKEN, token);
+            Cookies.set(TokenLogic.REFRESH_TOKEN, refreshToken);
         } catch (error: unknown) {
             if (error instanceof AxiosError) {
                 errorLogin = error;
@@ -60,7 +61,7 @@ export default class Store {
         return errorLogin;
     }
 
-    async registration(registrationData: PostRegistrationUser): Promise<AxiosError | null> {
+    public async registration(registrationData: PostRegistrationUser): Promise<AxiosError | null> {
         let errorRegistration = null;
         this.setLoading(true);
         try {
@@ -80,15 +81,15 @@ export default class Store {
         return errorRegistration;
     }
 
-    logout(): void {
-        Cookies.remove('token');
-        Cookies.remove('refresh');
+    public logout(): void {
+        Cookies.remove(TokenLogic.TOKEN);
+        Cookies.remove(TokenLogic.REFRESH_TOKEN);
         this.user = {} as IUser;
         this.setAuth(false);
     }
 
-    setAuthByToken(token: string): void {
-        this.setUser(convertTokenToUser(token));
+    public setAuthByToken(token: string): void {
+        this.setUser(TokenLogic.convertTokenToUser(token));
         this.setAuth(true);
     }
 }

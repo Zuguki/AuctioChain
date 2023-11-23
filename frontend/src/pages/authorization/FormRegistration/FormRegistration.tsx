@@ -7,7 +7,6 @@ import {PostRegistrationUser} from "../../../authorizationLogic/PostAuth.ts";
 import useDataUser from "../../../hooks/useDataUser.ts";
 import useAuthResponse from "../../../hooks/useAuthResponse.ts";
 import React, {useEffect} from "react";
-import {store} from "../../../App.tsx";
 
 const FormRegistration = () => {
 

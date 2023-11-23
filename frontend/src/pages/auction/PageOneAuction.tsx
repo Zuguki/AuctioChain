@@ -9,15 +9,15 @@ import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 import useGetAPI from "../../hooks/API/useGetAPI.ts";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
 import CloseButton from "../../components/UI/CloseButton/CloseButton.tsx";
-import {Context} from "../../App.tsx";
+import {Context} from "../../context/contextApp.ts";
 
 
 const PageOneAuction = () => {
     const {id} = useParams<string>();
     const {data: auction, err, isLoading} = useGetAPI<IAuction>(`http://localhost:5121/api/v1/auctions/${id}`, BaseAuction);
-    const {store} = useContext(Context);
+    const {userStore} = useContext(Context);
     const {name, userId} = auction;
-    console.log('a', store.getAuth())
+    console.log('a', userStore.getAuth())
     return (
         <LogicDownload isLoading={isLoading}>
             <div>

@@ -1,5 +1,6 @@
 import axios, {AxiosInstance} from "axios";
 import Cookies from "js-cookie";
+import TokenLogic from "../tokenLogic/tokenLogic.ts";
 
 const BASE_URL: string = 'http://localhost:5121/';
 
@@ -9,7 +10,7 @@ const $api: AxiosInstance = axios.create({
 });
 
 $api.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${Cookies.get('token')}`;
+    config.headers.Authorization = `Bearer ${Cookies.get(TokenLogic.TOKEN)}`;
     return config;
 });
 

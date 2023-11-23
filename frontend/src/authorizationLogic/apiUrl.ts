@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import TokenLogic from "../tokenLogic/tokenLogic.ts";
 
 const BASE_URL: string = 'http://localhost:5121/';
+const API_URL: string = 'api/v1/';
 
 const $api: AxiosInstance = axios.create({
     baseURL: BASE_URL,
@@ -19,5 +20,7 @@ $api.interceptors.response.use((config) => {
 }, error => {
     throw error;
 });
+
+export const urlApi = (url: string): string => `${API_URL}${url}`;
 
 export default $api;

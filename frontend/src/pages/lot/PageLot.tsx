@@ -3,11 +3,12 @@ import imgLot from './test-lot.png';
 import styleLot from './pageLot.module.css';
 import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
 import {useParams} from "react-router-dom";
-import useGetAPI from "../../hooks/API/useGetAPI.ts";
-import {BaseLot, ILot} from "../../interfaces/lotsTypes.ts";
+import {ILot} from "../../interfaces/lotsTypes.ts";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
 import CloseButton from "../../components/UI/CloseButton/CloseButton.tsx";
+import useGetAPI from "../../API/hooks/useGetAPI.ts";
+import LotService from "../../API/service/LotService.ts";
 
 interface IPathLotPage {
     lot: ILot;
@@ -15,9 +16,9 @@ interface IPathLotPage {
 
 const PageLot: FC = () => {
     const {id} = useParams();
-    const {data: lot, isLoading, err} = useGetAPI<ILot>(`http://localhost:5121/api/v1/auction/lots/id?LotId=${id}`, BaseLot);
+    const {data: lot, loading, err} = useGetAPI<ILot>(LotService.getLotByID(id), {} as ILot)
     return (
-        <LogicDownload isLoading={isLoading}>
+        <LogicDownload isLoading={loading}>
            <div>
                <CloseButton />
                <div className={styleLot.position}>

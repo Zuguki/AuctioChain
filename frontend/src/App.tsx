@@ -10,10 +10,11 @@ import FormAuthorization from "./pages/authorization/FormAuthorization/FormAutho
 import FormRegistration from "./pages/authorization/FormRegistration/FormRegistration.tsx";
 import Cookies from "js-cookie";
 import {Context, userStore} from "./context/contextApp.ts";
+import TokenLogic from "./tokenLogic/tokenLogic.ts";
 
 function App() {
     useEffect(() => {
-        const token =  Cookies.get('token')
+        const token =  Cookies.get(TokenLogic.TOKEN);
         if (token) {
             userStore.setAuthByToken(token);
         }
@@ -33,7 +34,7 @@ function App() {
                     <Route path='/authorization/registration' element={<FormRegistration />} />
                     <Route path='/auctions' element={<PageAuctions />} />
                     <Route path='/auction/:id' element={<PageOneAuction />} />
-                    <Route path={'/lot/:id'} element={<PageLot />} />
+                    <Route path='/lot/:id' element={<PageLot />} />
                 </Routes>
             </BrowserRouter>
         </Context.Provider>

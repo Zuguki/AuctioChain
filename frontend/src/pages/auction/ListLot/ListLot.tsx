@@ -1,16 +1,21 @@
-import {FC, ReactElement} from 'react';
+import {FC, ReactElement, useEffect} from 'react';
 import CardLot from "./CardLot/CardLot.tsx";
 import Pagination from "../../../components/UI/Pagination/Pagination.tsx";
 import styleList from "./listLot.module.css";
 import stylePage from "../pageOneAuction.module.css";
 import {ILot} from "../../../interfaces/lotsTypes.ts";
-import useGetAPI from "../../../hooks/API/useGetAPI.ts";
+import useGetAPI from "../../../API/hooks/useGetAPI.ts";
 import LogicDownload from "../../../components/LogicDownload/LogicDownload.tsx";
+import LotService from "../../../API/service/LotService.ts";
+import {ResponseObjLots} from "../../../API/interfaces/ILot.ts";
 
-const ListLot: FC<{ id: string}> = ({id}) => {
-    const { data: {lots}, isLoading} = useGetAPI<{ lots: ILot[] }>(`http://localhost:5121/api/v1/auction/lots?AuctionId=${id}`, { lots: [] });
+const ListLot: FC<{id: string}> = ({id}) => {
+    const {data: {lots}, err, loading} = useGetAPI<ResponseObjLots>(LotService.getLots(id), {lots: []});
+    useEffect(() => {
+        console.log(lots)
+    }, [lots]);
     return (
-        <LogicDownload isLoading={isLoading}>
+        <LogicDownload isLoading={loading}>
             <div>
                 {lots.length !== 0 ? (<>
                     <p className={stylePage.informationLots}>Количество лотов: {lots.length}</p>

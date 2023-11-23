@@ -6,20 +6,19 @@ import {BaseAuction, IAuction, IElementAuctions} from "../../interfaces/auctions
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
-import useGetAPI from "../../hooks/API/useGetAPI.ts";
+import useGetAPI from "../../API/hooks/useGetAPI.ts";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
 import CloseButton from "../../components/UI/CloseButton/CloseButton.tsx";
 import {Context} from "../../context/contextApp.ts";
-
+import AuctionService from "../../API/service/AuctionService.ts";
 
 const PageOneAuction = () => {
     const {id} = useParams<string>();
-    const {data: auction, err, isLoading} = useGetAPI<IAuction>(`http://localhost:5121/api/v1/auctions/${id}`, BaseAuction);
-    const {userStore} = useContext(Context);
+    const {data: auction, err, loading} = useGetAPI<IAuction>(AuctionService.getAuctionByID(id), {} as IAuction)
     const {name, userId} = auction;
-    console.log('a', userStore.getAuth())
+
     return (
-        <LogicDownload isLoading={isLoading}>
+        <LogicDownload isLoading={loading}>
             <div>
                 <CloseButton />
                 <div className={stylePage.position}>

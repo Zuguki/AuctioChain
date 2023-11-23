@@ -4,15 +4,10 @@ import ListAuctions from "./ListAuctions/ListAuctions.tsx";
 import stylePage from './pageAuctions.module.css';
 import {Context} from "../../context/contextApp.ts";
 import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
-import $api from "../../authorizationLogic/apiUrl.ts";
+import AuctionService from "../../API/service/AuctionService.ts";
 const PageAuctions = () => {
     const showSearcher = true;
     const {userStore} = useContext(Context);
-
-    /*"TokenValidityInMinutes": "90",
-   "RefreshTokenValidityInDays": 30*/
-
-
 
     return (
         <div>
@@ -20,7 +15,7 @@ const PageAuctions = () => {
                 <h1 className={stylePage.title}>Список аукционов</h1>
                 {showSearcher && <SearcherAuction />}
             </div>
-            <BaseButton onClick={ () => $api.post('api/v1/auctions', {
+            <BaseButton onClick={ () => AuctionService.addAuction({
                 "name": "string",
                 "description": "string",
                 "image": "string",

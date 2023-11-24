@@ -11,7 +11,7 @@ interface IFormDiv {
     title: string,
     logicButton: ILogicFormDivButton,
     registration?: boolean,
-    error: string | null,
+    error: AxiosError | null,
     children:  ReactNode
 }
 
@@ -21,14 +21,26 @@ const FormDiv: FC<IFormDiv> = ({title, logicButton, error, registration = false,
     return (
         <form className={styleDiv.parent} onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}>
             <div className={styleDiv.formDiv}>
-                <h3 className={`${styleDiv.title} ${error && styleDiv.titleError}`}>{title}</h3>
-                {error && <p className={styleDiv.error}>{error}</p>}
+                <h3
+                    className={`${styleDiv.title} ${error && styleDiv.titleError}`}
+                >
+                    {title}
+                </h3>
+                {error && <p className={styleDiv.error}>{error.message}</p>}
                 {load && <Spinner form={true} />}
-                <div className={styleDiv.align}>
+                <div
+                    className={styleDiv.align}
+                >
                     {children}
                 </div>
-                <div className= {!registration ? styleDiv.positionBtn : styleDiv.positionBtnS}>
-                    <BaseButton disabled={load} onClick={() => logicButton.logicClick()}>
+                <div
+                    className={!registration ? styleDiv.positionBtn : styleDiv.positionBtnS}
+                >
+                    <BaseButton
+                        type='submit'
+                        disabled={load}
+                        onClick={() => logicButton.logicClick()}
+                    >
                         {logicButton.textButton}
                     </BaseButton>
                 </div>

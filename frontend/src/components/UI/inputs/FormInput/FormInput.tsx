@@ -9,7 +9,7 @@ const FormInput: FC<IInput> = ({changeValue, width= 'base', title, blockChars = 
         <div>
             <label className={styleFormInput.title}>{title}</label>
             <input
-                className={`${!error ? styleFormInput.input : styleFormInput.inputError} ${sizeStile(styleFormInput.small, styleFormInput.large)[width]}`}
+                className={`${styleFormInput.input} ${error && styleFormInput.inputError} ${sizeStile(styleFormInput.small, styleFormInput.large)[width]}`}
                 {...props}
                 onFocus={blurError}
                 onChange={(e: ChangeEvent<HTMLInputElement>): void => {

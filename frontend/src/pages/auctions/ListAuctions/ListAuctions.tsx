@@ -13,13 +13,13 @@ import IResponseAuction, {ResponseObjAuctions} from "../../../API/interfaces/IRe
 
 
 const ListAuctions: FC = () => {
-    //const [currentPage, setCurrentPage] = useState<number>(1);
-   const {data: {auctions}, err, loading} = useGetAPI<ResponseObjAuctions>(AuctionService.getAuctions(), {auctions: []});
+   // const [currentPage, setCurrentPage] = useState<number>(1);
+    const {data: {auctions}, err, loading} = useGetAPI<ResponseObjAuctions>(AuctionService.getAuctions(), {auctions: []});
     return (
         // change
         <LogicDownload isLoading={loading}>
             <>
-                {/*.filter((_, index) => (Math.floor(index / 6) + 1) === currentPage)*/}
+                {/**/}
                 <div className={styleList.position}>
                 {auctions.map((auction: IElementAuctions): ReactElement =>
                     <CardAuction
@@ -27,8 +27,8 @@ const ListAuctions: FC = () => {
                         auction={auction}
                     />)}
                 </div>
-                {/*{auctions.length !== 0 && <Pagination endPage={Math.ceil(auctions.length / 6)}
-                                                  sendCurrentPage={(page: number) => setCurrentPage(() => page)} />}*/}
+                {/*{auctions.length !== 0 && <Pagination endPage={Math.ceil(auctions.length / )}
+                                                  sendCurrentPage={(page: number) => setCurrentPage(() => page)} />}*!/*/}
             </>
         </LogicDownload>
     );

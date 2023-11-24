@@ -9,11 +9,10 @@ const useGetAPI = <T>(response: Promise<AxiosResponse>, baseData: T) => {
     useEffect((): void => {
         setLoading((): boolean => true);
         response
-            .then((res: AxiosResponse) => {
-                console.log(res)
-                setData(() => res.data)
+            .then((res: AxiosResponse): void => {
+                setData(() => res.data);
             })
-            .catch((resError): void => {
+            .catch((resError: unknown): void => {
                 if (resError instanceof AxiosError){
                     setError((): AxiosError => resError);
                 }

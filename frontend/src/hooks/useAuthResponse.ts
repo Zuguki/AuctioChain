@@ -8,7 +8,7 @@ import PostRegistrationUser, {isPostRegistrationUser} from "../authorizationLogi
 
 const useAuthResponse = (dataUser: PostLoginUser | PostRegistrationUser, textButton: string) => {
     const {userStore} = useContext(Context);
-    const [err, setErr] = useState<string | null>(null);
+    const [err, setErr] = useState<AxiosError | null>(null);
     const nav = useNavigate();
     const load: boolean = userStore.getLoading();
     const postUser = (): Promise<AxiosError | null> => isPostRegistrationUser(dataUser)
@@ -20,9 +20,8 @@ const useAuthResponse = (dataUser: PostLoginUser | PostRegistrationUser, textBut
         logicClick: (): void => {
             setErr((): null => null);
             postUser()
-                .then((err: (AxiosError | null)): void => {
-                    const errName =  err?.message;
-                    errName && setErr((): string | null => errName)
+                .then((err: AxiosError | null): void => {
+                    setErr((): AxiosError | null => err);
                 });
         }
     };

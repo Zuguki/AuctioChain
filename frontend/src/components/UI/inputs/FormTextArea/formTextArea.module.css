@@ -1,5 +1,5 @@
 .textArea {
-    width: 540px;
+    width: 570px;
     height: 200px;
     flex-shrink: 0;
     border-radius: 10px;
@@ -13,4 +13,26 @@
     line-height: 28px; /* 140% */
     padding: 20px 30px;
     resize: none;
+}
+
+.title {
+    color:  #818080;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+    margin: 15px 0;
+    display: block;
+}
+
+.error {
+    border-radius: 10px;
+    background: #FFFFFF;
+    outline: 0;
+
+    color: #F76F7A;
+    border: 2px solid #F76F7A;
+    font-family: SF Pro Display, Montserrat, sans-serif;
+    font-size: 20px;
+    line-height: 28px; /* 140% */
+    padding-left: 30px;
 }

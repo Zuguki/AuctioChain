@@ -1,6 +1,6 @@
 import axios, {AxiosInstance} from "axios";
 import Cookies from "js-cookie";
-import TokenLogic from "../tokenLogic/tokenLogic.ts";
+import TokenLogic from "../auxiliaryTools/tokenLogic/tokenLogic.ts";
 
 const BASE_URL: string = 'http://localhost:5121/';
 const API_URL: string = 'api/v1/';

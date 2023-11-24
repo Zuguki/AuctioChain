@@ -10,9 +10,12 @@ import FormAuthorization from "./pages/authorization/FormAuthorization/FormAutho
 import FormRegistration from "./pages/authorization/FormRegistration/FormRegistration.tsx";
 import Cookies from "js-cookie";
 import {Context, userStore} from "./context/contextApp.ts";
-import TokenLogic from "./tokenLogic/tokenLogic.ts";
+import TokenLogic from "./auxiliaryTools/tokenLogic/tokenLogic.ts";
+import PageAccount from "./pages/account/PageAccount.tsx";
+import PageCreateAuction from "./pages/createAuction/PageCreateAuction.tsx";
 
 function App() {
+
     useEffect(() => {
         const token =  Cookies.get(TokenLogic.TOKEN);
         if (token) {
@@ -26,9 +29,12 @@ function App() {
                 <Header />
                 <Routes>
                     <Route path='/' element={
-                        <Link to='/authorization'>
-                            <button>click</button>
-                        </Link>
+                        <>
+                            <PageCreateAuction />
+                            <Link to='/authorization'>
+                                <button>click</button>
+                            </Link>
+                        </>
                     }/>
                     <Route path='/authorization' element={<FormAuthorization />} />
                     <Route path='/authorization/registration' element={<FormRegistration />} />

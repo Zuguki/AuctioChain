@@ -9,7 +9,7 @@ import {AxiosError, name} from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {Context} from "../../../App.tsx";
 import BaseButton from "../../../components/UI/BaseButton/BaseButton.tsx";
-import {PostLoginUser} from "../../../authorizationLogic/PostAuth.ts";
+import { PostLoginUser} from "../../../authorizationLogic/PostAuth.ts";
 import useDataUser from "../../../hooks/useDataUser.ts";
 import useAuthResponse from "../../../hooks/useAuthResponse.ts";
 import Spinner from "../../../components/UI/Spinner/Spinner.tsx";

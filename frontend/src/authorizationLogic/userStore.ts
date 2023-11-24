@@ -4,9 +4,9 @@ import {AxiosError} from "axios";
 import Cookies from 'js-cookie';
 import IUser from "./IUser.ts";
 import PostLoginUser from "./postAuth/PostLoginUser.ts";
-import convertTokenToUser from "../tokenLogic/convertTokenToUser.ts";
+import convertTokenToUser from "../auxiliaryTools/tokenLogic/convertTokenToUser.ts";
 import PostRegistrationUser from "./postAuth/PostRegistrationUser.ts";
-import TokenLogic from "../tokenLogic/tokenLogic.ts";
+import TokenLogic from "../auxiliaryTools/tokenLogic/tokenLogic.ts";
 
 export default class UserStore {
     private isAuth: boolean = false;

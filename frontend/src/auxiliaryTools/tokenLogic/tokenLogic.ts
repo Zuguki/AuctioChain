@@ -1,4 +1,4 @@
-import IUser from "../authorizationLogic/IUser.ts";
+import IUser from "../../authorizationLogic/IUser.ts";
 
 export default class TokenLogic {
     public static readonly TOKEN: string = 'token';

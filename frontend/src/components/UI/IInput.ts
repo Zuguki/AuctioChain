@@ -6,7 +6,7 @@ interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     blockChars?: string[];
     title: string;
     name: string;
-    error: string | null;
+    error: AxiosError | null;
     changeValue: (e: ChangeEvent<HTMLInputElement>) => void;
     blurError: () => void;
 }

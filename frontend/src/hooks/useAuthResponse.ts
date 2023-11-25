@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { Context } from '../context/contextApp.ts';
 import { AxiosError } from 'axios';
 import ILogicFormDivButton from '../components/UI/div/FormDiv/logicFormDivButton.ts';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import PostLoginUser from '../authorizationLogic/postAuth/PostLoginUser.ts';
 import PostRegistrationUser, {
     isPostRegistrationUser,
@@ -14,8 +14,12 @@ const useAuthResponse = (
 ) => {
     const { userStore } = useContext(Context);
     const [err, setErr] = useState<AxiosError | null>(null);
-    //  const nav = useNavigate();
+    const nav: NavigateFunction = useNavigate();
     const load: boolean = userStore.getLoading();
+    const location = useLocation();
+
+    const fromPath = location?.state?.from?.pathname || '/auctions';
+    console.log(location, fromPath);
     const postUser = (): Promise<AxiosError | null> =>
         isPostRegistrationUser(dataUser)
             ? userStore.registration(dataUser)
@@ -33,13 +37,13 @@ const useAuthResponse = (
 
     const blurErr = (): void => setErr((): null => null);
 
-    /*const userAuth = (): void => {
-        if (store.getAuth()) {
-            nav('/auctions');
+    const userAuth = (): void => {
+        if (userStore.getAuth()) {
+            nav(fromPath);
         }
-    }*/
+    };
 
-    return { err, logicButton, blurErr, load };
+    return { err, logicButton, blurErr, load, userAuth };
 };
 
 export default useAuthResponse;

@@ -7,8 +7,12 @@ import PostLoginUser from '../../../authorizationLogic/postAuth/PostLoginUser.ts
 
 const FormAuthorization = observer(() => {
     const { dataUser, logicFormValue } = useDataUser<PostLoginUser>();
-    const { err, logicButton, blurErr } = useAuthResponse(dataUser, 'Вход');
-    //userAuth();
+    const { err, logicButton, blurErr, userAuth } = useAuthResponse(
+        dataUser,
+        'Вход',
+    );
+    console.log('render');
+    userAuth();
 
     return (
         <FormDiv

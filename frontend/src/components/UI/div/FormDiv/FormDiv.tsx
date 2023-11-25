@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, ReactNode, useContext } from 'react';
+import { FC, FormEvent, ReactNode, useContext } from 'react';
 import styleDiv from './formDiv.module.css';
 import BaseButton from '../../BaseButton/BaseButton.tsx';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,7 @@ import ILogicFormDivButton from './logicFormDivButton.ts';
 import { AxiosError } from 'axios';
 import { Context } from '../../../../context/contextApp.ts';
 import Spinner from '../../Spinner/Spinner.tsx';
+import LogicFormProcessing from '../../../LogicFormProcessing/LogicFormProcessing.tsx';
 
 interface IFormDiv {
     title: string;
@@ -38,8 +39,7 @@ const FormDiv: FC<IFormDiv> = ({
                 >
                     {title}
                 </h3>
-                {error && <p className={styleDiv.error}>{error.message}</p>}
-                {load && <Spinner form={true} />}
+                <LogicFormProcessing loading={load} err={error} />
                 <div className={styleDiv.align}>{children}</div>
                 <div
                     className={

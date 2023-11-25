@@ -1,4 +1,3 @@
-import React from 'react';
 import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
 import FormTextArea from '../../components/UI/inputs/FormTextArea/FormTextArea.tsx';
 import DateInput from '../../components/UI/inputs/DataInput/DateInput.tsx';
@@ -10,6 +9,7 @@ import DateLogic from '../../auxiliaryTools/dateLogic/DateLogic.ts';
 import AuctionService from '../../API/service/AuctionService.ts';
 import usePostAPI from '../../API/hooks/usePostAPI.ts';
 import Spinner from '../../components/UI/Spinner/Spinner.tsx';
+import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
 
 const PageCreateAuction = () => {
     const { dataUser, logicFormValue } = useDataUser<IPostAuction>();
@@ -25,7 +25,6 @@ const PageCreateAuction = () => {
 
         await postData(AuctionService.addAuction(dataPostUser));
     };
-
     return (
         <form
             onSubmit={e => e.preventDefault()}
@@ -33,14 +32,7 @@ const PageCreateAuction = () => {
         >
             <div>
                 <h1>Создание аукциона</h1>
-                <div>
-                    {loading && <Spinner form={true} />}
-                    {err && (
-                        <p className={styleCreateAuction.error}>
-                            {err.message}
-                        </p>
-                    )}
-                </div>
+                <LogicFormProcessing loading={loading} err={err} />
                 <FormInput
                     title="Название аукциона"
                     name="name"

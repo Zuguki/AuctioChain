@@ -1,6 +1,7 @@
 import $api, { urlApi } from '../../authorizationLogic/apiUrl.ts';
 import { AxiosResponse } from 'axios';
 import ILot, { ResponseObjLots } from '../interfaces/ILot.ts';
+import IPostBet from '../interfaces/IPostBet.ts';
 
 export default class LotService {
     private static readonly urlAuctions: string = urlApi('auction/lots');
@@ -13,6 +14,10 @@ export default class LotService {
 
     public static async getLotByID(id: string): Promise<AxiosResponse<ILot>> {
         return $api.get(`${this.urlAuctions}/${id}`);
+    }
+
+    public static async postBetInLot(bet: IPostBet): Promise<AxiosResponse> {
+        return $api.post(`${this.urlAuctions}/bets`, bet);
     }
 
     /* public static async addLot(lot) {

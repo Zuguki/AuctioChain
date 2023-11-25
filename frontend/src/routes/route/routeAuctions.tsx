@@ -8,14 +8,7 @@ import RequireAuth from '../RequireAuth.tsx';
 const routeAuctions = [
     <Route path="auctions" element={<PageAuctions />} />,
     <Route path="auction/:id" element={<PageOneAuction />} />,
-    <Route
-        path="lot/:id"
-        element={
-            <RequireAuth>
-                <PageLot />
-            </RequireAuth>
-        }
-    />,
+    <Route path="lot/:id" element={<PageLot />} />,
 ];
 
 export default routeAuctions;

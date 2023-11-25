@@ -10,10 +10,11 @@ import React, { useEffect } from 'react';
 
 const FormRegistration = () => {
     const { dataUser, logicFormValue } = useDataUser<PostRegistrationUser>();
-    const { err, logicButton, blurErr } = useAuthResponse(
+    const { err, logicButton, blurErr, userAuth } = useAuthResponse(
         dataUser,
         'Зарегестрироваться',
     );
+    userAuth();
 
     return (
         <FormDiv title="Регистрация" logicButton={logicButton} error={err}>

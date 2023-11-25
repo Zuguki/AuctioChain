@@ -1,34 +1,55 @@
-import React, { FC } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import imgLot from './test-lot.png';
 import styleLot from './pageLot.module.css';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
-import { useParams } from 'react-router-dom';
+import {
+    Navigate,
+    useLocation,
+    useNavigate,
+    useParams,
+} from 'react-router-dom';
 import { ILot } from '../../interfaces/lotsTypes.ts';
 import Spinner from '../../components/UI/Spinner/Spinner.tsx';
 import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
 import CloseButton from '../../components/UI/CloseButton/CloseButton.tsx';
 import useGetAPI from '../../API/hooks/useGetAPI.ts';
 import LotService from '../../API/service/LotService.ts';
+import PageBet from '../bet/PageBet.tsx';
+import { Context } from '../../context/contextApp.ts';
 
 interface IPathLotPage {
     lot: ILot;
+    openBet?: () => void;
 }
 
 const PageLot: FC = () => {
     const { id } = useParams();
-    const {
-        data: lot,
-        loading,
-        err,
-    } = useGetAPI<ILot>(LotService.getLotByID(id), {} as ILot);
+    const { userStore } = useContext(Context);
+    const nav = useNavigate();
+    const location = useLocation();
+    const { data: lot, loading } = useGetAPI<ILot>(
+        LotService.getLotByID(id),
+        {} as ILot,
+    );
+    const [showBet, setShowBet] = useState<boolean>(false);
+    const closeBet = () => setShowBet((): boolean => false);
+    const openBet = (): void => {
+        if (userStore.getAuth()) {
+            setShowBet((): boolean => true);
+            return;
+        }
+        nav('/authorization', { state: { from: location } });
+    };
+
     return (
         <LogicDownload isLoading={loading}>
             <div>
                 <CloseButton />
                 <div className={styleLot.position}>
                     <LeftPathLotPage lot={lot} />
-                    <RightPathLotPage lot={lot} />
+                    <RightPathLotPage lot={lot} openBet={openBet} />
                 </div>
+                {showBet && <PageBet lotId={id} close={closeBet} />}
             </div>
         </LogicDownload>
     );
@@ -47,7 +68,7 @@ const LeftPathLotPage: FC<IPathLotPage> = ({ lot }) => {
     );
 };
 
-const RightPathLotPage: FC<IPathLotPage> = ({ lot }) => {
+const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
     return (
         <div className={styleLot.right}>
             <h1>{lot.name}</h1>
@@ -58,7 +79,7 @@ const RightPathLotPage: FC<IPathLotPage> = ({ lot }) => {
                 <p>Шаг: {lot.betStep}₽</p>
                 <p>Количество участников: ----56</p>
             </div>
-            <BaseButton>Поставить ставку</BaseButton>
+            <BaseButton onClick={openBet}>Поставить ставку</BaseButton>
         </div>
     );
 };

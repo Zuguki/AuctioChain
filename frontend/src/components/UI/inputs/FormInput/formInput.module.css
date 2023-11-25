@@ -27,17 +27,18 @@
     padding-left: 30px;
 }
 
-.inputError:-webkit-autofill {
-    border: 2px solid #F76F7A;
-    -webkit-text-fill-color: #F76F7A;
-    -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset;
-    transition: background-color 5000s ease-in-out 0s;
-}
 
 .input:-webkit-autofill {
     border: 0;
     -webkit-text-fill-color: #818080;
     -webkit-box-shadow: 0 0 0 1000px #F5F5F5 inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.inputError:-webkit-autofill {
+    border: 2px solid #F76F7A;
+    -webkit-text-fill-color: #F76F7A;
+    -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset;
     transition: background-color 5000s ease-in-out 0s;
 }
 

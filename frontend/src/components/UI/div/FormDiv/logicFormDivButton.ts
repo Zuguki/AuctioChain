@@ -1,5 +1,5 @@
 interface ILogicFormDivButton {
-    textButton: string,
+    textButton: string;
     logicClick: () => void;
 }
 

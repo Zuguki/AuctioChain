@@ -1,7 +1,7 @@
-import {createContext} from "react";
-import UserStore from "../authorizationLogic/userStore.ts";
+import { createContext } from 'react';
+import UserStore from '../authorizationLogic/userStore.ts';
 
 const userStore = new UserStore();
-const Context = createContext({userStore});
+const Context = createContext({ userStore });
 
-export {Context, userStore};
+export { Context, userStore };

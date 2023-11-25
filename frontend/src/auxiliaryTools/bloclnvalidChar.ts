@@ -1,8 +1,30 @@
-import {KeyboardEvent} from "react";
+import { KeyboardEvent } from 'react';
 
-const blockInvalidChar = (e: KeyboardEvent<HTMLElement>, chars: string[]) => chars.includes(e.key) && e.preventDefault();
+const blockInvalidChar = (e: KeyboardEvent<HTMLElement>, chars: string[]) =>
+    chars.includes(e.key) && e.preventDefault();
 
 const numberChars: string[] = ['e', 'E', '+', '-', '.', ','];
-const passwordChars: string[] = ['}', '{', ']', '"', '\'', ';', ':', '?', '/', '|', '\\', '*', '#', '№', '%', '^', '&' , '$', ',', ' '];
+const passwordChars: string[] = [
+    '}',
+    '{',
+    ']',
+    '"',
+    "'",
+    ';',
+    ':',
+    '?',
+    '/',
+    '|',
+    '\\',
+    '*',
+    '#',
+    '№',
+    '%',
+    '^',
+    '&',
+    '$',
+    ',',
+    ' ',
+];
 
-export {blockInvalidChar, numberChars, passwordChars}
+export { blockInvalidChar, numberChars, passwordChars };

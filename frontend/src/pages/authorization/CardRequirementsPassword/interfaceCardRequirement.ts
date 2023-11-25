@@ -1,4 +1,4 @@
-import {ChangeEvent} from "react";
+import { ChangeEvent } from 'react';
 
 interface ICorrectPassword {
     lengthPassword: boolean;
@@ -20,8 +20,4 @@ interface IPasswords {
     correctPassword: string | null;
 }
 
-export {
-    type ICorrectPassword,
-    type IUseLogicRequirement,
-    type IPasswords
-}
+export { type ICorrectPassword, type IUseLogicRequirement, type IPasswords };

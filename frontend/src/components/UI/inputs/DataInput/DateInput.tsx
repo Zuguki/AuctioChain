@@ -1,9 +1,15 @@
-import {FC} from 'react';
-import dataStyle from './dataInput.module.css'
-import IInput from "../../IInput.ts";
-import styleFormInput from "../FormInput/formInput.module.css";
+import { FC } from 'react';
+import dataStyle from './dataInput.module.css';
+import IInput from '../../IInput.ts';
+import styleFormInput from '../FormInput/formInput.module.css';
 
-const DateInput: FC<Omit<IInput, 'width'>> = ({changeValue, title, error, blurError,...props}) => {
+const DateInput: FC<Omit<IInput, 'width'>> = ({
+    changeValue,
+    title,
+    error,
+    blurError,
+    ...props
+}) => {
     /*const time = new Date()
         const t = time.toLocaleDateString() + 'T' + time.toLocaleTimeString('en-US', { hour12: false,
         hour: "numeric",
@@ -20,7 +26,6 @@ const DateInput: FC<Omit<IInput, 'width'>> = ({changeValue, title, error, blurEr
                 onChange={changeValue}
             />
         </div>
-
     );
 };
 

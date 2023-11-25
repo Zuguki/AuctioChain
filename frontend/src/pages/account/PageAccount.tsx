@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
-import {Context} from "../../context/contextApp.ts";
-import Hr from "../../components/UI/Hr/Hr.tsx";
-import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
-import {observer} from "mobx-react-lite";
+import React, { useContext } from 'react';
+import { Context } from '../../context/contextApp.ts';
+import Hr from '../../components/UI/Hr/Hr.tsx';
+import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
+import { observer } from 'mobx-react-lite';
 
 const PageAccount = observer(() => {
-    const {userStore} = useContext(Context);
+    const { userStore } = useContext(Context);
     const userData = userStore.getUser();
     return (
         <div>
@@ -16,7 +16,6 @@ const PageAccount = observer(() => {
                 <BaseButton>Пополнить счёт</BaseButton>
                 <Hr />
             </div>
-
         </div>
     );
 });

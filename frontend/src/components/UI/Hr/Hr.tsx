@@ -1,10 +1,14 @@
-import {FC} from 'react';
-import sizeStile from "../../../auxiliaryTools/logicSize.ts";
+import { FC } from 'react';
+import sizeStile from '../../../auxiliaryTools/logicSize.ts';
 import styleHr from './hr.module.css';
 
-const Hr: FC<IHr> = ({width = 'base'}) => {
+const Hr: FC<IHr> = ({ width = 'base' }) => {
     return (
-        <hr className={`${styleHr.hr} ${sizeStile(styleHr.hrSmall, styleHr.hrLarge)[width]}`}/>
+        <hr
+            className={`${styleHr.hr} ${
+                sizeStile(styleHr.hrSmall, styleHr.hrLarge)[width]
+            }`}
+        />
     );
 };
 

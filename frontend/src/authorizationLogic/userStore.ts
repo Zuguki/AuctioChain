@@ -1,12 +1,11 @@
-import {makeAutoObservable} from "mobx";
-import AuthService from "./AuthService.ts";
-import {AxiosError} from "axios";
+import { makeAutoObservable } from 'mobx';
+import AuthService from './AuthService.ts';
+import { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
-import IUser from "./IUser.ts";
-import PostLoginUser from "./postAuth/PostLoginUser.ts";
-import convertTokenToUser from "../auxiliaryTools/tokenLogic/convertTokenToUser.ts";
-import PostRegistrationUser from "./postAuth/PostRegistrationUser.ts";
-import TokenLogic from "../auxiliaryTools/tokenLogic/tokenLogic.ts";
+import IUser from './IUser.ts';
+import PostLoginUser from './postAuth/PostLoginUser.ts';
+import PostRegistrationUser from './postAuth/PostRegistrationUser.ts';
+import TokenLogic from '../auxiliaryTools/tokenLogic/tokenLogic.ts';
 
 export default class UserStore {
     private isAuth: boolean = false;
@@ -46,7 +45,7 @@ export default class UserStore {
         this.setLoading(true);
         try {
             const res = await AuthService.login(loginData);
-            const {token, refreshToken} = res.data;
+            const { token, refreshToken } = res.data;
             this.setAuth(true);
             this.setUser(TokenLogic.convertTokenToUser(token));
             Cookies.set(TokenLogic.TOKEN, token);
@@ -61,14 +60,16 @@ export default class UserStore {
         return errorLogin;
     }
 
-    public async registration(registrationData: PostRegistrationUser): Promise<AxiosError | null> {
+    public async registration(
+        registrationData: PostRegistrationUser,
+    ): Promise<AxiosError | null> {
         let errorRegistration = null;
         this.setLoading(true);
         try {
             await AuthService.registration(registrationData);
             const loginData: PostLoginUser = {
                 login: registrationData.email,
-                password: registrationData.password
+                password: registrationData.password,
             };
             await this.login(loginData);
         } catch (error: unknown) {

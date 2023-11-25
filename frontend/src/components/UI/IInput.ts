@@ -1,5 +1,5 @@
-import {InputHTMLAttributes, ChangeEvent} from "react";
-import {AxiosError} from "axios";
+import { InputHTMLAttributes, ChangeEvent } from 'react';
+import { AxiosError } from 'axios';
 
 interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     width?: 'small' | 'base' | 'large';

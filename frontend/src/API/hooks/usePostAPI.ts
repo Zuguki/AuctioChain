@@ -1,5 +1,5 @@
-import {useCallback, useEffect, useState} from "react";
-import {AxiosError, AxiosResponse} from "axios";
+import { useCallback, useEffect, useState } from 'react';
+import { AxiosError, AxiosResponse } from 'axios';
 
 const usePostAPI = () => {
     const [err, setError] = useState<AxiosError | null>(null);
@@ -7,20 +7,23 @@ const usePostAPI = () => {
 
     const blurError = (): void => setError((): null => null);
 
-    const postData = useCallback(async (request: Promise<AxiosResponse>): Promise<void> => {
-        setLoading((): boolean => true);
-        try {
-            await request;
-        } catch (errRequest) {
-            if (errRequest instanceof AxiosError) {
-                setError((): AxiosError => errRequest);
+    const postData = useCallback(
+        async (request: Promise<AxiosResponse>): Promise<void> => {
+            setLoading((): boolean => true);
+            try {
+                await request;
+            } catch (errRequest) {
+                if (errRequest instanceof AxiosError) {
+                    setError((): AxiosError => errRequest);
+                }
+            } finally {
+                setLoading((): boolean => false);
             }
-        } finally {
-            setLoading((): boolean => false);
-        }
-    }, []);
+        },
+        [],
+    );
 
-    return {err, loading, blurError, postData};
-}
+    return { err, loading, blurError, postData };
+};
 
 export default usePostAPI;

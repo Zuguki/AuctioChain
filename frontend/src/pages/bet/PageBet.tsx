@@ -15,21 +15,26 @@ interface IPageBet {
     lotId: string;
 }
 const PageBet: FC<IPageBet> = ({ close, lotId }) => {
-    const { err, loading, blurError, postData } = usePostAPI();
+    const { error, loading, blurError, postData } = usePostAPI();
     const { dataUser, logicFormValue } = useDataUser<IPostBet>();
 
-    const submitBet = async (e: FormEvent<HTMLFormElement>) => {
+    const submitBet = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         blurError();
         e.preventDefault();
         dataUser.lotId = lotId;
-        await postData(LotService.postBetInLot(dataUser));
+        await postData(() => LotService.postBetInLot(dataUser));
     };
+
     return (
         <div className={styleBet.background}>
             <form className={styleBet.form} onSubmit={submitBet}>
                 <CloseButton logicClick={close} />
                 <h3>Ставка</h3>
-                <LogicFormProcessing loading={loading} err={err} />
+                <LogicFormProcessing
+                    loading={loading}
+                    err={error}
+                    centerText={false}
+                />
                 <p className={styleBet.textBalance}>На вашем счёте: {}</p>
                 <p className={styleBet.textInformation}>
                     Цена на данный момент: 30 Ac
@@ -43,11 +48,11 @@ const PageBet: FC<IPageBet> = ({ close, lotId }) => {
                     name="amount"
                     width="small"
                     type="number"
-                    error={err}
+                    error={error}
                     changeValue={logicFormValue}
                     blurError={blurError}
                 />
-                <BaseButton style={{ marginTop: 35 }} type="submit">
+                <BaseButton style={{ marginTop: 30 }} type="submit">
                     Поставить ставку
                 </BaseButton>
             </form>

@@ -6,13 +6,26 @@ import styleLogicForm from './logicFormProcessing.module.css';
 interface ILogicFormProcessing {
     loading: boolean;
     err: AxiosError | null;
+    centerText?: boolean;
 }
 
-const LogicFormProcessing: FC<ILogicFormProcessing> = ({ loading, err }) => {
+const LogicFormProcessing: FC<ILogicFormProcessing> = ({
+    loading,
+    centerText = true,
+    err,
+}) => {
     return (
-        <div>
+        <div className={styleLogicForm.position}>
             {loading && <Spinner form={true} />}
-            {err && <p className={styleLogicForm.error}>{err.message}</p>}
+            {err && (
+                <p
+                    className={`${styleLogicForm.error} ${
+                        !centerText && styleLogicForm.left
+                    }`}
+                >
+                    {err.message}
+                </p>
+            )}
         </div>
     );
 };

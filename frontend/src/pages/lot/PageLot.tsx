@@ -2,14 +2,8 @@ import React, { FC, useContext, useState } from 'react';
 import imgLot from './test-lot.png';
 import styleLot from './pageLot.module.css';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
-import {
-    Navigate,
-    useLocation,
-    useNavigate,
-    useParams,
-} from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ILot } from '../../interfaces/lotsTypes.ts';
-import Spinner from '../../components/UI/Spinner/Spinner.tsx';
 import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
 import CloseButton from '../../components/UI/CloseButton/CloseButton.tsx';
 import useGetAPI from '../../API/hooks/useGetAPI.ts';
@@ -28,7 +22,7 @@ const PageLot: FC = () => {
     const nav = useNavigate();
     const location = useLocation();
     const { data: lot, loading } = useGetAPI<ILot>(
-        LotService.getLotByID(id),
+        () => LotService.getLotByID(id),
         {} as ILot,
     );
     const [showBet, setShowBet] = useState<boolean>(false);

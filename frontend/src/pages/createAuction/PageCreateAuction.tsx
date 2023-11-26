@@ -13,7 +13,7 @@ import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormP
 
 const PageCreateAuction = () => {
     const { dataUser, logicFormValue } = useDataUser<IPostAuction>();
-    const { err, loading, blurError, postData } = usePostAPI();
+    const { error, loading, blurError, postData } = usePostAPI();
 
     const postAuction = async (): Promise<void> => {
         blurError();
@@ -32,25 +32,25 @@ const PageCreateAuction = () => {
         >
             <div>
                 <h1>Создание аукциона</h1>
-                <LogicFormProcessing loading={loading} err={err} />
+                <LogicFormProcessing loading={loading} err={error} />
                 <FormInput
                     title="Название аукциона"
                     name="name"
-                    error={err}
+                    error={error}
                     changeValue={logicFormValue}
                     blurError={blurError}
                 />
                 <FormTextArea
                     title="Описание аукциона"
                     name="description"
-                    error={err}
+                    error={error}
                     blurError={blurError}
                     changeValue={logicFormValue}
                 />
                 <DateInput
                     title="Дата окончания"
                     name="dateEnd"
-                    error={err}
+                    error={error}
                     changeValue={logicFormValue}
                     blurError={blurError}
                 />

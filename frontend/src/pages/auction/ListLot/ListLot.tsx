@@ -14,7 +14,7 @@ const ListLot: FC<{ id: string }> = ({ id }) => {
         data: { lots },
         err,
         loading,
-    } = useGetAPI<ResponseObjLots>(LotService.getLots(id), { lots: [] });
+    } = useGetAPI<ResponseObjLots>(() => LotService.getLots(id), { lots: [] });
     useEffect(() => {
         console.log(lots);
     }, [lots]);

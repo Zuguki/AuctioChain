@@ -15,19 +15,6 @@ const PageAuctions = () => {
                 <h1 className={stylePage.title}>Список аукционов</h1>
                 {showSearcher && <SearcherAuction />}
             </div>
-            <BaseButton
-                onClick={() =>
-                    AuctionService.addAuction({
-                        name: 'string',
-                        description: 'string',
-                        image: 'string',
-                        dateStart: '2023-11-22T14:25:13.187Z',
-                        dateEnd: '2023-11-23T14:25:13.187Z',
-                    })
-                }
-            >
-                post
-            </BaseButton>
             <BaseButton red onClick={() => userStore.logout()}>
                 Выход
             </BaseButton>

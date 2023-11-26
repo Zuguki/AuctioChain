@@ -13,7 +13,7 @@ const ListAuctions: FC = () => {
         data: { auctions },
         err,
         loading,
-    } = useGetAPI<ResponseObjAuctions>(AuctionService.getAuctions(), {
+    } = useGetAPI<ResponseObjAuctions>(() => AuctionService.getAuctions(), {
         auctions: [],
     });
     return (

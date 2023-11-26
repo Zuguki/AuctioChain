@@ -1,6 +1,6 @@
 interface ILogicFormDivButton {
     textButton: string;
-    logicClick: () => void;
+    logicClick: () => Promise<void>;
 }
 
 export default ILogicFormDivButton;

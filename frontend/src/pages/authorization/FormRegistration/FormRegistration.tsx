@@ -7,42 +7,47 @@ import { PostRegistrationUser } from '../../../authorizationLogic/PostAuth.ts';
 import useDataUser from '../../../hooks/useDataUser.ts';
 import useAuthResponse from '../../../hooks/useAuthResponse.ts';
 import React, { useEffect } from 'react';
+import { userStore } from '../../../context/contextApp.ts';
 
 const FormRegistration = () => {
     const { dataUser, logicFormValue } = useDataUser<PostRegistrationUser>();
-    const { err, logicButton, blurErr, userAuth } = useAuthResponse(
-        dataUser,
+    const { error, logicButton, blurError, loading } = useAuthResponse(
+        () => userStore.registration(dataUser),
         'Зарегестрироваться',
     );
-    userAuth();
 
     return (
-        <FormDiv title="Регистрация" logicButton={logicButton} error={err}>
+        <FormDiv
+            title="Регистрация"
+            logicButton={logicButton}
+            error={error}
+            loading={loading}
+        >
             <FormInput
                 title="Имя пользователя"
                 name="userName"
-                error={err}
-                blurError={blurErr}
+                error={error}
+                blurError={blurError}
                 changeValue={logicFormValue}
             />
             <FormInput
                 title="Почта"
                 name="email"
                 type="email"
-                error={err}
-                blurError={blurErr}
+                error={error}
+                blurError={blurError}
                 changeValue={logicFormValue}
             />
             <PasswordInputCard
-                error={err}
-                blurError={blurErr}
+                error={error}
+                blurError={blurError}
                 changeValue={logicFormValue}
             />
             <FormInput
                 title="Повторите пароль"
                 name="passwordConfirm"
-                error={err}
-                blurError={blurErr}
+                error={error}
+                blurError={blurError}
                 changeValue={logicFormValue}
             />
             <CheckboxInput required>

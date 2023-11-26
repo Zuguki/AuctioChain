@@ -4,38 +4,40 @@ import useDataUser from '../../../hooks/useDataUser.ts';
 import useAuthResponse from '../../../hooks/useAuthResponse.ts';
 import { observer } from 'mobx-react-lite';
 import PostLoginUser from '../../../authorizationLogic/postAuth/PostLoginUser.ts';
+import { Context } from '../../../context/contextApp.ts';
+import { useContext, useEffect } from 'react';
 
 const FormAuthorization = observer(() => {
+    const { userStore } = useContext(Context);
     const { dataUser, logicFormValue } = useDataUser<PostLoginUser>();
-    const { err, logicButton, blurErr, userAuth } = useAuthResponse(
-        dataUser,
+    const { error, logicButton, loading, blurError } = useAuthResponse(
+        () => userStore.login(dataUser),
         'Вход',
     );
-    console.log('render');
-    userAuth();
-
     return (
         <FormDiv
             title="Вход"
             logicButton={logicButton}
-            error={err}
+            loading={loading}
+            error={error}
             registration
         >
+            <p>{userStore.getUser().userId}</p>
             <FormInput
                 title="Телефон или имя пользователя"
                 name="login"
                 autoComplete="on"
-                error={err}
+                error={error}
                 changeValue={logicFormValue}
-                blurError={blurErr}
+                blurError={blurError}
             />
             <FormInput
                 title="Пароль"
                 name="password"
                 type="password"
                 autoComplete="current-password"
-                error={err}
-                blurError={blurErr}
+                error={error}
+                blurError={blurError}
                 changeValue={logicFormValue}
             />
             {/*<div className={`${err && styleRegistration.marginForgotPassword}`}>

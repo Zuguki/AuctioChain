@@ -22,7 +22,10 @@ const PageOneAuction = () => {
         data: auction,
         err,
         loading,
-    } = useGetAPI<IAuction>(AuctionService.getAuctionByID(id), {} as IAuction);
+    } = useGetAPI<IAuction>(
+        () => AuctionService.getAuctionByID(id),
+        {} as IAuction,
+    );
     const { name, userId } = auction;
 
     return (

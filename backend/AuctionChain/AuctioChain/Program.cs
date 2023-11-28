@@ -36,7 +36,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
 {
-    opt.AllowAnyHeader();
+    opt.WithExposedHeaders("X-Pagination-Auctions");
     opt.WithHeaders();
     opt.AllowCredentials();
     opt.AllowAnyMethod();

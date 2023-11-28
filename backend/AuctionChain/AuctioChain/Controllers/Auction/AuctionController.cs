@@ -140,7 +140,7 @@ public class AuctionController : ControllerBase
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 
-        Response.Headers.Add("X-Pagination-Auctions", JsonSerializer.Serialize(result.Value.Item2));
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(result.Value.Item2));
         return Ok(result.Value.Item1);
     }
 

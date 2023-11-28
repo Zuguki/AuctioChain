@@ -51,6 +51,12 @@ public class AccountManager : IAccountManager
 
     public async Task<Result> CreateMemberAsync(RegisterRequest request)
     {
+        var userWithSameLogin = await _userManager.Users.FirstOrDefaultAsync(u =>
+            u.Email == request.Email || u.UserName == request.UserName);
+        
+        if (userWithSameLogin is not null)
+            return Result.Fail("Пользователь с таким именем или email уже существует");
+        
         var appUser = new ApplicationUser {Email = request.Email, UserName = request.UserName};
         var result = await _userManager.CreateAsync(appUser, request.Password);
 

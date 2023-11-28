@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
@@ -56,8 +55,7 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public async Task<Result> CreateAsync(CreateAuctionRequest model, Guid userId)
     {
-        var auction = new AuctionDal(model.Name!, userId, model.DateStart, model.DateEnd, model.Description,
-            model.Image);
+        var auction = new AuctionDal(model.Name!, userId, model.DateStart, model.DateEnd, model.Description, null);
 
         await _context.Auctions.AddAsync(auction);
         await _context.SaveChangesAsync();

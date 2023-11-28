@@ -58,8 +58,8 @@ public class LotManager : ILotManager
         if (!auction.IsEditable)
             return Result.Fail("Данный аукцион нельзя редактировать");
 
-        var lot = new LotDal(request.AuctionId, request.Name, request.Description, request.Code, request.BetStep,
-            request.BuyoutPrice);
+        var lot = new LotDal(request.AuctionId, request.Name, request.Description, request.Code, request.InitialPrice,
+            request.BetStep, request.BuyoutPrice);
 
         await _context.Lots.AddAsync(lot);
         await _context.SaveChangesAsync();
@@ -98,6 +98,7 @@ public class LotManager : ILotManager
         lot.Name = request.Name;
         lot.Code = request.Code;
         lot.Description = request.Description;
+        lot.InitialPrice = request.InitialPrice;
         lot.BetStep = request.BetStep;
         lot.BuyoutPrice = request.BuyoutPrice;
 

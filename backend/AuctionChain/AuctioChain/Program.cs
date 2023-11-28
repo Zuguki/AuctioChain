@@ -37,6 +37,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
 {
     opt.AllowAnyHeader();
+    opt.WithHeaders();
     opt.AllowCredentials();
     opt.AllowAnyMethod();
     opt.WithOrigins(builder.Configuration.GetSection("Cors:Urls").Get<string[]>()!);
@@ -108,11 +109,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 
+app.UseCors("cors");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("cors");
 app.MapControllers();
 
 app.Run();

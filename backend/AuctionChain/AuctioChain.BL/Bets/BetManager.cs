@@ -42,14 +42,14 @@ public class BetManager : IBetManager
             return Result.Fail("По данному лоту запрещено делать ставки, т.к. он выкуплен");
 
         if (request.Amount is not null && lot.Bets.Count > 0 && request.Amount < lot.Bets.Max(b => b.Amount) + lot.BetStep ||
-            request.Amount is not null && lot.Bets.Count > 0 && request.Amount <= lot.Bets.Max(b => b.Amount)) 
+            request.Amount is not null && lot.Bets.Count == 0 && request.Amount < lot.InitialPrice)
             return Result.Fail("Ставка должна быть больше");
 
         decimal nextStep;
         if (request.Amount is null)
             nextStep = lot.Bets.Count > 0
                 ? lot.Bets.Max(b => b.Amount) + lot.BetStep
-                : lot.BetStep;
+                : lot.InitialPrice;
         else
             nextStep = (decimal) request.Amount;
 

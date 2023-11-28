@@ -26,6 +26,11 @@ public class LotResponse
     public string? Description { get; set; }
     
     /// <summary>
+    /// Начальная ставка
+    /// </summary>
+    public decimal InitialPrice { get; set; }
+    
+    /// <summary>
     /// Шаг ставки
     /// </summary>
     public decimal BetStep { get; set; }

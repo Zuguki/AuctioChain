@@ -23,7 +23,7 @@ public interface IAccountManager
     /// Получить токен доступа и токен обновления
     /// </summary>
     /// <param name="appUser">Модель пользователя</param>
-    Task<Result<TokenResponse>> GetAndUpdateToken(ApplicationUser appUser);
+    Task<Result<TokenResponse>> CreateToken(ApplicationUser appUser);
 
     /// <summary>
     /// Обнавляет access and refresh token

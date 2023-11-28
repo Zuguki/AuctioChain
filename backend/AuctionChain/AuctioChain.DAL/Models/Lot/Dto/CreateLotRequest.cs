@@ -30,6 +30,12 @@ public class CreateLotRequest
     public string Code { get; init; } = null!;
     
     /// <summary>
+    /// Начальная цена
+    /// </summary>
+    [JsonPropertyName("initialPrice")]
+    public decimal InitialPrice { get; init; }
+    
+    /// <summary>
     /// Шаг ставки
     /// </summary>
     [JsonPropertyName("betStep")]

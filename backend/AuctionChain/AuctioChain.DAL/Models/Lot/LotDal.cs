@@ -47,6 +47,12 @@ public class LotDal
     public string? Description { get; set; }
     
     /// <summary>
+    /// Начальная цена
+    /// </summary>
+    [Column("initialPrice")]
+    public decimal InitialPrice { get; set; }
+    
+    /// <summary>
     /// Шаг ставки
     /// </summary>
     [Column("betStep")]
@@ -91,12 +97,14 @@ public class LotDal
     /// <summary>
     /// .ctor
     /// </summary>
-    public LotDal(Guid auctionId, string? name, string? description, string? code, decimal betStep, decimal? buyoutPrice = null)
+    public LotDal(Guid auctionId, string? name, string? description, string? code, decimal initialPrice,
+        decimal betStep, decimal? buyoutPrice = null)
     {
         Id = Guid.NewGuid();
         AuctionId = auctionId;
         Name = name;
         Description = description;
+        InitialPrice = initialPrice;
         BetStep = betStep;
         BuyoutPrice = buyoutPrice;
         Code = code;

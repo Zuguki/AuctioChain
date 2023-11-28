@@ -137,10 +137,10 @@ public class AuctionController : ControllerBase
             return BadRequest("Переданны некорректные данные");
         
         var result = await _manager.GetAllAsync(pagination);
-        Response.Headers.Add("X-Pagination-Auctions", JsonSerializer.Serialize(result.Value.Item2));
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 
+        Response.Headers.Add("X-Pagination-Auctions", JsonSerializer.Serialize(result.Value.Item2));
         return Ok(result.Value.Item1);
     }
 

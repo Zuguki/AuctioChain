@@ -115,10 +115,10 @@ public class LotsController : ControllerBase
             return BadRequest("Передан некорректный идентификатор ауцкиона");
 
         var result = await _lotManager.GetByIdAsync(request, pagination);
-        Response.Headers.Add("X-Pagination-Lots", JsonSerializer.Serialize(result.Value.Item2));
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
+        Response.Headers.Add("X-Pagination-Lots", JsonSerializer.Serialize(result.Value.Item2));
         return Ok(result.Value.Item1);
     }
 

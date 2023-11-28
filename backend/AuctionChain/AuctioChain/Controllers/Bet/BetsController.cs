@@ -56,10 +56,10 @@ public class BetsController : ControllerBase
             return BadRequest("Передан некорректный формат данных");
 
         var result = await _betManager.GetBetsByLotAsync(request, pagination);
-        Response.Headers.Add("X-Pagination-Bets", JsonSerializer.Serialize(result.Value.Item2));
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
+        Response.Headers.Add("X-Pagination-Bets", JsonSerializer.Serialize(result.Value.Item2));
         return Ok(result.Value.Item1);
     }
 }

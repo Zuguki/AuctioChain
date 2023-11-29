@@ -32,4 +32,8 @@
       <ProjectReference Include="..\AuctioChain.DAL\AuctioChain.DAL.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\" />
+    </ItemGroup>
+
 </Project>

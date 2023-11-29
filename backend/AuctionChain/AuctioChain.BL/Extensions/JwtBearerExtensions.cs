@@ -49,7 +49,7 @@ public static class JwtBearerExtensions
             configuration["Jwt:Issuer"],
             configuration["Jwt:Audience"],
             claims,
-            expires: DateTime.UtcNow.AddMicroseconds(tokenValidityInMinutes),
+            expires: DateTime.UtcNow.AddMinutes(tokenValidityInMinutes),
             signingCredentials: configuration.CreateSigningCredentials()
         );
     }

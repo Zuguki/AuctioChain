@@ -5,7 +5,7 @@ import styleRegistration from '../FormAuthorization/formAuthorization.module.css
 import PasswordInputCard from '../PasswordInputCard/PasswordInputCard.tsx';
 import { PostRegistrationUser } from '../../../authorizationLogic/PostAuth.ts';
 import useDataUser from '../../../hooks/useDataUser.ts';
-import useAuthResponse from '../../../hooks/useAuthResponse.ts';
+import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
 import React, { useEffect } from 'react';
 import { userStore } from '../../../context/contextUser.ts';
 

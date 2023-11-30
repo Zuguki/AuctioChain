@@ -7,7 +7,7 @@ const ButtonSwipeBack: FC<IButtonSwipe> = ({
     setCurrentPage,
     ...props
 }) => {
-    const clickSwipe = () => {
+    const clickSwipe = (): void => {
         if (currentPage == 1) {
             return;
         }

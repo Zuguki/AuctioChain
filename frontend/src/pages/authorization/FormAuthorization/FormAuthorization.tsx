@@ -1,9 +1,9 @@
 import FormDiv from '../../../components/UI/div/FormDiv/FormDiv.tsx';
 import FormInput from '../../../components/UI/inputs/FormInput/FormInput.tsx';
 import useDataUser from '../../../hooks/useDataUser.ts';
-import useAuthResponse from '../../../hooks/useAuthResponse.ts';
+import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
 import { observer } from 'mobx-react-lite';
-import PostLoginUser from '../../../authorizationLogic/postAuth/PostLoginUser.ts';
+import PostLoginUser from '../../../API/interfaces/PostLoginUser.ts';
 import { ContextUser } from '../../../context/contextUser.ts';
 import { useContext, useEffect } from 'react';
 
@@ -14,6 +14,7 @@ const FormAuthorization = observer(() => {
         () => userStore.login(dataUser),
         'Вход',
     );
+
     return (
         <FormDiv
             title="Вход"

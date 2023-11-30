@@ -1,7 +1,7 @@
-import $api from './apiUrl.ts';
+import $api from '../api.ts';
 import { AxiosResponse } from 'axios';
-import PostLoginUser from './postAuth/PostLoginUser.ts';
-import PostRegistrationUser from './postAuth/PostRegistrationUser.ts';
+import PostLoginUser from '../interfaces/PostLoginUser.ts';
+import PostRegistrationUser from '../interfaces/PostRegistrationUser.ts';
 
 interface AuthResponse {
     token: string;

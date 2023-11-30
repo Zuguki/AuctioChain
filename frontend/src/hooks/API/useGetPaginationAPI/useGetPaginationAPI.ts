@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
-import IResponseAuction from '../interfaces/IResponseAuctions.ts';
+import IResponseAuction from '../../../API/interfaces/IResponseAuctions.ts';
+import ILogicPagination from './ILogicPagination.ts';
 
-const useGetAPIPagination = <T>(
+const useGetPaginationAPI = <T>(
     response: () => Promise<AxiosResponse>,
     currentPage: number,
     baseData: T,
@@ -10,7 +11,7 @@ const useGetAPIPagination = <T>(
     const [data, setData] = useState<T>(baseData);
     const [loading, setLoading] = useState<boolean>(false);
     const [err, setError] = useState<AxiosError | null>(null);
-    const [pagination, setPagination] = useState();
+    const [pagination, setPagination] = useState<ILogicPagination | null>(null);
 
     useEffect((): void => {
         setLoading((): boolean => true);
@@ -31,4 +32,4 @@ const useGetAPIPagination = <T>(
     return { data, loading, err, pagination };
 };
 
-export default useGetAPIPagination;
+export default useGetPaginationAPI;

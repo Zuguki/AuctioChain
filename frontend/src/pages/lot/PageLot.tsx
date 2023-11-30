@@ -6,7 +6,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ILot } from '../../interfaces/lotsTypes.ts';
 import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
 import CloseButton from '../../components/UI/CloseButton/CloseButton.tsx';
-import useGetAPI from '../../API/hooks/useGetAPI.ts';
+import useGetAPI from '../../hooks/API/useGetAPI.ts';
 import LotService from '../../API/service/LotService.ts';
 import PageBet from '../bet/PageBet.tsx';
 import { ContextUser } from '../../context/contextUser.ts';

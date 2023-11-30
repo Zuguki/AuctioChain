@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import UserStore from '../authorizationLogic/userStore.ts';
+import UserStore from './userStore.ts';
 
 const userStore = new UserStore();
 const ContextUser = createContext({ userStore });

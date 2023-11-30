@@ -27,7 +27,13 @@ $api.interceptors.response.use(
         throw error;
     },
 );
-
-export const urlApi = (url: string): string => `${API_URL}${url}`;
+const urlApi = (url: string): string => `${API_URL}${url}`;
+const paramsPagination = (page: number, itemsPerPage: number) => ({
+    params: {
+        Page: page,
+        ItemsPerPage: itemsPerPage,
+    },
+});
 
 export default $api;
+export { paramsPagination, urlApi };

@@ -1,10 +1,10 @@
 import { makeAutoObservable } from 'mobx';
-import AuthService from './AuthService.ts';
+import AuthService from '../API/service/AuthService.ts';
 import { AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
-import IUser from './IUser.ts';
-import PostLoginUser from './postAuth/PostLoginUser.ts';
-import PostRegistrationUser from './postAuth/PostRegistrationUser.ts';
+import IUser from '../API/interfaces/IUser.ts';
+import PostLoginUser from '../API/interfaces/PostLoginUser.ts';
+import PostRegistrationUser from '../API/interfaces/PostRegistrationUser.ts';
 import TokenLogic from '../auxiliaryTools/tokenLogic/tokenLogic.ts';
 
 export default class UserStore {

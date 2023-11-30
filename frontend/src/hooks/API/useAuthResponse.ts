@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
-import { ContextUser } from '../context/contextUser.ts';
-import ILogicFormDivButton from '../components/UI/div/FormDiv/logicFormDivButton.ts';
+import { ContextUser } from '../../context/contextUser.ts';
+import ILogicFormDivButton from '../../components/UI/div/FormDiv/logicFormDivButton.ts';
 import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
-import usePostAPI from '../API/hooks/usePostAPI.ts';
+import usePostAPI from './usePostAPI.ts';
 import { AxiosResponse } from 'axios';
 
 const useAuthResponse = (

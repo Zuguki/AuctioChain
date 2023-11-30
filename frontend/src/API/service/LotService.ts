@@ -1,4 +1,4 @@
-import $api, { urlApi } from '../../authorizationLogic/apiUrl.ts';
+import $api, { paramsPagination, urlApi } from '../api.ts';
 import { AxiosResponse } from 'axios';
 import ILot, { ResponseObjLots } from '../interfaces/ILot.ts';
 import IPostBet from '../interfaces/IPostBet.ts';
@@ -8,8 +8,14 @@ export default class LotService {
 
     public static async getLots(
         idAuction: string,
+        page: number = 1,
     ): Promise<AxiosResponse<ResponseObjLots>> {
-        return $api.get(`${this.urlAuctions}?AuctionId=${idAuction}`);
+        return $api.get(`${this.urlAuctions}`, {
+            params: {
+                AuctionId: idAuction,
+                ...paramsPagination(page, 3).params,
+            },
+        });
     }
 
     public static async getLotByID(id: string): Promise<AxiosResponse<ILot>> {

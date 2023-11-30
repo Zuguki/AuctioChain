@@ -1,19 +1,21 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement } from 'react';
 import stylePagination from './pagination.module.css';
-import { numberArray } from '../../../auxiliaryTools/numberArray.ts';
 import ButtonPage from './ButtonPage.tsx';
 import ButtonSwipeUp from './ButtonSwipes/ButtonSwipeUp.tsx';
 import ButtonSwipeBack from './ButtonSwipes/ButtonSwipeBack.tsx';
+import ILogicPagination from '../../../hooks/API/useGetPaginationAPI/ILogicPagination.ts';
+import usePagination from '../../../hooks/usePagination.ts';
 
-const Pagination = ({ endPage, currentPage, sendCurrentPage }) => {
-    const [paginationArray, setPaginationArray] = useState(
-        numberArray(currentPage, endPage),
+interface IPagination {
+    pagination: ILogicPagination;
+    sendCurrentPage: (page: number) => void;
+}
+
+const Pagination: FC<IPagination> = ({ pagination, sendCurrentPage }) => {
+    const { endPage, currentPage, paginationArray } = usePagination(
+        pagination,
+        sendCurrentPage,
     );
-
-    useEffect(() => {
-        sendCurrentPage(currentPage);
-        setPaginationArray(():  => numberArray(currentPage, endPage));
-    }, [currentPage]);
     if (endPage <= 1) {
         return null;
     }

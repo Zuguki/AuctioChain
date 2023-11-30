@@ -1,23 +1,25 @@
-import { FC, ReactElement, useEffect } from 'react';
+import { FC, ReactElement, useState } from 'react';
 import CardLot from './CardLot/CardLot.tsx';
 import Pagination from '../../../components/UI/Pagination/Pagination.tsx';
 import styleList from './listLot.module.css';
 import stylePage from '../pageOneAuction.module.css';
-import { ILot } from '../../../interfaces/lotsTypes.ts';
-import useGetAPI from '../../../API/hooks/useGetAPI.ts';
 import LogicDownload from '../../../components/LogicDownload/LogicDownload.tsx';
 import LotService from '../../../API/service/LotService.ts';
 import { ResponseObjLots } from '../../../API/interfaces/ILot.ts';
+import useGetPaginationAPI from '../../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts';
 
 const ListLot: FC<{ id: string }> = ({ id }) => {
+    const [currentPage, setCurrentPage] = useState<number>(1);
     const {
         data: { lots },
         err,
+        pagination,
         loading,
-    } = useGetAPI<ResponseObjLots>(() => LotService.getLots(id), { lots: [] });
-    useEffect(() => {
-        console.log(lots);
-    }, [lots]);
+    } = useGetPaginationAPI<ResponseObjLots>(
+        () => LotService.getLots(id, currentPage),
+        currentPage,
+        { lots: [] },
+    );
     return (
         <LogicDownload isLoading={loading}>
             <div>
@@ -33,7 +35,12 @@ const ListLot: FC<{ id: string }> = ({ id }) => {
                                 ),
                             )}
                         </div>
-                        <Pagination endPage={10} sendCurrentPage={() => ({})} />
+                        {pagination && (
+                            <Pagination
+                                pagination={pagination}
+                                sendCurrentPage={setCurrentPage}
+                            />
+                        )}
                         )
                     </>
                 ) : (

@@ -1,4 +1,4 @@
-import $api, { urlApi } from '../../authorizationLogic/apiUrl.ts';
+import $api, { paramsPagination, urlApi } from '../api.ts';
 import IPostAuction from '../interfaces/IPostAuction.ts';
 import { AxiosResponse } from 'axios';
 import { ResponseObjAuctions } from '../interfaces/IResponseAuctions.ts';
@@ -10,12 +10,7 @@ export default class AuctionService {
     public static async getAuctions(
         page: number = 1,
     ): Promise<AxiosResponse<ResponseObjAuctions>> {
-        return $api.get(`${this.urlAuctions}`, {
-            params: {
-                Page: page,
-                ItemsPerPage: 7,
-            },
-        }); //?Page=1&ItemsPerPage=15
+        return $api.get(`${this.urlAuctions}`, paramsPagination(page, 15));
     }
 
     public static async getAuctionByID(

@@ -4,7 +4,7 @@ import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
 import styleBet from './pageBet.module.css';
 import CloseButton from '../../components/UI/CloseButton/CloseButton.tsx';
-import usePostAPI from '../../API/hooks/usePostAPI.ts';
+import usePostAPI from '../../hooks/API/usePostAPI.ts';
 import LotService from '../../API/service/LotService.ts';
 import useDataUser from '../../hooks/useDataUser.ts';
 import IPostBet from '../../API/interfaces/IPostBet.ts';

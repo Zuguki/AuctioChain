@@ -7,7 +7,7 @@ import useDataUser from '../../hooks/useDataUser.ts';
 import IPostAuction from '../../API/interfaces/IPostAuction.ts';
 import DateLogic from '../../auxiliaryTools/dateLogic/DateLogic.ts';
 import AuctionService from '../../API/service/AuctionService.ts';
-import usePostAPI from '../../API/hooks/usePostAPI.ts';
+import usePostAPI from '../../hooks/API/usePostAPI.ts';
 import Spinner from '../../components/UI/Spinner/Spinner.tsx';
 import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
 

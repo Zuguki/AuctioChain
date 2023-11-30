@@ -9,7 +9,7 @@ import CloseButton from '../../components/UI/CloseButton/CloseButton.tsx';
 import useGetAPI from '../../API/hooks/useGetAPI.ts';
 import LotService from '../../API/service/LotService.ts';
 import PageBet from '../bet/PageBet.tsx';
-import { Context } from '../../context/contextApp.ts';
+import { ContextUser } from '../../context/contextUser.ts';
 
 interface IPathLotPage {
     lot: ILot;
@@ -18,7 +18,7 @@ interface IPathLotPage {
 
 const PageLot: FC = () => {
     const { id } = useParams();
-    const { userStore } = useContext(Context);
+    const { userStore } = useContext(ContextUser);
     const nav = useNavigate();
     const location = useLocation();
     const { data: lot, loading } = useGetAPI<ILot>(

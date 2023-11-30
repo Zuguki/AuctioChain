@@ -19,11 +19,12 @@ const PageCreateAuction = () => {
         blurError();
         const dataPostUser: IPostAuction = {
             ...dataUser,
+            image: '',
             dateStart: DateLogic.getDateNowISO(),
             dateEnd: DateLogic.getDateByStringISO(dataUser?.dateEnd || '0'),
         };
 
-        await postData(AuctionService.addAuction(dataPostUser));
+        await postData(() => AuctionService.addAuction(dataPostUser));
     };
     return (
         <form

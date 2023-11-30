@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { Context } from '../context/contextApp.ts';
+import { ContextUser } from '../context/contextUser.ts';
 import ILogicFormDivButton from '../components/UI/div/FormDiv/logicFormDivButton.ts';
 import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import usePostAPI from '../API/hooks/usePostAPI.ts';
@@ -9,7 +9,7 @@ const useAuthResponse = (
     postResponse: () => Promise<AxiosResponse>,
     textButton: string,
 ) => {
-    const { userStore } = useContext(Context);
+    const { userStore } = useContext(ContextUser);
     const nav: NavigateFunction = useNavigate();
     const location = useLocation();
     const { error, loading, blurError, postData } = usePostAPI();

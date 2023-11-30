@@ -3,11 +3,11 @@ import logo from '../../design/logo.png';
 import styleHeader from './header.module.css';
 import { NavLink } from 'react-router-dom';
 import './Link.css';
-import { Context } from '../../context/contextApp.ts';
+import { ContextUser } from '../../context/contextUser.ts';
 import { observer } from 'mobx-react-lite';
 
 const Header: FC = observer(() => {
-    const { userStore } = useContext(Context);
+    const { userStore } = useContext(ContextUser);
     return (
         <header className={styleHeader.header}>
             <div>

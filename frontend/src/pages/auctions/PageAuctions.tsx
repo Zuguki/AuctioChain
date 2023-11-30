@@ -1,13 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import SearcherAuction from './SearcherAuction/SearcherAuction.tsx';
-import ListAuctions from './ListAuctions/ListAuctions.tsx';
 import stylePage from './pageAuctions.module.css';
-import { Context } from '../../context/contextApp.ts';
+import { ContextUser } from '../../context/contextUser.ts';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
-import AuctionService from '../../API/service/AuctionService.ts';
+import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
+import useDataUser from '../../hooks/useDataUser.ts';
+import ListAuctions from './ListAuctions/ListAuctions.tsx';
+import {
+    auctionInformation,
+    ContextAuction,
+} from '../../context/contextAuction.ts';
+
 const PageAuctions = () => {
     const showSearcher = true;
-    const { userStore } = useContext(Context);
+    const { userStore } = useContext(ContextUser);
 
     return (
         <div>

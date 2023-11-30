@@ -1,26 +1,29 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import CardAuction from './CardAuction/CardAuction.tsx';
 import styleList from './listAuctions.module.css';
 import { IElementAuctions } from '../../../interfaces/auctionsTypes.ts';
-import useGetAPI from '../../../API/hooks/useGetAPI.ts';
 import LogicDownload from '../../../components/LogicDownload/LogicDownload.tsx';
 import AuctionService from '../../../API/service/AuctionService.ts';
 import { ResponseObjAuctions } from '../../../API/interfaces/IResponseAuctions.ts';
+import Pagination from '../../../components/UI/Pagination/Pagination.tsx';
+import useGetPaginationAPI from '../../../API/hooks/useGetPaginationAPI.ts';
 
 const ListAuctions: FC = () => {
-    // const [currentPage, setCurrentPage] = useState<number>(1);
+    const [currentPage, setCurrentPage] = useState<number>(1);
     const {
         data: { auctions },
-        err,
+        getNewData,
         loading,
-    } = useGetAPI<ResponseObjAuctions>(() => AuctionService.getAuctions(), {
-        auctions: [],
-    });
+        err,
+        pagination,
+    } = useGetPaginationAPI<ResponseObjAuctions>(
+        () => AuctionService.getAuctions(currentPage),
+        currentPage,
+        { auctions: [] },
+    );
     return (
-        // change
         <LogicDownload isLoading={loading}>
             <>
-                {/**/}
                 <div className={styleList.position}>
                     {auctions.map(
                         (auction: IElementAuctions): ReactElement => (
@@ -28,8 +31,13 @@ const ListAuctions: FC = () => {
                         ),
                     )}
                 </div>
-                {/*{auctions.length !== 0 && <Pagination endPage={Math.ceil(auctions.length / )}
-                                                  sendCurrentPage={(page: number) => setCurrentPage(() => page)} />}*!/*/}
+                {auctions.length !== 0 && pagination && (
+                    <Pagination
+                        currentPage={currentPage}
+                        endPage={pagination.TotalPages}
+                        sendCurrentPage={setCurrentPage}
+                    />
+                )}
             </>
         </LogicDownload>
     );

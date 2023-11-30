@@ -13,7 +13,7 @@ import Spinner from '../../components/UI/Spinner/Spinner.tsx';
 import useGetAPI from '../../API/hooks/useGetAPI.ts';
 import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
 import CloseButton from '../../components/UI/CloseButton/CloseButton.tsx';
-import { Context } from '../../context/contextApp.ts';
+import { ContextUser } from '../../context/contextUser.ts';
 import AuctionService from '../../API/service/AuctionService.ts';
 
 const PageOneAuction = () => {

@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react';
-import { AxiosError, AxiosHeaders, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
+import IResponseAuction from '../interfaces/IResponseAuctions.ts';
 
-const useGetAPI = <T>(response: () => Promise<AxiosResponse>, baseData: T) => {
+const useGetAPIPagination = <T>(
+    response: () => Promise<AxiosResponse>,
+    currentPage: number,
+    baseData: T,
+) => {
     const [data, setData] = useState<T>(baseData);
     const [loading, setLoading] = useState<boolean>(false);
     const [err, setError] = useState<AxiosError | null>(null);
+    const [pagination, setPagination] = useState();
+
     useEffect((): void => {
         setLoading((): boolean => true);
         response()
             .then((res: AxiosResponse): void => {
-                setData(() => res.data);
+                const { data, headers } = res;
+                setData((): T => data);
+                setPagination(() => JSON.parse(headers['x-pagination']));
             })
             .catch((resError: unknown): void => {
                 if (resError instanceof AxiosError) {
@@ -17,9 +26,9 @@ const useGetAPI = <T>(response: () => Promise<AxiosResponse>, baseData: T) => {
                 }
             })
             .finally((): void => setLoading((): boolean => false));
-    }, []);
+    }, [currentPage]);
 
-    return { data, loading, err };
+    return { data, loading, err, pagination };
 };
 
-export default useGetAPI;
+export default useGetAPIPagination;

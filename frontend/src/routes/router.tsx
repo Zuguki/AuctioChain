@@ -9,6 +9,8 @@ import PageCreateAuction from '../pages/createAuction/PageCreateAuction.tsx';
 import routeAuthorization from './route/routeAuthorization.tsx';
 import routeAuctions from './route/routeAuctions.tsx';
 import routeAccount from './route/routeAccount.tsx';
+import ImageInput from '../components/UI/inputs/ImageInput/ImageInput.tsx';
+import FormInput from '../components/UI/inputs/FormInput/FormInput.tsx';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -17,10 +19,10 @@ const router = createBrowserRouter(
                 index
                 element={
                     <>
-                        <PageCreateAuction />
                         <Link to="/authorization">
                             <button>click</button>
                         </Link>
+                        <PageCreateAuction />
                     </>
                 }
             />

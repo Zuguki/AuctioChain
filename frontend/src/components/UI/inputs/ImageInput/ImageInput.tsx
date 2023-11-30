@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import { IInput } from '../../IInput.ts';
+import { ChangeEvent, FC } from 'react';
 import inputStyle from './imageInput.module.css';
+import IInput from '../../IInput.ts';
 
 // in development
 const ImageInput: FC<Omit<IInput, 'width'>> = ({ changeValue, ...props }) => {
@@ -8,6 +8,7 @@ const ImageInput: FC<Omit<IInput, 'width'>> = ({ changeValue, ...props }) => {
         <div>
             <input
                 type="file"
+                multiple
                 {...props}
                 onChange={changeValue}
                 className={inputStyle.input}

@@ -29,7 +29,7 @@ export default class AuthService {
     static async refresh(
         refreshToken: string,
     ): Promise<AxiosResponse<AuthResponse>> {
-        return $api.post<AuthResponse>(`${this.path_account}/refresh'`, {
+        return $api.post<AuthResponse>(`${this.path_account}/refresh`, {
             refreshToken: refreshToken,
         });
     }

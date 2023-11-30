@@ -13,7 +13,7 @@ export default class LotService {
         return $api.get(`${this.urlAuctions}`, {
             params: {
                 AuctionId: idAuction,
-                ...paramsPagination(page, 3).params,
+                ...paramsPagination(page, 3),
             },
         });
     }

@@ -1,6 +1,8 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import Cookies from 'js-cookie';
 import TokenLogic from '../auxiliaryTools/tokenLogic/tokenLogic.ts';
+import AuthService from './service/AuthService.ts';
+import { userStore } from '../context/contextUser.ts';
 
 const BASE_URL: string = 'http://localhost:5121/';
 const API_URL: string = 'api/v1/';
@@ -23,16 +25,36 @@ $api.interceptors.response.use(
         return config;
     },
     async (error: AxiosError) => {
-        console.log(error.status);
+        const originalRequest = error.config;
+        const refreshTokenStore: string | undefined = Cookies.get(
+            TokenLogic.REFRESH_TOKEN,
+        );
+        if (
+            error.response?.status === 401 &&
+            refreshTokenStore &&
+            originalRequest &&
+            !originalRequest._isRetry
+        ) {
+            console.log('here');
+            originalRequest._isRetry = true;
+            const res = await AuthService.refresh(refreshTokenStore);
+            const { token, refreshToken } = res.data;
+            Cookies.set(TokenLogic.TOKEN, token);
+            Cookies.set(TokenLogic.REFRESH_TOKEN, refreshToken);
+            userStore.setAuthByToken(token);
+            return $api.request(originalRequest);
+        }
+
+        if (error.response?.status === 401) {
+            window.location.pathname = '/authorization';
+        }
         throw error;
     },
 );
 const urlApi = (url: string): string => `${API_URL}${url}`;
 const paramsPagination = (page: number, itemsPerPage: number) => ({
-    params: {
-        Page: page,
-        ItemsPerPage: itemsPerPage,
-    },
+    Page: page,
+    ItemsPerPage: itemsPerPage,
 });
 
 export default $api;

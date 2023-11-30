@@ -26,7 +26,7 @@ const ListLot: FC<{ id: string }> = ({ id }) => {
                 {lots.length !== 0 ? (
                     <>
                         <p className={stylePage.informationLots}>
-                            Количество лотов: {lots.length}
+                            Количество лотов: {pagination?.TotalCount}
                         </p>
                         <div className={styleList.position}>
                             {lots.map(

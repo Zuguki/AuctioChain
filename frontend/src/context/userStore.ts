@@ -38,7 +38,6 @@ export default class UserStore {
         this.setUser(TokenLogic.convertTokenToUser(token));
         Cookies.set(TokenLogic.TOKEN, token);
         Cookies.set(TokenLogic.REFRESH_TOKEN, refreshToken);
-        console.log(this.user.userId);
         return res;
     }
 

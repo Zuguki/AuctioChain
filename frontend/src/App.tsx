@@ -6,8 +6,8 @@ import TokenLogic from './auxiliaryTools/tokenLogic/tokenLogic.ts';
 import router from './routes/router.tsx';
 
 function App() {
-    useEffect(() => {
-        const token = Cookies.get(TokenLogic.TOKEN);
+    useEffect((): void => {
+        const token: string | undefined = Cookies.get(TokenLogic.TOKEN);
         if (token) {
             userStore.setAuthByToken(token);
         }

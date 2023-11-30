@@ -10,7 +10,9 @@ export default class AuctionService {
     public static async getAuctions(
         page: number = 1,
     ): Promise<AxiosResponse<ResponseObjAuctions>> {
-        return $api.get(`${this.urlAuctions}`, paramsPagination(page, 15));
+        return $api.get(`${this.urlAuctions}`, {
+            params: paramsPagination(page, 15),
+        });
     }
 
     public static async getAuctionByID(

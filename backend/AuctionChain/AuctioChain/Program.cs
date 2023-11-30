@@ -39,6 +39,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
 {
     opt.WithExposedHeaders(builder.Configuration.GetSection("Cors:AllowHeaders").Get<string[]>()!);
+    opt.AllowAnyHeader();
     opt.WithHeaders();
     opt.AllowCredentials();
     opt.AllowAnyMethod();

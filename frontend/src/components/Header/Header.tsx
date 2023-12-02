@@ -1,27 +1,19 @@
 import React, { FC, useContext } from 'react';
-import logo from '../../design/logo.png';
 import styleHeader from './header.module.css';
-import { NavLink } from 'react-router-dom';
-import './Link.css';
-import { ContextUser } from '../../context/contextUser.ts';
+import { Context } from '../../context/context.ts';
 import { observer } from 'mobx-react-lite';
+import IUser from '../../API/interfaces/IUser.ts';
+import LinksHeaders from './logicHeader/LinksHeaders.tsx';
 
 const Header: FC = observer(() => {
-    const { userStore } = useContext(ContextUser);
+    const { userStore } = useContext(Context);
+    const auth: boolean = userStore.getAuth();
+    const user: IUser = userStore.getUser();
     return (
         <header className={styleHeader.header}>
-            <div>
-                <p>{userStore.getUser().name}</p>
-            </div>
-            {/*<ul className={styleHeader.ulHeader}>
-                <li id='1'><NavLink className={styleHeader.link} to='/authorization/registration'>Условия соглашения</NavLink></li>
-                <li><NavLink className={styleHeader.link} to='/authorization/recovery'>Аукционы</NavLink></li>
-                <li>Поиск</li>
-                <li>Вход/Регистрация</li>
+            <ul className={styleHeader.position}>
+                <LinksHeaders auth={auth} user={user} />
             </ul>
-            <div className={styleHeader.positionLogo}>
-                <img src={logo} alt='logo'/>
-            </div>*/}
         </header>
     );
 });

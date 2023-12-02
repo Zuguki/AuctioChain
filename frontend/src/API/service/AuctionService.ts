@@ -11,7 +11,7 @@ export default class AuctionService {
         page: number = 1,
     ): Promise<AxiosResponse<ResponseObjAuctions>> {
         return $api.get(`${this.urlAuctions}`, {
-            params: paramsPagination(page, 15),
+            params: paramsPagination(page, 12),
         });
     }
 

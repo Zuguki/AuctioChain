@@ -5,7 +5,6 @@ import {
     Route,
 } from 'react-router-dom';
 import Layout from './Layout.tsx';
-import PageCreateAuction from '../pages/createAuction/PageCreateAuction.tsx';
 import routeAuthorization from './route/routeAuthorization.tsx';
 import routeAuctions from './route/routeAuctions.tsx';
 import routeAccount from './route/routeAccount.tsx';
@@ -22,7 +21,9 @@ const router = createBrowserRouter(
                             <Link to="/authorization">
                                 <button>click</button>
                             </Link>
-                            <PageCreateAuction />
+                            <Link to="/auctions">
+                                <button>auctions</button>
+                            </Link>
                         </>
                     }
                 />
@@ -30,7 +31,7 @@ const router = createBrowserRouter(
                 {routeAuctions}
                 {routeAccount}
             </Route>
-            <Route path="*" element={<PageAuctions />} />,
+            <Route path="*" element={<PageAuctions />} />
         </>,
     ),
 );

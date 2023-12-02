@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosInstance } from 'axios';
 import Cookies from 'js-cookie';
 import TokenLogic from '../auxiliaryTools/tokenLogic/tokenLogic.ts';
 import AuthService from './service/AuthService.ts';
-import { userStore } from '../context/contextUser.ts';
+import { userStore } from '../context/context.ts';
 
 const BASE_URL: string = 'http://localhost:5121/';
 const API_URL: string = 'api/v1/';

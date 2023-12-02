@@ -52,7 +52,7 @@ const InformationAuction = ({ auction }: { auction: IAuction }) => {
             </p>
             <p className={stylePage.information}>
                 Дата окончания:{' '}
-                {DateLogic.getBaseFormatDateTOStringISO(dateEnd, true)}
+                {DateLogic.getBaseFormatDateTOStringISO(dateEnd)}
             </p>
             <p className={`${stylePage.information} ${stylePage.description}`}>
                 Описание:

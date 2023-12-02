@@ -7,7 +7,7 @@ import { PostRegistrationUser } from '../../../authorizationLogic/PostAuth.ts';
 import useDataUser from '../../../hooks/useDataUser.ts';
 import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
 import React, { useEffect } from 'react';
-import { userStore } from '../../../context/contextUser.ts';
+import { userStore } from '../../../context/context.ts';
 
 const FormRegistration = () => {
     const { dataUser, logicFormValue } = useDataUser<PostRegistrationUser>();

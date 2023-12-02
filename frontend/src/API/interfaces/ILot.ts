@@ -5,10 +5,10 @@ interface ILot {
     auctionId: string;
     name: string;
     description: string;
+    initialPrice: number;
     betStep: number;
-    buyoutPrice: number;
-    code: string;
     currentMaxBet: number;
+    code: string;
     images: string[];
     isPurchased: boolean;
 }

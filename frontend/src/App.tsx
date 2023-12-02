@@ -1,7 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { ContextUser, userStore } from './context/contextUser.ts';
+import { Context, stateApp, userStore } from './context/context.ts';
 import TokenLogic from './auxiliaryTools/tokenLogic/tokenLogic.ts';
 import router from './routes/router.tsx';
 
@@ -14,9 +14,9 @@ function App() {
     }, []);
 
     return (
-        <ContextUser.Provider value={{ userStore }}>
+        <Context.Provider value={{ userStore, stateApp }}>
             <RouterProvider router={router} />
-        </ContextUser.Provider>
+        </Context.Provider>
     );
 }
 

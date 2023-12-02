@@ -5,31 +5,47 @@
     box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.25);
     position: sticky;
     top: 0;
+    z-index: 1000;
 }
-
-.positionLogo {
+ul {
+    list-style-type: none;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 100px;
-}
-#ul_top_hypers li {
-    display: inline;
 }
 
-.ulHeader {
-    list-style: none;
-    padding: 35px;
+ul:first-child {
+    padding-left: 20%;
 }
 
-.ulHeader li {
-    display: inline-block;
+.positionUser {
+    padding-top: 10px;
+
 }
 
-.link, .active {
-    color: red;
+.positionUserNot {
+    height: 90px;
+    padding-top: 17px;
 }
 
-.link {
-    color: #606060;
+ul:last-child {
+    margin-right: 100px;
+}
+
+ul li:nth-child(2) {
+    padding-left: 10%;
+}
+
+ul li:nth-child(2) img {
+    width: auto;
+    max-height: 35px;
+}
+
+.userName {
+    color: #818080;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    margin-bottom: 0;
+    text-align: center;
 }

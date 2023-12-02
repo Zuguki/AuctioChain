@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { ContextUser } from '../../context/contextUser.ts';
+import { Context } from '../../context/context.ts';
 import Hr from '../../components/UI/Hr/Hr.tsx';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
 import { observer } from 'mobx-react-lite';
 
 const PageAccount = observer(() => {
-    const { userStore } = useContext(ContextUser);
+    const { userStore } = useContext(Context);
     const userData = userStore.getUser();
     return (
         <div>

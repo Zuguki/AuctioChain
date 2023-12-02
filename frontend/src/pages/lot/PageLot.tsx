@@ -3,13 +3,14 @@ import imgLot from './test-lot.png';
 import styleLot from './pageLot.module.css';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { ILot } from '../../interfaces/lotsTypes.ts';
+import ILot from '../../API/interfaces/ILot.ts';
 import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
 import CloseButton from '../../components/UI/CloseButton/CloseButton.tsx';
 import useGetAPI from '../../hooks/API/useGetAPI.ts';
 import LotService from '../../API/service/LotService.ts';
 import PageBet from '../bet/PageBet.tsx';
-import { ContextUser } from '../../context/contextUser.ts';
+import { Context } from '../../context/context.ts';
+import { ResponseObjBets } from '../../API/interfaces/IBet.ts';
 
 interface IPathLotPage {
     lot: ILot;
@@ -18,7 +19,7 @@ interface IPathLotPage {
 
 const PageLot: FC = () => {
     const { id } = useParams();
-    const { userStore } = useContext(ContextUser);
+    const { userStore } = useContext(Context);
     const nav = useNavigate();
     const location = useLocation();
     const { data: lot, loading } = useGetAPI<ILot>(
@@ -63,15 +64,23 @@ const LeftPathLotPage: FC<IPathLotPage> = ({ lot }) => {
 };
 
 const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
+    const {
+        data: { bets },
+        loading,
+        err,
+    } = useGetAPI<ResponseObjBets>(() => LotService.getBetsByLotID(lot.id), {
+        bets: [],
+    });
+    const { name, currentMaxBet, description, initialPrice, betStep } = lot;
     return (
         <div className={styleLot.right}>
-            <h1>{lot.name}</h1>
-            <p>{lot.description}</p>
-            <h2>Цена на данный момент: {lot.buyoutPrice}₽</h2>
+            <h1>{name}</h1>
+            <p>{description}</p>
+            <h2>Цена на данный момент: {currentMaxBet} Ac</h2>
             <div className={styleLot.information}>
-                <p>Начальная цена: -----100$</p>
-                <p>Шаг: {lot.betStep}₽</p>
-                <p>Количество участников: ----56</p>
+                <p>Начальная цена: {initialPrice} Ac</p>
+                <p>Шаг: {betStep} Ac</p>
+                {!loading && !err && <p>Количество ставок: {bets.length}</p>}
             </div>
             <BaseButton onClick={openBet}>Поставить ставку</BaseButton>
         </div>

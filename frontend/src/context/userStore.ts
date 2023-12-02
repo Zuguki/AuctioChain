@@ -10,7 +10,6 @@ import TokenLogic from '../auxiliaryTools/tokenLogic/tokenLogic.ts';
 export default class UserStore {
     private isAuth: boolean = false;
     private user: IUser = {} as IUser;
-
     constructor() {
         makeAutoObservable(this);
     }

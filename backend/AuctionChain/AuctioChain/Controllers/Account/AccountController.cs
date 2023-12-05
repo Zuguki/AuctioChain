@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AuctioChain.Controllers.Account;
 
 [ApiController]
-[Route("accounts")]
+[Route("api/v1/accounts")]
 public class AccountsController : ControllerBase
 {
     private readonly IAccountManager _accountManager;

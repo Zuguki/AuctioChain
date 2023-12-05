@@ -5,6 +5,7 @@ using AuctioChain.BL.Auctions;
 using AuctioChain.BL.Bets;
 using AuctioChain.BL.Files;
 using AuctioChain.BL.Lots;
+using AuctioChain.BL.User;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Account;
 using AuctioChain.Libs.Serilog;
@@ -30,6 +31,7 @@ builder.Services.AddScoped<ILotManager, LotManager>();
 builder.Services.AddScoped<IBetManager, BetManager>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IImageManager, ImageManager>();
+builder.Services.AddScoped<IProfileManager, ProfileManager>();
 
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

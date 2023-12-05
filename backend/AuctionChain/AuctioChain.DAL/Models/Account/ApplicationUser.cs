@@ -16,9 +16,4 @@ public class ApplicationUser : IdentityUser<Guid>
     /// Дата обновления Refresh токена
     /// </summary>
     public DateTime RefreshTokenExpiryTime { get; set; }
-
-    /// <summary>
-    /// Аукционы
-    /// </summary>
-    public List<AuctionDal>? Auctions { get; set; }
 }

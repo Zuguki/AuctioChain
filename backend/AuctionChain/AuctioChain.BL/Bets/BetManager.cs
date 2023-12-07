@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
+using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Bet;
 using AuctioChain.DAL.Models.Bet.Dto;
 using AuctioChain.DAL.Models.Pagination;
@@ -35,7 +36,7 @@ public class BetManager : IBetManager
         if (lot.Auction is null)
             return Result.Fail("Аукцион не найден");
 
-        if (!lot.Auction.IsEditable)
+        if (lot.Auction.Status != AuctionStatus.Bidding)
             return Result.Fail("Нельзя обновить данный лот, т.к. для ауцкиона запрещено редактирование");
         
         if (request.Amount is not null && lot.Bets.Count > 0 && request.Amount < lot.Bets.Max(b => b.Amount) + lot.BetStep ||

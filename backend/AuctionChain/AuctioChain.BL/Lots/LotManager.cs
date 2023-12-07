@@ -96,6 +96,7 @@ public class LotManager : ILotManager
         lot.Description = request.Description;
         lot.InitialPrice = request.InitialPrice;
         lot.BetStep = request.BetStep;
+        lot.Image = request.Image;
 
         await _context.SaveChangesAsync();
         return Result.Ok();

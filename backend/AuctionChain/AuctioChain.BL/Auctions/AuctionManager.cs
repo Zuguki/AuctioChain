@@ -55,7 +55,7 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public async Task<Result> CreateAsync(CreateAuctionRequest model, Guid userId)
     {
-        var auction = new AuctionDal(model.Name!, userId, model.DateStart, model.DateEnd, model.Description, null);
+        var auction = new AuctionDal(model.Name!, userId, model.DateStart, model.DateEnd, model.Description, model.Image);
 
         await _context.Auctions.AddAsync(auction);
         await _context.SaveChangesAsync();
@@ -90,6 +90,8 @@ public class AuctionManager : IAuctionManager
             return Result.Fail("Данный аукцион нельзя редактировать");
         
         auction.Name = model.Name;
+        auction.Description = model.Description;
+        auction.Image = model.Image;
         auction.DateStart = model.DateStart;
         auction.DateEnd = model.DateEnd;
 

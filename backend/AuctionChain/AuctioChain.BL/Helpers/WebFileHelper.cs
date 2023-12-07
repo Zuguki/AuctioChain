@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ public static class WebFileHelper
 
         var hash = Convert.ToHexString(hashBytes);
 
-        return $"/images/{hash[..2]}/{hash[..4]}";
+        return $"./wwwroot/images/{hash[..2]}/{hash[..4]}";
     }
 
     public static void CreateFolder(string dir)

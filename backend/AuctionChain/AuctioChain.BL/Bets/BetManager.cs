@@ -38,9 +38,6 @@ public class BetManager : IBetManager
         if (!lot.Auction.IsEditable)
             return Result.Fail("Нельзя обновить данный лот, т.к. для ауцкиона запрещено редактирование");
         
-        if (lot.IsPurchased)
-            return Result.Fail("По данному лоту запрещено делать ставки, т.к. он выкуплен");
-
         if (request.Amount is not null && lot.Bets.Count > 0 && request.Amount < lot.Bets.Max(b => b.Amount) + lot.BetStep ||
             request.Amount is not null && lot.Bets.Count == 0 && request.Amount < lot.InitialPrice)
             return Result.Fail("Ставка должна быть больше");

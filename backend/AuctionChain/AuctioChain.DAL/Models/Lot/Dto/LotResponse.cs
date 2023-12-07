@@ -34,16 +34,6 @@ public class LotResponse
     /// Шаг ставки
     /// </summary>
     public decimal BetStep { get; set; }
-    
-    /// <summary>
-    /// Стоимость выкупа
-    /// </summary>
-    public decimal? BuyoutPrice { get; set; }
-    
-    /// <summary>
-    /// Код лота
-    /// </summary>
-    public string? Code { get; set; }
 
     /// <summary>
     /// Максимальная ставка
@@ -53,10 +43,5 @@ public class LotResponse
     /// <summary>
     /// Изображения лота
     /// </summary>
-    public List<string>? Images { get; set; } = new();
-
-    /// <summary>
-    /// Выкуплен ли лот
-    /// </summary>
-    public bool IsPurchased { get; set; }
+    public string? Image { get; set; }
 }

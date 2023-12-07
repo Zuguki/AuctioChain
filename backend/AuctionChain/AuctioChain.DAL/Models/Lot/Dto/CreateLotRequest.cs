@@ -22,12 +22,6 @@ public class CreateLotRequest
     /// </summary>
     [JsonPropertyName("description")]
     public string Description { get; init; } = null!;
-
-    /// <summary>
-    /// Код лота
-    /// </summary>
-    [JsonPropertyName("code")]
-    public string Code { get; init; } = null!;
     
     /// <summary>
     /// Начальная цена
@@ -42,8 +36,8 @@ public class CreateLotRequest
     public decimal BetStep { get; init; }
     
     /// <summary>
-    /// Стоимость выкупа лота
+    /// Картинка
     /// </summary>
-    [JsonPropertyName("buyoutPrice")]
-    public decimal? BuyoutPrice { get; init; }
+    [JsonPropertyName("image")]
+    public string? Image { get; init; }
 }

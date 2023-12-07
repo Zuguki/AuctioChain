@@ -57,18 +57,6 @@ public class LotDal
     /// </summary>
     [Column("betStep")]
     public decimal BetStep { get; set; }
-    
-    /// <summary>
-    /// Стоимость выкупа
-    /// </summary>
-    [Column("buyoutPrice")]
-    public decimal? BuyoutPrice { get; set; }
-    
-    /// <summary>
-    /// Код лота
-    /// </summary>
-    [Column("code")]
-    public string? Code { get; set; }
 
     /// <summary>
     /// Ставки на лот
@@ -79,14 +67,9 @@ public class LotDal
     /// <summary>
     /// Изображения лота
     /// </summary>
-    [Column("images")]
-    public List<string>? Images { get; set; } = new();
+    [Column("image")]
+    public string? Image { get; set; }
     
-    /// <summary>
-    /// Выкуплен ли лот
-    /// </summary>
-    public bool IsPurchased => Bets.Count > 0 && Bets.Max(b => b.Amount) >= BuyoutPrice;
-
     /// <summary>
     /// .ctor
     /// </summary>
@@ -97,8 +80,7 @@ public class LotDal
     /// <summary>
     /// .ctor
     /// </summary>
-    public LotDal(Guid auctionId, string? name, string? description, string? code, decimal initialPrice,
-        decimal betStep, decimal? buyoutPrice = null)
+    public LotDal(Guid auctionId, string? name, string? description, decimal initialPrice, decimal betStep, string? image = null)
     {
         Id = Guid.NewGuid();
         AuctionId = auctionId;
@@ -106,7 +88,6 @@ public class LotDal
         Description = description;
         InitialPrice = initialPrice;
         BetStep = betStep;
-        BuyoutPrice = buyoutPrice;
-        Code = code;
+        Image = image;
     }
 }

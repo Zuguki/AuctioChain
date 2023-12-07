@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AuctioChain.DAL.Models.Account;
 using AuctioChain.DAL.Models.Lot;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuctioChain.DAL.Models.Bet;
 

@@ -6,5 +6,5 @@ namespace AuctioChain.DAL.Models.Profile.Dto;
 public class GetProfileRequest
 {
     [JsonPropertyName("userId")]
-    public Guid? UserId { get; init; }
+    public Guid? UserId { get; set; }
 }

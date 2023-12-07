@@ -5,7 +5,7 @@ using AuctioChain.BL.Auctions;
 using AuctioChain.BL.Bets;
 using AuctioChain.BL.Files;
 using AuctioChain.BL.Lots;
-using AuctioChain.BL.User;
+using AuctioChain.BL.Profile;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Account;
 using AuctioChain.Libs.Serilog;

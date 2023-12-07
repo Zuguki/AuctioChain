@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AuctioChain.BL.Helpers;
-using AuctioChain.DAL.Models.Files.Dto;
+using AuctioChain.DAL.Models.File.Dto;
 using FluentResults;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -24,14 +24,5 @@ public class ImageManager : IImageManager
         
         await WebFileHelper.UploadAndResizeImage(formFile.OpenReadStream(), fileName, width, height);
         return new UploadImageResponse {FileName = fileName};
-    }
-
-    public async Task<Result<byte[]>> GetImage(GetImageRequest request)
-    {
-        var file = await WebFileHelper.GetFileByName(request.FileName);
-        if (file is null)
-            return Result.Fail("Файл не найден");
-
-        return Result.Ok(file);
     }
 }

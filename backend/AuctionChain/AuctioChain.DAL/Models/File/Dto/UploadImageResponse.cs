@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace AuctioChain.DAL.Models.Files.Dto;
+namespace AuctioChain.DAL.Models.File.Dto;
 
 public class UploadImageResponse
 {

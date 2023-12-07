@@ -3,7 +3,6 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Processing;
@@ -19,14 +18,6 @@ public static class WebFileHelper
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
         return $"{dir}/{fileNameWithoutExtension}.jpeg";
     }
-
-    public static async Task<byte[]?> GetFileByName(string fileName)
-    {
-        if (!File.Exists(fileName))
-            return null;
-
-        return await File.ReadAllBytesAsync(fileName);
-    }
     
     public static string GetWebFileFolder(string fileName)
     {
@@ -36,7 +27,7 @@ public static class WebFileHelper
 
         var hash = Convert.ToHexString(hashBytes);
 
-        return $"./wwwroot/images/{hash[..2]}/{hash[..4]}";
+        return $"/images/{hash[..2]}/{hash[..4]}";
     }
 
     public static void CreateFolder(string dir)

@@ -1,7 +1,5 @@
-using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Files;
-using AuctioChain.DAL.Models.Files.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,18 +26,5 @@ public class ImageController : ControllerBase
 
         var response = await _imageManager.UploadImage(file);
         return Ok(response);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetImageAsync([FromQuery] GetImageRequest request)
-    {
-        if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
-        
-        var result = await _imageManager.GetImage(request);
-        if (result.IsFailed)
-            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
-        
-        return File(result.Value, "image/jpeg");
     }
 }

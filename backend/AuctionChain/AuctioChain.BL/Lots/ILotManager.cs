@@ -21,16 +21,15 @@ public interface ILotManager
     /// <summary>
     /// Создать модель
     /// </summary>
-    /// <param name="request">Модель для создания</param>
-    Task<Result> CreateAsync(CreateLotRequest request);
+    Task<Result> CreateAsync(CreateLotRequest request, Guid userId);
     
     /// <summary>
     /// Удалить лот
     /// </summary>
-    Task<Result> DeleteAsync(DeleteLotRequest request);
+    Task<Result> DeleteAsync(DeleteLotRequest request, Guid userId);
 
     /// <summary>
     /// Обновить модель
     /// </summary>
-    Task<Result> UpdateAsync(UpdateLotRequest request);
+    Task<Result> UpdateAsync(UpdateLotRequest request, Guid userId);
 }

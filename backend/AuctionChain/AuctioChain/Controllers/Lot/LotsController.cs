@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AuctioChain.BL.Lots;
 using AuctioChain.DAL.Models.Lot.Dto;
 using AuctioChain.DAL.Models.Pagination;
+using AuctioChain.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,7 +34,7 @@ public class LotsController : ControllerBase
     {
         if (request.AuctionId == Guid.Empty)
             return BadRequest("Передан некорректный идентификатор аукциона");
-
+        
         if (request.BetStep <= 0m)
             return BadRequest("Шаг ставки не может быть меньше или равен нуля");
 
@@ -43,7 +44,11 @@ public class LotsController : ControllerBase
         if (string.IsNullOrWhiteSpace(request.Description))
             return BadRequest("Передано пустое описание лота");
 
-        var result = await _lotManager.CreateAsync(request);
+        var userId = HttpContext.TryGetUserId();
+        if (userId is null)
+            return Unauthorized();
+
+        var result = await _lotManager.CreateAsync(request, (Guid) userId);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 
@@ -59,8 +64,12 @@ public class LotsController : ControllerBase
     {
         if (request.LotId == Guid.Empty)
             return BadRequest("Передан некорректный идентификатор лота");
+        
+        var userId = HttpContext.TryGetUserId();
+        if (userId is null)
+            return Unauthorized();
 
-        var result = await _lotManager.DeleteAsync(request);
+        var result = await _lotManager.DeleteAsync(request, (Guid) userId);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 
@@ -85,8 +94,12 @@ public class LotsController : ControllerBase
 
         if (string.IsNullOrWhiteSpace(request.Description))
             return BadRequest("Передано пустое описание лота");
+        
+        var userId = HttpContext.TryGetUserId();
+        if (userId is null)
+            return Unauthorized();
 
-        var result = await _lotManager.UpdateAsync(request);
+        var result = await _lotManager.UpdateAsync(request, (Guid) userId);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 
@@ -101,6 +114,10 @@ public class LotsController : ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest("Передан некорректный идентификатор ауцкиона");
+        
+        var userId = HttpContext.TryGetUserId();
+        if (userId is null)
+            return Unauthorized();
 
         var result = await _lotManager.GetByIdAsync(request, pagination);
         if (result.IsFailed)

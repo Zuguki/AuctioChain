@@ -102,8 +102,12 @@ public class AuctionController : ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
+        
+        var userId = HttpContext.TryGetUserId();
+        if (userId is null)
+            return Unauthorized();
 
-        var result = await _manager.DeleteAsync(id);
+        var result = await _manager.DeleteAsync(id, (Guid) userId);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -119,8 +123,12 @@ public class AuctionController : ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
+        
+        var userId = HttpContext.TryGetUserId();
+        if (userId is null)
+            return Unauthorized();
 
-        var result = await _manager.UpdateAsync(request);
+        var result = await _manager.UpdateAsync(request, (Guid) userId);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         

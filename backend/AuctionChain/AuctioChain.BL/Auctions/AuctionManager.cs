@@ -55,6 +55,10 @@ public class AuctionManager : IAuctionManager
     /// <inheritdoc />
     public async Task<Result> CreateAsync(CreateAuctionRequest model, Guid userId)
     {
+        var auctionWithSameName = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Name == model.Name);
+        if (auctionWithSameName is not null)
+            return Result.Fail("Аукцион с таким названием уже существует");
+        
         var auction = new AuctionDal(model.Name!, userId, model.DateStart, model.DateEnd, model.Description, model.Image);
 
         await _context.Auctions.AddAsync(auction);
@@ -63,12 +67,15 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> DeleteAsync(Guid request)
+    public async Task<Result> DeleteAsync(Guid request, Guid userId)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == request);
 
         if (auction is null)
             return Result.Ok();
+        
+        if (auction.UserId != userId)
+            return Result.Fail("У вас нет доступа к редактированию данного аукциона");
         
         if (!auction.IsEditable)
             return Result.Fail("Данный аукцион нельзя удалить");
@@ -79,12 +86,15 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> UpdateAsync(UpdateAuctionRequest model)
+    public async Task<Result> UpdateAsync(UpdateAuctionRequest model, Guid userId)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == model.AuctionId);
         
         if (auction is null)
             return Result.Fail("Аукцион не найден");
+        
+        if (auction.UserId != userId)
+            return Result.Fail("У вас нет доступа к редактированию данного аукциона");
         
         if (!auction.IsEditable)
             return Result.Fail("Данный аукцион нельзя редактировать");

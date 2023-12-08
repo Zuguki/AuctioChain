@@ -29,14 +29,12 @@ public interface IAuctionManager
     /// <summary>
     /// Удалить модель
     /// </summary>
-    /// <param name="id">Id модели</param>
-    Task<Result> DeleteAsync(Guid id);
+    Task<Result> DeleteAsync(Guid id, Guid userId);
 
     /// <summary>
     /// Обновить модель
     /// </summary>
-    /// <param name="model">Модель для обновления</param>
-    Task<Result> UpdateAsync(UpdateAuctionRequest model);
+    Task<Result> UpdateAsync(UpdateAuctionRequest model, Guid userId);
 
     /// <summary>
     /// Изменить состояние создания аукциона

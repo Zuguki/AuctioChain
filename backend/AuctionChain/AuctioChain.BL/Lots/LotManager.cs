@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
@@ -30,6 +29,7 @@ public class LotManager : ILotManager
     {
         var lots = _context.Lots.Include(f => f.Bets)
             .Where(lot => lot.AuctionId == request.AuctionId).ToList();
+        
         var metadata = new PaginationMetadata(lots.Count, pagination.Page, pagination.ItemsPerPage);
 
         var result = lots
@@ -49,11 +49,15 @@ public class LotManager : ILotManager
         return Result.Ok(response);
     }
 
-    public async Task<Result> CreateAsync(CreateLotRequest request)
+    public async Task<Result> CreateAsync(CreateLotRequest request, Guid userId)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(i => i.Id == request.AuctionId);
+
         if (auction is null)
             return Result.Fail("Аукцион с переданным идентификатором не найден");
+        
+        if (auction.UserId != userId)
+            return Result.Fail("Данный аукцион нельзя редактировать");
         
         if (!auction.IsEditable)
             return Result.Fail("Данный аукцион нельзя редактировать");
@@ -67,14 +71,15 @@ public class LotManager : ILotManager
         return Result.Ok();
     }
 
-    public async Task<Result> DeleteAsync(DeleteLotRequest request)
+    public async Task<Result> DeleteAsync(DeleteLotRequest request, Guid userId)
     {
         var lot = await _context.Lots.Include(l => l.Auction).FirstOrDefaultAsync(lo => lo.Id == request.LotId);
+        
         if (lot is null)
             return Result.Ok();
 
         var auction = lot.Auction;
-        if (auction is null || !auction.IsEditable)
+        if (auction is null || !auction.IsEditable || auction.UserId != userId)
             return Result.Fail("Данный лот нельзя удалить");
 
         _context.Lots.Remove(lot);
@@ -82,12 +87,15 @@ public class LotManager : ILotManager
         return Result.Ok();
     }
 
-    public async Task<Result> UpdateAsync(UpdateLotRequest request)
+    public async Task<Result> UpdateAsync(UpdateLotRequest request, Guid userId)
     {
         var lot = await _context.Lots.Include(c => c.Auction).FirstOrDefaultAsync(l => l.Id == request.LotId);
 
         if (lot is null)
             return Result.Fail("Данный лот не найден");
+        
+        if (lot.Auction is not null && lot.Auction.UserId != userId)
+            return Result.Fail("Данный аукцион нельзя редактировать");
 
         if (lot.Auction is null || !lot.Auction.IsEditable)
             return Result.Fail("Нельзя обновить данный лот, т.к. для ауцкиона запрещено редактирование");

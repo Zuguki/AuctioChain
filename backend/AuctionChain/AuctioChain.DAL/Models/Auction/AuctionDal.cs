@@ -107,11 +107,12 @@ public class AuctionDal
     {
         get
         {
-            if (Lots!.Count == 0 || Lots.Any(l => l.Bets.Count == 0))
-                return _dateEnd;
-            
-            var maxBetDate = Lots.SelectMany(lot => lot.Bets!).Max(bet => bet.DateTime).AddMinutes(1);
-            return _dateEnd > maxBetDate ? _dateEnd : maxBetDate;
+            // if (Lots!.Count == 0)
+            //     return _dateEnd;
+            //
+            // var maxBetDate = Lots.SelectMany(lot => lot.Bets!).Max(bet => bet.DateTime).AddMinutes(1);
+            // return _dateEnd > maxBetDate ? _dateEnd : maxBetDate;
+            return _dateEnd;
         }
         set => _dateEnd = value;
     }

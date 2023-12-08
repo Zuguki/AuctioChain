@@ -12,7 +12,7 @@ public class GetProfileResponse
 
     public IEnumerable<AuctionResponse>? UserAuctions { get; init; }
     
-    public IEnumerable<LotResponse>? WinLots { get; init; }
+    public IEnumerable<WinLotResponse>? WinLots { get; init; }
     
     public IEnumerable<LotResponse>? ParticipateLots { get; init; }
 }

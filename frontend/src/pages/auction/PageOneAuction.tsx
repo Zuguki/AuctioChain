@@ -9,6 +9,7 @@ import DateLogic from '../../auxiliaryTools/dateLogic/DateLogic.ts';
 import IAuction from '../../API/interfaces/IAuction.ts';
 import Hr from '../../components/UI/Hr/Hr.tsx';
 import ListLot from './ListLot/ListLot.tsx';
+import ErrorLogic from '../../components/ErrorLogic/ErrorLogic.tsx';
 
 const PageOneAuction = () => {
     const { id } = useParams<string>();
@@ -20,8 +21,11 @@ const PageOneAuction = () => {
         () => AuctionService.getAuctionByID(id),
         {} as IAuction,
     );
-    const { name, userId } = auction;
 
+    const { name, userId } = auction;
+    if (err) {
+        return <ErrorLogic err={err} />;
+    }
     return (
         <>
             <LogicDownload isLoading={loading}>
@@ -45,6 +49,7 @@ const PageOneAuction = () => {
 
 const InformationAuction = ({ auction }: { auction: IAuction }) => {
     const { description, dateStart, dateEnd } = auction;
+    console.log(dateStart);
     return (
         <div className={stylePage.blockInformation}>
             <p className={stylePage.information}>

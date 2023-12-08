@@ -9,7 +9,7 @@ import LinkSearch from './LinkSearch.tsx';
 
 const LinksHeaders: FC<ILinkLogicUser> = ({ auth, user }) => {
     return (
-        <>
+        <ul>
             <li>
                 <CustomLink to="/auctions">Аукционы</CustomLink>
             </li>
@@ -27,7 +27,7 @@ const LinksHeaders: FC<ILinkLogicUser> = ({ auth, user }) => {
             <li>
                 <LinkUser auth={auth} user={user} />
             </li>
-        </>
+        </ul>
     );
 };
 

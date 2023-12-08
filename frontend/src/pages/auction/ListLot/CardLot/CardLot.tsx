@@ -5,10 +5,10 @@ import ILot from '../../../../API/interfaces/ILot.ts';
 import { IBaseCard, IObjCard } from '../../../../interfaces/baseCard.tsx';
 
 const CardLot: FC<{ lot: ILot }> = ({ lot }) => {
-    const { buyoutPrice, id, name, description } = lot;
+    const { currentMaxBet, id, name, description, image } = lot;
     const lotObjCard: IObjCard<IBaseCard> = {
         id,
-        image: lot.images[0],
+        image,
         name,
         description,
     };
@@ -17,7 +17,7 @@ const CardLot: FC<{ lot: ILot }> = ({ lot }) => {
         <CardDiv objCard={lotObjCard}>
             <p className={styleCard.price}>
                 Цена:{' '}
-                <span className={styleCard.priceNumber}>{buyoutPrice}₽</span>
+                <span className={styleCard.priceNumber}>{currentMaxBet}₽</span>
             </p>
         </CardDiv>
     );

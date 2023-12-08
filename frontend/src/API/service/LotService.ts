@@ -5,14 +5,14 @@ import IPostBet from '../interfaces/IPostBet.ts';
 import { ResponseObjBets } from '../interfaces/IBet.ts';
 
 export default class LotService {
-    private static readonly urlLots: string = urlApi('auction/lots');
-    private static readonly urlLotBets: string = `${this.urlLots}/bets`;
+    private static readonly pathLots: string = 'auction/lots';
+    private static readonly pathLotBets: string = `${this.pathLots}/bets`;
 
     public static async getLots(
         idAuction: string,
         page: number = 1,
     ): Promise<AxiosResponse<ResponseObjLots>> {
-        return $api.get(`${this.urlLots}`, {
+        return $api.get(`${this.pathLots}`, {
             params: {
                 AuctionId: idAuction,
                 ...paramsPagination(page, 3),
@@ -21,13 +21,13 @@ export default class LotService {
     }
 
     public static async getLotByID(id: string): Promise<AxiosResponse<ILot>> {
-        return $api.get(`${this.urlLots}/${id}`);
+        return $api.get(`${this.pathLots}/${id}`);
     }
 
     public static async getBetsByLotID(
         id: string,
     ): Promise<AxiosResponse<ResponseObjBets>> {
-        return $api.get(`${this.urlLotBets}`, {
+        return $api.get(`${this.pathLotBets}`, {
             params: {
                 LotId: id,
             },
@@ -35,7 +35,7 @@ export default class LotService {
     }
 
     public static async postBetInLot(bet: IPostBet): Promise<AxiosResponse> {
-        return $api.post(`${this.urlLotBets}`, bet);
+        return $api.post(`${this.pathLotBets}`, bet);
     }
 
     /* public static async addLot(lot) {

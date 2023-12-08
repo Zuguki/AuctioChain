@@ -28,7 +28,7 @@ const FormDiv: FC<IFormDiv> = ({
 }) => {
     const { textButton, logicClick } = logicButton;
     return (
-        <Form className={styleDiv.parent} onSubmit={() => logicClick()}>
+        <Form className={styleDiv.parent} onSubmit={logicClick}>
             <div className={styleDiv.formDiv}>
                 <h3
                     className={`${styleDiv.title} ${

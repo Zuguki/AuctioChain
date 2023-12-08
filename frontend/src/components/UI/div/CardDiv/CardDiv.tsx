@@ -19,7 +19,7 @@ function CardDiv<T extends IBaseCard>({
     return (
         <div className={styleCard.card}>
             <h5 className={styleCard.title}>{name}</h5>
-            <img className={styleCard.img} src={logo} alt={image} />
+            <img className={styleCard.img} src={image} alt={image} />
             {children}
             <p className={styleCard.description}>{description}</p>
             <Link to={`${path}/${id}`}>

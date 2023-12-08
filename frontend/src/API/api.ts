@@ -4,8 +4,7 @@ import TokenLogic from '../auxiliaryTools/tokenLogic/tokenLogic.ts';
 import AuthService from './service/AuthService.ts';
 import { userStore } from '../context/context.ts';
 
-const BASE_URL: string = 'http://localhost:5121/';
-const API_URL: string = 'api/v1/';
+const BASE_URL: string = 'http://localhost:5121/api/v1/';
 
 const $api: AxiosInstance = axios.create({
     baseURL: BASE_URL,
@@ -35,7 +34,6 @@ $api.interceptors.response.use(
             originalRequest &&
             !originalRequest._isRetry
         ) {
-            console.log('here');
             originalRequest._isRetry = true;
             const res = await AuthService.refresh(refreshTokenStore);
             const { token, refreshToken } = res.data;
@@ -51,11 +49,10 @@ $api.interceptors.response.use(
         throw error;
     },
 );
-const urlApi = (url: string): string => `${API_URL}${url}`;
 const paramsPagination = (page: number, itemsPerPage: number) => ({
     Page: page,
     ItemsPerPage: itemsPerPage,
 });
 
 export default $api;
-export { paramsPagination, urlApi };
+export { paramsPagination };

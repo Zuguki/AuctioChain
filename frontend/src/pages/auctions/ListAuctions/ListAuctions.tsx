@@ -7,6 +7,8 @@ import AuctionService from '../../../API/service/AuctionService.ts';
 import { ResponseObjAuctions } from '../../../API/interfaces/IResponseAuctions.ts';
 import Pagination from '../../../components/UI/Pagination/Pagination.tsx';
 import useGetPaginationAPI from '../../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts';
+import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
+import ErrorLogic from '../../../components/ErrorLogic/ErrorLogic.tsx';
 
 const ListAuctions: FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -20,6 +22,9 @@ const ListAuctions: FC = () => {
         currentPage,
         { auctions: [] },
     );
+    if (err) {
+        return <ErrorLogic err={err} />;
+    }
     return (
         <LogicDownload isLoading={loading}>
             <>

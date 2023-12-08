@@ -11,6 +11,7 @@ import LotService from '../../API/service/LotService.ts';
 import PageBet from '../bet/PageBet.tsx';
 import { Context } from '../../context/context.ts';
 import { ResponseObjBets } from '../../API/interfaces/IBet.ts';
+import ErrorLogic from '../../components/ErrorLogic/ErrorLogic.tsx';
 
 interface IPathLotPage {
     lot: ILot;
@@ -22,10 +23,11 @@ const PageLot: FC = () => {
     const { userStore } = useContext(Context);
     const nav = useNavigate();
     const location = useLocation();
-    const { data: lot, loading } = useGetAPI<ILot>(
-        () => LotService.getLotByID(id),
-        {} as ILot,
-    );
+    const {
+        data: lot,
+        loading,
+        err,
+    } = useGetAPI<ILot>(() => LotService.getLotByID(id), {} as ILot);
     const [showBet, setShowBet] = useState<boolean>(false);
     const closeBet = () => setShowBet((): boolean => false);
     const openBet = (): void => {
@@ -35,6 +37,9 @@ const PageLot: FC = () => {
         }
         nav('/authorization', { state: { from: location } });
     };
+    if (err) {
+        return <ErrorLogic err={err} />;
+    }
 
     return (
         <LogicDownload isLoading={loading}>

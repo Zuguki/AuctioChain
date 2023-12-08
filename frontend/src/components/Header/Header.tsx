@@ -11,9 +11,7 @@ const Header: FC = observer(() => {
     const user: IUser = userStore.getUser();
     return (
         <header className={styleHeader.header}>
-            <ul className={styleHeader.position}>
-                <LinksHeaders auth={auth} user={user} />
-            </ul>
+            <LinksHeaders auth={auth} user={user} />
         </header>
     );
 });

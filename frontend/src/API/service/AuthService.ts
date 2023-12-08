@@ -9,19 +9,19 @@ interface AuthResponse {
 }
 
 export default class AuthService {
-    private static readonly path_account: string = '/accounts';
+    private static readonly pathAccount: string = '/accounts';
 
     static async login(
         dataLogin: PostLoginUser,
     ): Promise<AxiosResponse<AuthResponse>> {
-        return $api.post<AuthResponse>(`${this.path_account}/login`, dataLogin);
+        return $api.post<AuthResponse>(`${this.pathAccount}/login`, dataLogin);
     }
 
     static async registration(
         dataLogin: PostRegistrationUser,
     ): Promise<AxiosResponse> {
         return $api.post<AxiosResponse>(
-            `${this.path_account}/register`,
+            `${this.pathAccount}/register`,
             dataLogin,
         );
     }
@@ -29,7 +29,7 @@ export default class AuthService {
     static async refresh(
         refreshToken: string,
     ): Promise<AxiosResponse<AuthResponse>> {
-        return $api.post<AuthResponse>(`${this.path_account}/refresh`, {
+        return $api.post<AuthResponse>(`${this.pathAccount}/refresh`, {
             refreshToken: refreshToken,
         });
     }

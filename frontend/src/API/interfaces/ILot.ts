@@ -1,5 +1,3 @@
-import { ResponseObjAuctions } from './IResponseAuctions.ts';
-
 interface ILot {
     id: string;
     auctionId: string;
@@ -8,9 +6,7 @@ interface ILot {
     initialPrice: number;
     betStep: number;
     currentMaxBet: number;
-    code: string;
-    images: string[];
-    isPurchased: boolean;
+    image: string;
 }
 
 export type ResponseObjLots = { lots: ILot[] };

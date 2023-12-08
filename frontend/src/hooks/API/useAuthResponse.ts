@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import { Context } from '../../context/context.ts';
 import ILogicFormDivButton from '../../components/UI/div/FormDiv/logicFormDivButton.ts';
 import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
@@ -13,8 +13,10 @@ const useAuthResponse = (
     const nav: NavigateFunction = useNavigate();
     const location = useLocation();
     const { error, loading, blurError, postData } = usePostAPI();
-    const fromPath = location?.state?.from?.pathname || '/auctions';
-
+    const fromPath: string = useMemo(
+        () => location?.state?.from?.pathname || '/auctions',
+        [],
+    );
     const logicButton: ILogicFormDivButton = {
         textButton: textButton,
         logicClick: async (): Promise<void> => await postData(postResponse),

@@ -9,6 +9,7 @@ import routeAuthorization from './route/routeAuthorization.tsx';
 import routeAuctions from './route/routeAuctions.tsx';
 import routeAccount from './route/routeAccount.tsx';
 import PageAuctions from '../pages/auctions/PageAuctions.tsx';
+import PageError from '../pages/error/PageError.tsx';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -30,8 +31,8 @@ const router = createBrowserRouter(
                 {routeAuthorization}
                 {routeAuctions}
                 {routeAccount}
+                <Route path="*" element={<PageError />} />
             </Route>
-            <Route path="*" element={<PageAuctions />} />
         </>,
     ),
 );

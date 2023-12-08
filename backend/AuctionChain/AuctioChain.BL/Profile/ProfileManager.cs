@@ -2,9 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
-using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
-using AuctioChain.DAL.Models.Lot.Dto;
 using AuctioChain.DAL.Models.Profile.Dto;
 using AutoMapper;
 using FluentResults;
@@ -25,26 +23,17 @@ public class ProfileManager : IProfileManager
 
     public async Task<Result<GetProfileResponse>> GetProfileByUserId(Guid userId)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(app => app.Id == userId);
+        var user = await _context.Users.Include(i => i.MyAuctions).FirstOrDefaultAsync(app => app.Id == userId);
         if (user is null)
             return Result.Fail("Пользователь не найден");
 
-        var auctions = await _context.Auctions.Where(auc => auc.UserId == userId).ToListAsync();
-        var participateLots = _context.Bets
-            .Include(i => i.Lot)
-            .Include(i => i.Lot.Auction)
-            .Where(bet => bet.UserId == userId)
-            .Select(bet => bet.Lot)
-            .Distinct()
-            .ToList()
-            .Where(lot => lot.Auction.Status == AuctionStatus.Bidding);
-
+        var auctions = user.MyAuctions;
+        
         var response = new GetProfileResponse
         {
             UserName = user.UserName!,
             Balance = user.Balance,
             UserAuctions = auctions.Select(auc => _mapper.Map<AuctionResponse>(auc)),
-            ParticipateLots = participateLots.Select(lot => _mapper.Map<LotResponse>(lot)),
         };
         
         return response;

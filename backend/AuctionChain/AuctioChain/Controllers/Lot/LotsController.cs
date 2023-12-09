@@ -115,10 +115,6 @@ public class LotsController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Передан некорректный идентификатор ауцкиона");
         
-        var userId = HttpContext.TryGetUserId();
-        if (userId is null)
-            return Unauthorized();
-
         var result = await _lotManager.GetByIdAsync(request, pagination);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));

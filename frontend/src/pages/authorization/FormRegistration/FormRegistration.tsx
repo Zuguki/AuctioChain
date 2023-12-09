@@ -6,7 +6,6 @@ import PasswordInputCard from '../PasswordInputCard/PasswordInputCard.tsx';
 import { PostRegistrationUser } from '../../../authorizationLogic/PostAuth.ts';
 import useDataUser from '../../../hooks/useDataUser.ts';
 import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
-import React, { useEffect } from 'react';
 import { userStore } from '../../../context/context.ts';
 
 const FormRegistration = () => {
@@ -27,7 +26,7 @@ const FormRegistration = () => {
                 title="Имя пользователя"
                 name="userName"
                 error={error}
-                blurError={blurError}
+                errorBlur={blurError}
                 changeValue={logicFormValue}
             />
             <FormInput
@@ -35,7 +34,7 @@ const FormRegistration = () => {
                 name="email"
                 type="email"
                 error={error}
-                blurError={blurError}
+                errorBlur={blurError}
                 changeValue={logicFormValue}
             />
             <PasswordInputCard
@@ -47,7 +46,7 @@ const FormRegistration = () => {
                 title="Повторите пароль"
                 name="passwordConfirm"
                 error={error}
-                blurError={blurError}
+                errorBlur={blurError}
                 changeValue={logicFormValue}
             />
             <CheckboxInput required>

@@ -5,7 +5,7 @@ import { ICorrectPassword } from './interfaceCardRequirement.ts';
 const requirementsPassword = {
     lengthPassword: 'Минимум 8 символов',
     haveUpCase: 'Наличие верхнего регистра',
-    haveNumber: 'Наличие одной цифры',
+    haveNumber: 'Наличие цифры и спецсимвола',
 };
 
 interface ICardCardRequirement {

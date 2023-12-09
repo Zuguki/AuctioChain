@@ -39,7 +39,7 @@ const PageCreateAuction = () => {
                     name="name"
                     error={error}
                     changeValue={logicFormValue}
-                    blurError={blurError}
+                    errorBlur={blurError}
                 />
                 <FormTextArea
                     title="Описание аукциона"
@@ -53,7 +53,7 @@ const PageCreateAuction = () => {
                     name="dateEnd"
                     error={error}
                     changeValue={logicFormValue}
-                    blurError={blurError}
+                    errorBlur={blurError}
                 />
                 <div className={styleCreateAuction.positionButton}>
                     <BaseButton

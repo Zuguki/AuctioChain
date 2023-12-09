@@ -30,7 +30,7 @@ const FormAuthorization = observer(() => {
                 autoComplete="on"
                 error={error}
                 changeValue={logicFormValue}
-                blurError={blurError}
+                errorBlur={blurError}
             />
             <FormInput
                 title="Пароль"
@@ -38,7 +38,7 @@ const FormAuthorization = observer(() => {
                 type="password"
                 autoComplete="current-password"
                 error={error}
-                blurError={blurError}
+                errorBlur={blurError}
                 changeValue={logicFormValue}
             />
             {/*<div className={`${err && styleRegistration.marginForgotPassword}`}>

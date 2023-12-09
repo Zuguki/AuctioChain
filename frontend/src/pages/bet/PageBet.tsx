@@ -50,7 +50,7 @@ const PageBet: FC<IPageBet> = ({ close, lotId }) => {
                     type="number"
                     error={error}
                     changeValue={logicFormValue}
-                    blurError={blurError}
+                    errorBlur={blurError}
                 />
                 <BaseButton style={{ marginTop: 30 }} type="submit">
                     Поставить ставку

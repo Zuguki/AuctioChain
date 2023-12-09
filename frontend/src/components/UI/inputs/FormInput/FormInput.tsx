@@ -10,7 +10,7 @@ const FormInput: FC<IInput> = ({
     title,
     blockChars = [],
     error,
-    blurError,
+    errorBlur,
     ...props
 }) => {
     return (
@@ -23,9 +23,9 @@ const FormInput: FC<IInput> = ({
                     sizeStile(styleFormInput.small, styleFormInput.large)[width]
                 }`}
                 {...props}
-                onFocus={blurError}
+                onFocus={errorBlur}
                 onChange={(e: ChangeEvent<HTMLInputElement>): void => {
-                    blurError();
+                    errorBlur();
                     changeValue(e);
                 }}
                 onKeyDown={(e: KeyboardEvent<HTMLElement>) =>

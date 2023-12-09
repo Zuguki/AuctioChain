@@ -46,7 +46,6 @@ const ListLot: FC<{ id: string }> = ({ id }) => {
                                 sendCurrentPage={setCurrentPage}
                             />
                         )}
-                        )
                     </>
                 ) : (
                     <p className={stylePage.informationLots}>Лотов нет</p>

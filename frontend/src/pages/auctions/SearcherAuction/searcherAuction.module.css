@@ -1,7 +1,12 @@
 .selects {
-    margin: 15px 0;
+    margin: 15px 0 20px 0;
 }
 
 .title {
     margin-bottom: 20px;
+}
+
+.reset {
+    display: inline-block;
+    margin-left: 35px;
 }

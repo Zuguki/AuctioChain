@@ -25,6 +25,11 @@ const passwordChars: string[] = [
     '$',
     ',',
     ' ',
+    '(',
+    ')',
+    '-',
+    '=',
+    '+',
 ];
 
 export { blockInvalidChar, numberChars, passwordChars };

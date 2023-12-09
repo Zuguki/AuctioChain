@@ -32,7 +32,7 @@ const PasswordInputCard: FC<IPasswordInputCard> = ({
                     changeValue(e);
                     changeUserValue(e);
                 }}
-                blurError={() => {
+                errorBlur={() => {
                     blurError();
                     focusInputPassword();
                 }}

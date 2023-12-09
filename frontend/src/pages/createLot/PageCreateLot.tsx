@@ -12,7 +12,7 @@ const PageCreateLot = () => {
                 name="name"
                 error={}
                 changeValue={}
-                blurError={}
+                errorBlur={}
             />
             <FormTextArea
                 name="description"
@@ -26,14 +26,14 @@ const PageCreateLot = () => {
                 name={}
                 error={}
                 changeValue={}
-                blurError={}
+                errorBlur={}
             />
             <FormInput
                 title="Шаг лота (Ac)"
                 name="betStep"
                 error={}
                 changeValue={}
-                blurError={}
+                errorBlur={}
             />
         </div>
     );

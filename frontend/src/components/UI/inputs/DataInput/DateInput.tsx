@@ -7,7 +7,7 @@ const DateInput: FC<Omit<IInput, 'width'>> = ({
     changeValue,
     title,
     error,
-    blurError,
+    errorBlur,
     ...props
 }) => {
     /*const time = new Date()
@@ -21,7 +21,7 @@ const DateInput: FC<Omit<IInput, 'width'>> = ({
                 type="datetime-local"
                 required
                 {...props}
-                onFocus={blurError}
+                onFocus={errorBlur}
                 className={`${dataStyle.input} ${error && dataStyle.error}`}
                 onChange={changeValue}
             />

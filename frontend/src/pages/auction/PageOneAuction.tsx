@@ -10,6 +10,7 @@ import IAuction from '../../API/interfaces/IAuction.ts';
 import Hr from '../../components/UI/Hr/Hr.tsx';
 import ListLot from './ListLot/ListLot.tsx';
 import ErrorLogic from '../../components/ErrorLogic/ErrorLogic.tsx';
+import InformationAuction from './InformationAuction.tsx';
 
 const PageOneAuction = () => {
     const { id } = useParams<string>();
@@ -27,43 +28,24 @@ const PageOneAuction = () => {
         return <ErrorLogic err={err} />;
     }
     return (
-        <>
+        <div className={stylePage.position}>
             <LogicDownload isLoading={loading}>
-                <div>
+                <>
                     <CloseButton />
-                    <div className={stylePage.position}>
-                        <h1 className={stylePage.title}>Аукцион "{name}"</h1>
+                    <div>
+                        <h1 className={stylePage.title}>
+                            Аукцион &quot;{name}&quot;
+                        </h1>
                         <h3 className={stylePage.userName}>@{userId}</h3>
-                        {Object.hasOwn(auction, 'dateStart') && (
-                            <InformationAuction auction={auction} />
-                        )}
+                        <InformationAuction auction={auction} />
                         <Hr />
-                        <h2>Лоты</h2>
                     </div>
-                </div>
+                </>
             </LogicDownload>
+            <h2>Лоты</h2>
             <ListLot id={id} />
-        </>
-    );
-};
-
-const InformationAuction = ({ auction }: { auction: IAuction }) => {
-    const { description, dateStart, dateEnd } = auction;
-    console.log(dateStart);
-    return (
-        <div className={stylePage.blockInformation}>
-            <p className={stylePage.information}>
-                Дата начала: {DateLogic.getBaseFormatDateTOStringISO(dateStart)}
-            </p>
-            <p className={stylePage.information}>
-                Дата окончания:{' '}
-                {DateLogic.getBaseFormatDateTOStringISO(dateEnd)}
-            </p>
-            <p className={`${stylePage.information} ${stylePage.description}`}>
-                Описание:
-            </p>
-            <p className={stylePage.information}>{description}</p>
         </div>
     );
 };
+
 export default PageOneAuction;

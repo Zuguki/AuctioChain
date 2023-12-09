@@ -8,7 +8,7 @@ interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
     error: AxiosError | null;
     changeValue: (e: ChangeEvent<HTMLInputElement>) => void;
-    blurError: () => void;
+    errorBlur: () => void;
 }
 
 export default IInput;

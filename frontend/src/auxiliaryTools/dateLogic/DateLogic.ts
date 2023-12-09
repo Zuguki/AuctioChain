@@ -16,7 +16,6 @@ export default class DateLogic {
 
     public static getObjDateTOStringISO(date: string): IObjDate {
         const dateOdj = new Date(date);
-        console.log(dateOdj);
         return {
             hours: dateOdj.getHours(),
             minutes: dateOdj.getMinutes(),
@@ -32,7 +31,6 @@ export default class DateLogic {
         shortMonth: boolean = false,
     ): string {
         const newDate = this.getObjDateTOStringISO(date);
-        console.log(newDate);
         Object.entries(newDate).forEach(([key, value]): void => {
             newDate[key] = value.toString();
             if (

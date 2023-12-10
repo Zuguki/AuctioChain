@@ -5,7 +5,6 @@ import useGetAPI from '../../hooks/API/useGetAPI.ts';
 import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
 import CloseButton from '../../components/UI/CloseButton/CloseButton.tsx';
 import AuctionService from '../../API/service/AuctionService.ts';
-import DateLogic from '../../auxiliaryTools/dateLogic/DateLogic.ts';
 import IAuction from '../../API/interfaces/IAuction.ts';
 import Hr from '../../components/UI/Hr/Hr.tsx';
 import ListLot from './ListLot/ListLot.tsx';

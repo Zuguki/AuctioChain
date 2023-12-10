@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
-import IResponseAuction from '../../../API/interfaces/IResponseAuctions.ts';
 import ILogicPagination from './ILogicPagination.ts';
 
 const useGetPaginationAPI = <T>(

@@ -17,5 +17,19 @@
     width: 500px;
     height: 60px;
     font-size: 20px;
-    padding-left: 20px;
+    padding-right: 10px;
+}
+
+
+.title {
+    color:  #818080;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+    margin: 15px 0;
+    display: block;
+}
+
+.titleErr {
+    color: #F76F7A;
 }

@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, ReactElement, useState } from 'react';
 import CardAuction from './CardAuction/CardAuction.tsx';
 import styleList from './listAuctions.module.css';
 import { IElementAuctions } from '../../../interfaces/auctionsTypes.ts';
@@ -7,7 +7,6 @@ import AuctionService from '../../../API/service/AuctionService.ts';
 import { ResponseObjAuctions } from '../../../API/interfaces/IResponseAuctions.ts';
 import Pagination from '../../../components/UI/Pagination/Pagination.tsx';
 import useGetPaginationAPI from '../../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts';
-import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
 import ErrorLogic from '../../../components/ErrorLogic/ErrorLogic.tsx';
 
 const ListAuctions: FC = () => {

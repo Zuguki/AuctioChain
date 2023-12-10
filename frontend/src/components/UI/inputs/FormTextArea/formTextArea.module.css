@@ -13,6 +13,7 @@
     line-height: 28px; /* 140% */
     padding: 20px 30px;
     resize: none;
+    margin-bottom: 10px;
 }
 
 .title {

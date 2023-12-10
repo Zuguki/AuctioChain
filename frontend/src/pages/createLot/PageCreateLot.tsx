@@ -1,7 +1,6 @@
 import React from 'react';
 import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
 import FormTextArea from '../../components/UI/inputs/FormTextArea/FormTextArea.tsx';
-import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
 
 const PageCreateLot = () => {
     return (
@@ -10,21 +9,21 @@ const PageCreateLot = () => {
             <FormInput
                 title="Название лота"
                 name="name"
-                error={}
-                changeValue={}
-                errorBlur={}
+                error={null}
+                changeValue={() => {}}
+                errorBlur={() => {}}
             />
             <FormTextArea
                 name="description"
                 title="Описание товара"
-                error={}
-                blurError={}
-                changeValue={}
+                error={null}
+                blurError={() => {}}
+                changeValue={() => {}}
             />
-            <FormInput
+            {/*<FormInput
                 title="Начальная цена (Ac)"
-                name={}
-                error={}
+                name=
+                error={null}
                 changeValue={}
                 errorBlur={}
             />
@@ -34,7 +33,7 @@ const PageCreateLot = () => {
                 error={}
                 changeValue={}
                 errorBlur={}
-            />
+            />*/}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import $api, { paramsPagination, urlApi } from '../api.ts';
+import $api, { paramsPagination } from '../api.ts';
 import { AxiosResponse } from 'axios';
 import ILot, { ResponseObjLots } from '../interfaces/ILot.ts';
 import IPostBet from '../interfaces/IPostBet.ts';

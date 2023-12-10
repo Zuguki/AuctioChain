@@ -1,7 +1,5 @@
 import React, { FC, useContext, useState } from 'react';
-import imgLot from './test-lot.png';
 import styleLot from './pageLot.module.css';
-import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ILot from '../../API/interfaces/ILot.ts';
 import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
@@ -10,7 +8,6 @@ import useGetAPI from '../../hooks/API/useGetAPI.ts';
 import LotService from '../../API/service/LotService.ts';
 import PageBet from '../bet/PageBet.tsx';
 import { Context } from '../../context/context.ts';
-import { ResponseObjBets } from '../../API/interfaces/IBet.ts';
 import ErrorLogic from '../../components/ErrorLogic/ErrorLogic.tsx';
 import LeftPathLotPage from './PathsLotPage/LeftPathLotPage.tsx';
 import RightPathLotPage from './PathsLotPage/RightPathPageLot.tsx';

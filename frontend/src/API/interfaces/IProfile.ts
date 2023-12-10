@@ -1,4 +1,3 @@
-import IResponseAuctions from './IResponseAuctions.ts';
 import IResponseAuction from './IResponseAuctions.ts';
 import ILot from './ILot.ts';
 

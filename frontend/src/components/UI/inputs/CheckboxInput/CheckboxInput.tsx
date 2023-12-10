@@ -1,5 +1,6 @@
 import { FC, InputHTMLAttributes, ReactNode } from 'react';
 import styleCheckbox from './checkboxInput.module.css';
+
 interface ICheckBoxInput extends InputHTMLAttributes<HTMLInputElement> {
     children: ReactNode;
 }

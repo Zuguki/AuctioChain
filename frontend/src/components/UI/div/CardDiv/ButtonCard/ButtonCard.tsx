@@ -1,5 +1,6 @@
 import React, { ButtonHTMLAttributes, FC } from 'react';
 import styleBtn from './buttonCard.module.css';
+
 const ButtonCard: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
     children,
     ...props

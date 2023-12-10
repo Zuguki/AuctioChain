@@ -8,10 +8,12 @@ const usePostAPI = () => {
     const blurError = (): void => setError((): null => null);
 
     const postData = useCallback(
-        async (request: () => Promise<AxiosResponse>): Promise<void> => {
+        async <T>(
+            request: () => Promise<AxiosResponse<T>>,
+        ): Promise<AxiosResponse<T> | undefined> => {
             setLoading((): boolean => true);
             try {
-                await request();
+                return await request();
             } catch (errRequest) {
                 if (errRequest instanceof AxiosError) {
                     setError((): AxiosError => errRequest);

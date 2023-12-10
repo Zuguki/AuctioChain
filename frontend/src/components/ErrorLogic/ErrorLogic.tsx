@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import BaseButton from '../UI/BaseButton/BaseButton.tsx';
 import { AxiosError } from 'axios';
 import styleError from './errorLogic.module.css';
+
 interface IErrorLogic {
     err: AxiosError;
 }

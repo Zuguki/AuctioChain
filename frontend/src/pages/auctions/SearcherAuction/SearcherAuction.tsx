@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import FormInput from '../../../components/UI/inputs/FormInput/FormInput.tsx';
 import SearchInput from '../../../components/UI/inputs/SearchInput/SearchInput.tsx';
 import BaseSelect from '../../../components/UI/BaseSelect/BaseSelect.tsx';
 import styleSearcher from './searcherAuction.module.css';

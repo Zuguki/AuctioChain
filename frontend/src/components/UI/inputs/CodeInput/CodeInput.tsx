@@ -1,4 +1,4 @@
-import { KeyboardEvent, FC, ReactElement } from 'react';
+import { FC, KeyboardEvent, ReactElement } from 'react';
 import styleCodeInput from './codeInput.module.css';
 import useCode from './useCode.ts';
 import {

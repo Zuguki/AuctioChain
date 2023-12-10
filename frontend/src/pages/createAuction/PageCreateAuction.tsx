@@ -8,29 +8,45 @@ import IPostAuction from '../../API/interfaces/IPostAuction.ts';
 import DateLogic from '../../auxiliaryTools/dateLogic/DateLogic.ts';
 import AuctionService from '../../API/service/AuctionService.ts';
 import usePostAPI from '../../hooks/API/usePostAPI.ts';
-import Spinner from '../../components/UI/Spinner/Spinner.tsx';
 import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
+import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
+import ImageService from '../../API/service/ImageService.ts';
+import IResponseImage from '../../API/interfaces/IResponseImage.ts';
+import useProcessingImageInput from '../../hooks/useProcessingImageInput.ts';
+import { Form } from 'react-router-dom';
+import { Axios, AxiosError, AxiosResponse } from 'axios';
+import { FC } from 'react';
 
-const PageCreateAuction = () => {
+const PageCreateAuction: FC = () => {
     const { dataUser, logicFormValue } = useDataUser<IPostAuction>();
     const { error, loading, blurError, postData } = usePostAPI();
-
+    const { imageFile, setFile } = useProcessingImageInput();
     const postAuction = async (): Promise<void> => {
         blurError();
+        if (!imageFile) {
+            alert('Загрузите изображение!');
+            return;
+        }
+        const res: AxiosResponse<IResponseImage> | undefined =
+            await postData<IResponseImage>(
+                (): Promise<AxiosResponse<IResponseImage>> =>
+                    ImageService.postImage(imageFile),
+            );
+
         const dataPostUser: IPostAuction = {
             ...dataUser,
-            image: '',
-            dateStart: DateLogic.getDateNowISO(),
-            dateEnd: DateLogic.getDateByStringISO(dataUser?.dateEnd || '0'),
+            image: res?.data.fileName || null,
+            dateStart: DateLogic.getDateByStringISO(dataUser.dateStart),
+            dateEnd: DateLogic.getDateByStringISO(dataUser.dateEnd),
         };
 
-        await postData(() => AuctionService.addAuction(dataPostUser));
+        await postData(
+            (): Promise<AxiosResponse> =>
+                AuctionService.addAuction(dataPostUser),
+        );
     };
     return (
-        <form
-            onSubmit={e => e.preventDefault()}
-            className={styleCreateAuction.position}
-        >
+        <Form onSubmit={postAuction} className={styleCreateAuction.position}>
             <div>
                 <h1>Создание аукциона</h1>
                 <LogicFormProcessing loading={loading} err={error} />
@@ -47,6 +63,20 @@ const PageCreateAuction = () => {
                     error={error}
                     blurError={blurError}
                     changeValue={logicFormValue}
+                />
+                <ImageInput
+                    title="Фото аукциона"
+                    name="image"
+                    error={error}
+                    changeValue={setFile}
+                    errorBlur={blurError}
+                />
+                <DateInput
+                    title="Дата начала"
+                    name="dateStart"
+                    error={error}
+                    changeValue={logicFormValue}
+                    errorBlur={blurError}
                 />
                 <DateInput
                     title="Дата окончания"
@@ -65,7 +95,7 @@ const PageCreateAuction = () => {
                     </BaseButton>
                 </div>
             </div>
-        </form>
+        </Form>
     );
 };
 

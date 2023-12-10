@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 import styleCard from './cardDiv.module.css';
-import logo from '../../../../pages/auctions/ListAuctions/CardAuction/testPhoto.png';
 import ButtonCard from './ButtonCard/ButtonCard.tsx';
 import { Link, useLocation } from 'react-router-dom';
 import { IBaseCard, IPropsCardDiv } from '../../../../interfaces/baseCard.tsx';

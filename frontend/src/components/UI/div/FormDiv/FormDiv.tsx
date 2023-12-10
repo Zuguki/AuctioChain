@@ -1,13 +1,11 @@
-import { FC, FormEvent, ReactNode, useContext } from 'react';
+import { FC, ReactNode } from 'react';
 import styleDiv from './formDiv.module.css';
 import BaseButton from '../../BaseButton/BaseButton.tsx';
 import { Form, Link } from 'react-router-dom';
 import ILogicFormDivButton from './logicFormDivButton.ts';
 import { AxiosError } from 'axios';
-import { Context } from '../../../../context/context.ts';
 import LogicFormProcessing from '../../../LogicFormProcessing/LogicFormProcessing.tsx';
 import { Simulate } from 'react-dom/test-utils';
-import load = Simulate.load;
 import PathApp from '../../../../routes/pathApp/PathApp.ts';
 
 interface IFormDiv {

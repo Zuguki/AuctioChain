@@ -3,7 +3,6 @@ import LogicDownload from '../../../components/LogicDownload/LogicDownload.tsx';
 import LotService from '../../../API/service/LotService.ts';
 import { ResponseObjLots } from '../../../API/interfaces/ILot.ts';
 import useGetPaginationAPI from '../../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts';
-import BaseListLot from '../../../components/BaseListLot.tsx';
 import stylePage from '../pageOneAuction.module.css';
 import styleList from './listLot.module.css';
 import CardLot from './CardLot/CardLot.tsx';

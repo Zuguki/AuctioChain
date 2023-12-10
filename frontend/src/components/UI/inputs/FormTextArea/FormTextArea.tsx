@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, TextareaHTMLAttributes } from 'react';
 import textAreaStyle from './formTextArea.module.css';
-import styleFormInput from '../FormInput/formInput.module.css';
 import { AxiosError } from 'axios';
+
 interface IFormTextArea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     name: string;
     title: string;

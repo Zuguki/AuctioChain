@@ -1,5 +1,3 @@
-import { ChangeEvent } from 'react';
-
 // don't work
 const getURLImage = async (file: File): Promise<string> => {
     const reader: FileReader = new FileReader();

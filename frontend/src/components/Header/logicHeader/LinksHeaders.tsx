@@ -1,10 +1,9 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import CustomLink from '../../UI/CustomLink/CustomLink.tsx';
 import { Link } from 'react-router-dom';
 import logo from '../../../design/logo.svg';
 import LinkUser from './LinkUser.tsx';
 import ILinkLogicUser from './ILinkLogicUser.ts';
-import { Context } from '../../../context/context.ts';
 import LinkSearch from './LinkSearch.tsx';
 
 const LinksHeaders: FC<ILinkLogicUser> = ({ auth, user }) => {

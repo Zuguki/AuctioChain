@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, FC } from 'react';
 import btnStyle from './baseButton.module.css';
+
 interface IBaseButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     red?: boolean;
 }

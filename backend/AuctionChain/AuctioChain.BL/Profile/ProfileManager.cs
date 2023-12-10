@@ -24,7 +24,7 @@ public class ProfileManager : IProfileManager
         _mapper = mapper;
     }
 
-    public async Task<Result<GetProfileResponse>> GetProfileByUserId(Guid userId)
+    public async Task<Result<GetProfileResponse>> GetProfileByUserIdAsync(Guid userId)
     {
         var user = await _context.Users
             .Include(i => i.MyAuctions)
@@ -61,7 +61,7 @@ public class ProfileManager : IProfileManager
         return response;
     }
 
-    public async Task<Result<GetUserBalanceResponse>> GetUserBalance(Guid userId)
+    public async Task<Result<GetUserBalanceResponse>> GetUserBalanceAsync(Guid userId)
     {
         var user = await _context.Users.FirstOrDefaultAsync(app => app.Id == userId);
         if (user is null)

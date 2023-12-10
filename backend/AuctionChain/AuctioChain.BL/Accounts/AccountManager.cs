@@ -27,7 +27,7 @@ public class AccountManager : IAccountManager
         _configuration = configuration;
     }
 
-    public async Task<Result<AuthResponse>> Authenticate(AuthRequest request)
+    public async Task<Result<AuthResponse>> AuthenticateAsync(AuthRequest request)
     {
         var appUserEmail = await _userManager.FindByEmailAsync(request.Login);
         var appUserUserName = await _userManager.FindByNameAsync(request.Login);
@@ -41,7 +41,7 @@ public class AccountManager : IAccountManager
         if (!isPasswordValid)
             return Result.Fail("Email или пароль не верны");
 
-        var result = await CreateToken(appUser!);
+        var result = await CreateTokenAsync(appUser!);
         if (result.IsFailed)
             return Result.Fail(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -70,7 +70,7 @@ public class AccountManager : IAccountManager
         return Result.Ok();
     }
 
-    public async Task<Result<TokenResponse>> CreateToken(ApplicationUser appUser)
+    public async Task<Result<TokenResponse>> CreateTokenAsync(ApplicationUser appUser)
     {
         var user = await _userManager.FindByEmailAsync(appUser.Email!);
         if (user is null)
@@ -87,7 +87,7 @@ public class AccountManager : IAccountManager
         return Result.Ok(new TokenResponse {AccessToken = accessToken, RefreshToken = user.RefreshToken});
     }
 
-    public async Task<Result<RefreshResponse>> RefreshToken(RefreshRequest request)
+    public async Task<Result<RefreshResponse>> RefreshTokenAsync(RefreshRequest request)
     {
         var user = await _userManager.Users.FirstOrDefaultAsync(appUser =>
             appUser.RefreshToken == request.RefreshToken);
@@ -95,7 +95,7 @@ public class AccountManager : IAccountManager
         if (user is null)
             return Result.Fail("Refresh token не действителен");
 
-        var token = await CreateToken(user);
+        var token = await CreateTokenAsync(user);
         if (token.IsFailed)
             return Result.Fail(string.Join(", ", token.Reasons.Select(r => r.Message)));
 

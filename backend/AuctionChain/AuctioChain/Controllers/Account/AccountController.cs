@@ -18,12 +18,12 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Authenticate([FromBody] AuthRequest request)
+    public async Task<IActionResult> AuthenticateAsync([FromBody] AuthRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var response = await _accountManager.Authenticate(request);
+        var response = await _accountManager.AuthenticateAsync(request);
         if (response.IsFailed)
             return BadRequest(string.Join(", ", response.Reasons.Select(r => r.Message)));
 
@@ -31,7 +31,7 @@ public class AccountsController : ControllerBase
     }
     
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
@@ -44,12 +44,12 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("refresh")]
-    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
+    public async Task<IActionResult> RefreshAsync([FromBody] RefreshRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var response = await _accountManager.RefreshToken(request);
+        var response = await _accountManager.RefreshTokenAsync(request);
         if (response.IsFailed)
             return BadRequest(string.Join(", ", response.Reasons.Select(r => r.Message)));
 

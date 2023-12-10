@@ -24,7 +24,7 @@ public class ImageController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        var response = await _imageManager.UploadImage(file);
+        var response = await _imageManager.UploadImageAsync(file);
         return Ok(response);
     }
 }

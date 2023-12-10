@@ -7,5 +7,5 @@ namespace AuctioChain.BL.Files;
 
 public interface IImageManager
 {
-    Task<UploadImageResponse> UploadImage(IFormFile formFile);
+    Task<UploadImageResponse> UploadImageAsync(IFormFile formFile);
 }

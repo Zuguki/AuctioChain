@@ -7,7 +7,7 @@ namespace AuctioChain.BL.Profile;
 
 public interface IProfileManager
 {
-    Task<Result<GetProfileResponse>> GetProfileByUserId(Guid userId);
+    Task<Result<GetProfileResponse>> GetProfileByUserIdAsync(Guid userId);
 
-    Task<Result<GetUserBalanceResponse>> GetUserBalance(Guid userId);
+    Task<Result<GetUserBalanceResponse>> GetUserBalanceAsync(Guid userId);
 }

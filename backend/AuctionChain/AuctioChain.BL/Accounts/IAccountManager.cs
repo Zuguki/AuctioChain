@@ -11,7 +11,7 @@ public interface IAccountManager
     /// Авторизоваться
     /// </summary>
     /// <param name="request">Модель авторизации</param>
-    Task<Result<AuthResponse>> Authenticate(AuthRequest request);
+    Task<Result<AuthResponse>> AuthenticateAsync(AuthRequest request);
 
     /// <summary>
     /// Создать модель
@@ -23,11 +23,11 @@ public interface IAccountManager
     /// Получить токен доступа и токен обновления
     /// </summary>
     /// <param name="appUser">Модель пользователя</param>
-    Task<Result<TokenResponse>> CreateToken(ApplicationUser appUser);
+    Task<Result<TokenResponse>> CreateTokenAsync(ApplicationUser appUser);
 
     /// <summary>
     /// Обнавляет access and refresh token
     /// </summary>
     /// <param name="request">Модель refresh токена</param>
-    Task<Result<RefreshResponse>> RefreshToken(RefreshRequest request);
+    Task<Result<RefreshResponse>> RefreshTokenAsync(RefreshRequest request);
 }

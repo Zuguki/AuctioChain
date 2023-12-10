@@ -16,7 +16,7 @@ public class ImageManager : IImageManager
         _configuration = configuration;
     }
 
-    public async Task<UploadImageResponse> UploadImage(IFormFile formFile)
+    public async Task<UploadImageResponse> UploadImageAsync(IFormFile formFile)
     {
         var fileName = WebFileHelper.GetWebFileName(formFile.FileName);
         var width = _configuration.GetSection("Images:Width").Get<int>();

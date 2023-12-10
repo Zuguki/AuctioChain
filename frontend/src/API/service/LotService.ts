@@ -11,11 +11,12 @@ export default class LotService {
     public static async getLots(
         idAuction: string,
         page: number = 1,
+        elementOnPage: number = 3,
     ): Promise<AxiosResponse<ResponseObjLots>> {
         return $api.get(`${this.pathLots}`, {
             params: {
                 AuctionId: idAuction,
-                ...paramsPagination(page, 3),
+                ...paramsPagination(page, elementOnPage),
             },
         });
     }

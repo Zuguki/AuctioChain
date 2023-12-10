@@ -8,6 +8,7 @@ import { Context } from '../../../../context/context.ts';
 import LogicFormProcessing from '../../../LogicFormProcessing/LogicFormProcessing.tsx';
 import { Simulate } from 'react-dom/test-utils';
 import load = Simulate.load;
+import PathApp from '../../../../routes/pathApp/PathApp.ts';
 
 interface IFormDiv {
     title: string;
@@ -54,7 +55,7 @@ const FormDiv: FC<IFormDiv> = ({
                     <p className={styleDiv.textRegistration}>
                         Еще нет аккаунта.
                         <Link
-                            to="/registration"
+                            to={PathApp.registration}
                             className={styleDiv.linkRegistration}
                         >
                             Зарегестрируйтесь

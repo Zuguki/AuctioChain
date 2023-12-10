@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import styleLot from '../pageLot.module.css';
 import imgLot from '../test-lot.png';
-
-class IPathLotPage {}
+import IPathLotPage from '../../../interfaces/IPathLotPage.ts';
 
 const LeftPathLotPage: FC<IPathLotPage> = ({ lot }) => {
     return (

@@ -5,7 +5,7 @@ import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
 import { observer } from 'mobx-react-lite';
 import PostLoginUser from '../../../API/interfaces/PostLoginUser.ts';
 import { Context } from '../../../context/context.ts';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 const FormAuthorization = observer(() => {
     const { userStore } = useContext(Context);
@@ -41,9 +41,6 @@ const FormAuthorization = observer(() => {
                 errorBlur={blurError}
                 changeValue={logicFormValue}
             />
-            {/*<div className={`${err && styleRegistration.marginForgotPassword}`}>
-                <Link to='/authorization/recovery' className={styleRegistration.forgotPassword}>Забыли пароль?</Link>
-            </div>*/}
         </FormDiv>
     );
 });

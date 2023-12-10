@@ -4,6 +4,7 @@ import ILogicFormDivButton from '../../components/UI/div/FormDiv/logicFormDivBut
 import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import usePostAPI from './usePostAPI.ts';
 import { AxiosResponse } from 'axios';
+import PathApp from '../../routes/pathApp/PathApp.ts';
 
 const useAuthResponse = (
     postResponse: () => Promise<AxiosResponse>,
@@ -14,7 +15,7 @@ const useAuthResponse = (
     const location = useLocation();
     const { error, loading, blurError, postData } = usePostAPI();
     const fromPath: string = useMemo(
-        () => location?.state?.from?.pathname || '/auctions',
+        () => location?.state?.from?.pathname || PathApp.auctions,
         [],
     );
     const logicButton: ILogicFormDivButton = {

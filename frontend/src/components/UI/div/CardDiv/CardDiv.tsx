@@ -5,6 +5,7 @@ import ButtonCard from './ButtonCard/ButtonCard.tsx';
 import { Link, useLocation } from 'react-router-dom';
 import { IBaseCard, IPropsCardDiv } from '../../../../interfaces/baseCard.tsx';
 import sliceText from '../../../../auxiliaryTools/sliceText.ts';
+import PathApp from '../../../../routes/pathApp/PathApp.ts';
 
 function CardDiv<T extends IBaseCard>({
     objCard,
@@ -13,7 +14,7 @@ function CardDiv<T extends IBaseCard>({
     const { image, id } = objCard;
     let { description, name } = objCard;
     const { pathname } = useLocation();
-    const path = pathname === '/auctions' ? '/auction' : '/lot';
+    const path = pathname === PathApp.auctions ? PathApp.auction : PathApp.lot;
     name = sliceText(name, 3);
     description = sliceText(description, 6);
     return (

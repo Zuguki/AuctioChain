@@ -14,6 +14,7 @@ import { ResponseObjBets } from '../../API/interfaces/IBet.ts';
 import ErrorLogic from '../../components/ErrorLogic/ErrorLogic.tsx';
 import LeftPathLotPage from './PathsLotPage/LeftPathLotPage.tsx';
 import RightPathLotPage from './PathsLotPage/RightPathPageLot.tsx';
+import PathApp from '../../routes/pathApp/PathApp.ts';
 
 const PageLot: FC = () => {
     const { id } = useParams();
@@ -32,7 +33,7 @@ const PageLot: FC = () => {
             setShowBet((): boolean => true);
             return;
         }
-        nav('/authorization', { state: { from: location } });
+        nav(PathApp.authorization, { state: { from: location } });
     };
     if (err) {
         return <ErrorLogic err={err} />;

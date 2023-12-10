@@ -10,11 +10,12 @@ import routeAuctions from './route/routeAuctions.tsx';
 import routeAccount from './route/routeAccount.tsx';
 import PageAuctions from '../pages/auctions/PageAuctions.tsx';
 import PageError from '../pages/error/PageError.tsx';
+import PathApp from './pathApp/PathApp.ts';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
-            <Route path="/" element={<Layout />}>
+            <Route path={PathApp.main} element={<Layout />}>
                 <Route
                     index
                     element={

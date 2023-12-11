@@ -3,9 +3,14 @@ using Xunit.Abstractions;
 
 namespace AuctioChain.Test;
 
-public class AsyncTest(ITestOutputHelper outputHelper)
+public class AsyncTest
 {
-    private readonly ITestOutputHelper _outputHelper = outputHelper;
+    private readonly ITestOutputHelper _outputHelper;
+
+    public AsyncTest(ITestOutputHelper outputHelper)
+    {
+        _outputHelper = outputHelper;
+    }
 
     [Theory]
     [InlineData("AuctioChain")]

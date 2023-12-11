@@ -1,0 +1,33 @@
+.title {
+    margin: 25px 0 10px 0;
+}
+
+.userName {
+    color: #818080;
+    margin-bottom: 20px;
+}
+
+.position {
+    margin: 0 165px;
+}
+
+.informationLots {
+    color: #818080;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.information {
+    color: #818080;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.description {
+    font-weight: bold;
+}
+
+.blockInformation {
+    word-break: break-word;
+    width: 60%;
+}

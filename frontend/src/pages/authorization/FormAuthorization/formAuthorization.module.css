@@ -1,0 +1,17 @@
+.forgotPassword {
+    color: #727171;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+
+.marginForgotPassword {
+    margin-top: 10px;
+}
+
+.link {
+    color: #615EF3;
+    text-decoration-line: underline;
+}

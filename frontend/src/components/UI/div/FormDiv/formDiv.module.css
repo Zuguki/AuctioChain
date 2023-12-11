@@ -1,0 +1,54 @@
+.formDiv {
+    border-radius: 50px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+}
+
+.align {
+    margin: 0 100px;
+}
+
+.error {
+    text-align: center;
+    color: #F76F7A;
+    font-size: 20px;
+    margin: 0;
+}
+
+.title {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.titleError {
+    margin: 25px 0 10px 0;
+}
+
+.positionBtn {
+    margin: 35px 0;
+    text-align: center;
+}
+.positionBtnS {
+    margin: 35px 0 15px 0;
+    text-align: center;
+}
+
+.textRegistration {
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 0 30px 0;
+}
+
+.linkRegistration {
+    color: #615EF3;
+    font-weight: 700;
+    text-decoration-line: underline;
+}
+
+.parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+}

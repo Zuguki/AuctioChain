@@ -1,0 +1,51 @@
+.header {
+    width: 100%;
+    height: 100px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.25);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul:first-child {
+    padding-left: 20%;
+}
+
+.positionUser {
+    padding-top: 10px;
+
+}
+
+.positionUserNot {
+    height: 90px;
+    padding-top: 17px;
+}
+
+ul:last-child {
+    margin-right: 100px;
+}
+
+ul li:nth-child(2) {
+    padding-left: 13%;
+}
+
+ul li:nth-child(2) img {
+    width: auto;
+    max-height: 35px;
+}
+
+.userName {
+    color: #818080;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    margin-bottom: 0;
+    text-align: center;
+}

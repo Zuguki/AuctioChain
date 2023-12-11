@@ -1,0 +1,47 @@
+.input {
+    width: 300px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #F5F5F5 url("../../../../design/icons/calendar.svg") 95% 50% no-repeat;
+    color:  #818080;
+    font-family: SF Pro Display, Montserrat, sans-serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 400;
+    line-height: normal;
+    border: 0;
+    outline: 0;
+    padding-left: 30px;
+}
+
+.title {
+    color:  #818080;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+    margin: 15px 0;
+    display: block;
+}
+
+.error {
+    border-radius: 10px;
+    background: #FFFFFF url("../../../../design/icons/calendar error.svg") 95% 50% no-repeat ;
+    outline: 0;
+
+    color: #F76F7A;
+    border: 2px solid #F76F7A;
+    font-family: SF Pro Display, Montserrat, sans-serif;
+    font-size: 20px;
+    line-height: 28px; /* 140% */
+    padding-left: 30px;
+}
+
+[type="datetime-local"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    padding-left: 40px;
+}

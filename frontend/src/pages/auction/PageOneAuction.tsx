@@ -27,23 +27,25 @@ const PageOneAuction = () => {
         return <ErrorLogic err={err} />;
     }
     return (
-        <div className={stylePage.position}>
-            <LogicDownload isLoading={loading}>
-                <>
-                    <CloseButton />
-                    <div>
-                        <h1 className={stylePage.title}>
-                            Аукцион &quot;{name}&quot;
-                        </h1>
-                        <h3 className={stylePage.userName}>@{userId}</h3>
-                        <InformationAuction auction={auction} />
-                        <Hr />
-                    </div>
-                </>
-            </LogicDownload>
-            <h2>Лоты</h2>
+        <>
+            <div className={stylePage.position}>
+                <LogicDownload isLoading={loading}>
+                    <>
+                        <CloseButton />
+                        <div>
+                            <h1 className={stylePage.title}>
+                                Аукцион &quot;{name}&quot;
+                            </h1>
+                            <h3 className={stylePage.userName}>@{userId}</h3>
+                            <InformationAuction auction={auction} />
+                            <Hr />
+                        </div>
+                    </>
+                </LogicDownload>
+                <h2>Лоты</h2>
+            </div>
             <ListLot id={id} />
-        </div>
+        </>
     );
 };
 

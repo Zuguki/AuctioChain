@@ -10,34 +10,24 @@ import useDataUser from '../../hooks/useDataUser.ts';
 import IPostLot from '../../API/interfaces/IPostLot.ts';
 import { numberChars } from '../../auxiliaryTools/bloclnvalidChar.ts';
 import LotService from '../../API/service/LotService.ts';
-import useProcessingImageInput from '../../hooks/useProcessingImageInput.ts';
 import { AxiosResponse } from 'axios';
-import IResponseImage from '../../API/interfaces/IResponseImage.ts';
-import ImageService from '../../API/service/ImageService.ts';
+import usePostImage from '../../hooks/API/usePostImage.ts';
 
 const PageCreateLot = () => {
     const { id } = useParams();
     const { loading, error, blurError, postData } = usePostAPI();
     const { dataUser, logicFormValue } = useDataUser<IPostLot>();
-    const { imageFile, setFile } = useProcessingImageInput();
+    const { setFile, postImage } = usePostImage(postData);
 
     const postLot = async (): Promise<void> => {
-        if (!imageFile) {
-            alert('Загрузите изображение!');
-            return;
-        }
-        const res: AxiosResponse<IResponseImage> | undefined =
-            await postData<IResponseImage>(
-                (): Promise<AxiosResponse<IResponseImage>> =>
-                    ImageService.postImage(imageFile),
-            );
-
+        blurError();
+        const resImage = await postImage();
         const dataPostUser: IPostLot = {
             ...dataUser,
-            auctionId: id,
+            auctionId: '031b9253-f377-426f-bafb-2f8a76206f78',
             initialPrice: +dataUser.initialPrice,
             betStep: +dataUser.betStep,
-            image: res?.data.fileName || null,
+            image: resImage?.data.fileName || null,
         };
 
         await postData(

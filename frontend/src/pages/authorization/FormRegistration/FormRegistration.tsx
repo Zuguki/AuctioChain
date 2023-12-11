@@ -23,11 +23,12 @@ const FormRegistration = () => {
             loading={loading}
         >
             <FormInput
-                title="Имя пользователя"
+                title="Имя пользователя (max: 10)"
                 name="userName"
                 error={error}
                 errorBlur={blurError}
                 changeValue={logicFormValue}
+                maxLength={10}
             />
             <FormInput
                 title="Почта"

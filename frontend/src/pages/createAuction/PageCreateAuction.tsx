@@ -10,32 +10,22 @@ import AuctionService from '../../API/service/AuctionService.ts';
 import usePostAPI from '../../hooks/API/usePostAPI.ts';
 import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
 import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
-import ImageService from '../../API/service/ImageService.ts';
-import IResponseImage from '../../API/interfaces/IResponseImage.ts';
-import useProcessingImageInput from '../../hooks/useProcessingImageInput.ts';
 import { Form } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import { FC } from 'react';
+import usePostImage from '../../hooks/API/usePostImage.ts';
 
 const PageCreateAuction: FC = () => {
     const { dataUser, logicFormValue } = useDataUser<IPostAuction>();
     const { error, loading, blurError, postData } = usePostAPI();
-    const { imageFile, setFile } = useProcessingImageInput();
+    const { setFile, postImage } = usePostImage(postData);
     const postAuction = async (): Promise<void> => {
         blurError();
-        if (!imageFile) {
-            alert('Загрузите изображение!');
-            return;
-        }
-        const res: AxiosResponse<IResponseImage> | undefined =
-            await postData<IResponseImage>(
-                (): Promise<AxiosResponse<IResponseImage>> =>
-                    ImageService.postImage(imageFile),
-            );
+        const resImage = await postImage();
 
         const dataPostUser: IPostAuction = {
             ...dataUser,
-            image: res?.data.fileName || null,
+            image: resImage?.data.fileName || null,
             dateStart: DateLogic.getDateByStringISO(dataUser.dateStart),
             dateEnd: DateLogic.getDateByStringISO(dataUser.dateEnd),
         };

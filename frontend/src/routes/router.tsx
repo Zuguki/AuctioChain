@@ -9,8 +9,8 @@ import routeAuctions from './route/routeAuctions.tsx';
 import routeAccount from './route/routeAccount.tsx';
 import PageError from '../pages/error/PageError.tsx';
 import PathApp from './pathApp/PathApp.ts';
-import PageCreateAuction from '../pages/createAuction/PageCreateAuction.tsx';
 import PageCreateLot from '../pages/createLot/PageCreateLot.tsx';
+import PageCreateAuction from '../pages/createAuction/PageCreateAuction.tsx';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
                     index
                     element={
                         <>
-                            <PageCreateAuction />
+                            <PageCreateLot />
                         </>
                     }
                 />

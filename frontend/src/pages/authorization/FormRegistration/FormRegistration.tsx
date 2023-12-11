@@ -6,10 +6,10 @@ import PasswordInputCard from '../PasswordInputCard/PasswordInputCard.tsx';
 import useDataUser from '../../../hooks/useDataUser.ts';
 import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
 import { userStore } from '../../../context/context.ts';
-import PostRegistrationUser from '../../../API/interfaces/PostRegistrationUser.ts';
+import IPostRegistrationUser from '../../../API/interfaces/IPostRegistrationUser.ts';
 
 const FormRegistration = () => {
-    const { dataUser, logicFormValue } = useDataUser<PostRegistrationUser>();
+    const { dataUser, logicFormValue } = useDataUser<IPostRegistrationUser>();
     const { error, logicButton, blurError, loading } = useAuthResponse(
         () => userStore.registration(dataUser),
         'Зарегестрироваться',

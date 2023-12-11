@@ -5,7 +5,6 @@ import { Form, Link } from 'react-router-dom';
 import ILogicFormDivButton from './logicFormDivButton.ts';
 import { AxiosError } from 'axios';
 import LogicFormProcessing from '../../../LogicFormProcessing/LogicFormProcessing.tsx';
-import { Simulate } from 'react-dom/test-utils';
 import PathApp from '../../../../routes/pathApp/PathApp.ts';
 
 interface IFormDiv {

@@ -14,7 +14,7 @@ import ImageService from '../../API/service/ImageService.ts';
 import IResponseImage from '../../API/interfaces/IResponseImage.ts';
 import useProcessingImageInput from '../../hooks/useProcessingImageInput.ts';
 import { Form } from 'react-router-dom';
-import { Axios, AxiosError, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { FC } from 'react';
 
 const PageCreateAuction: FC = () => {

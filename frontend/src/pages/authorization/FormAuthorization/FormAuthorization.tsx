@@ -3,13 +3,13 @@ import FormInput from '../../../components/UI/inputs/FormInput/FormInput.tsx';
 import useDataUser from '../../../hooks/useDataUser.ts';
 import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
 import { observer } from 'mobx-react-lite';
-import PostLoginUser from '../../../API/interfaces/PostLoginUser.ts';
+import IPostLoginUser from '../../../API/interfaces/IPostLoginUser.ts';
 import { Context } from '../../../context/context.ts';
 import { useContext } from 'react';
 
 const FormAuthorization = observer(() => {
     const { userStore } = useContext(Context);
-    const { dataUser, logicFormValue } = useDataUser<PostLoginUser>();
+    const { dataUser, logicFormValue } = useDataUser<IPostLoginUser>();
     const { error, logicButton, loading, blurError } = useAuthResponse(
         () => userStore.login(dataUser),
         'Вход',

@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import ILot, { ResponseObjLots } from '../interfaces/ILot.ts';
 import IPostBet from '../interfaces/IPostBet.ts';
 import { ResponseObjBets } from '../interfaces/IBet.ts';
+import IPostLot from '../interfaces/IPostLot.ts';
 
 export default class LotService {
     private static readonly pathLots: string = 'auction/lots';
@@ -39,7 +40,7 @@ export default class LotService {
         return $api.post(`${this.pathLotBets}`, bet);
     }
 
-    /* public static async addLot(lot) {
-        return $api.post(this.urlLots);
-    }*/
+    public static async addLot(lot: IPostLot): Promise<AxiosResponse> {
+        return $api.post(`${this.pathLots}`, lot);
+    }
 }

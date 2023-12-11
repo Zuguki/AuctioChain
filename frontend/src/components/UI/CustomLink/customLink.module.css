@@ -1,0 +1,20 @@
+.link {
+    color: #818080;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 21px; /* 87.5% */
+    text-decoration: auto;
+}
+
+.link:hover {
+    color: #818080;
+}
+
+.active {
+    text-decoration: underline;
+    text-underline-offset: 43px;
+    text-decoration-color: #afafaf;
+    text-decoration-thickness: 4px;
+    border-radius: 5px;
+}

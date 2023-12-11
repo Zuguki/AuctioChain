@@ -1,0 +1,17 @@
+.hr {
+    padding: 0;
+    height: 0;
+    border: none;
+    border-top: 3px solid #EAEAEA;
+    width: 600px;
+    margin: 25px 0;
+}
+
+.hrSmall {
+    width: 300px;
+    margin: 15px 0;
+}
+
+.hrLarge {
+    width: 900px;
+}

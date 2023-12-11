@@ -1,0 +1,31 @@
+import { useCallback, useState } from 'react';
+import { AxiosError, AxiosResponse } from 'axios';
+
+const usePostAPI = () => {
+    const [error, setError] = useState<AxiosError | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const blurError = (): void => setError((): null => null);
+
+    const postData = useCallback(
+        async <T>(
+            request: () => Promise<AxiosResponse<T>>,
+        ): Promise<AxiosResponse<T> | undefined> => {
+            setLoading((): boolean => true);
+            try {
+                return await request();
+            } catch (errRequest) {
+                if (errRequest instanceof AxiosError) {
+                    setError((): AxiosError => errRequest);
+                }
+            } finally {
+                setLoading((): boolean => false);
+            }
+        },
+        [],
+    );
+
+    return { error, loading, blurError, postData };
+};
+
+export default usePostAPI;

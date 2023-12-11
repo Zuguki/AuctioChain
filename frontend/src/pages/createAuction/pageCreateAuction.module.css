@@ -1,0 +1,16 @@
+.position {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.positionButton {
+    margin-top: 50px;
+}
+
+.error {
+    text-align: center;
+    color: #F76F7A;
+    font-size: 20px;
+    margin: 0;
+}

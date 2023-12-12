@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
-using AuctioChain.DAL.Models.Lot;
 using AuctioChain.DAL.Models.Lot.Dto;
+using AuctioChain.DAL.Models.Pagination;
 using AuctioChain.DAL.Models.Profile.Dto;
 using AutoMapper;
 using FluentResults;
@@ -47,32 +47,33 @@ public class ProfileManager : IProfileManager
         return new GetUserBalanceResponse {Balance = user.Balance};
     }
 
-    public async Task<Result<GetUserAuctionsResponse>> GetUserAuctionsAsync(Guid userId)
+    public async Task<Result<(GetUserAuctionsResponse, PaginationMetadata)>> GetUserAuctionsAsync(GetUserAuctionsRequest request)
     {
         var user = await _context.Users
             .Include(i => i.MyAuctions)
-            .FirstOrDefaultAsync(app => app.Id == userId);
+            .FirstOrDefaultAsync(app => app.Id == request.UserId);
         
         if (user is null)
             return Result.Fail("Пользователь не найден");
         
         var auctions = user.MyAuctions;
-        var response = new GetUserAuctionsResponse
-        {
-            Auctions = auctions.Select(auc => _mapper.Map<AuctionResponse>(auc)),
-        };
-        
-        return response;
+        var paginationMetadata = new PaginationMetadata(auctions.Count, request.Page, request.ItemsPerPage);
+        var result = auctions
+            .Skip((request.Page - 1) * request.ItemsPerPage)
+            .Take(request.ItemsPerPage);
+
+        var response = new GetUserAuctionsResponse { Auctions = result.Select(auc => _mapper.Map<AuctionResponse>(auc)) };
+        return (response, paginationMetadata);
     }
 
-    public async Task<Result<GetWinLotsOfUserResponse>> GetWinLotsOfUserAsync(Guid userId)
+    public async Task<Result<(GetWinLotsOfUserResponse, PaginationMetadata)>> GetWinLotsOfUserAsync(GetWinLotsOfUserRequest request)
     {
         var user = await _context.Users
             .Include(applicationUser => applicationUser.AllBets)
             .ThenInclude(betDal => betDal.Lot!).ThenInclude(lotDal => lotDal.Auction)
             .Include(applicationUser => applicationUser.AllBets).ThenInclude(betDal => betDal.Lot!)
             .ThenInclude(lotDal => lotDal.Bets)
-            .FirstOrDefaultAsync(app => app.Id == userId);
+            .FirstOrDefaultAsync(app => app.Id == request.UserId);
         
         if (user is null)
             return Result.Fail("Пользователь не найден");
@@ -80,24 +81,24 @@ public class ProfileManager : IProfileManager
         var winLots = user.AllBets
             .Select(bet => bet.Lot!)
             .Distinct()
-            .Where(lot => lot.Auction.Status == AuctionStatus.Complete && lot.Bets.Last().UserId == userId)
+            .Where(lot => lot.Auction.Status == AuctionStatus.Complete && lot.Bets.Last().UserId == request.UserId)
             .ToList();
-
-        var response = new GetWinLotsOfUserResponse
-        {
-            WinLots = winLots.Select(lot => _mapper.Map<WinLotResponse>(lot)),
-        };
+        var paginationMetadata = new PaginationMetadata(winLots.Count, request.Page, request.ItemsPerPage);
+        var result = winLots
+            .Skip((request.Page - 1) * request.ItemsPerPage)
+            .Take(request.ItemsPerPage);
         
-        return response;
+        var response = new GetWinLotsOfUserResponse { WinLots = result.Select(lot => _mapper.Map<WinLotResponse>(lot)) };
+        return (response, paginationMetadata);
     }
 
-    public async Task<Result<GetUserActiveLotsResponse>> GetUserActiveLotsAsync(Guid userId)
+    public async Task<Result<(GetUserActiveLotsResponse, PaginationMetadata)>> GetUserActiveLotsAsync(GetUserActiveLotsRequest request)
     {
         var user = await _context.Users
             .Include(applicationUser => applicationUser.AllBets)
             .ThenInclude(betDal => betDal.Lot)
             .ThenInclude(lotDal => lotDal.Auction)
-            .FirstOrDefaultAsync(app => app.Id == userId);
+            .FirstOrDefaultAsync(app => app.Id == request.UserId);
         
         if (user is null)
             return Result.Fail("Пользователь не найден");
@@ -107,12 +108,12 @@ public class ProfileManager : IProfileManager
             .Distinct()
             .Where(lot => lot.Auction.Status == AuctionStatus.Bidding)
             .ToList();
+        var paginationMetadata = new PaginationMetadata(activeLots.Count, request.Page, request.ItemsPerPage);
+        var result = activeLots
+            .Skip((request.Page - 1) * request.ItemsPerPage)
+            .Take(request.ItemsPerPage);
         
-        var response = new GetUserActiveLotsResponse
-        {
-            ActiveLots = activeLots.Select(lot => _mapper.Map<LotResponse>(lot)),
-        };
-        
-        return response;
+        var response = new GetUserActiveLotsResponse { ActiveLots = result.Select(lot => _mapper.Map<LotResponse>(lot)) };
+        return (response, paginationMetadata);
     }
 }

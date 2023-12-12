@@ -1,16 +1,20 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import LogicDownload from '../../../components/LogicDownload/LogicDownload.tsx';
 import LotService from '../../../API/service/LotService.ts';
 import { ResponseObjLots } from '../../../API/interfaces/ILot.ts';
 import useGetPaginationAPI from '../../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts';
+import BaseListLot from '../../../components/lists/BaseListLot/BaseListLot.tsx';
 import stylePage from '../pageOneAuction.module.css';
-import styleList from './listLot.module.css';
-import CardLot from './CardLot/CardLot.tsx';
-import Pagination from '../../../components/UI/Pagination/Pagination.tsx';
-import ErrorLogic from '../../../components/ErrorLogic/ErrorLogic.tsx';
+import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
+import { Context } from '../../../context/context.ts';
 
-const ListLot: FC<{ id: string }> = ({ id }) => {
+const ListLot: FC<{ id: string; userAuctionId: string }> = ({
+    id,
+    userAuctionId,
+}) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const { userStore } = useContext(Context);
+    const userId = userStore.getUser().userId;
     const {
         data: { lots },
         err,
@@ -21,35 +25,23 @@ const ListLot: FC<{ id: string }> = ({ id }) => {
         currentPage,
         { lots: [] },
     );
-    if (err) {
-        return <ErrorLogic err={err} />;
-    }
     return (
         <LogicDownload isLoading={loading}>
-            <div>
-                {lots.length !== 0 ? (
-                    <>
-                        <p className={stylePage.informationLots}>
-                            Количество лотов: {pagination?.TotalCount}
-                        </p>
-                        <div className={styleList.position}>
-                            {lots.map(
-                                (lot): ReactElement => (
-                                    <CardLot key={lot.id} lot={lot} />
-                                ),
-                            )}
-                        </div>
-                        {pagination && (
-                            <Pagination
-                                pagination={pagination}
-                                sendCurrentPage={setCurrentPage}
-                            />
-                        )}
-                    </>
-                ) : (
-                    <p className={stylePage.informationLots}>Лотов нет</p>
-                )}
-            </div>
+            <>
+                <div className={stylePage.position}>
+                    <p className={stylePage.informationLots}>
+                        Количество лотов: {pagination?.TotalCount}
+                    </p>
+                    {userId === userAuctionId && (
+                        <BaseButton>Создать лот</BaseButton>
+                    )}
+                </div>
+                <BaseListLot
+                    lots={lots}
+                    pagination={pagination}
+                    setCurrentPage={setCurrentPage}
+                />
+            </>
         </LogicDownload>
     );
 };

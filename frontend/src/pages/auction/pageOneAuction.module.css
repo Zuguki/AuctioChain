@@ -15,6 +15,10 @@
     color: #818080;
     font-size: 24px;
     font-weight: 700;
+    margin-top: 5px;
+}
+
+#empty {
     margin-left: 165px;
 }
 
@@ -31,4 +35,15 @@
 .blockInformation {
     word-break: break-word;
     width: 60%;
+}
+
+.userLink {
+    text-decoration: none;
+}
+
+.userName:hover {
+    color: #615EF3;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-color: #615EF3;
 }

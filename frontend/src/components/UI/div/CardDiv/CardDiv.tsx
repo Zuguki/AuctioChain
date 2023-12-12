@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import styleCard from './cardDiv.module.css';
 import ButtonCard from './ButtonCard/ButtonCard.tsx';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { IBaseCard, IPropsCardDiv } from '../../../../interfaces/baseCard.tsx';
 import sliceText from '../../../../auxiliaryTools/sliceText.ts';
 import PathApp from '../../../../routes/pathApp/PathApp.ts';
@@ -10,10 +10,9 @@ function CardDiv<T extends IBaseCard>({
     objCard,
     children,
 }: IPropsCardDiv<T>): ReactElement {
-    const { image, id } = objCard;
+    const { image, id, status } = objCard;
     let { description, name } = objCard;
-    const { pathname } = useLocation();
-    const path = pathname === PathApp.auctions ? PathApp.auction : PathApp.lot;
+    const path = status ? PathApp.auction : PathApp.lot;
     name = sliceText(name, 3);
     description = sliceText(description, 6);
     return (

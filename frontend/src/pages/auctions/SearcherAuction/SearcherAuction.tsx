@@ -4,7 +4,6 @@ import BaseSelect from '../../../components/UI/BaseSelect/BaseSelect.tsx';
 import styleSearcher from './searcherAuction.module.css';
 import Hr from '../../../components/UI/Hr/Hr.tsx';
 import { Form } from 'react-router-dom';
-import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
 import { Context } from '../../../context/context.ts';
 
 const SearcherAuction = () => {
@@ -39,7 +38,7 @@ const SearcherAuction = () => {
                     changeValue={a}
                 />
             </div>
-            <BaseButton type="submit">Применить</BaseButton>
+            {/*<BaseButton type="submit">Применить</BaseButton>
             <div className={styleSearcher.reset}>
                 <BaseButton
                     red
@@ -48,7 +47,7 @@ const SearcherAuction = () => {
                 >
                     Сбросить
                 </BaseButton>
-            </div>
+            </div>*/}
             <Hr width="large" />
         </Form>
     );

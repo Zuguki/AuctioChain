@@ -9,8 +9,6 @@ import routeAuctions from './route/routeAuctions.tsx';
 import routeAccount from './route/routeAccount.tsx';
 import PageError from '../pages/error/PageError.tsx';
 import PathApp from './pathApp/PathApp.ts';
-import PageCreateAuction from '../pages/createAuction/PageCreateAuction.tsx';
-import RequireAuth from './RequireAuth.tsx';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -20,9 +18,7 @@ const router = createBrowserRouter(
                     index
                     element={
                         <>
-                            <RequireAuth>
-                                <PageCreateAuction />
-                            </RequireAuth>
+                            <h1>MAIN</h1>
                         </>
                     }
                 />

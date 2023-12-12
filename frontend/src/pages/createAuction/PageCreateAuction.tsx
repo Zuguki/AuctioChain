@@ -10,12 +10,17 @@ import AuctionService from '../../API/service/AuctionService.ts';
 import usePostAPI from '../../hooks/API/usePostAPI.ts';
 import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
 import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
-import { Form } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import usePostImage from '../../hooks/API/usePostImage.ts';
+import PathApp from '../../routes/pathApp/PathApp.ts';
+import { Context } from '../../context/context.ts';
 
 const PageCreateAuction: FC = () => {
+    const nav = useNavigate();
+    const { userStore } = useContext(Context);
+    const userId = userStore.getUser().userId;
     const { dataUser, logicFormValue } = useDataUser<IPostAuction>();
     const { error, loading, blurError, postData } = usePostAPI();
     const { setFile, postImage } = usePostImage(postData);
@@ -34,6 +39,7 @@ const PageCreateAuction: FC = () => {
             (): Promise<AxiosResponse> =>
                 AuctionService.addAuction(dataPostUser),
         );
+        nav(`${PathApp.account}/${userId}`);
     };
     return (
         <Form onSubmit={postAuction} className={styleCreateAuction.position}>

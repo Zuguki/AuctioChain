@@ -10,5 +10,6 @@ interface ILot {
 }
 
 export type ResponseObjLots = { lots: ILot[] };
+export type ResponseWinLots = { winLots: ILot[] };
 
 export default ILot;

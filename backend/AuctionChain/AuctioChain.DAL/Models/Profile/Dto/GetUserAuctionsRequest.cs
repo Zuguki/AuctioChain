@@ -1,10 +1,12 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AuctioChain.DAL.Models.Profile.Dto;
 
 public class GetUserAuctionsRequest
 {
-    public Guid? UserId { get; set; }
+    [Required]
+    public Guid UserId { get; set; }
     
     public int Page { get; set; } = 1;
 

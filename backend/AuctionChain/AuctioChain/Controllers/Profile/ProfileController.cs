@@ -22,13 +22,9 @@ public class ProfileController : ControllerBase
     }
 
     [HttpGet("userName")]
-    [Authorize]
     public async Task<IActionResult> GetUserByIdAsync([FromQuery] GetProfileRequest request)
     {
-        if (request.UserId is null)
-            request.UserId = HttpContext.TryGetUserId();
-        
-        var result = await _profileManager.GetProfileByUserIdAsync((Guid) request.UserId!);
+        var result = await _profileManager.GetProfileByUserIdAsync(request.UserId);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -49,12 +45,8 @@ public class ProfileController : ControllerBase
     }
 
     [HttpGet("auctions")]
-    [Authorize]
     public async Task<IActionResult> GetUserAuctionsAsync([FromQuery] GetUserAuctionsRequest request)
     {
-        if (request.UserId is null)
-            request.UserId = HttpContext.TryGetUserId();
-        
         var result = await _profileManager.GetUserAuctionsAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
@@ -64,12 +56,8 @@ public class ProfileController : ControllerBase
     }
 
     [HttpGet("winLots")]
-    [Authorize]
     public async Task<IActionResult> GetUserWinLotsAsync([FromQuery] GetWinLotsOfUserRequest request)
     {
-        if (request.UserId is null)
-            request.UserId = HttpContext.TryGetUserId();
-        
         var result = await _profileManager.GetWinLotsOfUserAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
@@ -79,12 +67,8 @@ public class ProfileController : ControllerBase
     }
     
     [HttpGet("activeLots")]
-    [Authorize]
     public async Task<IActionResult> GetUserActiveLotsAsync([FromQuery] GetUserActiveLotsRequest request)
     {
-        if (request.UserId is null)
-            request.UserId = HttpContext.TryGetUserId();
-        
         var result = await _profileManager.GetUserActiveLotsAsync(request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));

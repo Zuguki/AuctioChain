@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AuctioChain.DAL.Models.Pagination;
 using AuctioChain.DAL.Models.Profile.Dto;
 using FluentResults;
 
@@ -11,9 +12,9 @@ public interface IProfileManager
 
     Task<Result<GetUserBalanceResponse>> GetUserBalanceAsync(Guid userId);
 
-    Task<Result<GetUserAuctionsResponse>> GetUserAuctionsAsync(Guid userId);
+    Task<Result<(GetUserAuctionsResponse, PaginationMetadata)>> GetUserAuctionsAsync(GetUserAuctionsRequest request);
 
-    Task<Result<GetWinLotsOfUserResponse>> GetWinLotsOfUserAsync(Guid userId);
+    Task<Result<(GetWinLotsOfUserResponse, PaginationMetadata)>> GetWinLotsOfUserAsync(GetWinLotsOfUserRequest request);
 
-    Task<Result<GetUserActiveLotsResponse>> GetUserActiveLotsAsync(Guid userId);
+    Task<Result<(GetUserActiveLotsResponse, PaginationMetadata)>> GetUserActiveLotsAsync(GetUserActiveLotsRequest request);
 }

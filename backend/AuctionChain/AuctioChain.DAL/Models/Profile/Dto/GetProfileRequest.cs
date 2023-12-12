@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace AuctioChain.DAL.Models.Profile.Dto;
@@ -6,5 +7,6 @@ namespace AuctioChain.DAL.Models.Profile.Dto;
 public class GetProfileRequest
 {
     [JsonPropertyName("userId")]
-    public Guid? UserId { get; set; }
+    [Required]
+    public Guid UserId { get; set; }
 }

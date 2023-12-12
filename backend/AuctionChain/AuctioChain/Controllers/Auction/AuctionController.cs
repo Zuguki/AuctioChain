@@ -47,7 +47,10 @@ public class AuctionController : ControllerBase
         if (userId is null)
             return Unauthorized();
 
-        await _manager.CreateAsync(request, (Guid) userId);
+        var result = await _manager.CreateAsync(request, (Guid) userId);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+        
         return Ok();
     }
 

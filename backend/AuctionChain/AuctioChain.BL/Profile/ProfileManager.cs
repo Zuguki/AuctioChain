@@ -26,36 +26,13 @@ public class ProfileManager : IProfileManager
 
     public async Task<Result<GetProfileResponse>> GetProfileByUserIdAsync(Guid userId)
     {
-        var user = await _context.Users
-            .Include(i => i.MyAuctions)
-            .Include(i => i.AllBets)
-            .ThenInclude(i => i.Lot).ThenInclude(lotDal => lotDal.Auction)
-            .Include(applicationUser => applicationUser.AllBets).ThenInclude(betDal => betDal.Lot!)
-            .ThenInclude(lotDal => lotDal.Bets)
-            .FirstOrDefaultAsync(app => app.Id == userId);
+        var user = await _context.Users.FirstOrDefaultAsync(app => app.Id == userId);
         if (user is null)
             return Result.Fail("Пользователь не найден");
-
-        var auctions = user.MyAuctions;
-        var winLots = user.AllBets
-            .Select(bet => bet.Lot!)
-            .Distinct()
-            .Where(lot => lot.Auction.Status == AuctionStatus.Complete && lot.Bets.Last().UserId == userId)
-            .ToList();
-
-        var activeLots = user.AllBets
-            .Select(bet => bet.Lot)
-            .Distinct()
-            .Where(lot => lot.Auction.Status == AuctionStatus.Bidding)
-            .ToList();
         
         var response = new GetProfileResponse
         {
             UserName = user.UserName!,
-            Balance = user.Balance,
-            UserAuctions = auctions.Select(auc => _mapper.Map<AuctionResponse>(auc)),
-            WinLots = winLots.Select(lot => _mapper.Map<WinLotResponse>(lot)),
-            ParticipateLots = activeLots.Select(lot => _mapper.Map<LotResponse>(lot)),
         };
         
         return response;
@@ -68,5 +45,74 @@ public class ProfileManager : IProfileManager
             return Result.Fail("Пользователь не найден");
 
         return new GetUserBalanceResponse {Balance = user.Balance};
+    }
+
+    public async Task<Result<GetUserAuctionsResponse>> GetUserAuctionsAsync(Guid userId)
+    {
+        var user = await _context.Users
+            .Include(i => i.MyAuctions)
+            .FirstOrDefaultAsync(app => app.Id == userId);
+        
+        if (user is null)
+            return Result.Fail("Пользователь не найден");
+        
+        var auctions = user.MyAuctions;
+        var response = new GetUserAuctionsResponse
+        {
+            Auctions = auctions.Select(auc => _mapper.Map<AuctionResponse>(auc)),
+        };
+        
+        return response;
+    }
+
+    public async Task<Result<GetWinLotsOfUserResponse>> GetWinLotsOfUserAsync(Guid userId)
+    {
+        var user = await _context.Users
+            .Include(applicationUser => applicationUser.AllBets)
+            .ThenInclude(betDal => betDal.Lot!).ThenInclude(lotDal => lotDal.Auction)
+            .Include(applicationUser => applicationUser.AllBets).ThenInclude(betDal => betDal.Lot!)
+            .ThenInclude(lotDal => lotDal.Bets)
+            .FirstOrDefaultAsync(app => app.Id == userId);
+        
+        if (user is null)
+            return Result.Fail("Пользователь не найден");
+
+        var winLots = user.AllBets
+            .Select(bet => bet.Lot!)
+            .Distinct()
+            .Where(lot => lot.Auction.Status == AuctionStatus.Complete && lot.Bets.Last().UserId == userId)
+            .ToList();
+
+        var response = new GetWinLotsOfUserResponse
+        {
+            WinLots = winLots.Select(lot => _mapper.Map<WinLotResponse>(lot)),
+        };
+        
+        return response;
+    }
+
+    public async Task<Result<GetUserActiveLotsResponse>> GetUserActiveLotsAsync(Guid userId)
+    {
+        var user = await _context.Users
+            .Include(applicationUser => applicationUser.AllBets)
+            .ThenInclude(betDal => betDal.Lot)
+            .ThenInclude(lotDal => lotDal.Auction)
+            .FirstOrDefaultAsync(app => app.Id == userId);
+        
+        if (user is null)
+            return Result.Fail("Пользователь не найден");
+
+        var activeLots = user.AllBets
+            .Select(bet => bet.Lot)
+            .Distinct()
+            .Where(lot => lot.Auction.Status == AuctionStatus.Bidding)
+            .ToList();
+        
+        var response = new GetUserActiveLotsResponse
+        {
+            ActiveLots = activeLots.Select(lot => _mapper.Map<LotResponse>(lot)),
+        };
+        
+        return response;
     }
 }

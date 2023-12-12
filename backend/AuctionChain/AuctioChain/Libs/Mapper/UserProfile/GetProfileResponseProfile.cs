@@ -8,7 +8,6 @@ public class GetProfileResponseProfile : AutoMapper.Profile
     public GetProfileResponseProfile()
     {
         CreateMap<ApplicationUser, GetProfileResponse>()
-            .ForMember(nameof(GetProfileResponse.UserName), cfg => cfg.MapFrom(src => src.UserName))
-            .ForMember(nameof(GetProfileResponse.Balance), cfg => cfg.MapFrom(src => src.Balance));
+            .ForMember(nameof(GetProfileResponse.UserName), cfg => cfg.MapFrom(src => src.UserName));
     }
 }

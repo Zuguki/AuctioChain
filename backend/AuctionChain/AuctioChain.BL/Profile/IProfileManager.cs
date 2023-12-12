@@ -10,4 +10,10 @@ public interface IProfileManager
     Task<Result<GetProfileResponse>> GetProfileByUserIdAsync(Guid userId);
 
     Task<Result<GetUserBalanceResponse>> GetUserBalanceAsync(Guid userId);
+
+    Task<Result<GetUserAuctionsResponse>> GetUserAuctionsAsync(Guid userId);
+
+    Task<Result<GetWinLotsOfUserResponse>> GetWinLotsOfUserAsync(Guid userId);
+
+    Task<Result<GetUserActiveLotsResponse>> GetUserActiveLotsAsync(Guid userId);
 }

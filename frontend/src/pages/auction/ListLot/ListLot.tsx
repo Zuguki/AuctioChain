@@ -7,6 +7,8 @@ import BaseListLot from '../../../components/lists/BaseListLot/BaseListLot.tsx';
 import stylePage from '../pageOneAuction.module.css';
 import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
 import { Context } from '../../../context/context.ts';
+import PathApp from '../../../routes/pathApp/PathApp.ts';
+import { Link } from 'react-router-dom';
 
 const ListLot: FC<{ id: string; userAuctionId: string }> = ({
     id,
@@ -28,12 +30,16 @@ const ListLot: FC<{ id: string; userAuctionId: string }> = ({
     return (
         <LogicDownload isLoading={loading}>
             <>
-                <div className={stylePage.position}>
+                {!!lots.length && (
                     <p className={stylePage.informationLots}>
                         Количество лотов: {pagination?.TotalCount}
                     </p>
+                )}
+                <div className={stylePage.position}>
                     {userId === userAuctionId && (
-                        <BaseButton>Создать лот</BaseButton>
+                        <Link to={`${PathApp.createLot}/${id}`}>
+                            <BaseButton>Создать лот</BaseButton>
+                        </Link>
                     )}
                 </div>
                 <BaseListLot

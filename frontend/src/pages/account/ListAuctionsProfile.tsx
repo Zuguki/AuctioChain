@@ -31,17 +31,19 @@ const ListAuctionsProfile: FC<{ id: string; isUser: boolean }> = ({
     }
     return (
         <>
-            <h2 className={styleAccount.position}>
+            <h2 className={styleAccount.positionTitle}>
                 {isUser ? 'Мои аукционы' : 'Аукционы'}
             </h2>
             <LogicDownload isLoading={loading}>
                 <>
-                    <p className={styleAccount.countCards}>
-                        Количество аукционов: {pagination?.TotalCount}
-                    </p>
+                    {!!auctions.length && (
+                        <p className={styleAccount.countCards}>
+                            Количество аукционов: {pagination?.TotalCount}
+                        </p>
+                    )}
                     {isUser && (
                         <Link
-                            to={`../${PathApp.createAuction}`}
+                            to={PathApp.createAuction}
                             className={styleAccount.position}
                         >
                             <BaseButton>Создать аукцион</BaseButton>

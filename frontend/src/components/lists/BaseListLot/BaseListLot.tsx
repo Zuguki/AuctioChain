@@ -35,9 +35,7 @@ const BaseListLot: FC<IBaseListLot> = ({
                     )
                 </>
             ) : (
-                <p className={stylePage.informationLots} id="emptyLot">
-                    Лотов нет
-                </p>
+                <p className={stylePage.informationLots}>Лотов нет</p>
             )}
         </div>
     );

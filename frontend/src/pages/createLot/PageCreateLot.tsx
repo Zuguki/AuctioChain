@@ -24,7 +24,7 @@ const PageCreateLot = () => {
         const resImage = await postImage();
         const dataPostUser: IPostLot = {
             ...dataUser,
-            auctionId: '031b9253-f377-426f-bafb-2f8a76206f78',
+            auctionId: id as string,
             initialPrice: +dataUser.initialPrice,
             betStep: +dataUser.betStep,
             image: resImage?.data.fileName || null,

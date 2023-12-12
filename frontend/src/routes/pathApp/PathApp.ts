@@ -6,5 +6,6 @@ export default class PathApp {
     public static readonly authorization: string = '/authorization';
     public static readonly registration: string = '/registration';
     public static readonly account: string = '/account';
-    public static readonly createAuction: string = 'createAuction';
+    public static readonly createAuction: string = '/createAuction';
+    public static readonly createLot: string = '/createLot';
 }

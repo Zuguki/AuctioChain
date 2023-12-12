@@ -26,9 +26,11 @@ const ListWinLots: FC<{
             <h2 className={styleAccount.position}>Выигранные лоты</h2>
             <LogicDownload isLoading={loading}>
                 <>
-                    <p className={styleAccount.informationLots}>
-                        Количество лотов: {pagination?.TotalCount}
-                    </p>
+                    {!!winLots.length && (
+                        <p className={styleAccount.informationLots}>
+                            Количество лотов: {pagination?.TotalCount}
+                        </p>
+                    )}
                     <BaseListLot
                         lots={winLots}
                         pagination={pagination}

@@ -16,6 +16,9 @@ const BaseListAuctions: FC<IBaseListAuctions> = ({
     pagination,
     setCurrentPage,
 }) => {
+    if (!auctions.length) {
+        return <p className={styleList.information}>Аукционов нет</p>;
+    }
     return (
         <div>
             <div className={styleList.position}>

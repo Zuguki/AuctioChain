@@ -14,13 +14,17 @@ const useAuthResponse = (
     const nav: NavigateFunction = useNavigate();
     const location = useLocation();
     const { error, loading, blurError, postData } = usePostAPI();
-    const fromPath: string = useMemo(
-        () => location?.state?.from?.pathname || PathApp.auctions,
-        [],
-    );
+    const fromPath: string = useMemo((): string => {
+        const path: string = location?.state?.from?.pathname;
+        if (path !== PathApp.auctions) {
+            return path;
+        }
+        return PathApp.auctions;
+    }, []);
     const logicButton: ILogicFormDivButton = {
         textButton: textButton,
-        logicClick: async (): Promise<void> => await postData(postResponse),
+        logicClick: async (): Promise<void> =>
+            (await postData(postResponse)) as undefined,
     };
 
     useEffect((): void => {

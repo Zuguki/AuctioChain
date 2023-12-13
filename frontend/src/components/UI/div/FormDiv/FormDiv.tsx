@@ -13,6 +13,7 @@ interface IFormDiv {
     loading: boolean;
     registration?: boolean;
     error: AxiosError | null;
+    errorBlur: () => void;
     children: ReactNode;
 }
 
@@ -21,12 +22,19 @@ const FormDiv: FC<IFormDiv> = ({
     logicButton,
     error,
     loading,
+    errorBlur,
     registration = false,
     children,
 }) => {
     const { textButton, logicClick } = logicButton;
     return (
-        <Form className={styleDiv.parent} onSubmit={logicClick}>
+        <Form
+            className={styleDiv.parent}
+            onSubmit={() => {
+                errorBlur();
+                logicClick();
+            }}
+        >
             <div className={styleDiv.formDiv}>
                 <h3
                     className={`${styleDiv.title} ${

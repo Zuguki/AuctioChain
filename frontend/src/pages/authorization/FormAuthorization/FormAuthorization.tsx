@@ -21,6 +21,7 @@ const FormAuthorization = observer(() => {
             logicButton={logicButton}
             loading={loading}
             error={error}
+            errorBlur={blurError}
             registration
         >
             <p>{userStore.getUser().userId}</p>

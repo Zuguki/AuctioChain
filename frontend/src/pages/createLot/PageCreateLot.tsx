@@ -1,7 +1,7 @@
 import React from 'react';
 import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
 import FormTextArea from '../../components/UI/inputs/FormTextArea/FormTextArea.tsx';
-import { Form, useParams } from 'react-router-dom';
+import { Form, useNavigate, useParams } from 'react-router-dom';
 import styleCreateLot from '../createAuction/pageCreateAuction.module.css';
 import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
@@ -12,9 +12,12 @@ import { numberChars } from '../../auxiliaryTools/bloclnvalidChar.ts';
 import LotService from '../../API/service/LotService.ts';
 import { AxiosResponse } from 'axios';
 import usePostImage from '../../hooks/API/usePostImage.ts';
+import PathApp from '../../routes/pathApp/PathApp.ts';
+import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
 
 const PageCreateLot = () => {
     const { id } = useParams();
+    const nav = useNavigate();
     const { loading, error, blurError, postData } = usePostAPI();
     const { dataUser, logicFormValue } = useDataUser<IPostLot>();
     const { setFile, postImage } = usePostImage(postData);
@@ -22,22 +25,27 @@ const PageCreateLot = () => {
     const postLot = async (): Promise<void> => {
         blurError();
         const resImage = await postImage();
+        const image: string | undefined = resImage?.data.fileName;
+        if (!image) {
+            return;
+        }
         const dataPostUser: IPostLot = {
             ...dataUser,
             auctionId: id as string,
             initialPrice: +dataUser.initialPrice,
             betStep: +dataUser.betStep,
-            image: resImage?.data.fileName || null,
+            image,
         };
 
-        await postData(
+        (await postData(
             (): Promise<AxiosResponse> => LotService.addLot(dataPostUser),
-        );
+        )) && nav(`${PathApp.auction}/${id}`);
     };
     return (
         <Form className={styleCreateLot.position} onSubmit={postLot}>
             <div>
                 <h1>Создание лота</h1>
+                <LogicFormProcessing loading={loading} err={error} />
                 <FormInput
                     title="Название лота"
                     name="name"

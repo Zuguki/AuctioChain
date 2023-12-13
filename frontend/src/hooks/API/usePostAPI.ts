@@ -14,10 +14,8 @@ const usePostAPI = () => {
             setLoading((): boolean => true);
             try {
                 return await request();
-            } catch (errRequest) {
-                if (errRequest instanceof AxiosError) {
-                    setError((): AxiosError => errRequest);
-                }
+            } catch (err: unknown) {
+                setError(() => err as AxiosError);
             } finally {
                 setLoading((): boolean => false);
             }

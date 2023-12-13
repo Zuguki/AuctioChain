@@ -32,7 +32,6 @@ const BaseListLot: FC<IBaseListLot> = ({
                         pagination={pagination}
                         sendCurrentPage={setCurrentPage}
                     />
-                    )
                 </>
             ) : (
                 <p className={stylePage.informationLots}>Лотов нет</p>

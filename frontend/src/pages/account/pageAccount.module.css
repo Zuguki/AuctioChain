@@ -6,6 +6,10 @@
     margin: 0 0 10px 165px;
 }
 
+.positionBlock {
+    margin-bottom: 20px;
+}
+
 .title {
     margin: 25px 0 0 0;
 }
@@ -33,7 +37,8 @@
 }
 
 .logout {
-    text-align: center;
+    padding-top: 10px;
+    margin-left: 165px
 }
 
 .informationLots {

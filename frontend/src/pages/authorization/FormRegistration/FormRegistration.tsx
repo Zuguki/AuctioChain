@@ -19,6 +19,7 @@ const FormRegistration = () => {
         <FormDiv
             title="Регистрация"
             logicButton={logicButton}
+            errorBlur={blurError}
             error={error}
             loading={loading}
         >

@@ -14,8 +14,8 @@ import { Form, useNavigate } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import { FC, useContext } from 'react';
 import usePostImage from '../../hooks/API/usePostImage.ts';
-import PathApp from '../../routes/pathApp/PathApp.ts';
 import { Context } from '../../context/context.ts';
+import PathApp from '../../routes/pathApp/PathApp.ts';
 
 const PageCreateAuction: FC = () => {
     const nav = useNavigate();
@@ -27,19 +27,21 @@ const PageCreateAuction: FC = () => {
     const postAuction = async (): Promise<void> => {
         blurError();
         const resImage = await postImage();
-
+        const image: string | undefined = resImage?.data.fileName;
+        if (!image) {
+            return;
+        }
         const dataPostUser: IPostAuction = {
             ...dataUser,
-            image: resImage?.data.fileName || null,
+            image,
             dateStart: DateLogic.getDateByStringISO(dataUser.dateStart),
             dateEnd: DateLogic.getDateByStringISO(dataUser.dateEnd),
         };
 
-        await postData(
+        (await postData(
             (): Promise<AxiosResponse> =>
                 AuctionService.addAuction(dataPostUser),
-        );
-        nav(`${PathApp.account}/${userId}`);
+        )) && nav(`${PathApp.account}/${userId}`);
     };
     return (
         <Form onSubmit={postAuction} className={styleCreateAuction.position}>

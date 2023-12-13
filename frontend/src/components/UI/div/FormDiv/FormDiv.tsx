@@ -30,9 +30,9 @@ const FormDiv: FC<IFormDiv> = ({
     return (
         <Form
             className={styleDiv.parent}
-            onSubmit={() => {
+            onSubmit={async (): Promise<void> => {
                 errorBlur();
-                logicClick();
+                await logicClick();
             }}
         >
             <div className={styleDiv.formDiv}>

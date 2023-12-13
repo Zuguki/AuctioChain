@@ -15,6 +15,7 @@
     "@types/js-cookie": "^3.0.6",
     "axios": "^1.6.0",
     "js-cookie": "^3.0.5",
+    "jshashes": "^1.0.8",
     "mobx": "^6.11.0",
     "mobx-react-lite": "^4.0.5",
     "pettier": "^1.1.0",

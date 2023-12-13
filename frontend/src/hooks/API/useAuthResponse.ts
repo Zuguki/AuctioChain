@@ -15,8 +15,8 @@ const useAuthResponse = (
     const location = useLocation();
     const { error, loading, blurError, postData } = usePostAPI();
     const fromPath: string = useMemo((): string => {
-        const path: string = location?.state?.from?.pathname;
-        if (path !== PathApp.auctions) {
+        const path: string | undefined = location?.state?.from?.pathname;
+        if (path && path !== PathApp.auctions) {
             return path;
         }
         return PathApp.auctions;

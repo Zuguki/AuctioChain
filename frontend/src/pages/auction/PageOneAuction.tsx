@@ -20,13 +20,14 @@ const PageOneAuction = () => {
         {} as IAuction,
         id,
     );
+    const { userId } = auction;
     const {
         data: { userName },
         loading: loadingUser,
     } = useGetAPI(
-        () => ProfileService.getUserName(auction.userId),
+        () => ProfileService.getUserName(userId),
         {} as IUserName,
-        auction.userId,
+        userId,
     );
     return (
         <>
@@ -40,7 +41,7 @@ const PageOneAuction = () => {
                             </h1>
                             <Link
                                 className={stylePage.userLink}
-                                to={`${PathApp.account}/${auction.userId}`}
+                                to={`${PathApp.account}/${userId}`}
                             >
                                 <h3 className={stylePage.userName}>
                                     @{userName}

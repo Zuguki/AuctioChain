@@ -29,6 +29,7 @@
     margin: 35px 0;
     text-align: center;
 }
+
 .positionBtnS {
     margin: 35px 0 15px 0;
     text-align: center;
@@ -44,6 +45,7 @@
     color: #615EF3;
     font-weight: 700;
     text-decoration-line: underline;
+    text-underline-offset: 5px;
 }
 
 .parent {

@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
 import useGetPaginationAPI from '../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts';
 import ProfileService from '../../API/service/ProfileService.ts';
-import { ResponseWinLots } from '../../API/interfaces/ILot.ts';
 import ListLotsAccount from '../../components/lists/BaseListLot/ListLotsAccount.tsx';
+import { ResponseWinLots } from '../../API/interfaces/ILot.ts';
 
 const ListWinLots: FC<{
     id: string;

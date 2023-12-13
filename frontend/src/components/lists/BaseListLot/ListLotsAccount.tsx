@@ -21,7 +21,7 @@ const ListLotsAccount: FC<ListLotsAccount> = ({
     setCurrentPage,
 }) => {
     return (
-        <div>
+        <div className={styleAccount.positionBlock}>
             <h2 className={styleAccount.position}>{title}</h2>
             <LogicDownload isLoading={loading}>
                 <>

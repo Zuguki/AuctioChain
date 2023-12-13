@@ -1,9 +1,8 @@
 .position {
-    display: flex ;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     height: 28px;
-    margin-bottom: 30px;
 }
 
 .btnSwipe {

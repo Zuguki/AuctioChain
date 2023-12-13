@@ -30,7 +30,7 @@ const ListAuctionsProfile: FC<{ id: string; isUser: boolean }> = ({
         return <ErrorLogic err={err} />;
     }
     return (
-        <>
+        <div className={styleAccount.positionBlock}>
             <h2 className={styleAccount.positionTitle}>
                 {isUser ? 'Мои аукционы' : 'Аукционы'}
             </h2>
@@ -56,7 +56,7 @@ const ListAuctionsProfile: FC<{ id: string; isUser: boolean }> = ({
                     />
                 </>
             </LogicDownload>
-        </>
+        </div>
     );
 };
 

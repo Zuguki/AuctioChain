@@ -11,6 +11,7 @@ import useGetAPI from '../../hooks/API/useGetAPI.ts';
 import ProfileService from '../../API/service/ProfileService.ts';
 import IUserName from '../../API/interfaces/IUserName.ts';
 import PathApp from '../../routes/pathApp/PathApp.ts';
+import ListActiveLots from './ListActiveLots.tsx';
 
 const PageAccount = observer(() => {
     const { userStore } = useContext(Context);
@@ -42,6 +43,7 @@ const PageAccount = observer(() => {
                 <Hr />
             </div>
             <ListAuctionsProfile id={id} isUser={isUser} />
+            <ListActiveLots id={id} isUser={isUser} />
             <ListWinLots id={id} isUser={isUser} />
             {isUser && (
                 <div className={styleAccount.logout}>

@@ -1,28 +1,29 @@
 import React, { FC, useState } from 'react';
 import useGetPaginationAPI from '../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts';
 import ProfileService from '../../API/service/ProfileService.ts';
-import { ResponseWinLots } from '../../API/interfaces/ILot.ts';
+import { ResponseActiveLots } from '../../API/interfaces/ILot.ts';
 import ListLotsAccount from '../../components/lists/BaseListLot/ListLotsAccount.tsx';
 
-const ListWinLots: FC<{
+const ListActiveLots: FC<{
     id: string;
     isUser: boolean;
 }> = ({ id }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const {
-        data: { winLots },
+        data: { activeLots },
         loading,
         err,
         pagination,
-    } = useGetPaginationAPI<ResponseWinLots>(
-        () => ProfileService.getWinLot(id, currentPage),
+    } = useGetPaginationAPI<ResponseActiveLots>(
+        () => ProfileService.getActiveLots(id, currentPage),
         currentPage,
-        { winLots: [] },
+        { activeLots: [] },
+        id,
     );
     return (
         <ListLotsAccount
-            title="Выигранные лоты"
-            lots={winLots}
+            title="Активные лоты"
+            lots={activeLots}
             loading={loading}
             pagination={pagination}
             setCurrentPage={setCurrentPage}
@@ -30,4 +31,4 @@ const ListWinLots: FC<{
     );
 };
 
-export default ListWinLots;
+export default ListActiveLots;

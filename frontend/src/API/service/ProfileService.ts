@@ -1,7 +1,7 @@
 import $api, { paramsPagination } from '../api.ts';
 import { AxiosResponse } from 'axios';
 import { ResponseObjAuctions } from '../interfaces/IResponseAuctions.ts';
-import { ResponseWinLots } from '../interfaces/ILot.ts';
+import { ResponseActiveLots, ResponseWinLots } from '../interfaces/ILot.ts';
 import IUserName from '../interfaces/IUserName.ts';
 
 export default class ProfileService {
@@ -24,6 +24,17 @@ export default class ProfileService {
     ): Promise<AxiosResponse<ResponseObjAuctions>> {
         return $api.get(
             `${this.pathProfile}/auctions`,
+            this.getConfig(id, page, elementOnPage),
+        );
+    }
+
+    public static async getActiveLots(
+        id: string,
+        page: number = 1,
+        elementOnPage: number = 3,
+    ): Promise<AxiosResponse<ResponseActiveLots>> {
+        return $api.get(
+            `${this.pathProfile}/activeLots`,
             this.getConfig(id, page, elementOnPage),
         );
     }

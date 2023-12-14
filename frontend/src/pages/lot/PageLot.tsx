@@ -39,7 +39,9 @@ const PageLot: FC = () => {
     return (
         <LogicDownload isLoading={loading}>
             <div>
-                <CloseButton />
+                <div className={styleLot.positionClose}>
+                    <CloseButton />
+                </div>
                 <div className={styleLot.position}>
                     <LeftPathLotPage lot={lot} />
                     <RightPathLotPage lot={lot} openBet={openBet} />

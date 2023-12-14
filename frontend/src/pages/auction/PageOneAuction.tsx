@@ -30,32 +30,30 @@ const PageOneAuction = () => {
         userId,
     );
     return (
-        <>
+        <div>
+            <div className={stylePage.positionClose}>
+                <CloseButton />
+            </div>
             <div className={stylePage.position}>
                 <LogicDownload isLoading={loading || loadingUser}>
-                    <>
-                        <CloseButton />
-                        <div>
-                            <h1 className={stylePage.title}>
-                                Аукцион &quot;{auction.name}&quot;
-                            </h1>
-                            <Link
-                                className={stylePage.userLink}
-                                to={`${PathApp.account}/${userId}`}
-                            >
-                                <h3 className={stylePage.userName}>
-                                    @{userName}
-                                </h3>
-                            </Link>
-                            <InformationAuction auction={auction} />
-                            <Hr />
-                        </div>
-                    </>
+                    <div>
+                        <h1 className={stylePage.title}>
+                            Аукцион &quot;{auction.name}&quot;
+                        </h1>
+                        <Link
+                            className={stylePage.userLink}
+                            to={`${PathApp.account}/${userId}`}
+                        >
+                            <h3 className={stylePage.userName}>@{userName}</h3>
+                        </Link>
+                        <InformationAuction auction={auction} />
+                        <Hr />
+                    </div>
                 </LogicDownload>
                 <h2>Лоты</h2>
             </div>
             <ListLot id={id} userAuctionId={auction.userId} />
-        </>
+        </div>
     );
 };
 

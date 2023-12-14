@@ -6,8 +6,8 @@
     position: sticky;
     top: 150px;
     float: right;
-    margin-right: 100px;
 }
+
 
 .close:hover {
     transform: scale(1.05);

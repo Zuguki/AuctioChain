@@ -35,11 +35,13 @@ const ListLot: FC<{ id: string; userAuctionId: string }> = ({
                         Количество лотов: {pagination?.TotalCount}
                     </p>
                 )}
-                <div className={stylePage.position}>
+                <div className={stylePage.positionCreateLot}>
                     {userId === userAuctionId && (
-                        <Link to={`${PathApp.createLot}/${id}`}>
-                            <BaseButton>Создать лот</BaseButton>
-                        </Link>
+                        <>
+                            <Link to={`${PathApp.createLot}/${id}`}>
+                                <BaseButton>Создать лот</BaseButton>
+                            </Link>
+                        </>
                     )}
                 </div>
                 <BaseListLot

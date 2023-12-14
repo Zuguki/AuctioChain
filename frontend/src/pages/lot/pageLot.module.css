@@ -1,5 +1,5 @@
 .position {
-    margin: 80px 150px 0 80px;
+    margin: 50px 150px 0 80px;
 }
 
 .left {
@@ -8,22 +8,27 @@
     margin-right: 60px;
 }
 
+.positionClose {
+    position: absolute;
+    right: 150px;
+    margin-top: 10px;
+}
+
 .right {
     float: right;
-    width: 55%;
-
+    width: 50%;
+    margin-right: 100px;
 }
 
 .information {
     margin-bottom: 30px;
 }
 
-.information>p {
+.information > p {
     color: #818080;
     font-size: 24px;
     font-weight: 700;
     margin: 0 0 10px 0;
-
 }
 
 .img {
@@ -41,6 +46,7 @@
 
 .textUser {
     color: #615EF3;
+    text-decoration: none;
 }
 
 .protectedText {

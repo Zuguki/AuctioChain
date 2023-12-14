@@ -1,4 +1,4 @@
-import React, { FC, FormEvent } from 'react';
+import React, { FC } from 'react';
 import Hr from '../../components/UI/Hr/Hr.tsx';
 import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
@@ -9,32 +9,29 @@ import LotService from '../../API/service/LotService.ts';
 import useDataUser from '../../hooks/useDataUser.ts';
 import IPostBet from '../../API/interfaces/IPostBet.ts';
 import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
+import { Form } from 'react-router-dom';
 
 interface IPageBet {
     close: () => void;
     lotId: string;
 }
+
 const PageBet: FC<IPageBet> = ({ close, lotId }) => {
     const { error, loading, blurError, postData } = usePostAPI();
     const { dataUser, logicFormValue } = useDataUser<IPostBet>();
 
-    const submitBet = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+    const submitBet = async (): Promise<void> => {
         blurError();
-        e.preventDefault();
         dataUser.lotId = lotId;
         await postData(() => LotService.postBetInLot(dataUser));
     };
 
     return (
         <div className={styleBet.background}>
-            <form className={styleBet.form} onSubmit={submitBet}>
+            <Form className={styleBet.form} onSubmit={submitBet}>
                 <CloseButton logicClick={close} />
                 <h3>Ставка</h3>
-                <LogicFormProcessing
-                    loading={loading}
-                    err={error}
-                    centerText={false}
-                />
+                <LogicFormProcessing loading={loading} err={error} />
                 <p className={styleBet.textBalance}>На вашем счёте: {}</p>
                 <p className={styleBet.textInformation}>
                     Цена на данный момент: 30 Ac
@@ -52,10 +49,10 @@ const PageBet: FC<IPageBet> = ({ close, lotId }) => {
                     changeValue={logicFormValue}
                     errorBlur={blurError}
                 />
-                <BaseButton style={{ marginTop: 30 }} type="submit">
-                    Поставить ставку
-                </BaseButton>
-            </form>
+                <div className={styleBet.positionSubmit}>
+                    <BaseButton type="submit">Поставить ставку</BaseButton>
+                </div>
+            </Form>
         </div>
     );
 };

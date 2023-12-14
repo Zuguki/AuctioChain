@@ -18,15 +18,20 @@
 
 .form {
     width: 500px;
-    height: 485px;
+    min-height: 485px;
     flex-shrink: 0;
     z-index: auto;
-    padding: 55px 0 0 80px;
+    padding: 55px 90px 0 90px;
 
     border-radius: 50px;
     background: #FFFFFF;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
+
+.positionSubmit {
+    margin: 25px 0 40px 0;
+}
+
 
 .textInformation {
     font-size: 20px;

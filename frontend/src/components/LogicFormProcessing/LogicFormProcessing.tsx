@@ -13,7 +13,7 @@ interface ILogicFormProcessing {
 
 const LogicFormProcessing: FC<ILogicFormProcessing> = ({
     loading,
-    centerText = true,
+    centerText = false,
     err,
 }) => {
     const error = (): ReactNode => {

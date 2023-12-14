@@ -8,14 +8,7 @@ import PageCreateLot from '../../pages/createLot/PageCreateLot.tsx';
 
 const routeAccount = (
     <>
-        <Route
-            path={`${PathApp.account}/:id`}
-            element={
-                <RequireAuth>
-                    <PageAccount />
-                </RequireAuth>
-            }
-        />
+        <Route path={`${PathApp.account}/:id`} element={<PageAccount />} />
         <Route
             path={PathApp.createAuction}
             element={

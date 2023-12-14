@@ -43,7 +43,7 @@ const FormDiv: FC<IFormDiv> = ({
                 >
                     {title}
                 </h3>
-                <LogicFormProcessing loading={loading} err={error} />
+                <LogicFormProcessing centerText loading={loading} err={error} />
                 <div className={styleDiv.align}>{children}</div>
                 <div
                     className={

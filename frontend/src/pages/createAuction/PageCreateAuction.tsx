@@ -45,7 +45,7 @@ const PageCreateAuction: FC = () => {
     };
     return (
         <Form onSubmit={postAuction} className={styleCreateAuction.position}>
-            <div>
+            <div className={styleCreateAuction.form}>
                 <h1>Создание аукциона</h1>
                 <LogicFormProcessing loading={loading} err={error} />
                 <FormInput
@@ -55,6 +55,9 @@ const PageCreateAuction: FC = () => {
                     changeValue={logicFormValue}
                     errorBlur={blurError}
                 />
+                <p className={styleCreateAuction.additionallyInformation}>
+                    Пишите название без слова аукцион.
+                </p>
                 <FormTextArea
                     title="Описание аукциона"
                     name="description"
@@ -76,6 +79,11 @@ const PageCreateAuction: FC = () => {
                     changeValue={logicFormValue}
                     errorBlur={blurError}
                 />
+                <p className={styleCreateAuction.additionallyInformation}>
+                    Обратите внимание, что торги аукциона начнуться после
+                    подтверждения статуса &quot;завершение редактирования&quot;
+                    в отдельной странице аукциона.
+                </p>
                 <DateInput
                     title="Дата окончания"
                     name="dateEnd"

@@ -9,11 +9,10 @@ import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
 import { Context } from '../../../context/context.ts';
 import PathApp from '../../../routes/pathApp/PathApp.ts';
 import { Link } from 'react-router-dom';
+import IAuction from '../../../API/interfaces/IAuction.ts';
+import AuctionLogic from '../../../logicAuction/AuctionLogic.ts';
 
-const ListLot: FC<{ id: string; userAuctionId: string }> = ({
-    id,
-    userAuctionId,
-}) => {
+const ListLot: FC<{ id: string; auction: IAuction }> = ({ id, auction }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const { userStore } = useContext(Context);
     const userId = userStore.getUser().userId;
@@ -35,15 +34,15 @@ const ListLot: FC<{ id: string; userAuctionId: string }> = ({
                         Количество лотов: {pagination?.TotalCount}
                     </p>
                 )}
-                <div className={stylePage.positionCreateLot}>
-                    {userId === userAuctionId && (
-                        <>
+                {userId === auction.userId &&
+                    AuctionLogic.isCreation(auction) && (
+                        <div className={stylePage.positionCreateLot}>
                             <Link to={`${PathApp.createLot}/${id}`}>
                                 <BaseButton>Создать лот</BaseButton>
                             </Link>
-                        </>
+                        </div>
                     )}
-                </div>
+
                 <BaseListLot
                     lots={lots}
                     pagination={pagination}

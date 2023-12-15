@@ -12,17 +12,19 @@ import ErrorLogic from '../../components/ErrorLogic/ErrorLogic.tsx';
 import LeftPathLotPage from './PathsLotPage/LeftPathLotPage.tsx';
 import RightPathLotPage from './PathsLotPage/RightPathPageLot.tsx';
 import PathApp from '../../routes/pathApp/PathApp.ts';
+import { AxiosResponse } from 'axios';
 
 const PageLot: FC = () => {
     const { id } = useParams();
     const { userStore } = useContext(Context);
     const nav = useNavigate();
     const location = useLocation();
+    const [bet, setBet] = useState<AxiosResponse | null>(null);
     const {
         data: lot,
         loading,
         err,
-    } = useGetAPI<ILot>(() => LotService.getLotByID(id), {} as ILot);
+    } = useGetAPI<ILot>(() => LotService.getLotByID(id), {} as ILot, bet);
     const [showBet, setShowBet] = useState<boolean>(false);
     const closeBet = () => setShowBet((): boolean => false);
     const openBet = (): void => {
@@ -46,7 +48,9 @@ const PageLot: FC = () => {
                     <LeftPathLotPage lot={lot} />
                     <RightPathLotPage lot={lot} openBet={openBet} />
                 </div>
-                {showBet && <PageBet lotId={id} close={closeBet} />}
+                {showBet && (
+                    <PageBet setBet={setBet} lot={lot} close={closeBet} />
+                )}
             </div>
         </LogicDownload>
     );

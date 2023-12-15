@@ -43,7 +43,7 @@ const PageCreateLot = () => {
     };
     return (
         <Form className={styleCreateLot.position} onSubmit={postLot}>
-            <div>
+            <div className={styleCreateLot.form}>
                 <h1>Создание лота</h1>
                 <LogicFormProcessing loading={loading} err={error} />
                 <FormInput

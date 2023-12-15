@@ -10,10 +10,6 @@ const DateInput: FC<Omit<IInput, 'width'>> = ({
     errorBlur,
     ...props
 }) => {
-    /*const time = new Date()
-        const t = time.toLocaleDateString() + 'T' + time.toLocaleTimeString('en-US', { hour12: false,
-        hour: "numeric",
-        minute: "numeric"});*/
     return (
         <div>
             <label className={styleFormInput.title}>{title}</label>

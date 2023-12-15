@@ -10,20 +10,27 @@ import useDataUser from '../../hooks/useDataUser.ts';
 import IPostBet from '../../API/interfaces/IPostBet.ts';
 import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
 import { Form } from 'react-router-dom';
+import ILot from '../../API/interfaces/ILot.ts';
+import { AxiosResponse } from 'axios';
 
 interface IPageBet {
     close: () => void;
-    lotId: string;
+    lot: ILot;
+    setBet: (res: AxiosResponse) => void;
 }
 
-const PageBet: FC<IPageBet> = ({ close, lotId }) => {
+const PageBet: FC<IPageBet> = ({ close, lot, setBet }) => {
+    const { id, currentMaxBet, betStep } = lot;
     const { error, loading, blurError, postData } = usePostAPI();
     const { dataUser, logicFormValue } = useDataUser<IPostBet>();
 
     const submitBet = async (): Promise<void> => {
         blurError();
-        dataUser.lotId = lotId;
-        await postData(() => LotService.postBetInLot(dataUser));
+        dataUser.lotId = id;
+        const res = await postData(() => LotService.postBetInLot(dataUser));
+        if (res) {
+            setBet(res);
+        }
     };
 
     return (
@@ -34,10 +41,10 @@ const PageBet: FC<IPageBet> = ({ close, lotId }) => {
                 <LogicFormProcessing loading={loading} err={error} />
                 <p className={styleBet.textBalance}>На вашем счёте: {}</p>
                 <p className={styleBet.textInformation}>
-                    Цена на данный момент: 30 Ac
+                    Цена на данный момент: {currentMaxBet} Ac
                 </p>
                 <p className={styleBet.textInformation}>
-                    Минимальный шаг: 1 Ac
+                    Минимальный шаг: {betStep} Ac
                 </p>
                 <Hr width="small" />
                 <FormInput

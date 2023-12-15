@@ -5,6 +5,10 @@
     height: 28px;
 }
 
+.blockHeight {
+    font-size: 18px;
+}
+
 .btnSwipe {
     background: url("../../../design/icons/pagination/forvard.svg") no-repeat;
     width: 14px;
@@ -36,7 +40,7 @@
 }
 
 .currentNumber {
-    background: var(--Gradient, linear-gradient(180deg, #D72828 0%, #8E8CEF 100%));
+    background: linear-gradient(180deg, #D72828 0%, #8E8CEF 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

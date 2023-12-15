@@ -3,7 +3,7 @@ import styleLot from './pageLot.module.css';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ILot from '../../API/interfaces/ILot.ts';
 import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
-import CloseButton from '../../components/UI/CloseButton/CloseButton.tsx';
+import CloseButton from '../../components/CloseButton/CloseButton.tsx';
 import useGetAPI from '../../hooks/API/useGetAPI.ts';
 import LotService from '../../API/service/LotService.ts';
 import PageBet from '../bet/PageBet.tsx';

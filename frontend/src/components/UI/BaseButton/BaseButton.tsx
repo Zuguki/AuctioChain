@@ -1,13 +1,18 @@
-import { ButtonHTMLAttributes, FC } from 'react';
-import btnStyle from './baseButton.module.css';
+import { FC } from 'react';
+import styleBtn from './baseButton.module.css';
+import IBaseButton from './IBaseButton.ts';
 
-interface IBaseButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-    red?: boolean;
-}
-const BaseButton: FC<IBaseButton> = ({ red = false, children, ...props }) => {
+const BaseButton: FC<IBaseButton> = ({
+    red = false,
+    small = false,
+    children,
+    ...props
+}) => {
     return (
         <button
-            className={`${btnStyle.base} ${red && btnStyle.red}`}
+            className={`${styleBtn.base} ${small && styleBtn.small} ${
+                red && styleBtn.red
+            }`}
             {...props}
         >
             {children}

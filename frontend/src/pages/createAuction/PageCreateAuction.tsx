@@ -1,7 +1,6 @@
 import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
 import FormTextArea from '../../components/UI/inputs/FormTextArea/FormTextArea.tsx';
 import DateInput from '../../components/UI/inputs/DataInput/DateInput.tsx';
-import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
 import styleCreateAuction from './pageCreateAuction.module.css';
 import useDataUser from '../../hooks/useDataUser.ts';
 import IPostAuction from '../../API/interfaces/IPostAuction.ts';
@@ -16,6 +15,7 @@ import { FC, useContext } from 'react';
 import usePostImage from '../../hooks/API/usePostImage.ts';
 import { Context } from '../../context/context.ts';
 import PathApp from '../../routes/pathApp/PathApp.ts';
+import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
 
 const PageCreateAuction: FC = () => {
     const nav = useNavigate();
@@ -84,13 +84,9 @@ const PageCreateAuction: FC = () => {
                     errorBlur={blurError}
                 />
                 <div className={styleCreateAuction.positionButton}>
-                    <BaseButton
-                        disabled={loading}
-                        type="submit"
-                        onClick={postAuction}
-                    >
+                    <SubmitButton loading={loading}>
                         Создать аукцион
-                    </BaseButton>
+                    </SubmitButton>
                 </div>
             </div>
         </Form>

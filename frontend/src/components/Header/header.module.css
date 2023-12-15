@@ -22,7 +22,11 @@ ul:first-child {
 .positionUser {
     padding-top: 10px;
     text-align: center;
+}
 
+.buttonAuth {
+    background: none;
+    border: none;
 }
 
 .positionUser:hover,

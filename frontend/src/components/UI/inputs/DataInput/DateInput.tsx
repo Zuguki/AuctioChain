@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import dataStyle from './dataInput.module.css';
-import IInput from '../../IInput.ts';
+import IInput from '../IInput.ts';
 import styleFormInput from '../FormInput/formInput.module.css';
 
 const DateInput: FC<Omit<IInput, 'width'>> = ({

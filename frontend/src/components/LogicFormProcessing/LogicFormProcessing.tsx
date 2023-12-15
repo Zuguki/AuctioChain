@@ -17,12 +17,11 @@ const LogicFormProcessing: FC<ILogicFormProcessing> = ({
     err,
 }) => {
     const error = (): ReactNode => {
-        console.log(JSON.stringify(err?.response, null, 4));
         const resError: unknown = err?.response?.data;
-        if (typeof resError === 'object') {
+        if (typeof resError === 'object' && resError && 'errors' in resError) {
             return (
                 <>
-                    {Object.values(resError?.errors).map((message: unknown) => (
+                    {Object.values(resError.errors).map((message: unknown) => (
                         <p
                             className={styleLogicForm.error}
                             key={String(message)}
@@ -36,7 +35,7 @@ const LogicFormProcessing: FC<ILogicFormProcessing> = ({
         if (typeof resError === 'string') {
             return <p className={styleLogicForm.error}>{resError}</p>;
         }
-        return null;
+        return <p className={styleLogicForm.error}>{err?.message}</p>;
     };
     return (
         <div className={centerText && styleLogicForm.position}>

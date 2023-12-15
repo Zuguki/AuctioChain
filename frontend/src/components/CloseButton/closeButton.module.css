@@ -1,5 +1,5 @@
 .close {
-    background: url('../../../design/icons/cancel.svg') no-repeat;
+    background: url('../../design/icons/cancel.svg') no-repeat;
     width: 35px;
     height: 35px;
     border: 0;
@@ -14,5 +14,5 @@
 }
 
 .back {
-    background: url('../../../design/icons/go back.svg') no-repeat;
+    background: url('../../design/icons/go back.svg') no-repeat;
 }

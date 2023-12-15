@@ -12,5 +12,14 @@
 
 .text {
     font-weight: bold;
+    margin-top: 10px;
     font-size: 20px;
+}
+
+.button {
+    background: url('../../design/reload.svg') no-repeat;
+    width: 70px;
+    height: 70px;
+    border: none;
+
 }

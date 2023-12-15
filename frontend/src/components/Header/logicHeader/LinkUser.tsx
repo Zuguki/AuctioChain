@@ -9,20 +9,27 @@ import PathApp from '../../../routes/pathApp/PathApp.ts';
 
 const LinkUser: FC<ILinkLogicUser> = ({ auth, user }) => {
     const location = useLocation();
-    const { userStore } = useContext(Context);
+    const { stateApp } = useContext(Context);
     if (auth) {
         return (
             <div className={styleHeader.positionUser}>
-                <Link to={`${PathApp.account}/${userStore.getUser().userId}`}>
+                <button
+                    className={styleHeader.buttonAuth}
+                    onClick={() =>
+                        stateApp.setInterfaceProfile(
+                            !stateApp.getInterfaceProfile(),
+                        )
+                    }
+                >
                     <img src={userAuth} alt="userAuth" />
-                </Link>
+                </button>
                 <p className={styleHeader.userName}>@{user.name}</p>
             </div>
         );
     }
     return (
         <div className={styleHeader.positionUserNot}>
-            <Link to="/authorization" state={{ from: location }}>
+            <Link to={PathApp.authorization} state={{ from: location }}>
                 <img src={userLog} alt="userLog" />
             </Link>
         </div>

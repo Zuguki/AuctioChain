@@ -12,6 +12,11 @@
     margin: 15px 0;
 }
 
+.hrExtraSmall {
+    width: 180px;
+    margin: 10px 0;
+}
+
 .hrLarge {
     width: 900px;
 }

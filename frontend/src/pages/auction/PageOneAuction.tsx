@@ -2,7 +2,7 @@ import React from 'react';
 import stylePage from './pageOneAuction.module.css';
 import { Link, useParams } from 'react-router-dom';
 import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
-import CloseButton from '../../components/UI/CloseButton/CloseButton.tsx';
+import CloseButton from '../../components/CloseButton/CloseButton.tsx';
 import AuctionService from '../../API/service/AuctionService.ts';
 import IAuction from '../../API/interfaces/IAuction.ts';
 import Hr from '../../components/UI/Hr/Hr.tsx';

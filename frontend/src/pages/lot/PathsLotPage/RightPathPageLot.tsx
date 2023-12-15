@@ -18,11 +18,16 @@ const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
         bets: [],
     });
     const { name, currentMaxBet, description, initialPrice, betStep } = lot;
+
     return (
         <div className={styleLot.right}>
             <h1>{name}</h1>
             <p>{description}</p>
-            <h2>Цена на данный момент: {currentMaxBet} Ac</h2>
+            <h2>
+                Цена на данный момент:&nbsp;
+                {err?.response?.status === 400 ? initialPrice : currentMaxBet}
+                &nbsp;Ac
+            </h2>
             <div className={styleLot.information}>
                 <p>Начальная цена: {initialPrice} Ac</p>
                 <p>Шаг: {betStep} Ac</p>

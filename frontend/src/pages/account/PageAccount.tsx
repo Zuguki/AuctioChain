@@ -14,7 +14,7 @@ import PathApp from '../../routes/pathApp/PathApp.ts';
 import ListActiveLots from './ListActiveLots.tsx';
 
 const PageAccount = observer(() => {
-    const { userStore } = useContext(Context);
+    const { userStore, stateApp } = useContext(Context);
     const userId = userStore.getUser().userId;
     const { id } = useParams();
     const nav = useNavigate();
@@ -25,6 +25,7 @@ const PageAccount = observer(() => {
     } = useGetAPI(() => ProfileService.getUserName(id), {} as IUserName, id);
     const logout = (): void => {
         userStore.logout();
+        stateApp.setInterfaceProfile(false);
         nav(PathApp.auctions);
     };
     return (

@@ -4,7 +4,6 @@ import FormTextArea from '../../components/UI/inputs/FormTextArea/FormTextArea.t
 import { Form, useNavigate, useParams } from 'react-router-dom';
 import styleCreateLot from '../createAuction/pageCreateAuction.module.css';
 import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
-import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
 import usePostAPI from '../../hooks/API/usePostAPI.ts';
 import useDataUser from '../../hooks/useDataUser.ts';
 import IPostLot from '../../API/interfaces/IPostLot.ts';
@@ -14,6 +13,7 @@ import { AxiosResponse } from 'axios';
 import usePostImage from '../../hooks/API/usePostImage.ts';
 import PathApp from '../../routes/pathApp/PathApp.ts';
 import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
+import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
 
 const PageCreateLot = () => {
     const { id } = useParams();
@@ -88,9 +88,7 @@ const PageCreateLot = () => {
                     errorBlur={blurError}
                 />
                 <div className={styleCreateLot.positionButton}>
-                    <BaseButton disabled={loading} type="submit">
-                        Создать
-                    </BaseButton>
+                    <SubmitButton loading={loading}>Создать</SubmitButton>
                 </div>
             </div>
         </Form>

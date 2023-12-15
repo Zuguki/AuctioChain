@@ -1,6 +1,6 @@
 import { CSSModulesOptions } from 'vite';
 
-const sizeStile = (
+const sizeStyle = (
     smallStyle: CSSModulesOptions,
     largeStyle: CSSModulesOptions,
 ) => ({
@@ -9,4 +9,4 @@ const sizeStile = (
     large: largeStyle,
 });
 
-export default sizeStile;
+export default sizeStyle;

@@ -9,10 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b135f477-0608-4e14-aa7f-5f36c94c4bfc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.AuctioChain/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AuctioChain/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuctioChain.BL/Profile/ProfileManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.BL/Profile/ProfileManager.cs" afterDir="false" />
-    </list>
+    <list default="true" id="b135f477-0608-4e14-aa7f-5f36c94c4bfc" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,7 +97,7 @@
       <workItem from="1702369149931" duration="4506000" />
       <workItem from="1702388875552" duration="1208000" />
       <workItem from="1702741386796" duration="10000" />
-      <workItem from="1703166979310" duration="693000" />
+      <workItem from="1703166979310" duration="1045000" />
     </task>
     <task id="LOCAL-00001" summary="add: pagination profile">
       <option name="closed" value="true" />
@@ -118,7 +115,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702372595555</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix: getUserAuctionsAsync return with lots count">
+      <option name="closed" value="true" />
+      <created>1703169553117</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1703169553117</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +145,7 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="add: pagination profile" />
     <MESSAGE value="add: dto profile objects" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: dto profile objects" />
+    <MESSAGE value="fix: getUserAuctionsAsync return with lots count" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: getUserAuctionsAsync return with lots count" />
   </component>
 </project>

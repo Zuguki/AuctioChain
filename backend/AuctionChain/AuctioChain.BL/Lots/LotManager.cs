@@ -41,7 +41,9 @@ public class LotManager : ILotManager
 
     public async Task<Result<LotResponse>> GetLotByIdAsync(Guid request)
     {
-        var lot = await _context.Lots.FirstOrDefaultAsync(l => l.Id == request);
+        var lot = await _context.Lots
+            .Include(l => l.Bets)
+            .FirstOrDefaultAsync(l => l.Id == request);
         if (lot is null)
             return Result.Fail("Лот не найден");
 

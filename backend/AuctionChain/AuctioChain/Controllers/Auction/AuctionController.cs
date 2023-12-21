@@ -51,7 +51,7 @@ public class AuctionController : ControllerBase
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
-        return Ok();
+        return Ok(result.Value);
     }
 
     /// <summary>

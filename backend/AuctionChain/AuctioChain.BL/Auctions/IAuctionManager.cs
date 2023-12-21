@@ -24,7 +24,7 @@ public interface IAuctionManager
     /// </summary>
     /// <param name="model">Модель для создания</param>
     /// <param name="userId">Id пользователя</param>
-    Task<Result> CreateAsync(CreateAuctionRequest model, Guid userId);
+    Task<Result<CreateAuctionResponse>> CreateAsync(CreateAuctionRequest model, Guid userId);
     
     /// <summary>
     /// Удалить модель

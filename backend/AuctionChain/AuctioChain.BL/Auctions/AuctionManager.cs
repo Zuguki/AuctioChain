@@ -53,7 +53,7 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> CreateAsync(CreateAuctionRequest model, Guid userId)
+    public async Task<Result<CreateAuctionResponse>> CreateAsync(CreateAuctionRequest model, Guid userId)
     {
         var auctionWithSameName = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Name == model.Name);
         if (auctionWithSameName is not null)
@@ -63,7 +63,7 @@ public class AuctionManager : IAuctionManager
 
         await _context.Auctions.AddAsync(auction);
         await _context.SaveChangesAsync();
-        return Result.Ok();
+        return Result.Ok(new CreateAuctionResponse {AuctionId = auction.Id});
     }
 
     /// <inheritdoc />

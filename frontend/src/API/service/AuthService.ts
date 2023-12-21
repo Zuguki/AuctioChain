@@ -1,7 +1,7 @@
 import $api from '../api.ts';
 import { AxiosResponse } from 'axios';
-import PostLoginUser from '../interfaces/PostLoginUser.ts';
-import PostRegistrationUser from '../interfaces/PostRegistrationUser.ts';
+import IPostLoginUser from '../interfaces/IPostLoginUser.ts';
+import IPostRegistrationUser from '../interfaces/IPostRegistrationUser.ts';
 
 interface AuthResponse {
     token: string;
@@ -12,13 +12,13 @@ export default class AuthService {
     private static readonly pathAccount: string = '/accounts';
 
     static async login(
-        dataLogin: PostLoginUser,
+        dataLogin: IPostLoginUser,
     ): Promise<AxiosResponse<AuthResponse>> {
         return $api.post<AuthResponse>(`${this.pathAccount}/login`, dataLogin);
     }
 
     static async registration(
-        dataLogin: PostRegistrationUser,
+        dataLogin: IPostRegistrationUser,
     ): Promise<AxiosResponse> {
         return $api.post<AxiosResponse>(
             `${this.pathAccount}/register`,

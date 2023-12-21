@@ -27,4 +27,10 @@ export default class AuctionService {
     ): Promise<AxiosResponse> {
         return $api.post(this.pathAuctions, auction);
     }
+
+    public static async setNewStatusAuction(
+        id: string,
+    ): Promise<AxiosResponse> {
+        return $api.patch(`${this.pathAuctions}/changeCreationState/${id}`);
+    }
 }

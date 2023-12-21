@@ -4,7 +4,7 @@
     flex-shrink: 0;
     border-radius: 10px;
     background: #F5F5F5 url("../../../../design/icons/calendar.svg") 95% 50% no-repeat;
-    color:  #818080;
+    color: #818080;
     font-family: SF Pro Display, Montserrat, sans-serif;
     font-size: 20px;
     text-transform: uppercase;
@@ -13,10 +13,11 @@
     border: 0;
     outline: 0;
     padding-left: 30px;
+    margin-bottom: 10px;
 }
 
 .title {
-    color:  #818080;
+    color: #818080;
     font-size: 20px;
     font-weight: 400;
     line-height: normal;
@@ -26,7 +27,7 @@
 
 .error {
     border-radius: 10px;
-    background: #FFFFFF url("../../../../design/icons/calendar error.svg") 95% 50% no-repeat ;
+    background: #FFFFFF url("../../../../design/icons/calendar error.svg") 95% 50% no-repeat;
     outline: 0;
 
     color: #F76F7A;

@@ -6,6 +6,7 @@ const useGetPaginationAPI = <T>(
     response: () => Promise<AxiosResponse>,
     currentPage: number,
     baseData: T,
+    ...depends: unknown[]
 ) => {
     const [data, setData] = useState<T>(baseData);
     const [loading, setLoading] = useState<boolean>(false);
@@ -26,7 +27,7 @@ const useGetPaginationAPI = <T>(
                 }
             })
             .finally((): void => setLoading((): boolean => false));
-    }, [currentPage]);
+    }, [currentPage, ...depends]);
 
     return { data, loading, err, pagination };
 };

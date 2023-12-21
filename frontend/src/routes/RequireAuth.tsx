@@ -1,8 +1,12 @@
-import React, { useContext } from 'react';
+import React, { FC, ReactElement, useContext } from 'react';
 import { Context } from '../context/context.ts';
 import { Navigate, useLocation } from 'react-router-dom';
 
-const RequireAuth = ({ children }) => {
+interface IRequireAuth {
+    children: ReactElement;
+}
+
+const RequireAuth: FC<IRequireAuth> = ({ children }) => {
     const location = useLocation();
     const { userStore } = useContext(Context);
 

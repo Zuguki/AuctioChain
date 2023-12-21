@@ -1,7 +1,6 @@
 import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
 import FormTextArea from '../../components/UI/inputs/FormTextArea/FormTextArea.tsx';
 import DateInput from '../../components/UI/inputs/DataInput/DateInput.tsx';
-import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
 import styleCreateAuction from './pageCreateAuction.module.css';
 import useDataUser from '../../hooks/useDataUser.ts';
 import IPostAuction from '../../API/interfaces/IPostAuction.ts';
@@ -10,44 +9,43 @@ import AuctionService from '../../API/service/AuctionService.ts';
 import usePostAPI from '../../hooks/API/usePostAPI.ts';
 import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
 import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
-import ImageService from '../../API/service/ImageService.ts';
-import IResponseImage from '../../API/interfaces/IResponseImage.ts';
-import useProcessingImageInput from '../../hooks/useProcessingImageInput.ts';
-import { Form } from 'react-router-dom';
-import { Axios, AxiosError, AxiosResponse } from 'axios';
-import { FC } from 'react';
+import { Form, useNavigate } from 'react-router-dom';
+import { AxiosResponse } from 'axios';
+import { FC, useContext } from 'react';
+import usePostImage from '../../hooks/API/usePostImage.ts';
+import { Context } from '../../context/context.ts';
+import PathApp from '../../routes/pathApp/PathApp.ts';
+import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
 
 const PageCreateAuction: FC = () => {
+    const nav = useNavigate();
+    const { userStore } = useContext(Context);
+    const userId = userStore.getUser().userId;
     const { dataUser, logicFormValue } = useDataUser<IPostAuction>();
     const { error, loading, blurError, postData } = usePostAPI();
-    const { imageFile, setFile } = useProcessingImageInput();
+    const { setFile, postImage } = usePostImage(postData);
     const postAuction = async (): Promise<void> => {
         blurError();
-        if (!imageFile) {
-            alert('Загрузите изображение!');
+        const resImage = await postImage();
+        const image: string | undefined = resImage?.data.fileName;
+        if (!image) {
             return;
         }
-        const res: AxiosResponse<IResponseImage> | undefined =
-            await postData<IResponseImage>(
-                (): Promise<AxiosResponse<IResponseImage>> =>
-                    ImageService.postImage(imageFile),
-            );
-
         const dataPostUser: IPostAuction = {
             ...dataUser,
-            image: res?.data.fileName || null,
+            image,
             dateStart: DateLogic.getDateByStringISO(dataUser.dateStart),
             dateEnd: DateLogic.getDateByStringISO(dataUser.dateEnd),
         };
 
-        await postData(
+        (await postData(
             (): Promise<AxiosResponse> =>
                 AuctionService.addAuction(dataPostUser),
-        );
+        )) && nav(`${PathApp.account}/${userId}`);
     };
     return (
         <Form onSubmit={postAuction} className={styleCreateAuction.position}>
-            <div>
+            <div className={styleCreateAuction.form}>
                 <h1>Создание аукциона</h1>
                 <LogicFormProcessing loading={loading} err={error} />
                 <FormInput
@@ -57,6 +55,9 @@ const PageCreateAuction: FC = () => {
                     changeValue={logicFormValue}
                     errorBlur={blurError}
                 />
+                <p className={styleCreateAuction.additionallyInformation}>
+                    Пишите название без слова аукцион.
+                </p>
                 <FormTextArea
                     title="Описание аукциона"
                     name="description"
@@ -78,6 +79,11 @@ const PageCreateAuction: FC = () => {
                     changeValue={logicFormValue}
                     errorBlur={blurError}
                 />
+                <p className={styleCreateAuction.additionallyInformation}>
+                    Обратите внимание, что торги аукциона начнуться после
+                    подтверждения статуса &quot;завершение редактирования&quot;
+                    в отдельной странице аукциона.
+                </p>
                 <DateInput
                     title="Дата окончания"
                     name="dateEnd"
@@ -86,13 +92,9 @@ const PageCreateAuction: FC = () => {
                     errorBlur={blurError}
                 />
                 <div className={styleCreateAuction.positionButton}>
-                    <BaseButton
-                        disabled={loading}
-                        type="submit"
-                        onClick={postAuction}
-                    >
+                    <SubmitButton loading={loading}>
                         Создать аукцион
-                    </BaseButton>
+                    </SubmitButton>
                 </div>
             </div>
         </Form>

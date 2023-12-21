@@ -5,7 +5,6 @@ import { Form, Link } from 'react-router-dom';
 import ILogicFormDivButton from './logicFormDivButton.ts';
 import { AxiosError } from 'axios';
 import LogicFormProcessing from '../../../LogicFormProcessing/LogicFormProcessing.tsx';
-import { Simulate } from 'react-dom/test-utils';
 import PathApp from '../../../../routes/pathApp/PathApp.ts';
 
 interface IFormDiv {
@@ -14,6 +13,7 @@ interface IFormDiv {
     loading: boolean;
     registration?: boolean;
     error: AxiosError | null;
+    errorBlur: () => void;
     children: ReactNode;
 }
 
@@ -22,12 +22,19 @@ const FormDiv: FC<IFormDiv> = ({
     logicButton,
     error,
     loading,
+    errorBlur,
     registration = false,
     children,
 }) => {
     const { textButton, logicClick } = logicButton;
     return (
-        <Form className={styleDiv.parent} onSubmit={logicClick}>
+        <Form
+            className={styleDiv.parent}
+            onSubmit={async (): Promise<void> => {
+                errorBlur();
+                await logicClick();
+            }}
+        >
             <div className={styleDiv.formDiv}>
                 <h3
                     className={`${styleDiv.title} ${
@@ -36,7 +43,7 @@ const FormDiv: FC<IFormDiv> = ({
                 >
                     {title}
                 </h3>
-                <LogicFormProcessing loading={loading} err={error} />
+                <LogicFormProcessing centerText loading={loading} err={error} />
                 <div className={styleDiv.align}>{children}</div>
                 <div
                     className={

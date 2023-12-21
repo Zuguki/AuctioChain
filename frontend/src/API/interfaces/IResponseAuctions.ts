@@ -1,6 +1,6 @@
 interface IResponseAuction {
     dateEnd: string;
-    dateStart: string; //2023-11-22T14:25:13.187Z
+    dateStart: string;
     description: string;
     id: string;
     image: string;

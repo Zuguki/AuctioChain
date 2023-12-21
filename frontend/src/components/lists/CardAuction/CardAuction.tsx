@@ -1,8 +1,8 @@
 import styleCard from './cardAuction.module.css';
-import CardDiv from '../../../../components/UI/div/CardDiv/CardDiv.tsx';
+import CardDiv from '../../UI/div/CardDiv/CardDiv.tsx';
 import { IElementAuctions } from '../../../../interfaces/auctionsTypes.ts';
 import { FC } from 'react';
-import DateLogic from '../../../../auxiliaryTools/dateLogic/DateLogic.ts';
+import DateLogic from '../../../auxiliaryTools/dateLogic/DateLogic.ts';
 
 type InformationCardAuction = { lotsCount: number; dateEnd: string };
 type ICardAuction = { auction: IElementAuctions };

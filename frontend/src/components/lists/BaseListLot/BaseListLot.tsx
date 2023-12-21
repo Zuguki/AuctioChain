@@ -1,10 +1,10 @@
 import React, { FC, ReactElement } from 'react';
-import stylePage from '../pages/auction/pageOneAuction.module.css';
-import styleList from '../pages/auction/ListLot/listLot.module.css';
-import CardLot from '../pages/auction/ListLot/CardLot/CardLot.tsx';
-import Pagination from './UI/Pagination/Pagination.tsx';
-import ILot from '../API/interfaces/ILot.ts';
-import ILogicPagination from '../hooks/API/useGetPaginationAPI/ILogicPagination.ts';
+import stylePage from '../../../pages/auction/pageOneAuction.module.css';
+import styleList from './listLot.module.css';
+import CardLot from './CardLot/CardLot.tsx';
+import Pagination from '../../UI/Pagination/Pagination.tsx';
+import ILot from '../../../API/interfaces/ILot.ts';
+import ILogicPagination from '../../../hooks/API/useGetPaginationAPI/ILogicPagination.ts';
 
 interface IBaseListLot {
     lots: ILot[];
@@ -21,9 +21,6 @@ const BaseListLot: FC<IBaseListLot> = ({
         <div>
             {lots.length !== 0 ? (
                 <>
-                    <p className={stylePage.informationLots}>
-                        Количество лотов: {pagination?.TotalCount}
-                    </p>
                     <div className={styleList.position}>
                         {lots.map(
                             (lot): ReactElement => (
@@ -31,13 +28,10 @@ const BaseListLot: FC<IBaseListLot> = ({
                             ),
                         )}
                     </div>
-                    {pagination && (
-                        <Pagination
-                            pagination={pagination}
-                            sendCurrentPage={setCurrentPage}
-                        />
-                    )}
-                    )
+                    <Pagination
+                        pagination={pagination}
+                        sendCurrentPage={setCurrentPage}
+                    />
                 </>
             ) : (
                 <p className={stylePage.informationLots}>Лотов нет</p>

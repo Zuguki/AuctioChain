@@ -5,12 +5,13 @@ import logo from '../../../design/logo.svg';
 import LinkUser from './LinkUser.tsx';
 import ILinkLogicUser from './ILinkLogicUser.ts';
 import LinkSearch from './LinkSearch.tsx';
+import PathApp from '../../../routes/pathApp/PathApp.ts';
 
 const LinksHeaders: FC<ILinkLogicUser> = ({ auth, user }) => {
     return (
         <ul>
             <li>
-                <CustomLink to="/auctions">Аукционы</CustomLink>
+                <CustomLink to={PathApp.auctions}>Аукционы</CustomLink>
             </li>
             <li>
                 <Link to="/">
@@ -21,7 +22,7 @@ const LinksHeaders: FC<ILinkLogicUser> = ({ auth, user }) => {
                 <LinkSearch />
             </li>
             <li>
-                <CustomLink to="/">Пополнение счета</CustomLink>
+                <CustomLink to="/build">Пополнение счета</CustomLink>
             </li>
             <li>
                 <LinkUser auth={auth} user={user} />

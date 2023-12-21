@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, KeyboardEvent } from 'react';
-import IInput from '../../IInput.ts';
+import IInput from '../IInput.ts';
 import styleFormInput from './formInput.module.css';
 import { blockInvalidChar } from '../../../../auxiliaryTools/bloclnvalidChar.ts';
-import sizeStile from '../../../../auxiliaryTools/logicSize.ts';
+import sizeStyle from '../../../../auxiliaryTools/logicSize.ts';
 
 const FormInput: FC<IInput> = ({
     changeValue,
@@ -20,7 +20,7 @@ const FormInput: FC<IInput> = ({
                 className={`${styleFormInput.input} ${
                     error && styleFormInput.inputError
                 } ${
-                    sizeStile(styleFormInput.small, styleFormInput.large)[width]
+                    sizeStyle(styleFormInput.small, styleFormInput.large)[width]
                 }`}
                 {...props}
                 onFocus={errorBlur}

@@ -7,11 +7,14 @@ import ILogicPagination from '../../../hooks/API/useGetPaginationAPI/ILogicPagin
 import usePagination from '../../../hooks/usePagination.ts';
 
 interface IPagination {
-    pagination: ILogicPagination;
+    pagination: ILogicPagination | null;
     sendCurrentPage: (page: number) => void;
 }
 
 const Pagination: FC<IPagination> = ({ pagination, sendCurrentPage }) => {
+    if (!pagination) {
+        return null;
+    }
     const { endPage, currentPage, paginationArray } = usePagination(
         pagination,
         sendCurrentPage,

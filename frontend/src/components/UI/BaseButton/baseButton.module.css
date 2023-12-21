@@ -12,6 +12,13 @@
     line-height: normal;
 }
 
+.small {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
 .red {
     background-color: #CE2D39;
 }

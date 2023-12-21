@@ -11,16 +11,29 @@
     margin: 0 165px;
 }
 
+.positionCreateLot {
+    margin: 0 165px;
+    padding: 5px 0 10px 0;
+}
+
+.positionClose {
+    position: absolute;
+    right: 150px;
+    margin-top: 20px;
+}
+
 .informationLots {
     color: #818080;
     font-size: 24px;
     font-weight: 700;
+    margin-top: 10px;
+    margin-left: 165px;
 }
 
 .information {
     color: #818080;
     font-size: 18px;
-    line-height: 18px;
+    line-height: 21px;
 }
 
 .description {
@@ -30,4 +43,16 @@
 .blockInformation {
     word-break: break-word;
     width: 60%;
+}
+
+.userLink {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.userName:hover {
+    color: #615EF3;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-color: #615EF3;
 }

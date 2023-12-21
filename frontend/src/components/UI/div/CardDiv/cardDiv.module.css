@@ -7,8 +7,13 @@
     margin: 30px 15px;
     padding: 25px 75px;
     text-align: left;
-    overflow-wrap: break-word;
 }
+
+.card:hover {
+    box-shadow: 0 0.75rem 2.25rem #0003;
+    transform: translateY(-0.1rem);
+}
+
 .title {
     font-size: 28px;
     font-weight: 700;

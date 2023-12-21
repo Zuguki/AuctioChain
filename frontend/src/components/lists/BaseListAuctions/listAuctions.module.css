@@ -1,0 +1,14 @@
+.position {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.information {
+    color: #818080;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-left: 165px;
+}

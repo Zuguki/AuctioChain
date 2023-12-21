@@ -6,6 +6,7 @@ interface ICloseButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     logicClick?: () => void;
     back?: boolean;
 }
+
 const CloseButton: FC<ICloseButton> = ({
     back = false,
     logicClick,
@@ -13,7 +14,7 @@ const CloseButton: FC<ICloseButton> = ({
 }) => {
     const navigate = useNavigate();
     const clickClose = (): void => {
-        if (logicClick === undefined) {
+        if (!logicClick) {
             navigate(-1);
             return;
         }

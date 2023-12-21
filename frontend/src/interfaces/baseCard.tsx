@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 type IObjCard<T extends IBaseCard> = Pick<
     T,
-    'name' | 'image' | 'description' | 'id'
+    'name' | 'image' | 'description' | 'id' | 'status'
 >;
 type IPropsCardDiv<T extends IBaseCard> = {
     objCard: IObjCard<T>;
@@ -14,6 +14,7 @@ interface IBaseCard {
     image: string;
     description: string;
     id: string;
+    status?: number;
 }
 
 export { type IPropsCardDiv, type IBaseCard, type IObjCard };

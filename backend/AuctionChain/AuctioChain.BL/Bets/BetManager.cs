@@ -36,6 +36,9 @@ public class BetManager : IBetManager
         if (lot.Auction is null)
             return Result.Fail("Аукцион не найден");
 
+        if (lot.Auction.UserId == userId)
+            return Result.Fail("Вы не можете поставить ставку на свой же лот");
+
         if (lot.Auction.Status != AuctionStatus.Bidding)
             return Result.Fail("Нельзя обновить данный лот, т.к. для ауцкиона запрещено редактирование");
         

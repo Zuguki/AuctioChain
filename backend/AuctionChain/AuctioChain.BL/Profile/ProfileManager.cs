@@ -51,6 +51,7 @@ public class ProfileManager : IProfileManager
     {
         var user = await _context.Users
             .Include(i => i.MyAuctions)
+            .ThenInclude(i => i.Lots)
             .FirstOrDefaultAsync(app => app.Id == request.UserId);
         
         if (user is null)

@@ -11,11 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b135f477-0608-4e14-aa7f-5f36c94c4bfc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AuctioChain/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AuctioChain/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuctioChain.DAL/Models/Profile/Dto/GetProfileRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.DAL/Models/Profile/Dto/GetProfileRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuctioChain.DAL/Models/Profile/Dto/GetUserActiveLotsRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.DAL/Models/Profile/Dto/GetUserActiveLotsRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuctioChain.DAL/Models/Profile/Dto/GetUserAuctionsRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.DAL/Models/Profile/Dto/GetUserAuctionsRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuctioChain.DAL/Models/Profile/Dto/GetWinLotsOfUserRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.DAL/Models/Profile/Dto/GetWinLotsOfUserRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuctioChain/Controllers/Profile/ProfileController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain/Controllers/Profile/ProfileController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuctioChain.BL/Profile/ProfileManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.BL/Profile/ProfileManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,6 +99,8 @@
       <workItem from="1702366504320" duration="2337000" />
       <workItem from="1702369149931" duration="4506000" />
       <workItem from="1702388875552" duration="1208000" />
+      <workItem from="1702741386796" duration="10000" />
+      <workItem from="1703166979310" duration="693000" />
     </task>
     <task id="LOCAL-00001" summary="add: pagination profile">
       <option name="closed" value="true" />

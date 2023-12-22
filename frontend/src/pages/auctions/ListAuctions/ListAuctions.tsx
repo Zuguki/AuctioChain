@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import LogicDownload from '../../../components/LogicDownload/LogicDownload.tsx';
 import AuctionService from '../../../API/service/AuctionService.ts';
-import { ResponseObjAuctions } from '../../../API/interfaces/IResponseAuctions.ts';
+import { ResponseObjAuctions } from '../../../API/interfaces/response/IResponseAuctions.ts';
 import useGetPaginationAPI from '../../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts';
 import BaseListAuctions from '../../../components/lists/BaseListAuctions/BaseListAuctions.tsx';
 

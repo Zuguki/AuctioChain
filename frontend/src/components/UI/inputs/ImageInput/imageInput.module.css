@@ -1,5 +1,5 @@
 .input::file-selector-button {
-    width: 300px;
+    width: 270px;
     height: 50px;
     flex-shrink: 0;
     border-radius: 15px;
@@ -7,12 +7,13 @@
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     border: 0;
 
-    color: #606060;
+    color: #818080;
     font-family: SF Pro Display, Montserrat, sans-serif;
     font-size: 20px;
     font-weight: 400;
     line-height: normal;
 }
+
 .input {
     width: 500px;
     height: 60px;
@@ -20,9 +21,14 @@
     padding-right: 10px;
 }
 
+.inputErr::file-selector-button {
+    color: #F76F7A;
+    border: 2px solid #F76F7A;
+}
+
 
 .title {
-    color:  #818080;
+    color: #818080;
     font-size: 20px;
     font-weight: 400;
     line-height: normal;

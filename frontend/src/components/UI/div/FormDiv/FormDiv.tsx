@@ -58,7 +58,7 @@ const FormDiv: FC<IFormDiv> = ({
                 </div>
                 {registration && (
                     <p className={styleDiv.textRegistration}>
-                        Еще нет аккаунта.
+                        Еще нет аккаунта.&nbsp;
                         <Link
                             to={PathApp.registration}
                             className={styleDiv.linkRegistration}

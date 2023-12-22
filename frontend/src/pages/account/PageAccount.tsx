@@ -7,11 +7,9 @@ import styleAccount from './pageAccount.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import ListAuctionsProfile from './ListAuctionsProfile.tsx';
 import ListWinLots from './ListWinLots.tsx';
-import useGetAPI from '../../hooks/API/useGetAPI.ts';
-import ProfileService from '../../API/service/ProfileService.ts';
-import IUserName from '../../API/interfaces/IUserName.ts';
 import PathApp from '../../routes/pathApp/PathApp.ts';
 import ListActiveLots from './ListActiveLots.tsx';
+import useGetUserName from '../../hooks/API/useGetUserName.ts';
 
 const PageAccount = observer(() => {
     const { userStore, stateApp } = useContext(Context);
@@ -19,13 +17,16 @@ const PageAccount = observer(() => {
     const { id } = useParams();
     const nav = useNavigate();
     const isUser: boolean = id === userId;
-    const {
-        data: { userName },
-        loading,
-    } = useGetAPI(() => ProfileService.getUserName(id), {} as IUserName, id);
+    const { userName, loading, err } = useGetUserName(id);
+    /*  const {
+          data: { balance },
+          loading: loadingBalance,
+      } = useGetAPI(
+          () => ProfileService.getBalanceUser(),
+          {} as IResponseBalance,
+      );*/
     const logout = (): void => {
         userStore.logout();
-        stateApp.setInterfaceProfile(false);
         nav(PathApp.auctions);
     };
     return (
@@ -35,9 +36,9 @@ const PageAccount = observer(() => {
                 {!loading && (
                     <h3 className={styleAccount.userName}>@{userName}</h3>
                 )}
-                {id === userId && (
+                {isUser && (
                     <>
-                        <h3 className={styleAccount.balance}>123 Ac</h3>
+                        <h4 className={styleAccount.balance}>{0} Ac</h4>
                         <BaseButton>Пополнить счёт</BaseButton>
                     </>
                 )}

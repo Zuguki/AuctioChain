@@ -10,14 +10,17 @@
     z-index: 500;
 }
 
+
 .link {
     color: #606060;
     font-size: 20px;
     line-height: 21px; /* 105% */
     margin: 5px 0;
-    display: block;
     text-decoration: none;
+    display: block;
+    width: max-content;
 }
+
 
 .userName {
     color: #818080;

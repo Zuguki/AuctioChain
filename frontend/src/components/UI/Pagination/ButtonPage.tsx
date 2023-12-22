@@ -23,7 +23,7 @@ const ButtonPage: FC<IButtonPage> = ({
         sendCurrentPage(Number(e.target.value));
     };
     return (
-        <div className={stylePagination.blockHeight}>
+        <div>
             <button className={style} {...props} onClick={clickButton}>
                 {children}
             </button>

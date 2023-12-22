@@ -9,10 +9,12 @@ const InformationAuction: FC<{ auction: IAuction }> = ({ auction }) => {
     return (
         <div className={stylePage.blockInformation}>
             <p className={stylePage.information}>
-                Дата начала: {DateLogic.getBaseFormatDateTOStringISO(dateStart)}
+                <span className={stylePage.description}>Дата начала:</span>{' '}
+                {DateLogic.getBaseFormatDateTOStringISO(dateStart)}
             </p>
             <p className={stylePage.information}>
-                Дата окончания:&nbsp;
+                <span className={stylePage.description}>Дата окончания:</span>
+                &nbsp;
                 {DateLogic.getBaseFormatDateTOStringISO(dateEnd)}
             </p>
             <p className={stylePage.information}>

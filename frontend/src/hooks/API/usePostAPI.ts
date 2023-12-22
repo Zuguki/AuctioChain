@@ -10,12 +10,14 @@ const usePostAPI = () => {
     const postData = useCallback(
         async <T>(
             request: () => Promise<AxiosResponse<T>>,
-        ): Promise<AxiosResponse<T> | undefined> => {
+        ): Promise<AxiosResponse<T> | void> => {
             setLoading((): boolean => true);
             try {
                 return await request();
             } catch (err: unknown) {
-                setError(() => err as AxiosError);
+                if (err instanceof AxiosError) {
+                    setError(() => err as AxiosError);
+                }
             } finally {
                 setLoading((): boolean => false);
             }

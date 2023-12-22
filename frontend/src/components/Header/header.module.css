@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    height: 100px;
+    height: 90px;
     background: #FFFFFF;
     box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.25);
     position: sticky;
@@ -13,6 +13,7 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 90px;
 }
 
 ul:first-child {
@@ -20,7 +21,7 @@ ul:first-child {
 }
 
 .positionUser {
-    padding-top: 10px;
+    padding-top: 0;
     text-align: center;
 }
 
@@ -36,7 +37,7 @@ ul:first-child {
 
 .positionUserNot {
     height: 90px;
-    padding-top: 17px;
+    padding-top: 15px;
 }
 
 ul:last-child {
@@ -49,7 +50,7 @@ ul li:nth-child(2) {
 
 ul li:nth-child(2) img {
     width: auto;
-    max-height: 35px;
+    max-height: 30px;
 }
 
 .userName {

@@ -16,6 +16,7 @@ import usePostImage from '../../hooks/API/usePostImage.ts';
 import { Context } from '../../context/context.ts';
 import PathApp from '../../routes/pathApp/PathApp.ts';
 import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
+import { IResponseCreateAuction } from '../../API/interfaces/response/IResponseAuctions.ts';
 
 const PageCreateAuction: FC = () => {
     const nav = useNavigate();
@@ -38,10 +39,14 @@ const PageCreateAuction: FC = () => {
             dateEnd: DateLogic.getDateByStringISO(dataUser.dateEnd),
         };
 
-        (await postData(
-            (): Promise<AxiosResponse> =>
+        const res = await postData(
+            (): Promise<AxiosResponse<IResponseCreateAuction>> =>
                 AuctionService.addAuction(dataPostUser),
-        )) && nav(`${PathApp.account}/${userId}`);
+        );
+        const auctionId = res?.data.auctionId;
+        if (auctionId) {
+            nav(`${PathApp.auction}/${auctionId}`);
+        }
     };
     return (
         <Form onSubmit={postAuction} className={styleCreateAuction.position}>

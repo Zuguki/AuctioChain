@@ -6,6 +6,7 @@ const ImageInput: FC<Omit<IInput, 'width'>> = ({
     changeValue,
     title,
     error,
+    errorBlur,
     ...props
 }) => {
     return (
@@ -19,9 +20,12 @@ const ImageInput: FC<Omit<IInput, 'width'>> = ({
             </label>
             <input
                 type="file"
+                onClick={errorBlur}
                 {...props}
                 onChange={changeValue}
-                className={inputStyle.input}
+                className={`${inputStyle.input} ${
+                    error && inputStyle.inputErr
+                }`}
                 accept="image/jpeg,image/png"
             ></input>
         </div>

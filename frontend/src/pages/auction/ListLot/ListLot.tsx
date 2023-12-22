@@ -15,7 +15,7 @@ import AuctionLogic from '../../../logicAuction/AuctionLogic.ts';
 const ListLot: FC<{ id: string; auction: IAuction }> = ({ id, auction }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const { userStore } = useContext(Context);
-    const userId = userStore.getUser().userId;
+    const userId: string = userStore.getUser().userId;
     const {
         data: { lots },
         err,

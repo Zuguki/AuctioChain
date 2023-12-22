@@ -7,6 +7,16 @@
     margin-bottom: 20px;
 }
 
+.informationFinish {
+    margin: 5px 0 0;
+    color: #D9D9D9;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+    width: 30%;
+}
+
 .position {
     margin: 0 165px;
 }
@@ -24,10 +34,11 @@
 
 .informationLots {
     color: #818080;
-    font-size: 24px;
+    font-size: 20px;
+    font-style: normal;
     font-weight: 700;
-    margin-top: 10px;
-    margin-left: 165px;
+    line-height: 28px;
+    margin: 10px 165px 15px;
 }
 
 .information {
@@ -52,7 +63,4 @@
 
 .userName:hover {
     color: #615EF3;
-    text-decoration: underline;
-    text-underline-offset: 10px;
-    text-decoration-color: #615EF3;
 }

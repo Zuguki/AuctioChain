@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import TokenLogic from '../auxiliaryTools/tokenLogic/tokenLogic.ts';
 import AuthService from './service/AuthService.ts';
 import { userStore } from '../context/context.ts';
+import PathApp from '../routes/pathApp/PathApp.ts';
 
 const BASE_URL: string = 'http://localhost:5121/api/v1/';
 
@@ -44,7 +45,7 @@ $api.interceptors.response.use(
         }
 
         if (error.response?.status === 401) {
-            window.location.pathname = '/authorization';
+            window.location.pathname = PathApp.authorization;
         }
         throw error;
     },

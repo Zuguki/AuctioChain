@@ -36,16 +36,22 @@ const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
     return (
         <div className={styleLot.right}>
             <h1>{name}</h1>
-            <p className={styleLot.description}>{description}</p>
-            <h2>
+            <p className={styleLot.text}>{description}</p>
+            <h3 className={styleLot.price}>
                 Цена на данный момент:&nbsp;
-                {currentMaxBet}
+                {currentMaxBet ? currentMaxBet : initialPrice}
                 &nbsp;Ac
-            </h2>
+            </h3>
             <div className={styleLot.information}>
-                <p>Начальная цена: {initialPrice} Ac</p>
-                <p>Шаг: {betStep} Ac</p>
-                {!loading && !err && <p>Количество ставок: {bets.length}</p>}
+                <p className={styleLot.text}>
+                    Начальная цена: {initialPrice} Ac
+                </p>
+                <p className={styleLot.text}>Шаг: {betStep} Ac</p>
+                {!loading && !err && (
+                    <p className={styleLot.text}>
+                        Количество ставок: {bets.length}
+                    </p>
+                )}
             </div>
             {loadingAuction ? (
                 <></>

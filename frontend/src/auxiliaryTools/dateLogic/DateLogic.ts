@@ -1,4 +1,4 @@
-import IObjDate from './IObjDate.tsx';
+import IObjDate from './IObjDate.ts';
 import MonthEnum from './MonthEnum.ts';
 
 export default class DateLogic {

@@ -1,7 +1,10 @@
 import $api, { paramsPagination } from '../api.ts';
 import IPostAuction from '../interfaces/IPostAuction.ts';
 import { AxiosResponse } from 'axios';
-import { ResponseObjAuctions } from '../interfaces/IResponseAuctions.ts';
+import {
+    IResponseCreateAuction,
+    ResponseObjAuctions,
+} from '../interfaces/response/IResponseAuctions.ts';
 import IAuction from '../interfaces/IAuction.ts';
 
 export default class AuctionService {
@@ -24,7 +27,7 @@ export default class AuctionService {
 
     public static async addAuction(
         auction: IPostAuction,
-    ): Promise<AxiosResponse> {
+    ): Promise<AxiosResponse<IResponseCreateAuction>> {
         return $api.post(this.pathAuctions, auction);
     }
 

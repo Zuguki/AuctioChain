@@ -34,7 +34,7 @@ body {
 +
     /* Handle */
 :is(h1, h2, h3, h4, h5, h6) {
-    color: #606060;
+    color: #686868;
 }
 
 :is(h3, h4, h5, h6) {
@@ -42,6 +42,7 @@ body {
 }
 
 h1 {
+    color: #757575;
     font-size: 48px;
     font-weight: 900;
     line-height: 56px; /* 116.667% */

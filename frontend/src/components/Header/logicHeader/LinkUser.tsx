@@ -15,11 +15,12 @@ const LinkUser: FC<ILinkLogicUser> = ({ auth, user }) => {
             <div className={styleHeader.positionUser}>
                 <button
                     className={styleHeader.buttonAuth}
-                    onClick={() =>
+                    onClick={e => {
+                        e.stopPropagation();
                         stateApp.setInterfaceProfile(
                             !stateApp.getInterfaceProfile(),
-                        )
-                    }
+                        );
+                    }}
                 >
                     <img src={userAuth} alt="userAuth" />
                 </button>

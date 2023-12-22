@@ -4,10 +4,9 @@ import IPathLotPage from '../../../interfaces/IPathLotPage.ts';
 import useGetAPI from '../../../hooks/API/useGetAPI.ts';
 import IAuction from '../../../API/interfaces/IAuction.ts';
 import AuctionService from '../../../API/service/AuctionService.ts';
-import ProfileService from '../../../API/service/ProfileService.ts';
-import IUserName from '../../../API/interfaces/IUserName.ts';
 import { Link } from 'react-router-dom';
 import PathApp from '../../../routes/pathApp/PathApp.ts';
+import useGetUserName from '../../../hooks/API/useGetUserName.ts';
 
 const LeftPathLotPage: FC<IPathLotPage> = ({
     lot: { image, auctionId, name },
@@ -19,13 +18,7 @@ const LeftPathLotPage: FC<IPathLotPage> = ({
         auctionId,
     );
     const { userId } = auction;
-    const {
-        data: { userName },
-    } = useGetAPI(
-        () => ProfileService.getUserName(userId),
-        {} as IUserName,
-        userId,
-    );
+    const { userName } = useGetUserName(userId);
     return (
         <div className={styleLot.left}>
             <img className={styleLot.img} src={image} alt="lot" />

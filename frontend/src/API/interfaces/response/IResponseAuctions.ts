@@ -11,4 +11,6 @@ interface IResponseAuction {
 }
 
 export type ResponseObjAuctions = { auctions: IResponseAuction[] };
+
+export type IResponseCreateAuction = { auctionId: string };
 export default IResponseAuction;

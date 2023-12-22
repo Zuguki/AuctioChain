@@ -8,17 +8,20 @@ import IAuction from '../../API/interfaces/IAuction.ts';
 import Hr from '../../components/UI/Hr/Hr.tsx';
 import ListLot from './ListLot/ListLot.tsx';
 import InformationAuction from './InformationAuction.tsx';
-import ProfileService from '../../API/service/ProfileService.ts';
 import PathApp from '../../routes/pathApp/PathApp.ts';
 import useGetAPI from '../../hooks/API/useGetAPI.ts';
-import IUserName from '../../API/interfaces/IUserName.ts';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
 import AuctionLogic from '../../logicAuction/AuctionLogic.ts';
 import { Context } from '../../context/context.ts';
 import { observer } from 'mobx-react-lite';
+import useGetUserName from '../../hooks/API/useGetUserName.ts';
+
+type QuizParams = {
+    id: string;
+};
 
 const PageOneAuction = observer(() => {
-    const { id } = useParams<string>();
+    const { id } = useParams<{ id: string }>();
     const { userStore } = useContext(Context);
     const [changeStatus, setChangeStatus] = useState<boolean>(false);
     const { data: auction, loading } = useGetAPI(
@@ -28,14 +31,7 @@ const PageOneAuction = observer(() => {
         changeStatus,
     );
     const { userId } = auction;
-    const {
-        data: { userName },
-        loading: loadingUser,
-    } = useGetAPI(
-        () => ProfileService.getUserName(userId),
-        {} as IUserName,
-        userId,
-    );
+    const { userName, loading: loadingUser, err } = useGetUserName(userId);
 
     const setActiveAuction = async (): Promise<void> => {
         await AuctionService.setNewStatusAuction(id);
@@ -64,9 +60,19 @@ const PageOneAuction = observer(() => {
                         <InformationAuction auction={auction} />
                         {AuctionLogic.isCreation(auction) &&
                             userStore.getUser().userId === userId && (
-                                <BaseButton onClick={() => setActiveAuction()}>
-                                    Завершить правку
-                                </BaseButton>
+                                <>
+                                    <BaseButton
+                                        onClick={() => setActiveAuction()}
+                                    >
+                                        Завершить правку
+                                    </BaseButton>
+                                    <p className={stylePage.informationFinish}>
+                                        Обратите внимание, что торги аукциона
+                                        начнуться после подтверждения статуса
+                                        &quot;завершение редактирования&quot; в
+                                        отдельной странице аукциона.
+                                    </p>
+                                </>
                             )}
                         <Hr />
                     </div>

@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import $api from '../api.ts';
-import IResponseImage from '../interfaces/IResponseImage.ts';
+import IResponseImage from '../interfaces/response/IResponseImage.ts';
 
 export default class ImageService {
     private static readonly pathImage: string = '/images';

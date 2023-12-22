@@ -1,13 +1,12 @@
 import styleCard from './cardAuction.module.css';
 import CardDiv from '../../UI/div/CardDiv/CardDiv.tsx';
-import { IElementAuctions } from '../../../../interfaces/auctionsTypes.ts';
 import { FC } from 'react';
-import DateLogic from '../../../auxiliaryTools/dateLogic/DateLogic.ts';
+import AuctionLogic from '../../../logicAuction/AuctionLogic.ts';
+import IResponseAuction from '../../../API/interfaces/response/IResponseAuctions.ts';
 
-type InformationCardAuction = { lotsCount: number; dateEnd: string };
-type ICardAuction = { auction: IElementAuctions };
+type ICardAuction = { auction: IResponseAuction };
 const CardAuction: FC<ICardAuction> = ({ auction }) => {
-    const { lotsCount, dateEnd }: InformationCardAuction = auction;
+    const { lotsCount, status } = auction;
 
     return (
         <CardDiv objCard={auction}>
@@ -15,8 +14,7 @@ const CardAuction: FC<ICardAuction> = ({ auction }) => {
                 Количество лотов: {lotsCount}
             </p>
             <p className={styleCard.information}>
-                Дата окончания:{' '}
-                {DateLogic.getBaseFormatDateTOStringISO(dateEnd, true)}
+                Статус: {AuctionLogic.getTextStatus(status)}
             </p>
         </CardDiv>
     );

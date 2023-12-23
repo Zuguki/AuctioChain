@@ -2,14 +2,13 @@
     width: 280px;
     height: 210px;
     border-radius: 20px;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
     right: 50px;
     position: fixed;
     top: 130px;
     z-index: 500;
 }
-
 
 .link {
     color: #606060;
@@ -21,7 +20,6 @@
     width: max-content;
 }
 
-
 .userName {
     color: #818080;
     font-size: 12px;
@@ -30,7 +28,7 @@
 }
 
 .link:hover {
-    color: #615EF3;
+    color: #615ef3;
 }
 
 .position {

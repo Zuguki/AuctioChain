@@ -20,4 +20,8 @@ export default class AuctionLogic {
     public static isBidding(auction: IAuction): boolean {
         return auction.status === AuctionStatus.bidding;
     }
+
+    public static isWaitBidding(auction: IAuction): boolean {
+        return auction.status === AuctionStatus.waitBidding;
+    }
 }

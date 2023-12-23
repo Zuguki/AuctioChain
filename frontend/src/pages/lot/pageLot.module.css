@@ -14,7 +14,7 @@
 }
 
 .notBet {
-    color: #D72828;
+    color: #d72828;
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
@@ -38,7 +38,6 @@
 }
 
 .information > p {
-
     font-weight: 700;
     margin: 0 0 5px 0;
 }
@@ -57,19 +56,18 @@
 }
 
 .textUser {
-    color: #615EF3;
+    color: #615ef3;
     text-decoration: none;
 }
 
 .protectedText {
-    color: #D9D9D9;
+    color: #d9d9d9;
     font-size: 14px;
 }
 
 .price {
     font-weight: 900;
 }
-
 
 @media screen and (max-width: 1600px) {
     .img {
@@ -80,5 +78,4 @@
     h2 {
         font-size: 32px;
     }
-
 }

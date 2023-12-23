@@ -5,7 +5,7 @@
 }
 
 .btnSwipe {
-    background: url("../../../design/icons/pagination/forvard.svg") no-repeat;
+    background: url('../../../design/icons/pagination/forvard.svg') no-repeat;
     width: 14px;
     height: 16px;
     border: 0;
@@ -16,11 +16,11 @@
 }
 
 .btnSwipeBack {
-    background: url("../../../design/icons/pagination/back.svg") no-repeat;
+    background: url('../../../design/icons/pagination/back.svg') no-repeat;
 }
 
 .number {
-    color: #615EF3;
+    color: #615ef3;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
@@ -31,18 +31,18 @@
     padding: 0;
     text-align: center;
     width: 20px;
-
 }
 
 .currentNumber {
-    background: linear-gradient(180deg, #D72828 0%, #8E8CEF 100%);
+    background: linear-gradient(180deg, #d72828 0%, #8e8cef 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .line {
-    background: url("../../../design/icons/pagination/line pagination.svg") no-repeat;
+    background: url('../../../design/icons/pagination/line pagination.svg')
+        no-repeat;
     width: 20px;
     height: 2px;
 }

@@ -1,9 +1,12 @@
 body {
     margin: 0 0 30px;
     padding: 0;
-    background: #FBFBFB url("../public/background image.png") no-repeat fixed;
+    background: #fbfbfb url('../public/background image.png') no-repeat fixed;
     background-size: cover;
-    font-family: SF Pro Display, Montserrat, sans-serif;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
     color: #818080;
     font-size: 24px;
     font-weight: 400;

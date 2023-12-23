@@ -1,5 +1,5 @@
 .background {
-    background: rgba(129, 128, 128, 0.40);
+    background: rgba(129, 128, 128, 0.4);
     position: fixed;
     top: 0;
     bottom: 0;
@@ -24,14 +24,13 @@
     padding: 55px 90px 0 90px;
 
     border-radius: 50px;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .positionSubmit {
     margin: 25px 0 40px 0;
 }
-
 
 .textInformation {
     font-size: 20px;

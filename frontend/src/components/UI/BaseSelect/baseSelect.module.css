@@ -8,14 +8,18 @@
     padding-left: 35px;
 
     color: #818080;
-    font-family: SF Pro Display, Montserrat, sans-serif;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 28px; /* 140% */
     appearance: none;
     -webkit-appearance: none;
-    background: url("../../../design/icons/collapse.svg") 90% 60% no-repeat #FFFFFF;
+    background: url('../../../design/icons/collapse.svg') 90% 60% no-repeat
+        #ffffff;
 }
 
 .title {

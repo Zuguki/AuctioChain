@@ -4,7 +4,7 @@
 }
 
 .err {
-    color: #F76F7A;
+    color: #f76f7a;
     font-size: 24px;
     font-weight: bold;
     margin: 0;
@@ -21,5 +21,4 @@
     width: 70px;
     height: 70px;
     border: none;
-
 }

@@ -43,4 +43,12 @@ export default class LotService {
     public static async addLot(lot: IPostLot): Promise<AxiosResponse> {
         return $api.post(`${this.pathLots}`, lot);
     }
+
+    public static async deleteLotById(id: string): Promise<AxiosResponse> {
+        return $api.delete(`${this.pathLots}`, {
+            params: {
+                LotId: id,
+            },
+        });
+    }
 }

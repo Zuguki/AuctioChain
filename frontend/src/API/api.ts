@@ -44,7 +44,7 @@ $api.interceptors.response.use(
             return $api.request(originalRequest);
         }
 
-        if (error.response?.status === 401) {
+        if (error.response?.status) {
             window.location.pathname = PathApp.authorization;
         }
         throw error;

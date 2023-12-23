@@ -26,7 +26,7 @@ interface IPageBet {
 const PageBet: FC<IPageBet> = ({ close, lot, setBet }) => {
     const { id, currentMaxBet, initialPrice, betStep } = lot;
     const { error, blurError, postData } = usePostAPI();
-    const { dataUser, logicFormValue } = useDataUser<IPostBet>();
+    let { dataUser, logicFormValue } = useDataUser<IPostBet>();
     const {
         data: { balance },
         loading,
@@ -36,7 +36,7 @@ const PageBet: FC<IPageBet> = ({ close, lot, setBet }) => {
     );
     const submitBet = async (): Promise<void> => {
         blurError();
-        dataUser.lotId = id;
+        dataUser = { ...dataUser, lotId: id };
         const res = await postData(() => LotService.postBetInLot(dataUser));
         if (res) {
             setBet(res);
@@ -55,7 +55,7 @@ const PageBet: FC<IPageBet> = ({ close, lot, setBet }) => {
                             На вашем счёте: {balance} Ac
                         </p>
                         <p className={styleBet.textInformation}>
-                            Цена на данный момент:{' '}
+                            Цена на данный момент:&nbsp;
                             {currentMaxBet ? currentMaxBet : initialPrice} Ac
                         </p>
                         <p className={styleBet.textInformation}>

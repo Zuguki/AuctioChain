@@ -5,7 +5,6 @@ import stylePage from '../pageOneAuction.module.css';
 import { Context } from '../../../context/context.ts';
 import IAuction from '../../../API/interfaces/IAuction.ts';
 import AuctionService from '../../../API/service/AuctionService.ts';
-import { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PathApp from '../../../routes/pathApp/PathApp.ts';
 
@@ -25,19 +24,26 @@ const ActionsAuction: FC<IActionsAuction> = ({
     const id: string = auction.id;
     const isCreation: boolean = AuctionLogic.isCreation(auction);
     const setActiveAuction = async (): Promise<void> => {
-        await AuctionService.setNewStatusAuction(id);
-        const res = await AuctionService.getAuctionByID(id);
-        if (res) {
+        try {
+            await AuctionService.setNewStatusAuction(id);
+        } catch (err) {
+            alert(`Ошибка обновления статуса: ${err}`);
+            return;
+        }
+        try {
+            await AuctionService.getAuctionByID(id);
             setChangeStatus(true);
+        } catch (err) {
+            alert('Ошибка обновления. Попробуйте перезагрузить страницу!');
         }
     };
     const deleteAuction = async (): Promise<void> => {
-        const res: AxiosResponse = await AuctionService.deleteAuctionById(id);
-        if (res) {
+        try {
+            await AuctionService.deleteAuctionById(id);
             nav(`${PathApp.account}/${userId}`);
-            return;
+        } catch (err) {
+            alert('Ошибка удаления');
         }
-        alert('Неуспешное удаление аукциона!');
     };
     return (
         <>

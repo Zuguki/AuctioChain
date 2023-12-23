@@ -92,6 +92,7 @@ const PageCreateAuction: FC = () => {
                 <DateInput
                     title="Дата окончания"
                     name="dateEnd"
+                    min={DateLogic.getDateNow()}
                     error={error}
                     changeValue={logicFormValue}
                     errorBlur={blurError}

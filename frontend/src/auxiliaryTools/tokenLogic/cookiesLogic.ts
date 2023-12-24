@@ -1,8 +1,14 @@
 import IUser from '../../API/interfaces/IUser.ts';
 
-export default class TokenLogic {
+export default class CookiesLogic {
     public static readonly TOKEN: string = 'token';
     public static readonly REFRESH_TOKEN: string = 'refreshToken';
+    public static readonly BILL: string = 'bill';
+    public static readonly BALANCE: string = 'balance';
+
+    public static convertTokenToUser(token: string): IUser {
+        return this.getUserToAtob(JSON.parse(atob(token.split('.')[1])));
+    }
 
     private static getUserToAtob(atobUser: any): IUser {
         return {
@@ -14,9 +20,5 @@ export default class TokenLogic {
             ],
             userId: atobUser.userId,
         };
-    }
-
-    public static convertTokenToUser(token: string): IUser {
-        return this.getUserToAtob(JSON.parse(atob(token.split('.')[1])));
     }
 }

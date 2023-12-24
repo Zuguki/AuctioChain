@@ -5,6 +5,7 @@ import PathApp from '../pathApp/PathApp.ts';
 import RequireAuth from '../RequireAuth.tsx';
 import PageCreateAuction from '../../pages/createAuction/PageCreateAuction.tsx';
 import PageCreateLot from '../../pages/createLot/PageCreateLot.tsx';
+import AddMoney from '../../pages/addMoney/AddMoney.tsx';
 
 const routeAccount = (
     <>
@@ -22,6 +23,14 @@ const routeAccount = (
             element={
                 <RequireAuth>
                     <PageCreateLot />
+                </RequireAuth>
+            }
+        />
+        <Route
+            path={PathApp.bill}
+            element={
+                <RequireAuth>
+                    <AddMoney />
                 </RequireAuth>
             }
         />

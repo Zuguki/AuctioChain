@@ -9,7 +9,6 @@ import routeAuctions from './route/routeAuctions.tsx';
 import routeAccount from './route/routeAccount.tsx';
 import PageError from '../pages/error/PageError.tsx';
 import PathApp from './pathApp/PathApp.ts';
-import InterfaceProfile from '../components/InterfaceProfile/InterfaceProfile.tsx';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -20,7 +19,6 @@ const router = createBrowserRouter(
                     element={
                         <>
                             <h1>MAIN</h1>
-                            <InterfaceProfile />
                         </>
                     }
                 />

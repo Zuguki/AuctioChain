@@ -8,6 +8,11 @@
     z-index: 1000;
 }
 
+.fox {
+    margin-left: 10px;
+    display: inline-block;
+}
+
 ul {
     list-style-type: none;
     display: flex;
@@ -45,7 +50,7 @@ ul:last-child {
 }
 
 ul li:nth-child(2) {
-    padding-left: 13%;
+    padding-left: 12%;
 }
 
 ul li:nth-child(2) img {

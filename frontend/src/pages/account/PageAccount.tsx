@@ -4,7 +4,7 @@ import Hr from '../../components/UI/Hr/Hr.tsx';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
 import { observer } from 'mobx-react-lite';
 import styleAccount from './pageAccount.module.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import ListAuctionsProfile from './ListAuctionsProfile.tsx';
 import ListWinLots from './ListWinLots.tsx';
 import PathApp from '../../routes/pathApp/PathApp.ts';
@@ -39,7 +39,9 @@ const PageAccount = observer(() => {
                 {isUser && (
                     <>
                         <h4 className={styleAccount.balance}>{0} Ac</h4>
-                        <BaseButton>Пополнить счёт</BaseButton>
+                        <Link to={PathApp.bill}>
+                            <BaseButton>Пополнить счёт</BaseButton>
+                        </Link>
                     </>
                 )}
                 <Hr />

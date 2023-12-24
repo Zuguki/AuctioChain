@@ -8,6 +8,7 @@ enum PathApp {
     account = '/account',
     createAuction = '/createAuction',
     createLot = '/createLot',
+    bill = '/bill',
 }
 
 export default PathApp;

@@ -1,16 +1,17 @@
 import { RouterProvider } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { Context, stateApp, userStore } from './context/context.ts';
-import TokenLogic from './auxiliaryTools/tokenLogic/tokenLogic.ts';
+import { Context, stateApp } from './context/context.ts';
+import CookiesLogic from './auxiliaryTools/tokenLogic/cookiesLogic.ts';
 import router from './routes/router.tsx';
 
 function App() {
+    const { userStore } = useContext(Context);
     useEffect((): void => {
-        const token: string | undefined = Cookies.get(TokenLogic.TOKEN);
-        if (token) {
-            userStore.setAuthByToken(token);
-        }
+        const token: string | undefined = Cookies.get(CookiesLogic.TOKEN);
+        const bill: string | undefined = Cookies.get(CookiesLogic.BILL);
+        token && userStore.setAuthByToken(token);
+        bill && userStore.setBill(bill);
     }, []);
 
     return (

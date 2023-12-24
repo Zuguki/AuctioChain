@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import Cookies from 'js-cookie';
-import TokenLogic from '../auxiliaryTools/tokenLogic/tokenLogic.ts';
+import CookiesLogic from '../auxiliaryTools/tokenLogic/cookiesLogic.ts';
 import AuthService from './service/AuthService.ts';
 import { userStore } from '../context/context.ts';
 import PathApp from '../routes/pathApp/PathApp.ts';
@@ -13,7 +13,7 @@ const $api: AxiosInstance = axios.create({
 });
 
 $api.interceptors.request.use(config => {
-    const token = Cookies.get(TokenLogic.TOKEN);
+    const token = Cookies.get(CookiesLogic.TOKEN);
     if (typeof token === 'string') {
         config.headers.Authorization = `Bearer ${token}`;
     }
@@ -27,7 +27,7 @@ $api.interceptors.response.use(
     async (error: AxiosError) => {
         const originalRequest = error.config;
         const refreshTokenStore: string | undefined = Cookies.get(
-            TokenLogic.REFRESH_TOKEN,
+            CookiesLogic.REFRESH_TOKEN,
         );
         if (
             error.response?.status === 401 &&
@@ -38,8 +38,9 @@ $api.interceptors.response.use(
             originalRequest._isRetry = true;
             const res = await AuthService.refresh(refreshTokenStore);
             const { token, refreshToken } = res.data;
-            Cookies.set(TokenLogic.TOKEN, token);
-            Cookies.set(TokenLogic.REFRESH_TOKEN, refreshToken);
+            console.log('ref', refreshToken);
+            Cookies.set(CookiesLogic.TOKEN, token);
+            Cookies.set(CookiesLogic.REFRESH_TOKEN, refreshToken);
             userStore.setAuthByToken(token);
             return $api.request(originalRequest);
         }

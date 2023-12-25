@@ -1,3 +1,21 @@
 .position {
     margin: 25px 0 25px 165px;
 }
+
+.positionFormEth {
+    margin-bottom: 20px;
+}
+
+.positionAddWallet {
+    margin-top: 20px;
+}
+
+.title {
+    display: inline-block;
+}
+
+.fox {
+    width: 50px;
+    vertical-align: text-bottom;
+    margin-left: 10px;
+}

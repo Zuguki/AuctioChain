@@ -123,6 +123,7 @@ export default class MetaMaskLogic {
         } catch (error) {
             console.log(JSON.stringify(error, null, 4));
             alert(`Ошибка транзакции! ${error?.info?.error?.message || ''}`);
+            return;
         }
     }
 

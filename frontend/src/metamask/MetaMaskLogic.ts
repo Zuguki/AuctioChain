@@ -80,7 +80,7 @@ export default class MetaMaskLogic {
     );
 
     // подключить кошлек к сайту типо кнопки
-    public static async handleClickMetamask(): Promise<string> {
+    public static async handleClickMetamask(): Promise<void> {
         try {
             const [address] = await MetaMaskLogic.web3Provider.send(
                 'eth_requestAccounts',
@@ -88,36 +88,42 @@ export default class MetaMaskLogic {
             );
             userStore.setBill(address);
             Cookies.set(CookiesLogic.BILL, address);
-            return address;
         } catch (e) {
-            alert(e);
+            alert('He удалось подключить кошлёк!');
             console.log(e);
-            return '';
         }
     }
 
     // отправка денег
     public static async sendEth(eph: string) {
         try {
+            const billUser: string = userStore.getBill();
+            if (!billUser) {
+                alert('Кошлек не подключён к сайту!');
+                return;
+            }
             const [address] = await MetaMaskLogic.web3Provider.send(
                 'eth_requestAccounts',
                 [],
             );
-            console.log(address);
-            console.log(Cookies.get('bill'));
-            if (address !== Cookies.get('bill')) {
-                alert('Кошлек не соот');
+            console.log('addr', address);
+            console.log(billUser);
+            if (address !== billUser) {
+                alert(
+                    'Невозможно выполнить транзакцию! Проверьте номер кошлека в MetaMask!',
+                );
                 return;
             }
-            const signer = await MetaMaskLogic.web3Provider.getSigner();
 
+            const signer = await MetaMaskLogic.web3Provider.getSigner();
             const contractWithSigner = MetaMaskLogic.contract.connect(signer);
             await contractWithSigner
                 .getFunction('payForItem')
                 .send({ value: ethers.parseEther(eph) }); // количество денег
             return await this.getUserMoney();
         } catch (error) {
-            alert('Ошибка транзакции!');
+            console.log(JSON.stringify(error, null, 4));
+            alert(`Ошибка транзакции! ${error?.info?.error?.message || ''}`);
         }
     }
 
@@ -126,12 +132,24 @@ export default class MetaMaskLogic {
         return new Promise(resolve => {
             const requestBalance = setInterval(async () => {
                 const balance = await this.requestUserMoney();
-                const cookieBalance = +Cookies.get(CookiesLogic.BALANCE);
+                if (balance === undefined) {
+                    alert('Ошибка транзакции!');
+                    return;
+                }
+                let cookieBalance: string | number | undefined = Cookies.get(
+                    CookiesLogic.BALANCE,
+                );
+                if (!cookieBalance) {
+                    Cookies.set(CookiesLogic.BALANCE, String(balance));
+                    cookieBalance = balance;
+                } else {
+                    cookieBalance = +cookieBalance;
+                }
                 console.log('b', balance);
                 console.log('cb', cookieBalance);
                 if (balance !== cookieBalance) {
                     console.log('prevBalance', cookieBalance);
-                    Cookies.set(CookiesLogic.BALANCE, balance);
+                    Cookies.set(CookiesLogic.BALANCE, String(balance));
                     clearInterval(requestBalance);
                     console.log('bal', balance);
                     resolve(Number(balance - cookieBalance) / Math.pow(10, 18));

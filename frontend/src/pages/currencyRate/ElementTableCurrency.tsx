@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styleElTable from '../addMoney.module.css';
+import styleElTable from './currencyRate.module.css';
 
 type ObjectTableCurrency = {
     name: string;
@@ -19,9 +19,9 @@ const ElementTableCurrency: FC<ITableCurrency> = ({
 }) => {
     return (
         <div className={styleElTable.positionElTable}>
-            <h4>
+            <h3>
                 {mainCurrency.value} {mainCurrency.name}:
-            </h4>
+            </h3>
             <p>
                 {firstCurrency.name}: {firstCurrency.value}
             </p>

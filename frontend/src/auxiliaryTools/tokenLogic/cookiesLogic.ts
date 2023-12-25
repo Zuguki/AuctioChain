@@ -5,6 +5,7 @@ export default class CookiesLogic {
     public static readonly REFRESH_TOKEN: string = 'refreshToken';
     public static readonly BILL: string = 'bill';
     public static readonly BALANCE: string = 'balance';
+    public static readonly ADD_BALANCE: string = 'addBalance';
 
     public static convertTokenToUser(token: string): IUser {
         return this.getUserToAtob(JSON.parse(atob(token.split('.')[1])));

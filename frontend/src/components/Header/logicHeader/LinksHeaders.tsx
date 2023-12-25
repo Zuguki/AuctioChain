@@ -27,7 +27,7 @@ const LinksHeaders: FC<ILinkLogicUser> = ({ auth, user }) => {
                 <LinkSearch />
             </li>
             <li>
-                <CustomLink to={PathApp.bill}>Пополнение счета</CustomLink>
+                <CustomLink to={PathApp.currency}>Курс валют</CustomLink>
             </li>
             <li>
                 <LinkUser auth={auth} user={user} />

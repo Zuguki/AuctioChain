@@ -60,6 +60,7 @@ export default class UserStore {
         Cookies.remove(CookiesLogic.REFRESH_TOKEN);
         Cookies.remove(CookiesLogic.BILL);
         Cookies.remove(CookiesLogic.BALANCE);
+        this.setBill('');
         this.user = {} as IUser;
         this.setAuth(false);
     }

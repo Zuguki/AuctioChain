@@ -1,24 +1,3 @@
 .position {
     margin: 25px 0 25px 165px;
 }
-
-.positionElTable {
-    display: inline-block;
-    margin-right: 100px;
-}
-
-.textUpdate {
-    font-size: 18px;
-    color: #B7B7B7;
-    margin-bottom: 10px;
-}
-
-.mainTextTable {
-    display: inline-block;
-}
-
-.showCurrency {
-    display: inline-block;
-    border: 0;
-    background-color: transparent;
-}

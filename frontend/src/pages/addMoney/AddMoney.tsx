@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useState } from 'react';
+import React, { ChangeEvent, useContext } from 'react';
 import styleAddMoney from './addMoney.module.css';
 import useGetDataCurrency from '../../hooks/useGetDataCurrency/useGetDataCurrency.tsx';
 import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
@@ -8,8 +8,9 @@ import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
 import MetaMaskLogic from '../../metamask/MetaMaskLogic.ts';
 import { Context } from '../../context/context.ts';
 import LogicCurrency from '../../metamask/LogicCurrency.ts';
-import TableCurrency from './TableCurrency/TableCurrency.tsx';
 import { observer } from 'mobx-react-lite';
+import Cookies from 'js-cookie';
+import CookiesLogic from '../../auxiliaryTools/tokenLogic/cookiesLogic.ts';
 
 const AddMoney = observer(() => {
     /*  const {
@@ -18,22 +19,20 @@ const AddMoney = observer(() => {
           () => ProfileService.getBalanceUser(),
           {} as IResponseBalance,
       );*/
-    const { userStore } = useContext(Context);
+    const { userStore, stateApp } = useContext(Context);
 
     const {
         dataUser: { eph },
         logicFormValue,
     } = useDataUser<{ eph: string }>();
 
-    const [balance, setBalance] = useState<number>(0);
     const { rubEth, Ac } = useGetDataCurrency();
     return (
         <div className={styleAddMoney.position}>
             <h1>Пополнение счёта</h1>
             <h5>На вашем счёте: {0} Ac</h5>
-            <TableCurrency rubEth={rubEth} Ac={Ac} />
             <FormInput
-                title="Введите количество денег(ETH)"
+                title={`Количество (${LogicCurrency.Eth}) на пополнение:`}
                 name="eph"
                 type="number"
                 min="0.00000001"
@@ -44,14 +43,20 @@ const AddMoney = observer(() => {
                 }}
                 errorBlur={() => ({})}
             />
-            <BaseButton
-                onClick={async () => {
-                    const bal = await MetaMaskLogic.sendEth(eph);
-                    setBalance(() => bal);
-                }}
-            >
-                Пополнить
-            </BaseButton>
+            {userStore.getBill() && (
+                <BaseButton
+                    onClick={async () => {
+                        stateApp.setProcessAddMoney(true);
+                        const bal = await MetaMaskLogic.sendEth(eph);
+                        stateApp.setProcessAddMoney(false);
+                        if (bal) {
+                            Cookies.set(CookiesLogic.ADD_BALANCE, String(bal));
+                        }
+                    }}
+                >
+                    Пополнить
+                </BaseButton>
+            )}
             {eph && (
                 <>
                     <p>
@@ -69,7 +74,12 @@ const AddMoney = observer(() => {
                 <p>Now wallet:</p>
                 <p>{userStore.getBill()}</p>
             </div>
-            {!!balance && <h2>Баланс: {(balance * Ac).toString()}</h2>}
+            {Cookies.get(CookiesLogic.ADD_BALANCE) !== undefined && (
+                <h2>
+                    Баланс:{' '}
+                    {(+Cookies.get(CookiesLogic.ADD_BALANCE) * Ac).toString()}
+                </h2>
+            )}
         </div>
     );
 });

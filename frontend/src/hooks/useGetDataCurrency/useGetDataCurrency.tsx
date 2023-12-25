@@ -17,11 +17,12 @@ const useGetDataCurrency = (): IGetDataCurrency => {
     };
 
     useEffect(() => {
+        let timer: NodeJS.Timer;
+        getCurrently();
         (async () => {
-            await getCurrently();
-            const timer = setInterval(async () => getCurrently(), 10_000);
-            return () => clearTimeout(timer);
+            timer = setInterval(async () => getCurrently(), 10_000);
         })();
+        return () => clearTimeout(timer);
     }, []);
 
     return { rubEth, Ac: +(rubEth / LogicCurrency.CoefficientAc).toFixed(2) };

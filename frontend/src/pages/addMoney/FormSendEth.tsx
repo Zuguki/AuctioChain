@@ -27,10 +27,12 @@ const FormSendEth = () => {
         );
 
         const bal = await MetaMaskLogic.sendEth(eph);
+
         LocalStorageLogic.setToStorage(
             LocalStorageLogic.PROCESS_ADD_MONEY,
             false,
         );
+
         if (bal) {
             LocalStorageLogic.setToStorage(LocalStorageLogic.ADD_BALANCE, bal);
         }
@@ -38,10 +40,13 @@ const FormSendEth = () => {
 
     return (
         <Form onSubmit={submitEth} className={styleFormEth.positionFormEth}>
+            <h2 className={styleFormEth.textTitle}>Пополнение:</h2>
+            <p className={styleFormEth.attention}>
+                Внимание! Не выходите из аккаунта не дождавший поплнения счёта!
+            </p>
             <FormInput
                 title={`Количество (${LogicCurrency.Eth}) на пополнение:`}
                 name="eph"
-                type="number"
                 blockChars={numberChars}
                 error={null}
                 changeValue={(e: ChangeEvent<HTMLInputElement>): void =>
@@ -49,17 +54,17 @@ const FormSendEth = () => {
                 }
                 errorBlur={() => ({})}
             />
-            <BaseButton type="submit">Пополнить</BaseButton>
-            {eph && (
-                <>
-                    <p>
+            {eph && !Number.isNaN(+eph) && (
+                <div>
+                    <p className={styleFormEth.currency}>
                         {LogicCurrency.Rub}: {+eph * rubEth}
                     </p>
-                    <p>
+                    <p className={styleFormEth.currency}>
                         {LogicCurrency.Ac}: {+eph * Ac}
                     </p>
-                </>
+                </div>
             )}
+            <BaseButton type="submit">Пополнить</BaseButton>
         </Form>
     );
 };

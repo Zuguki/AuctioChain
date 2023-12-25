@@ -127,37 +127,18 @@ export default class MetaMaskLogic {
         }
     }
 
-    // деньги перевода проверять на пополнение
     public static async getUserMoney(): Promise<number | void> {
+        const prevBalance = await this.requestUserMoney();
         return new Promise(resolve => {
             const requestBalance = setInterval(async () => {
                 const balance = await this.requestUserMoney();
-                if (balance === undefined) {
+                if (!prevBalance || !balance) {
                     alert('Ошибка транзакции!');
                     return;
                 }
-                let localBalance: string | number =
-                    LocalStorageLogic.getToStorage(LocalStorageLogic.BALANCE);
-                if (!localBalance) {
-                    LocalStorageLogic.setToStorage(
-                        LocalStorageLogic.BALANCE,
-                        balance,
-                    );
-                    localBalance = balance;
-                } else {
-                    localBalance = +localBalance;
-                }
-                console.log('b', balance);
-                console.log('cb', localBalance);
-                if (balance !== localBalance) {
-                    console.log('prevBalance', localBalance);
-                    LocalStorageLogic.setToStorage(
-                        LocalStorageLogic.BALANCE,
-                        balance,
-                    );
+                if (prevBalance !== balance) {
                     clearInterval(requestBalance);
-                    console.log('bal', balance);
-                    resolve(Number(balance - localBalance) / Math.pow(10, 18));
+                    resolve(Number(balance - prevBalance) / Math.pow(10, 18));
                 }
             }, 1_000);
         });
@@ -174,18 +155,4 @@ export default class MetaMaskLogic {
             console.log('requestUserMoney err');
         }
     }
-
-    // не используем
-    /* public static async removeUserFromMap() {
-         try {
-             const signer = await MetaMaskLogic.web3Provider.getSigner();
-             const contractWithSigner = MetaMaskLogic.contract.connect(signer);
-             await contractWithSigner
-                 .getFunction('payForItem')
-                 .call(signer.address);
-             console.log('Success');
-         } catch (error) {
-             console.error(error);
-         }
-     }*/
 }

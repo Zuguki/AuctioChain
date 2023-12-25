@@ -10,6 +10,7 @@ import routeAccount from './route/routeAccount.tsx';
 import PageError from '../pages/error/PageError.tsx';
 import PathApp from './pathApp/PathApp.ts';
 import CurrencyRate from '../pages/currencyRate/CurrencyRate.tsx';
+import NotificationOperation from '../components/Notification/NotificationOperation.tsx';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
                     element={
                         <>
                             <h1>MAIN</h1>
+                            <NotificationOperation />
                         </>
                     }
                 />

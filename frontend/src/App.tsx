@@ -2,24 +2,36 @@ import { RouterProvider } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { Context, stateApp } from './context/context.ts';
-import CookiesLogic from './auxiliaryTools/tokenLogic/cookiesLogic.ts';
+import TokenLogic from './auxiliaryTools/tokenLogic/TokenLogic.ts';
 import router from './routes/router.tsx';
 import MetaMaskLogic from './metamask/MetaMaskLogic.ts';
+import LocalStorageLogic from './auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
 
 function App() {
     const { userStore } = useContext(Context);
     useEffect((): void => {
         (async (): Promise<void> => {
-            console.log('reload', stateApp.getProcessAddMoney());
-            const token: string | undefined = Cookies.get(CookiesLogic.TOKEN);
-            const bill: string | undefined = Cookies.get(CookiesLogic.BILL);
+            const process = LocalStorageLogic.getToStorage(
+                LocalStorageLogic.PROCESS_ADD_MONEY,
+            );
+            console.log('reload', process);
+            const token: string | undefined = Cookies.get(TokenLogic.TOKEN);
+            const bill: string = LocalStorageLogic.getToStorage(
+                LocalStorageLogic.BILL,
+            );
             token && userStore.setAuthByToken(token);
             bill && userStore.setBill(bill);
-            if (stateApp.getProcessAddMoney()) {
+            if (process) {
                 const balance = await MetaMaskLogic.getUserMoney();
-                stateApp.setProcessAddMoney(false);
+                LocalStorageLogic.setToStorage(
+                    LocalStorageLogic.PROCESS_ADD_MONEY,
+                    false,
+                );
                 if (balance) {
-                    Cookies.set(CookiesLogic.ADD_BALANCE, String(balance));
+                    LocalStorageLogic.setToStorage(
+                        LocalStorageLogic.ADD_BALANCE,
+                        balance,
+                    );
                 }
             }
         })();

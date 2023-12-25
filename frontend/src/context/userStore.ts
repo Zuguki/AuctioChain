@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import IUser from '../API/interfaces/IUser.ts';
 import IPostLoginUser from '../API/interfaces/IPostLoginUser.ts';
 import IPostRegistrationUser from '../API/interfaces/IPostRegistrationUser.ts';
-import CookiesLogic from '../auxiliaryTools/tokenLogic/cookiesLogic.ts';
+import TokenLogic from '../auxiliaryTools/tokenLogic/TokenLogic.ts';
 
 export default class UserStore {
     private isAuth: boolean = false;
@@ -36,9 +36,9 @@ export default class UserStore {
         const res = await AuthService.login(loginData);
         const { token, refreshToken } = res.data;
         this.setAuth(true);
-        this.setUser(CookiesLogic.convertTokenToUser(token));
-        Cookies.set(CookiesLogic.TOKEN, token);
-        Cookies.set(CookiesLogic.REFRESH_TOKEN, refreshToken);
+        this.setUser(TokenLogic.convertTokenToUser(token));
+        Cookies.set(TokenLogic.TOKEN, token);
+        Cookies.set(TokenLogic.REFRESH_TOKEN, refreshToken);
         return res;
     }
 
@@ -56,17 +56,17 @@ export default class UserStore {
     }
 
     public logout(): void {
-        Cookies.remove(CookiesLogic.TOKEN);
-        Cookies.remove(CookiesLogic.REFRESH_TOKEN);
-        Cookies.remove(CookiesLogic.BILL);
-        Cookies.remove(CookiesLogic.BALANCE);
+        Cookies.remove(TokenLogic.TOKEN);
+        Cookies.remove(TokenLogic.REFRESH_TOKEN);
+        Cookies.remove(TokenLogic.BILL);
+        Cookies.remove(TokenLogic.BALANCE);
         this.setBill('');
         this.user = {} as IUser;
         this.setAuth(false);
     }
 
     public setAuthByToken(token: string): void {
-        this.setUser(CookiesLogic.convertTokenToUser(token));
+        this.setUser(TokenLogic.convertTokenToUser(token));
         this.setAuth(true);
     }
 

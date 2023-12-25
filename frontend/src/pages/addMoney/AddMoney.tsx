@@ -9,8 +9,7 @@ import MetaMaskLogic from '../../metamask/MetaMaskLogic.ts';
 import { Context } from '../../context/context.ts';
 import LogicCurrency from '../../metamask/LogicCurrency.ts';
 import { observer } from 'mobx-react-lite';
-import Cookies from 'js-cookie';
-import CookiesLogic from '../../auxiliaryTools/tokenLogic/cookiesLogic.ts';
+import LocalStorageLogic from '../../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
 
 const AddMoney = observer(() => {
     /*  const {
@@ -19,7 +18,7 @@ const AddMoney = observer(() => {
           () => ProfileService.getBalanceUser(),
           {} as IResponseBalance,
       );*/
-    const { userStore, stateApp } = useContext(Context);
+    const { userStore } = useContext(Context);
 
     const {
         dataUser: { eph },
@@ -46,11 +45,20 @@ const AddMoney = observer(() => {
             {userStore.getBill() && (
                 <BaseButton
                     onClick={async () => {
-                        stateApp.setProcessAddMoney(true);
+                        LocalStorageLogic.setToStorage(
+                            LocalStorageLogic.PROCESS_ADD_MONEY,
+                            true,
+                        );
                         const bal = await MetaMaskLogic.sendEth(eph);
-                        stateApp.setProcessAddMoney(false);
+                        LocalStorageLogic.setToStorage(
+                            LocalStorageLogic.PROCESS_ADD_MONEY,
+                            false,
+                        );
                         if (bal) {
-                            Cookies.set(CookiesLogic.ADD_BALANCE, String(bal));
+                            LocalStorageLogic.setToStorage(
+                                LocalStorageLogic.ADD_BALANCE,
+                                bal,
+                            );
                         }
                     }}
                 >
@@ -74,10 +82,14 @@ const AddMoney = observer(() => {
                 <p>Now wallet:</p>
                 <p>{userStore.getBill()}</p>
             </div>
-            {Cookies.get(CookiesLogic.ADD_BALANCE) !== undefined && (
+            {LocalStorageLogic.getToStorage(LocalStorageLogic.ADD_BALANCE) && (
                 <h2>
                     Баланс:{' '}
-                    {(+Cookies.get(CookiesLogic.ADD_BALANCE) * Ac).toString()}
+                    {(
+                        LocalStorageLogic.getToStorage(
+                            LocalStorageLogic.ADD_BALANCE,
+                        ) * Ac
+                    ).toString()}
                 </h2>
             )}
         </div>

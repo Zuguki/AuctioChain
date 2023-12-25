@@ -1,7 +1,6 @@
 import { ethers } from 'ethers';
-import Cookies from 'js-cookie';
 import { userStore } from '../context/context.ts';
-import CookiesLogic from '../auxiliaryTools/tokenLogic/cookiesLogic.ts';
+import LocalStorageLogic from '../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
 
 export default class MetaMaskLogic {
     private static contractAddress: string =
@@ -87,7 +86,7 @@ export default class MetaMaskLogic {
                 [],
             );
             userStore.setBill(address);
-            Cookies.set(CookiesLogic.BILL, address);
+            LocalStorageLogic.setToStorage(LocalStorageLogic.BILL, address);
         } catch (e) {
             alert('He удалось подключить кошлёк!');
             console.log(e);
@@ -136,11 +135,13 @@ export default class MetaMaskLogic {
                     alert('Ошибка транзакции!');
                     return;
                 }
-                let cookieBalance: string | number | undefined = Cookies.get(
-                    CookiesLogic.BALANCE,
-                );
+                let cookieBalance: string | number =
+                    LocalStorageLogic.getToStorage(LocalStorageLogic.BALANCE);
                 if (!cookieBalance) {
-                    Cookies.set(CookiesLogic.BALANCE, String(balance));
+                    LocalStorageLogic.setToStorage(
+                        LocalStorageLogic.BALANCE,
+                        balance,
+                    );
                     cookieBalance = balance;
                 } else {
                     cookieBalance = +cookieBalance;
@@ -149,7 +150,10 @@ export default class MetaMaskLogic {
                 console.log('cb', cookieBalance);
                 if (balance !== cookieBalance) {
                     console.log('prevBalance', cookieBalance);
-                    Cookies.set(CookiesLogic.BALANCE, String(balance));
+                    LocalStorageLogic.setToStorage(
+                        LocalStorageLogic.BALANCE,
+                        balance,
+                    );
                     clearInterval(requestBalance);
                     console.log('bal', balance);
                     resolve(Number(balance - cookieBalance) / Math.pow(10, 18));

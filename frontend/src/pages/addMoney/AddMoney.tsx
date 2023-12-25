@@ -34,7 +34,6 @@ const AddMoney = observer(() => {
                 title={`Количество (${LogicCurrency.Eth}) на пополнение:`}
                 name="eph"
                 type="number"
-                min="0.00000001"
                 blockChars={numberChars}
                 error={null}
                 changeValue={(e: ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +44,9 @@ const AddMoney = observer(() => {
             {userStore.getBill() && (
                 <BaseButton
                     onClick={async () => {
+                        if (Number.isNaN(+eph) || +eph <= 0) {
+                            alert('Некорректное значение!');
+                        }
                         LocalStorageLogic.setToStorage(
                             LocalStorageLogic.PROCESS_ADD_MONEY,
                             true,

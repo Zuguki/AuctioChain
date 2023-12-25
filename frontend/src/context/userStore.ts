@@ -6,6 +6,7 @@ import IUser from '../API/interfaces/IUser.ts';
 import IPostLoginUser from '../API/interfaces/IPostLoginUser.ts';
 import IPostRegistrationUser from '../API/interfaces/IPostRegistrationUser.ts';
 import TokenLogic from '../auxiliaryTools/tokenLogic/TokenLogic.ts';
+import LocalStorageLogic from '../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
 
 export default class UserStore {
     private isAuth: boolean = false;
@@ -58,8 +59,10 @@ export default class UserStore {
     public logout(): void {
         Cookies.remove(TokenLogic.TOKEN);
         Cookies.remove(TokenLogic.REFRESH_TOKEN);
-        Cookies.remove(TokenLogic.BILL);
-        Cookies.remove(TokenLogic.BALANCE);
+        localStorage.removeItem(LocalStorageLogic.BILL);
+        localStorage.removeItem(LocalStorageLogic.BALANCE);
+        localStorage.removeItem(LocalStorageLogic.ADD_BALANCE);
+        localStorage.removeItem(LocalStorageLogic.PROCESS_ADD_MONEY);
         this.setBill('');
         this.user = {} as IUser;
         this.setAuth(false);

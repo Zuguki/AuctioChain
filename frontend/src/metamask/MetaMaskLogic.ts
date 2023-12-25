@@ -135,28 +135,28 @@ export default class MetaMaskLogic {
                     alert('Ошибка транзакции!');
                     return;
                 }
-                let cookieBalance: string | number =
+                let localBalance: string | number =
                     LocalStorageLogic.getToStorage(LocalStorageLogic.BALANCE);
-                if (!cookieBalance) {
+                if (!localBalance) {
                     LocalStorageLogic.setToStorage(
                         LocalStorageLogic.BALANCE,
                         balance,
                     );
-                    cookieBalance = balance;
+                    localBalance = balance;
                 } else {
-                    cookieBalance = +cookieBalance;
+                    localBalance = +localBalance;
                 }
                 console.log('b', balance);
-                console.log('cb', cookieBalance);
-                if (balance !== cookieBalance) {
-                    console.log('prevBalance', cookieBalance);
+                console.log('cb', localBalance);
+                if (balance !== localBalance) {
+                    console.log('prevBalance', localBalance);
                     LocalStorageLogic.setToStorage(
                         LocalStorageLogic.BALANCE,
                         balance,
                     );
                     clearInterval(requestBalance);
                     console.log('bal', balance);
-                    resolve(Number(balance - cookieBalance) / Math.pow(10, 18));
+                    resolve(Number(balance - localBalance) / Math.pow(10, 18));
                 }
             }, 1_000);
         });

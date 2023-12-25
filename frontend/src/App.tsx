@@ -11,9 +11,10 @@ function App() {
     const { userStore } = useContext(Context);
     useEffect((): void => {
         (async (): Promise<void> => {
-            const process = LocalStorageLogic.getToStorage(
-                LocalStorageLogic.PROCESS_ADD_MONEY,
-            );
+            const process =
+                LocalStorageLogic.getToStorage(
+                    LocalStorageLogic.PROCESS_ADD_MONEY,
+                ).toLowerCase() === 'true';
             console.log('reload', process);
             const token: string | undefined = Cookies.get(TokenLogic.TOKEN);
             const bill: string = LocalStorageLogic.getToStorage(

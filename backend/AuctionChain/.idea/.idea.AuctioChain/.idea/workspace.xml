@@ -10,7 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b135f477-0608-4e14-aa7f-5f36c94c4bfc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/AuctioChain.BL/Bets/BetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.BL/Bets/BetManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AuctioChain/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AuctioChain/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuctioChain.BL/AuctioChain.BL.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.BL/AuctioChain.BL.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuctioChain.DAL/AuctioChain.DAL.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.DAL/AuctioChain.DAL.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuctioChain.DAL/EF/DataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.DAL/EF/DataContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuctioChain.Test/AuctioChain.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain.Test/AuctioChain.Test.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuctioChain/AuctioChain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain/AuctioChain.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuctioChain/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuctioChain/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +31,16 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3e7a5d9e8f1e8fc8895e3999e4b986ebd69c6f311e8a7f7ba94f4560a54a89/IdentityDbContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Computer Science/C#/AuctioChain/backend/AuctionChain/AuctioChain/Controllers/Profile/ProfileController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b4aa9d6deee74e2a511d54506de2de864a4b58ad22637cbbc79ef58cb10e3e9/ConfigurationExtensions.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -41,25 +54,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\gusko\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\gusko\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\gusko\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\gusko\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
+      "C:\\Users\\gusko\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
+      "C:\\Users\\gusko\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="AuctioChain: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile" temporary="true">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/AuctioChain/AuctioChain.csproj" />
@@ -100,6 +114,7 @@
       <workItem from="1702388875552" duration="1208000" />
       <workItem from="1702741386796" duration="10000" />
       <workItem from="1703166979310" duration="1858000" />
+      <workItem from="1703493880611" duration="1995000" />
     </task>
     <task id="LOCAL-00001" summary="add: pagination profile">
       <option name="closed" value="true" />

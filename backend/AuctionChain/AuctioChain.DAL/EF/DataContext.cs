@@ -17,23 +17,23 @@ public sealed class DataContext : IdentityDbContext<ApplicationUser, IdentityRol
     public DbSet<AuctionDal> Auctions { get; set; } = null!;
     public DbSet<LotDal> Lots { get; set; } = null!;
     public DbSet<BetDal> Bets { get; set; } = null!;
-
+    
     private readonly IConfiguration _configuration;
-
+    
     /// <summary>
     /// .ctor
     /// </summary>
-    public DataContext(IConfiguration configuration)
+    public DataContext(DbContextOptions<DataContext> options, IConfiguration configuration) : base(options)
     {
         _configuration = configuration;
-        // Database.EnsureDeleted();
-        Database.EnsureCreated();
+        Database.Migrate();
     }
 
     /// <inheritdoc />
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("Postgres"));
+        var connectionString = _configuration.GetConnectionString("Postgres");
+        optionsBuilder.UseNpgsql(connectionString);
     }
 
     /// <inheritdoc />

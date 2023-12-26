@@ -7,7 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AuctioChain.DAL\AuctioChain.DAL.csproj" />
+      <ProjectReference Include="..\AuctioChain.BL\AuctioChain.BL.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Nethereum.Web3" Version="4.18.0" />
+      <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     </ItemGroup>
 
 </Project>

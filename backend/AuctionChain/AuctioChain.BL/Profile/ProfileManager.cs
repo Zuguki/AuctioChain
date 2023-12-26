@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AuctioChain.BL.Publishers;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
@@ -17,11 +18,13 @@ public class ProfileManager : IProfileManager
 {
     private readonly DataContext _context;
     private readonly IMapper _mapper;
+    private readonly IBlockchainPublisher<CheckBalanceReplenishmentDto> _publisher;
 
-    public ProfileManager(DataContext context, IMapper mapper)
+    public ProfileManager(DataContext context, IMapper mapper, IBlockchainPublisher<CheckBalanceReplenishmentDto> publisher)
     {
         _context = context;
         _mapper = mapper;
+        _publisher = publisher;
     }
 
     public async Task<Result<GetProfileResponse>> GetProfileByUserIdAsync(Guid userId)
@@ -47,16 +50,28 @@ public class ProfileManager : IProfileManager
         return new GetUserBalanceResponse {Balance = user.Balance};
     }
 
-    public Task<Result> SetUserBalanceAsync(Guid userId, SetUserBalanceRequest request)
+    public async Task<Result> CheckBalanceReplenishmentAsync(Guid userId, CheckBalanceReplenishmentRequest request)
     {
-        var dto = new SetUserBalanceDto
+        var dto = new CheckBalanceReplenishmentDto
         {
             UserId = userId,
             WalletAddress = request.WalletAddress,
             DateSend = DateTime.UtcNow
         };
 
-        return Task.FromResult(Result.Ok());
+        await _publisher.Publish("topic", "blockchain.events", "blockchain.balance.updated", dto);
+        return Result.Ok();
+    }
+
+    public async Task<Result> AddUserBalanceAsync(Guid userId, decimal value)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(app => app.Id == userId);
+        if (user is null)
+            return Result.Fail("Пользователь не найден");
+
+        user.Balance = value;
+        await _context.SaveChangesAsync();
+        return Result.Ok();
     }
 
     public async Task<Result<(GetUserAuctionsResponse, PaginationMetadata)>> GetUserAuctionsAsync(GetUserAuctionsRequest request)

@@ -12,6 +12,10 @@ public interface IProfileManager
 
     Task<Result<GetUserBalanceResponse>> GetUserBalanceAsync(Guid userId);
 
+    Task<Result> CheckBalanceReplenishmentAsync(Guid userId, CheckBalanceReplenishmentRequest request);
+
+    Task<Result> AddUserBalanceAsync(Guid userId, decimal value);
+
     Task<Result<(GetUserAuctionsResponse, PaginationMetadata)>> GetUserAuctionsAsync(GetUserAuctionsRequest request);
 
     Task<Result<(GetWinLotsOfUserResponse, PaginationMetadata)>> GetWinLotsOfUserAsync(GetWinLotsOfUserRequest request);

@@ -47,6 +47,18 @@ public class ProfileManager : IProfileManager
         return new GetUserBalanceResponse {Balance = user.Balance};
     }
 
+    public Task<Result> SetUserBalanceAsync(Guid userId, SetUserBalanceRequest request)
+    {
+        var dto = new SetUserBalanceDto
+        {
+            UserId = userId,
+            WalletAddress = request.WalletAddress,
+            DateSend = DateTime.UtcNow
+        };
+
+        return Task.FromResult(Result.Ok());
+    }
+
     public async Task<Result<(GetUserAuctionsResponse, PaginationMetadata)>> GetUserAuctionsAsync(GetUserAuctionsRequest request)
     {
         var user = await _context.Users

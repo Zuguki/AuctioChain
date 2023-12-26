@@ -1,8 +1,8 @@
 using System.Text.Json;
-using AuctioChain.BL.Profile;
-using AuctioChain.DAL.Models.Profile.Dto;
 using AuctioChain.MQ.Blockchain.Dto;
 using AuctioChain.MQ.Blockchain.Functions;
+using AuctioChain.MQ.Publishers;
+using AuctioChain.MQ.Services.Dto;
 using Nethereum.Web3;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -13,16 +13,16 @@ public class BlockchainBalanceListener : BackgroundService
 {
     private readonly IConnectionFactory _connectionFactory;
     private readonly IConfiguration _configuration;
-    private readonly IProfileManager _profileManager;
+    private readonly IBlockchainPublisher<TransactionDto> _publisher;
     private readonly Web3 _web3;
 
-    public BlockchainBalanceListener(IConnectionFactory connectionFactory, IConfiguration configuration, IProfileManager profileManager)
+    public BlockchainBalanceListener(IConnectionFactory connectionFactory, IConfiguration configuration, IBlockchainPublisher<TransactionDto> publisher)
     {
         _connectionFactory = connectionFactory;
         _configuration = configuration;
-        _profileManager = profileManager;
+        _publisher = publisher;
         
-        var uriToWeb3 = _configuration["Blockchain:Infura:Key"] + _configuration["Blockchain:Infura:Uri"];
+        var uriToWeb3 = _configuration["Blockchain:Infura:Uri"] + _configuration["Blockchain:Infura:Key"];
         _web3 = new Web3(uriToWeb3);
     }
 
@@ -43,17 +43,20 @@ public class BlockchainBalanceListener : BackgroundService
             {
 	            UserAddress = dto!.WalletAddress
             };
-
+            
             var contractFunction = _web3.Eth.GetContractQueryHandler<GetUserBalanceFunction>();
-            var startBalance = await contractFunction.QueryAsync<GetUserBalanceOfOutputDTO>(contractAddress, userBalanceModel);
-
             while (true)
             {
 				var currentBalance = await contractFunction.QueryAsync<GetUserBalanceOfOutputDTO>(contractAddress, userBalanceModel);
-	            if (currentBalance.Result > startBalance.Result)
+	            if (currentBalance.Result > dto.StartBalanceInBlockchain)
 	            {
-		            var cashCount = currentBalance.Result - startBalance.Result;
-		            await _profileManager.AddUserBalanceAsync(dto.UserId, cashCount);
+		            var transaction = new TransactionDto
+		            {
+			            UserId = dto.UserId,
+			            Cash = currentBalance.Result - dto.StartBalanceInBlockchain,
+		            };
+		            
+					await _publisher.Publish("topic", "blockchain.events", "blockchain.balance.set", transaction);
 		            break;
 	            }
 

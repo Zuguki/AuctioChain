@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using AuctioChain.BL.Balance;
 using AuctioChain.BL.Profile;
 using AuctioChain.DAL.Models.Profile.Dto;
 using AuctioChain.Extensions;
@@ -35,18 +36,6 @@ public class ProfileController : ControllerBase
         return Ok(result.Value);
     }
 
-    [HttpGet("balance")]
-    [Authorize]
-    public async Task<IActionResult> GetUserBalanceAsync()
-    {
-        var userId = (Guid) HttpContext.TryGetUserId()!;
-
-        var result = await _profileManager.GetUserBalanceAsync(userId);
-        if (result.IsFailed)
-            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
-
-        return Ok(result.Value);
-    }
 
     [HttpGet("auctions")]
     [Authorize]

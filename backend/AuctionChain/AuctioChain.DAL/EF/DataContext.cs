@@ -23,7 +23,7 @@ public sealed class DataContext : IdentityDbContext<ApplicationUser, IdentityRol
     /// <summary>
     /// .ctor
     /// </summary>
-    public DataContext(DbContextOptions<DataContext> options, IConfiguration configuration) : base(options)
+    public DataContext(IConfiguration configuration) 
     {
         _configuration = configuration;
         Database.Migrate();

@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctioChain.BL", "AuctioCha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctioChain.Test", "AuctioChain.Test\AuctioChain.Test.csproj", "{7D2F630B-5E65-41CC-8EDC-40E7D71D49DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctioChain.MQ", "AuctioChain.MQ\AuctioChain.MQ.csproj", "{0FCCB3A8-862D-4A39-BF15-4AD66C0F1C89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{7D2F630B-5E65-41CC-8EDC-40E7D71D49DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D2F630B-5E65-41CC-8EDC-40E7D71D49DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D2F630B-5E65-41CC-8EDC-40E7D71D49DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FCCB3A8-862D-4A39-BF15-4AD66C0F1C89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FCCB3A8-862D-4A39-BF15-4AD66C0F1C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FCCB3A8-862D-4A39-BF15-4AD66C0F1C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FCCB3A8-862D-4A39-BF15-4AD66C0F1C89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

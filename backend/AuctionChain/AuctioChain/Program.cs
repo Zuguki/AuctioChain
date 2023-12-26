@@ -2,24 +2,27 @@ using System;
 using System.Text;
 using AuctioChain.BL.Accounts;
 using AuctioChain.BL.Auctions;
+using AuctioChain.BL.Balance;
 using AuctioChain.BL.Bets;
 using AuctioChain.BL.Files;
 using AuctioChain.BL.Lots;
 using AuctioChain.BL.Profile;
+using AuctioChain.BL.Publishers;
+using AuctioChain.BL.Services;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Account;
+using AuctioChain.DAL.Models.Profile.Dto;
 using AuctioChain.Libs.Serilog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Npgsql;
+using RabbitMQ.Client;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,11 +37,20 @@ builder.Services.AddScoped<IBetManager, BetManager>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IImageManager, ImageManager>();
 builder.Services.AddScoped<IProfileManager, ProfileManager>();
+builder.Services.AddScoped<IBalanceManager, BalanceManager>();
+builder.Services.AddScoped<IBlockchainPublisher<CheckBalanceReplenishmentDto>, BlockchainPublisher<CheckBalanceReplenishmentDto>>();
 
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<IConnectionFactory>(_ => new ConnectionFactory
+{
+    Endpoint = new AmqpTcpEndpoint(),
+    DispatchConsumersAsync = true,
+});
+builder.Services.AddHostedService<BlockchainBalanceListener>();
 
 builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
 {
@@ -120,6 +132,7 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 
 app.UseCors("cors");
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

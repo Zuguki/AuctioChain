@@ -38,15 +38,6 @@ public class ProfileManager : IProfileManager
         return response;
     }
 
-    public async Task<Result<GetUserBalanceResponse>> GetUserBalanceAsync(Guid userId)
-    {
-        var user = await _context.Users.FirstOrDefaultAsync(app => app.Id == userId);
-        if (user is null)
-            return Result.Fail("Пользователь не найден");
-
-        return new GetUserBalanceResponse {Balance = user.Balance};
-    }
-
     public async Task<Result<(GetUserAuctionsResponse, PaginationMetadata)>> GetUserAuctionsAsync(GetUserAuctionsRequest request)
     {
         var user = await _context.Users

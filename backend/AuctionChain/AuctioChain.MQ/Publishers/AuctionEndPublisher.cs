@@ -1,19 +1,19 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using AuctioChain.MQ.Services.Dto;
 using RabbitMQ.Client;
 
 namespace AuctioChain.MQ.Publishers;
 
-public class BlockchainPublisher : IPublisher<TransactionDto>
+public class AuctionEndPublisher : IPublisher<AuctionEndDto>
 {
     private readonly IConnectionFactory _connectionFactory;
 
-    public BlockchainPublisher(IConnectionFactory connectionFactory)
+    public AuctionEndPublisher(IConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
     }
 
-    public Task Publish(string exchangeType, string exchangeName, string routingKey, TransactionDto serializeDto)
+    public Task Publish(string exchangeType, string exchangeName, string routingKey, AuctionEndDto serializeDto)
     {
         using var connection = _connectionFactory.CreateConnection();
         using var channel = connection.CreateModel();

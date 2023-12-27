@@ -14,12 +14,12 @@ namespace AuctioChain.BL.Balance;
 
 public class BalanceManager : IBalanceManager
 {
-    private readonly IBlockchainPublisher<CheckBalanceReplenishmentDto> _publisher;
+    private readonly IPublisher<CheckBalanceReplenishmentDto> _publisher;
     private readonly DataContext _context;
     private readonly IConfiguration _configuration;
     private readonly Web3 _web3;
 
-    public BalanceManager(IBlockchainPublisher<CheckBalanceReplenishmentDto> publisher, DataContext context, IConfiguration configuration)
+    public BalanceManager(IPublisher<CheckBalanceReplenishmentDto> publisher, DataContext context, IConfiguration configuration)
     {
         _publisher = publisher;
         _context = context;

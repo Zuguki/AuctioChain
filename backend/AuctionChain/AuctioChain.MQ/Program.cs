@@ -11,8 +11,10 @@ builder.Services.AddSingleton<IConnectionFactory>(_ => new ConnectionFactory
     DispatchConsumersAsync = true,
 });
 builder.Services.AddHostedService<BlockchainBalanceListener>();
+builder.Services.AddHostedService<AuctionEndListener>();
 
-builder.Services.AddSingleton<IBlockchainPublisher<TransactionDto>, BlockchainPublisher<TransactionDto>>();
+builder.Services.AddSingleton<IPublisher<TransactionDto>, BlockchainPublisher>();
+builder.Services.AddSingleton<IPublisher<AuctionEndDto>, AuctionEndPublisher>();
 
 var app = builder.Build();
 

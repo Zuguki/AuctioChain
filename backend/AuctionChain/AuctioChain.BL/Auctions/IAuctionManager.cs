@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AuctioChain.BL.Services.Dto;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
 using FluentResults;
@@ -25,6 +26,12 @@ public interface IAuctionManager
     /// <param name="model">Модель для создания</param>
     /// <param name="userId">Id пользователя</param>
     Task<Result<CreateAuctionResponse>> CreateAsync(CreateAuctionRequest model, Guid userId);
+
+    /// <summary>
+    /// Установить завершение аукциона
+    /// </summary>
+    /// <param name="model">Dto</param>
+    Task<Result> AuctionEndAsync(AuctionEndDto model);
     
     /// <summary>
     /// Удалить модель

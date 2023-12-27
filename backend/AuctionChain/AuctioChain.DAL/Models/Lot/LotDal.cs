@@ -25,7 +25,7 @@ public class LotDal
     /// Id аукциона
     /// </summary>
     [Column("auctionId")]
-    public Guid AuctionId { get; set; }
+    public Guid? AuctionId { get; set; }
 
     /// <summary>
     /// Аукцион

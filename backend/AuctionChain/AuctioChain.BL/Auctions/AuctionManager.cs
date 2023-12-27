@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AuctioChain.BL.Balance;
+using AuctioChain.BL.Publishers;
+using AuctioChain.BL.Services.Dto;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
 using AutoMapper;
 using FluentResults;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuctioChain.BL.Auctions;
@@ -16,14 +20,18 @@ public class AuctionManager : IAuctionManager
 {
     private readonly DataContext _context;
     private readonly IMapper _mapper;
+    private readonly IBalanceManager _balanceManager;
+    private readonly IPublisher<AuctionEndDto> _publisher;
 
     /// <summary>
     /// .ctor
     /// </summary>
-    public AuctionManager(DataContext context, IMapper mapper)
+    public AuctionManager(DataContext context, IMapper mapper, IBalanceManager balanceManager, IPublisher<AuctionEndDto> publisher)
     {
         _context = context;
         _mapper = mapper;
+        _balanceManager = balanceManager;
+        _publisher = publisher;
     }
 
     /// <inheritdoc />
@@ -61,9 +69,55 @@ public class AuctionManager : IAuctionManager
         
         var auction = new AuctionDal(model.Name!, userId, model.DateStart, model.DateEnd, model.Description, model.Image);
 
+        var dto = new AuctionEndDto
+        {
+            Id = auction.Id,
+            UserId = auction.UserId,
+            DateEnd = auction.DateEnd,
+        };
+
+        await _publisher.Publish("topic", "auction.events", "auction.check-end", dto);
         await _context.Auctions.AddAsync(auction);
         await _context.SaveChangesAsync();
         return Result.Ok(new CreateAuctionResponse {AuctionId = auction.Id});
+    }
+
+    /// <inheritdoc />
+    public async Task<Result> AuctionEndAsync(AuctionEndDto model)
+    {
+        var auction = await _context.Auctions
+            .Include(auc => auc.Lots)
+            .FirstOrDefaultAsync(auc => auc.Id == model.Id);
+        
+        if (auction is null || auction.Status != AuctionStatus.Complete)
+            return Result.Ok();
+
+        if (auction.Lots is null || auction.Lots.Count == 0)
+            return Result.Ok();
+        
+        auction = await _context.Auctions
+            .Include(auc => auc.Lots)!
+            .ThenInclude(lot => lot.Bets)
+            .FirstAsync(auc => auc.Id == model.Id);
+
+        foreach (var lot in auction.Lots!)
+        {
+            var bet = lot.Bets.LastOrDefault();
+            if (bet is null)
+                continue;
+
+            var winner = await _context.Users
+                .Include(applicationUser => applicationUser.WinLots)
+                .FirstOrDefaultAsync(app => app.Id == bet.UserId);
+            
+            if (winner is null || winner.WinLots.Contains(lot))
+                continue;
+            
+            winner.WinLots.Add(lot);
+            await _balanceManager.AddCashToBalanceAsync(auction.UserId, bet.Amount);
+        }
+
+        return Result.Ok();
     }
 
     /// <inheritdoc />

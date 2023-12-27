@@ -9,6 +9,7 @@ using AuctioChain.BL.Lots;
 using AuctioChain.BL.Profile;
 using AuctioChain.BL.Publishers;
 using AuctioChain.BL.Services;
+using AuctioChain.BL.Services.Dto;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Account;
 using AuctioChain.DAL.Models.Profile.Dto;
@@ -38,7 +39,8 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IImageManager, ImageManager>();
 builder.Services.AddScoped<IProfileManager, ProfileManager>();
 builder.Services.AddScoped<IBalanceManager, BalanceManager>();
-builder.Services.AddScoped<IBlockchainPublisher<CheckBalanceReplenishmentDto>, BlockchainPublisher<CheckBalanceReplenishmentDto>>();
+builder.Services.AddScoped<IPublisher<CheckBalanceReplenishmentDto>, BlockchainPublisher>();
+builder.Services.AddScoped<IPublisher<AuctionEndDto>, AuctionEndPublisher>();
 
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -51,6 +53,7 @@ builder.Services.AddSingleton<IConnectionFactory>(_ => new ConnectionFactory
     DispatchConsumersAsync = true,
 });
 builder.Services.AddHostedService<BlockchainBalanceListener>();
+builder.Services.AddHostedService<AuctionEndListener>();
 
 builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
 {

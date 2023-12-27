@@ -1,6 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
-namespace AuctioChain.MQ.Services.Dto;
+namespace AuctioChain.BL.Services.Dto;
 
 public class AuctionEndDto
 {
@@ -21,5 +22,4 @@ public class AuctionEndDto
     /// </summary>
     [JsonPropertyName("dateEnd")]
     public DateTime DateEnd { get; init; }
-
 }

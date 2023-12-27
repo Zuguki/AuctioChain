@@ -1,20 +1,20 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Threading.Tasks;
-using AuctioChain.DAL.Models.Profile.Dto;
+using AuctioChain.BL.Services.Dto;
 using RabbitMQ.Client;
 
 namespace AuctioChain.BL.Publishers;
 
-public class BlockchainPublisher : IPublisher<CheckBalanceReplenishmentDto>
+public class AuctionEndPublisher : IPublisher<AuctionEndDto>
 {
     private readonly IConnectionFactory _connectionFactory;
 
-    public BlockchainPublisher(IConnectionFactory connectionFactory)
+    public AuctionEndPublisher(IConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
     }
 
-    public Task Publish(string exchangeType, string exchangeName, string routingKey, CheckBalanceReplenishmentDto serializeDto)
+    public Task Publish(string exchangeType, string exchangeName, string routingKey, AuctionEndDto serializeDto)
     {
         using var connection = _connectionFactory.CreateConnection();
         using var channel = connection.CreateModel();

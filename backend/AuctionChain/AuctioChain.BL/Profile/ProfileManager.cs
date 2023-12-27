@@ -61,20 +61,14 @@ public class ProfileManager : IProfileManager
     public async Task<Result<(GetWinLotsOfUserResponse, PaginationMetadata)>> GetWinLotsOfUserAsync(GetWinLotsOfUserRequest request)
     {
         var user = await _context.Users
-            .Include(applicationUser => applicationUser.AllBets)
-            .ThenInclude(betDal => betDal.Lot!).ThenInclude(lotDal => lotDal.Auction)
-            .Include(applicationUser => applicationUser.AllBets).ThenInclude(betDal => betDal.Lot!)
-            .ThenInclude(lotDal => lotDal.Bets)
+            .Include(applicationUser => applicationUser.WinLots)
+            .ThenInclude(lot => lot.Bets)
             .FirstOrDefaultAsync(app => app.Id == request.UserId);
         
         if (user is null)
             return Result.Fail("Пользователь не найден");
 
-        var winLots = user.AllBets
-            .Select(bet => bet.Lot!)
-            .Distinct()
-            .Where(lot => lot.Auction.Status == AuctionStatus.Complete && lot.Bets.Last().UserId == request.UserId)
-            .ToList();
+        var winLots = user.WinLots;
         var paginationMetadata = new PaginationMetadata(winLots.Count, request.Page, request.ItemsPerPage);
         var result = winLots
             .Skip((request.Page - 1) * request.ItemsPerPage)

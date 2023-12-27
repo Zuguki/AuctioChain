@@ -27,7 +27,7 @@ public class BetManager : IBetManager
     {
         var lot = await _context.Lots
             .Include(l => l.Auction)
-            .Include(l => l.Bets)
+            .Include(l => l.Bets).ThenInclude(betDal => betDal.User)
             .FirstOrDefaultAsync(l => l.Id == request.LotId);
 
         var user = await _context.Users.FirstAsync(appUser => appUser.Id == userId);
@@ -48,16 +48,24 @@ public class BetManager : IBetManager
             request.Amount is not null && lot.Bets.Count == 0 && request.Amount < lot.InitialPrice)
             return Result.Fail("Ставка должна быть больше");
 
+        var maxBet = lot.Bets.Count > 0 ? lot.Bets.Last() : null;
         decimal nextStep;
         if (request.Amount is null)
-            nextStep = lot.Bets.Count > 0
-                ? lot.Bets.Max(b => b.Amount) + lot.BetStep
+            nextStep = maxBet is not null
+                ? maxBet.Amount + lot.BetStep
                 : lot.InitialPrice;
         else
             nextStep = (decimal) request.Amount;
 
         if (nextStep > user.Balance)
             return Result.Fail("У вас недостаточно средств");
+        
+        var previewUser = maxBet is not null
+            ? lot.Bets.Max(b => b.User)
+            : null;
+
+        if (previewUser is not null)
+            previewUser.Balance += maxBet!.Amount;
         
         var bet = new BetDal(userId, request.LotId, nextStep);
         user.Balance -= nextStep;

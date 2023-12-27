@@ -13,10 +13,10 @@ public class BlockchainBalanceListener : BackgroundService
 {
     private readonly IConnectionFactory _connectionFactory;
     private readonly IConfiguration _configuration;
-    private readonly IBlockchainPublisher<TransactionDto> _publisher;
+    private readonly IPublisher<TransactionDto> _publisher;
     private readonly Web3 _web3;
 
-    public BlockchainBalanceListener(IConnectionFactory connectionFactory, IConfiguration configuration, IBlockchainPublisher<TransactionDto> publisher)
+    public BlockchainBalanceListener(IConnectionFactory connectionFactory, IConfiguration configuration, IPublisher<TransactionDto> publisher)
     {
         _connectionFactory = connectionFactory;
         _configuration = configuration;

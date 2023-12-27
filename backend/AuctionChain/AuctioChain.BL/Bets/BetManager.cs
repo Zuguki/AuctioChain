@@ -29,6 +29,8 @@ public class BetManager : IBetManager
             .Include(l => l.Auction)
             .Include(l => l.Bets)
             .FirstOrDefaultAsync(l => l.Id == request.LotId);
+
+        var user = await _context.Users.FirstAsync(appUser => appUser.Id == userId);
         
         if (lot is null)
             return Result.Fail("Лот не найден");
@@ -54,7 +56,11 @@ public class BetManager : IBetManager
         else
             nextStep = (decimal) request.Amount;
 
+        if (nextStep > user.Balance)
+            return Result.Fail("У вас недостаточно средств");
+        
         var bet = new BetDal(userId, request.LotId, nextStep);
+        user.Balance -= nextStep;
         await _context.Bets.AddAsync(bet);
         await _context.SaveChangesAsync();
         return Result.Ok();

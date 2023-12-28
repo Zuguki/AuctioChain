@@ -1,11 +1,16 @@
 .header {
     width: 100%;
     height: 90px;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.25);
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+.fox {
+    margin-left: 10px;
+    display: inline-block;
 }
 
 ul {
@@ -45,7 +50,7 @@ ul:last-child {
 }
 
 ul li:nth-child(2) {
-    padding-left: 13%;
+    padding-left: 12%;
 }
 
 ul li:nth-child(2) img {

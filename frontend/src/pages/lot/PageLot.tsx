@@ -8,7 +8,6 @@ import useGetAPI from '../../hooks/API/useGetAPI.ts';
 import LotService from '../../API/service/LotService.ts';
 import PageBet from '../bet/PageBet.tsx';
 import { Context } from '../../context/context.ts';
-import ErrorLogic from '../../components/ErrorLogic/ErrorLogic.tsx';
 import LeftPathLotPage from './PathsLotPage/LeftPathLotPage.tsx';
 import RightPathLotPage from './PathsLotPage/RightPathPageLot.tsx';
 import PathApp from '../../routes/pathApp/PathApp.ts';
@@ -34,9 +33,6 @@ const PageLot: FC = () => {
         }
         nav(PathApp.authorization, { state: { from: location } });
     };
-    if (err) {
-        return <ErrorLogic err={err} />;
-    }
 
     return (
         <LogicDownload isLoading={loading}>

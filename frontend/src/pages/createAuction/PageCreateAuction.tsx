@@ -11,23 +11,22 @@ import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormP
 import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
 import { Form, useNavigate } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import usePostImage from '../../hooks/API/usePostImage.ts';
-import { Context } from '../../context/context.ts';
 import PathApp from '../../routes/pathApp/PathApp.ts';
 import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
 import { IResponseCreateAuction } from '../../API/interfaces/response/IResponseAuctions.ts';
+import IResponseImage from '../../API/interfaces/response/IResponseImage.ts';
 
 const PageCreateAuction: FC = () => {
     const nav = useNavigate();
-    const { userStore } = useContext(Context);
-    const userId = userStore.getUser().userId;
     const { dataUser, logicFormValue } = useDataUser<IPostAuction>();
     const { error, loading, blurError, postData } = usePostAPI();
     const { setFile, postImage } = usePostImage(postData);
     const postAuction = async (): Promise<void> => {
         blurError();
-        const resImage = await postImage();
+        const resImage: void | AxiosResponse<IResponseImage> =
+            await postImage();
         const image: string | undefined = resImage?.data.fileName;
         if (!image) {
             return;
@@ -39,11 +38,12 @@ const PageCreateAuction: FC = () => {
             dateEnd: DateLogic.getDateByStringISO(dataUser.dateEnd),
         };
 
-        const res = await postData(
-            (): Promise<AxiosResponse<IResponseCreateAuction>> =>
-                AuctionService.addAuction(dataPostUser),
-        );
-        const auctionId = res?.data.auctionId;
+        const res: void | AxiosResponse<IResponseCreateAuction> =
+            await postData(
+                (): Promise<AxiosResponse<IResponseCreateAuction>> =>
+                    AuctionService.addAuction(dataPostUser),
+            );
+        const auctionId: string | undefined = res?.data.auctionId;
         if (auctionId) {
             nav(`${PathApp.auction}/${auctionId}`);
         }
@@ -92,6 +92,7 @@ const PageCreateAuction: FC = () => {
                 <DateInput
                     title="Дата окончания"
                     name="dateEnd"
+                    min={DateLogic.getDateNow()}
                     error={error}
                     changeValue={logicFormValue}
                     errorBlur={blurError}

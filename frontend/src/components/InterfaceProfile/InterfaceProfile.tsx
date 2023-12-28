@@ -31,8 +31,8 @@ const InterfaceProfile = observer(() => {
                 <LinkInterfaceProfile path={`${PathApp.createAuction}`}>
                     Создать аукцион
                 </LinkInterfaceProfile>
-                <LinkInterfaceProfile path={PathApp.auctions}>
-                    Аукционы
+                <LinkInterfaceProfile path={PathApp.bill}>
+                    Пополнить счёт
                 </LinkInterfaceProfile>
                 <Hr extraSmall />
                 <p className={styleInterface.userName}>@{name}</p>

@@ -5,14 +5,24 @@ import Cookies from 'js-cookie';
 import IUser from '../API/interfaces/IUser.ts';
 import IPostLoginUser from '../API/interfaces/IPostLoginUser.ts';
 import IPostRegistrationUser from '../API/interfaces/IPostRegistrationUser.ts';
-import TokenLogic from '../auxiliaryTools/tokenLogic/tokenLogic.ts';
+import TokenLogic from '../auxiliaryTools/tokenLogic/TokenLogic.ts';
+import LocalStorageLogic from '../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
 
 export default class UserStore {
     private isAuth: boolean = false;
     private user: IUser = {} as IUser;
+    private bill: string = '';
 
     constructor() {
         makeAutoObservable(this);
+    }
+
+    public getBill(): string {
+        return this.bill;
+    }
+
+    public setBill(bill: string): void {
+        this.bill = bill;
     }
 
     public getAuth(): boolean {
@@ -49,6 +59,11 @@ export default class UserStore {
     public logout(): void {
         Cookies.remove(TokenLogic.TOKEN);
         Cookies.remove(TokenLogic.REFRESH_TOKEN);
+        localStorage.removeItem(LocalStorageLogic.BILL);
+        localStorage.removeItem(LocalStorageLogic.BALANCE);
+        localStorage.removeItem(LocalStorageLogic.ADD_BALANCE);
+        localStorage.removeItem(LocalStorageLogic.PROCESS_ADD_MONEY);
+        this.setBill('');
         this.user = {} as IUser;
         this.setAuth(false);
     }

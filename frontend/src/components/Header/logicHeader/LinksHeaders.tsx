@@ -6,6 +6,8 @@ import LinkUser from './LinkUser.tsx';
 import ILinkLogicUser from './ILinkLogicUser.ts';
 import LinkSearch from './LinkSearch.tsx';
 import PathApp from '../../../routes/pathApp/PathApp.ts';
+import fox from '../../../design/metamask-fox.jpg';
+import styleHeader from '../header.module.css';
 
 const LinksHeaders: FC<ILinkLogicUser> = ({ auth, user }) => {
     return (
@@ -17,12 +19,15 @@ const LinksHeaders: FC<ILinkLogicUser> = ({ auth, user }) => {
                 <Link to="/">
                     <img src={logo} alt="logo" />
                 </Link>
+                <div className={styleHeader.fox}>
+                    <img src={fox} />
+                </div>
             </li>
             <li>
                 <LinkSearch />
             </li>
             <li>
-                <CustomLink to="/build">Пополнение счета</CustomLink>
+                <CustomLink to={PathApp.currency}>Курс валют</CustomLink>
             </li>
             <li>
                 <LinkUser auth={auth} user={user} />

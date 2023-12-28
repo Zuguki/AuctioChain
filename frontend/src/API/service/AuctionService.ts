@@ -36,4 +36,8 @@ export default class AuctionService {
     ): Promise<AxiosResponse> {
         return $api.patch(`${this.pathAuctions}/changeCreationState/${id}`);
     }
+
+    public static async deleteAuctionById(id: string): Promise<AxiosResponse> {
+        return $api.delete(`${this.pathAuctions}/${id}`);
+    }
 }

@@ -2,6 +2,10 @@ import IObjDate from './IObjDate.ts';
 import MonthEnum from './MonthEnum.ts';
 
 export default class DateLogic {
+    public static getDateNow(): string {
+        return this.getDateNowISO().substring(0, 16);
+    }
+
     public static getDateNowISO(): string {
         return new Date(
             new Date().toString().split('GMT')[0] + ' UTC',

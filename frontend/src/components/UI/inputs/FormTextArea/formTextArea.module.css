@@ -3,12 +3,15 @@
     height: 200px;
     flex-shrink: 0;
     border-radius: 10px;
-    background: #F5F5F5;
+    background: #f5f5f5;
     border: 0;
     outline: 0;
 
     color: #818080;
-    font-family: SF Pro Display, Montserrat, sans-serif;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
     font-size: 20px;
     line-height: 28px; /* 140% */
     padding: 20px 30px;
@@ -17,7 +20,7 @@
 }
 
 .title {
-    color:  #818080;
+    color: #818080;
     font-size: 20px;
     font-weight: 400;
     line-height: normal;
@@ -27,12 +30,15 @@
 
 .error {
     border-radius: 10px;
-    background: #FFFFFF;
+    background: #ffffff;
     outline: 0;
 
-    color: #F76F7A;
-    border: 2px solid #F76F7A;
-    font-family: SF Pro Display, Montserrat, sans-serif;
+    color: #f76f7a;
+    border: 2px solid #f76f7a;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
     font-size: 20px;
     line-height: 28px; /* 140% */
     padding-left: 30px;

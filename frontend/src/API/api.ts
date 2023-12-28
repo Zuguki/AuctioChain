@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import Cookies from 'js-cookie';
-import TokenLogic from '../auxiliaryTools/tokenLogic/tokenLogic.ts';
+import TokenLogic from '../auxiliaryTools/tokenLogic/TokenLogic.ts';
 import AuthService from './service/AuthService.ts';
 import { userStore } from '../context/context.ts';
 import PathApp from '../routes/pathApp/PathApp.ts';
@@ -38,6 +38,7 @@ $api.interceptors.response.use(
             originalRequest._isRetry = true;
             const res = await AuthService.refresh(refreshTokenStore);
             const { token, refreshToken } = res.data;
+            console.log('ref', refreshToken);
             Cookies.set(TokenLogic.TOKEN, token);
             Cookies.set(TokenLogic.REFRESH_TOKEN, refreshToken);
             userStore.setAuthByToken(token);

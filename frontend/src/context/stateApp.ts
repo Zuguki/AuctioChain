@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx';
 export default class StateApp {
     private search: boolean = false;
     private interfaceProfile: boolean = false;
+    private notification: boolean = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -10,6 +11,14 @@ export default class StateApp {
 
     public getSearch(): boolean {
         return this.search;
+    }
+
+    public getNotification(): boolean {
+        return this.notification;
+    }
+
+    public setNotification(notification: boolean): void {
+        this.notification = notification;
     }
 
     public getInterfaceProfile(): boolean {

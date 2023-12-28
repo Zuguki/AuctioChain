@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useContext } from 'react';
 import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
 import LogicCurrency from '../../metamask/LogicCurrency.ts';
 import { numberChars } from '../../auxiliaryTools/bloclnvalidChar.ts';
@@ -9,6 +9,7 @@ import useGetDataCurrency from '../../hooks/useGetDataCurrency/useGetDataCurrenc
 import useDataUser from '../../hooks/useDataUser.ts';
 import { Form } from 'react-router-dom';
 import styleFormEth from './addMoney.module.css';
+import { Context } from '../../context/context.ts';
 
 const FormSendEth = () => {
     const { rubEth, Ac } = useGetDataCurrency();
@@ -16,15 +17,12 @@ const FormSendEth = () => {
         dataUser: { eph },
         logicFormValue,
     } = useDataUser<{ eph: string }>();
+
+    const { stateApp } = useContext(Context);
     const submitEth = async (): Promise<void> => {
         if (Number.isNaN(+eph) || +eph <= 0) {
             alert('Некорректное значение!');
         }
-
-        LocalStorageLogic.setToStorage(
-            LocalStorageLogic.PROCESS_ADD_MONEY,
-            true,
-        );
 
         const bal = await MetaMaskLogic.sendEth(eph);
 
@@ -32,6 +30,8 @@ const FormSendEth = () => {
             LocalStorageLogic.PROCESS_ADD_MONEY,
             false,
         );
+
+        stateApp.setNotification(false);
 
         if (bal) {
             LocalStorageLogic.setToStorage(LocalStorageLogic.ADD_BALANCE, bal);
@@ -41,9 +41,6 @@ const FormSendEth = () => {
     return (
         <Form onSubmit={submitEth} className={styleFormEth.positionFormEth}>
             <h2 className={styleFormEth.textTitle}>Пополнение:</h2>
-            <p className={styleFormEth.attention}>
-                Внимание! Не выходите из аккаунта не дождавший поплнения счёта!
-            </p>
             <FormInput
                 title={`Количество (${LogicCurrency.Eth}) на пополнение:`}
                 name="eph"

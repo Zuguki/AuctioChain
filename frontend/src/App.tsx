@@ -1,21 +1,20 @@
 import { RouterProvider } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { Context, stateApp } from './context/context.ts';
+import { Context } from './context/context.ts';
 import TokenLogic from './auxiliaryTools/tokenLogic/TokenLogic.ts';
 import router from './routes/router.tsx';
 import MetaMaskLogic from './metamask/MetaMaskLogic.ts';
 import LocalStorageLogic from './auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
 
 function App() {
-    const { userStore } = useContext(Context);
+    const { userStore, stateApp } = useContext(Context);
     useEffect((): void => {
         (async (): Promise<void> => {
             const process =
                 LocalStorageLogic.getToStorage(
                     LocalStorageLogic.PROCESS_ADD_MONEY,
                 ).toLowerCase() === 'true';
-            console.log('reload', process);
             const token: string | undefined = Cookies.get(TokenLogic.TOKEN);
             const bill: string = LocalStorageLogic.getToStorage(
                 LocalStorageLogic.BILL,
@@ -23,6 +22,7 @@ function App() {
             token && userStore.setAuthByToken(token);
             bill && userStore.setBill(bill);
             if (process) {
+                stateApp.setNotification(process);
                 const balance = await MetaMaskLogic.getUserMoney();
                 LocalStorageLogic.setToStorage(
                     LocalStorageLogic.PROCESS_ADD_MONEY,

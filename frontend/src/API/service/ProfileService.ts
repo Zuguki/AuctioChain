@@ -3,7 +3,6 @@ import { AxiosResponse } from 'axios';
 import { ResponseObjAuctions } from '../interfaces/response/IResponseAuctions.ts';
 import { ResponseActiveLots, ResponseWinLots } from '../interfaces/ILot.ts';
 import IUserName from '../interfaces/IUserName.ts';
-import IResponseBalance from '../interfaces/response/IResponseBalance.ts';
 
 export default class ProfileService {
     private static pathProfile: string = 'profiles';
@@ -27,12 +26,6 @@ export default class ProfileService {
             `${this.pathProfile}/auctions`,
             this.getConfig(id, page, elementOnPage),
         );
-    }
-
-    public static async getBalanceUser(): Promise<
-        AxiosResponse<IResponseBalance>
-    > {
-        return $api.get(`${this.pathProfile}/balance`);
     }
 
     public static async getActiveLots(

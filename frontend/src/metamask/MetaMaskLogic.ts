@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
-import { userStore } from '../context/context.ts';
+import { stateApp, userStore } from '../context/context.ts';
 import LocalStorageLogic from '../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
+import BalanceService from '../API/service/BalanceService.ts';
 
 export default class MetaMaskLogic {
     private static contractAddress: string =
@@ -116,9 +117,16 @@ export default class MetaMaskLogic {
 
             const signer = await MetaMaskLogic.web3Provider.getSigner();
             const contractWithSigner = MetaMaskLogic.contract.connect(signer);
+            await BalanceService.postBalance(signer.address);
             await contractWithSigner
                 .getFunction('payForItem')
                 .send({ value: ethers.parseEther(eph) }); // количество денег
+            LocalStorageLogic.setToStorage(
+                LocalStorageLogic.PROCESS_ADD_MONEY,
+                true,
+            );
+
+            stateApp.setNotification(true);
             return await this.getUserMoney();
         } catch (error) {
             console.log(JSON.stringify(error, null, 4));
@@ -129,18 +137,21 @@ export default class MetaMaskLogic {
 
     public static async getUserMoney(): Promise<number | void> {
         const prevBalance = await this.requestUserMoney();
+        console.log('1', prevBalance);
         return new Promise(resolve => {
             const requestBalance = setInterval(async () => {
                 const balance = await this.requestUserMoney();
+                console.log('res', balance);
+                console.log('prev', prevBalance);
                 if (!prevBalance || !balance) {
                     alert('Ошибка транзакции!');
                     return;
                 }
-                if (prevBalance !== balance) {
+                if (prevBalance < balance) {
                     clearInterval(requestBalance);
                     resolve(Number(balance - prevBalance) / Math.pow(10, 18));
                 }
-            }, 1_000);
+            }, 5_000);
         });
     }
 

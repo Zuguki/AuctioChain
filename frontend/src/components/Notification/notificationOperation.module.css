@@ -11,5 +11,24 @@
 }
 
 .position {
-    margin: 15px 0 0 35px;
+    margin: 15px 0 0 40px;
+}
+
+.text {
+    display: inline-block;
+    font-size: 18px;
+}
+
+.title {
+    color: #606060;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32px; /* 160% */
+    margin-bottom: 3px;
+}
+
+.positionLoading {
+    display: inline-block;
+    margin: 0 5px;
 }

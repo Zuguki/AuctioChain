@@ -60,13 +60,14 @@ public class BalanceManager : IBalanceManager
         return Result.Ok();
     }
 
-    public async Task<Result> AddCashToBalanceAsync(Guid userId, decimal value)
+    public async Task<Result> AddCashToBalanceAsync(Guid userId, decimal weiValue)
     {
         var user = await _context.Users.FirstOrDefaultAsync(app => app.Id == userId);
         if (user is null)
             return Result.Fail("Пользователь не найден");
 
-        user.Balance += value;
+        var auctioChainValue = (decimal) ((double) weiValue / Math.Pow(10, 14));
+        user.Balance += auctioChainValue;
         await _context.SaveChangesAsync();
         return Result.Ok();
     }

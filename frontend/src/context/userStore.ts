@@ -60,7 +60,7 @@ export default class UserStore {
         Cookies.remove(TokenLogic.TOKEN);
         Cookies.remove(TokenLogic.REFRESH_TOKEN);
         localStorage.removeItem(LocalStorageLogic.BILL);
-        localStorage.removeItem(LocalStorageLogic.BALANCE);
+        localStorage.removeItem(LocalStorageLogic.PREV_BALANCE);
         localStorage.removeItem(LocalStorageLogic.ADD_BALANCE);
         localStorage.removeItem(LocalStorageLogic.PROCESS_ADD_MONEY);
         this.setBill('');

@@ -10,6 +10,22 @@
     z-index: 500;
 }
 
+.modal {
+    animation: bounce 2s;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
 .position {
     margin: 15px 0 0 40px;
 }

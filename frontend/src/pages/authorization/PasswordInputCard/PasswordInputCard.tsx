@@ -10,6 +10,7 @@ interface IPasswordInputCard {
     changeValue: (e: ChangeEvent<HTMLInputElement>) => void;
     blurError: () => void;
 }
+
 const PasswordInputCard: FC<IPasswordInputCard> = ({
     error,
     blurError,

@@ -106,8 +106,6 @@ export default class MetaMaskLogic {
                 'eth_requestAccounts',
                 [],
             );
-            console.log('addr', address);
-            console.log(billUser);
             if (address !== billUser) {
                 alert(
                     'Невозможно выполнить транзакцию! Проверьте номер кошлека в MetaMask!',
@@ -125,7 +123,11 @@ export default class MetaMaskLogic {
                 LocalStorageLogic.PROCESS_ADD_MONEY,
                 true,
             );
-
+            const prevBalance = await this.requestUserMoney();
+            LocalStorageLogic.setToStorage(
+                LocalStorageLogic.PREV_BALANCE,
+                prevBalance || '',
+            );
             stateApp.setNotification(true);
             return await this.getUserMoney();
         } catch (error) {
@@ -135,23 +137,27 @@ export default class MetaMaskLogic {
         }
     }
 
-    public static async getUserMoney(): Promise<number | void> {
-        const prevBalance = await this.requestUserMoney();
-        console.log('1', prevBalance);
+    public static async getUserMoney() {
+        const prevBalance: number = +LocalStorageLogic.getToStorage(
+            LocalStorageLogic.PREV_BALANCE,
+        );
         return new Promise(resolve => {
-            const requestBalance = setInterval(async () => {
-                const balance = await this.requestUserMoney();
-                console.log('res', balance);
-                console.log('prev', prevBalance);
-                if (!prevBalance || !balance) {
-                    alert('Ошибка транзакции!');
-                    return;
-                }
-                if (prevBalance < balance) {
-                    clearInterval(requestBalance);
-                    resolve(Number(balance - prevBalance) / Math.pow(10, 18));
-                }
-            }, 5_000);
+            const requestBalance: NodeJS.Timer = setInterval(
+                async (): Promise<void> => {
+                    const balance = await this.requestUserMoney();
+                    if (!prevBalance || !balance) {
+                        alert('Ошибка транзакции!');
+                        return;
+                    }
+                    if (prevBalance < balance) {
+                        clearInterval(requestBalance);
+                        resolve(
+                            Number(balance - prevBalance) / Math.pow(10, 14),
+                        );
+                    }
+                },
+                10_000,
+            );
         });
     }
 

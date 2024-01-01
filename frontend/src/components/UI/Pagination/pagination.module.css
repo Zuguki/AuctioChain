@@ -41,8 +41,7 @@
 }
 
 .line {
-    background: url('../../../design/icons/pagination/line pagination.svg')
-        no-repeat;
+    background: url('../../../design/icons/pagination/line pagination.svg') no-repeat;
     width: 20px;
     height: 2px;
 }

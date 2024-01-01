@@ -11,13 +11,19 @@
     margin: 10px 0;
 }
 
-.text {
-    line-height: 24px;
-    font-size: 20px;
+.textBets {
+    font-weight: bold;
+    display: inline-block;
+}
+
+.positionShowBet {
+    margin-left: 5px;
+    display: inline-block;
+    cursor: pointer;
 }
 
 .notBet {
-    color: #d72828;
+    color: #f76f7a;
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
@@ -40,7 +46,6 @@
 }
 
 .information > p {
-    font-weight: 700;
     margin: 0 0 5px 0;
 }
 
@@ -70,6 +75,12 @@
 
 .price {
     font-weight: 900;
+}
+
+.informationBet {
+    font-size: 18px;
+    color: #B7B7B7;
+    margin-bottom: 0;
 }
 
 @media screen and (max-width: 1600px) {

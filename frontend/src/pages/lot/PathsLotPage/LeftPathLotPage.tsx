@@ -23,7 +23,6 @@ const LeftPathLotPage: FC<IPathLotPage> = ({
     );
     const { userId } = auction;
     const { userName } = useGetUserName(userId);
-
     const deleteLot = async (): Promise<void> => {
         try {
             await LotService.deleteLotById(id);
@@ -52,7 +51,7 @@ const LeftPathLotPage: FC<IPathLotPage> = ({
                             className={styleLot.linkLot}
                             to={`${PathApp.auction}/${auctionId}`}
                         >
-                            &quot;{name}&quot;
+                            {name}
                         </Link>
                     </p>
                 </>

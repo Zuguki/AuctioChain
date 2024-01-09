@@ -10,19 +10,13 @@ import routeAccount from './route/routeAccount.tsx';
 import PageError from '../pages/error/PageError.tsx';
 import PathApp from './pathApp/PathApp.ts';
 import CurrencyRate from '../pages/currencyRate/CurrencyRate.tsx';
+import MainPage from '../pages/main/MainPage.tsx';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route path={PathApp.main} element={<Layout />}>
-                <Route
-                    index
-                    element={
-                        <>
-                            <h1>MAIN</h1>
-                        </>
-                    }
-                />
+                <Route index element={<MainPage />} />
                 <Route path={PathApp.currency} element={<CurrencyRate />} />
                 {routeAuthorization}
                 {routeAuctions}

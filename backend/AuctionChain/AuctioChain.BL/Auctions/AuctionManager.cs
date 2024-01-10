@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Balance;
@@ -7,11 +8,13 @@ using AuctioChain.BL.Services.Dto;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
+using AuctioChain.DAL.Models.Lot;
 using AuctioChain.DAL.Models.Pagination;
 using AutoMapper;
 using FluentResults;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace AuctioChain.BL.Auctions;
 
@@ -35,17 +38,27 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAsync(PaginationRequest pagination)
+    public async Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAsync(PaginationRequest pagination, GetAuctionsRequest request)
     {
-        var auctions = _context.Auctions.Include(a => a.Lots).ToList();
-        var paginationMetadata = new PaginationMetadata(auctions.Count, pagination.Page, pagination.ItemsPerPage);
+        var auctions = _context.Auctions.Include(a => a.Lots).AsEnumerable();
+        var paginationMetadata = new PaginationMetadata(auctions.Count(), pagination.Page, pagination.ItemsPerPage);
+
+        if (!string.IsNullOrWhiteSpace(request.Search))
+        {
+            var searchLower = request.Search.ToLower();
+            auctions = auctions.Where(auc => auc.Name != null && auc.Name.ToLower().Contains(searchLower));
+        }
+        
+        if (request.Status is not null)
+            auctions = auctions.Where(auc => (int) auc.Status == (int) request.Status);
 
         var result = auctions
+            .OrderBy(auc => auc.Name)
             .Skip((pagination.Page - 1) * pagination.ItemsPerPage)
             .Take(pagination.ItemsPerPage);
         
         var response = new GetAuctionsResponse {Auctions = result.Select(a => _mapper.Map<AuctionResponse>(a))};
-        return Task.FromResult(Result.Ok((response, paginationMetadata)));
+        return Result.Ok((response, paginationMetadata));
     }
 
     /// <inheritdoc />

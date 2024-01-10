@@ -142,12 +142,12 @@ public class AuctionController : ControllerBase
     /// Получение всех аукционов
     /// </summary>
     [HttpGet]
-    public async Task<IActionResult> GetAuctionsAsync([FromQuery] PaginationRequest pagination)
+    public async Task<IActionResult> GetAuctionsAsync([FromQuery] PaginationRequest pagination, [FromQuery] GetAuctionsRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
         
-        var result = await _manager.GetAllAsync(pagination);
+        var result = await _manager.GetAllAsync(pagination, request);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
 

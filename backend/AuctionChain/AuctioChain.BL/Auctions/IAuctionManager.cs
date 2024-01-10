@@ -12,7 +12,7 @@ public interface IAuctionManager
     /// <summary>
     /// Полуить все элементы
     /// </summary>
-    Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAsync(PaginationRequest pagination);
+    Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAsync(PaginationRequest pagination, GetAuctionsRequest request);
 
     /// <summary>
     /// Получить модель по Id

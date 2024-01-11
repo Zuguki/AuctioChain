@@ -7,6 +7,9 @@ public class GetAuctionsRequest
     [JsonPropertyName("search")]
     public string? Search { get; set; }
     
-    [JsonPropertyName("status")]
-    public AuctionStatus? Status { get; set; }
+    [JsonPropertyName("auctionStatus")]
+    public AuctionStatus? AuctionStatus { get; set; }
+    
+    [JsonPropertyName("OrderByStatus")]
+    public OrderByAuctionStatus? OrderByStatus { get; set; }
 }

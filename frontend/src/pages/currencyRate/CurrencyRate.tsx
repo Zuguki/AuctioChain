@@ -5,7 +5,7 @@ import styleTable from './currencyRate.module.css';
 import useGetDataCurrency from '../../hooks/useGetDataCurrency/useGetDataCurrency.tsx';
 import { isNaN, roundNumber } from '../../auxiliaryTools/mathOperations.ts';
 
-const Ac = LogicCurrency.ValueAc;
+const Ac: number = LogicCurrency.ValueAc;
 const CurrencyRate: FC = () => {
     const { rubEth } = useGetDataCurrency();
     return (

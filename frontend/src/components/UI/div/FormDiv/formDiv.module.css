@@ -2,7 +2,7 @@
     border-radius: 50px;
     background: #ffffff;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
-    flex-shrink: 0;
+    margin: auto;
 }
 
 .align {
@@ -50,7 +50,7 @@
 
 .parent {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 85vh;
+    justify-content: center;
+    height: 90vh;
 }

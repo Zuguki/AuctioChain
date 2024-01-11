@@ -1,9 +1,13 @@
 import { makeAutoObservable } from 'mobx';
+import IParamsAuctions, {
+    BaseParamsAuctions,
+} from '../interfaces/IParamsAuctions.ts';
 
 export default class StateApp {
     private search: boolean = false;
     private interfaceProfile: boolean = false;
     private notification: boolean = false;
+    private paramsAuctions: IParamsAuctions = BaseParamsAuctions;
 
     constructor() {
         makeAutoObservable(this);
@@ -13,12 +17,20 @@ export default class StateApp {
         return this.search;
     }
 
+    public getParamsAuctions(): IParamsAuctions {
+        return this.paramsAuctions;
+    }
+
     public getNotification(): boolean {
         return this.notification;
     }
 
     public setNotification(notification: boolean): void {
         this.notification = notification;
+    }
+
+    public setParamsAuctions(params: IParamsAuctions): void {
+        this.paramsAuctions = params;
     }
 
     public getInterfaceProfile(): boolean {

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import styleLink from './customLink.module.css';
 
@@ -7,7 +7,7 @@ interface ICustomLink {
     to: string;
 }
 
-const CustomLink: FC<ICustomLink> = ({ children, to, ...props }) => {
+const CustomLink: FC<ICustomLink> = memo(({ children, to, ...props }) => {
     const match = useMatch(to);
     return (
         <div>
@@ -20,6 +20,6 @@ const CustomLink: FC<ICustomLink> = ({ children, to, ...props }) => {
             </Link>
         </div>
     );
-};
+});
 
 export default CustomLink;

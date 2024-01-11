@@ -6,6 +6,9 @@ import {
     ResponseObjAuctions,
 } from '../interfaces/response/IResponseAuctions.ts';
 import IAuction from '../interfaces/IAuction.ts';
+import IParamsAuctions, {
+    BaseParamsAuctions,
+} from '../../interfaces/IParamsAuctions.ts';
 
 export default class AuctionService {
     private static readonly pathAuctions: string = 'auctions';
@@ -13,9 +16,14 @@ export default class AuctionService {
     public static async getAuctions(
         page: number = 1,
         elementOnPage: number = 12,
+        paramsAuctions: IParamsAuctions = BaseParamsAuctions,
     ): Promise<AxiosResponse<ResponseObjAuctions>> {
         return $api.get(`${this.pathAuctions}`, {
-            params: paramsPagination(page, elementOnPage),
+            params: {
+                ...paramsPagination(page, elementOnPage),
+                Search: paramsAuctions.search,
+                Status: paramsAuctions.status,
+            },
         });
     }
 

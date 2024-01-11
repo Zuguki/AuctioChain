@@ -44,12 +44,16 @@ const PageCreateLot = () => {
     return (
         <Form className={styleCreateLot.position} onSubmit={postLot}>
             <div className={styleCreateLot.form}>
-                <h1>Создание лота</h1>
-                <LogicFormProcessing loading={loading} err={error} />
+                <div className={styleCreateLot.titleBlockLot}>
+                    <h1>Создание лота</h1>
+                    <LogicFormProcessing loading={loading} err={error} />
+                </div>
+
                 <FormInput
                     title="Название лота"
                     name="name"
                     error={error}
+                    autoFocus={true}
                     changeValue={logicFormValue}
                     errorBlur={blurError}
                 />
@@ -57,7 +61,7 @@ const PageCreateLot = () => {
                     name="description"
                     title="Описание товара"
                     error={error}
-                    blurError={blurError}
+                    errorBlur={blurError}
                     changeValue={logicFormValue}
                 />
                 <ImageInput

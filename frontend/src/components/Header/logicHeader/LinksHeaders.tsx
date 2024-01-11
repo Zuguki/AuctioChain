@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import CustomLink from '../../UI/CustomLink/CustomLink.tsx';
 import { Link } from 'react-router-dom';
 import logo from '../../../design/logo.svg';
@@ -9,7 +9,7 @@ import PathApp from '../../../routes/pathApp/PathApp.ts';
 import fox from '../../../design/metamask-fox.jpg';
 import styleHeader from '../header.module.css';
 
-const LinksHeaders: FC<ILinkLogicUser> = ({ auth, user }) => {
+const LinksHeaders: FC<ILinkLogicUser> = memo(({ auth, user }) => {
     return (
         <ul>
             <li>
@@ -34,6 +34,6 @@ const LinksHeaders: FC<ILinkLogicUser> = ({ auth, user }) => {
             </li>
         </ul>
     );
-};
+});
 
 export default LinksHeaders;

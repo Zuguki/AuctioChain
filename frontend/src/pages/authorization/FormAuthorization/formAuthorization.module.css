@@ -7,6 +7,11 @@
     text-decoration-line: underline;
 }
 
+.positionClose {
+    float: left;
+    margin: -60px 0 0 -60px;
+}
+
 .marginForgotPassword {
     margin-top: 10px;
 }

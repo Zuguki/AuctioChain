@@ -3,11 +3,11 @@ import ElementTableCurrency from './ElementTableCurrency.tsx';
 import LogicCurrency from '../../metamask/LogicCurrency.ts';
 import styleTable from './currencyRate.module.css';
 import useGetDataCurrency from '../../hooks/useGetDataCurrency/useGetDataCurrency.tsx';
+import { isNaN, roundNumber } from '../../auxiliaryTools/mathOperations.ts';
 
-const isNaN = (value: number): number => (Number.isNaN(value) ? 0 : value);
-
+const Ac: number = LogicCurrency.ValueAc;
 const CurrencyRate: FC = () => {
-    const { rubEth, Ac } = useGetDataCurrency();
+    const { rubEth } = useGetDataCurrency();
     return (
         <div className={styleTable.position}>
             <h1 className={styleTable.mainTextTable}>Курс валют</h1>
@@ -24,18 +24,18 @@ const CurrencyRate: FC = () => {
                 mainCurrency={{ name: LogicCurrency.Rub, value: 1 }}
                 firstCurrency={{
                     name: LogicCurrency.Eth,
-                    value: isNaN(1 / rubEth),
+                    value: roundNumber(isNaN(1 / rubEth), 10),
                 }}
                 secondCurrency={{
                     name: LogicCurrency.Ac,
-                    value: isNaN(Ac / rubEth),
+                    value: roundNumber(isNaN(Ac / rubEth), 6),
                 }}
             />
             <ElementTableCurrency
                 mainCurrency={{ name: LogicCurrency.Ac, value: 1 }}
                 firstCurrency={{
                     name: LogicCurrency.Rub,
-                    value: isNaN(rubEth / Ac),
+                    value: roundNumber(isNaN(rubEth / Ac)),
                 }}
                 secondCurrency={{
                     name: LogicCurrency.Eth,

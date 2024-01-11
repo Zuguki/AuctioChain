@@ -1,5 +1,5 @@
 .positionLoading {
-    display: inline;
+    display: inline-block;
+    vertical-align: middle;
     margin-left: 10px;
-    padding-top: 10px;
 }

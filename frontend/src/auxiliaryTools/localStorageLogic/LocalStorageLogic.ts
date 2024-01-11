@@ -1,6 +1,7 @@
 export default class LocalStorageLogic {
     public static readonly BILL: string = 'bill';
     public static readonly ADD_BALANCE: string = 'addBalance';
+    public static readonly PREV_BALANCE: string = 'prevBalance';
     public static readonly PROCESS_ADD_MONEY: string = 'processAddMoney';
 
     public static setToStorage = (

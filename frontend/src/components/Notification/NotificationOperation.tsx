@@ -10,6 +10,12 @@ const NotificationOperation = observer(() => {
     const [notificationWindow, setNotificationWindow] =
         useState<ReactNode>(null);
     const getNotification = stateApp.getNotification();
+    const removeNotification = (): void => {
+        localStorage.removeItem(LocalStorageLogic.PREV_BALANCE);
+        localStorage.removeItem(LocalStorageLogic.PROCESS_ADD_MONEY);
+        localStorage.removeItem(LocalStorageLogic.ADD_BALANCE);
+        setNotificationWindow((): null => null);
+    };
     useEffect(() => {
         if (getNotification) {
             setNotificationWindow(() => (
@@ -23,8 +29,6 @@ const NotificationOperation = observer(() => {
             LocalStorageLogic.ADD_BALANCE,
         );
         let timer: NodeJS.Timeout;
-        console.log(balance);
-        console.log(balance);
         if (balance && notificationWindow !== null) {
             setNotificationWindow(() => (
                 <ComponentNotification
@@ -33,7 +37,7 @@ const NotificationOperation = observer(() => {
                     isEnd
                 />
             ));
-            timer = setTimeout(() => setNotificationWindow(() => null), 5_000);
+            timer = setTimeout(removeNotification, 5_000);
         }
         return () => clearTimeout(timer);
     }, [getNotification]);

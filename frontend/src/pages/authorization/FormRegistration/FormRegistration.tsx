@@ -7,6 +7,9 @@ import useDataUser from '../../../hooks/useDataUser.ts';
 import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
 import { userStore } from '../../../context/context.ts';
 import IPostRegistrationUser from '../../../API/interfaces/IPostRegistrationUser.ts';
+import CloseButton from '../../../components/CloseButton/CloseButton.tsx';
+import PathApp from '../../../routes/pathApp/PathApp.ts';
+import { useNavigate } from 'react-router-dom';
 
 const FormRegistration = () => {
     const { dataUser, logicFormValue } = useDataUser<IPostRegistrationUser>();
@@ -14,6 +17,7 @@ const FormRegistration = () => {
         () => userStore.registration(dataUser),
         'Зарегестрироваться',
     );
+    const nav = useNavigate();
 
     return (
         <FormDiv
@@ -23,9 +27,16 @@ const FormRegistration = () => {
             error={error}
             loading={loading}
         >
+            <div className={styleRegistration.positionClose}>
+                <CloseButton
+                    back
+                    logicClick={() => nav(PathApp.authorization)}
+                />
+            </div>
             <FormInput
                 title="Имя пользователя (max: 10)"
                 name="userName"
+                autoFocus={true}
                 error={error}
                 errorBlur={blurError}
                 changeValue={logicFormValue}

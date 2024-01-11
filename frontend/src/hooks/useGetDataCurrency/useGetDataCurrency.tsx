@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import LogicCurrency from '../../metamask/LogicCurrency.ts';
 import IGetDataCurrency from './IGetDataCurrency.ts';
 
 const API_KEY: string =
@@ -25,7 +24,7 @@ const useGetDataCurrency = (): IGetDataCurrency => {
         return () => clearTimeout(timer);
     }, []);
 
-    return { rubEth, Ac: +(rubEth / LogicCurrency.CoefficientAc).toFixed(2) };
+    return { rubEth };
 };
 
 export default useGetDataCurrency;

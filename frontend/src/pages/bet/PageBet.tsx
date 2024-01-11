@@ -13,9 +13,9 @@ import { Form } from 'react-router-dom';
 import ILot from '../../API/interfaces/ILot.ts';
 import { AxiosResponse } from 'axios';
 import useGetAPI from '../../hooks/API/useGetAPI.ts';
-import ProfileService from '../../API/service/ProfileService.ts';
 import IResponseBalance from '../../API/interfaces/response/IResponseBalance.ts';
 import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
+import BalanceService from '../../API/service/BalanceService.ts';
 
 interface IPageBet {
     close: () => void;
@@ -31,7 +31,7 @@ const PageBet: FC<IPageBet> = ({ close, lot, setBet }) => {
         data: { balance },
         loading,
     } = useGetAPI(
-        () => ProfileService.getBalanceUser(),
+        () => BalanceService.getBalanceUser(),
         {} as IResponseBalance,
     );
     const submitBet = async (): Promise<void> => {

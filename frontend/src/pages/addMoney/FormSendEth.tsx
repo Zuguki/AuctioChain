@@ -10,9 +10,12 @@ import useDataUser from '../../hooks/useDataUser.ts';
 import { Form } from 'react-router-dom';
 import styleFormEth from './addMoney.module.css';
 import { Context } from '../../context/context.ts';
+import { roundNumber } from '../../auxiliaryTools/mathOperations.ts';
+import { observer } from 'mobx-react-lite';
 
-const FormSendEth = () => {
-    const { rubEth, Ac } = useGetDataCurrency();
+const Ac: number = LogicCurrency.ValueAc;
+const FormSendEth = observer(() => {
+    const { rubEth } = useGetDataCurrency();
     const {
         dataUser: { eph },
         logicFormValue,
@@ -24,7 +27,7 @@ const FormSendEth = () => {
             alert('Некорректное значение!');
         }
 
-        const bal = await MetaMaskLogic.sendEth(eph);
+        const addBalance = await MetaMaskLogic.sendEth(eph);
 
         LocalStorageLogic.setToStorage(
             LocalStorageLogic.PROCESS_ADD_MONEY,
@@ -33,8 +36,11 @@ const FormSendEth = () => {
 
         stateApp.setNotification(false);
 
-        if (bal) {
-            LocalStorageLogic.setToStorage(LocalStorageLogic.ADD_BALANCE, bal);
+        if (addBalance) {
+            LocalStorageLogic.setToStorage(
+                LocalStorageLogic.ADD_BALANCE,
+                addBalance,
+            );
         }
     };
 
@@ -44,6 +50,9 @@ const FormSendEth = () => {
             <FormInput
                 title={`Количество (${LogicCurrency.Eth}) на пополнение:`}
                 name="eph"
+                type="number"
+                min={0.000001}
+                step={0.000001}
                 blockChars={numberChars}
                 error={null}
                 changeValue={(e: ChangeEvent<HTMLInputElement>): void =>
@@ -54,15 +63,17 @@ const FormSendEth = () => {
             {eph && !Number.isNaN(+eph) && (
                 <div>
                     <p className={styleFormEth.currency}>
-                        {LogicCurrency.Rub}: {+eph * rubEth}
+                        {LogicCurrency.Rub}: {roundNumber(+eph * rubEth)}
                     </p>
                     <p className={styleFormEth.currency}>
-                        {LogicCurrency.Ac}: {+eph * Ac}
+                        {LogicCurrency.Ac}: {roundNumber(+eph * Ac)}
                     </p>
                 </div>
             )}
-            <BaseButton type="submit">Пополнить</BaseButton>
+            <BaseButton type="submit" disabled={stateApp.getNotification()}>
+                Пополнить
+            </BaseButton>
         </Form>
     );
-};
+});
 export default FormSendEth;

@@ -10,6 +10,9 @@ import ListWinLots from './ListWinLots.tsx';
 import PathApp from '../../routes/pathApp/PathApp.ts';
 import ListActiveLots from './ListActiveLots.tsx';
 import useGetUserName from '../../hooks/API/useGetUserName.ts';
+import BalanceService from '../../API/service/BalanceService.ts';
+import useGetAPI from '../../hooks/API/useGetAPI.ts';
+import IResponseBalance from '../../API/interfaces/response/IResponseBalance.ts';
 
 const PageAccount = observer(() => {
     const { userStore, stateApp } = useContext(Context);
@@ -18,13 +21,13 @@ const PageAccount = observer(() => {
     const nav = useNavigate();
     const isUser: boolean = id === userId;
     const { userName, loading, err } = useGetUserName(id);
-    /*  const {
-          data: { balance },
-          loading: loadingBalance,
-      } = useGetAPI(
-          () => ProfileService.getBalanceUser(),
-          {} as IResponseBalance,
-      );*/
+    const {
+        data: { balance },
+        loading: loadingBalance,
+    } = useGetAPI(
+        () => BalanceService.getBalanceUser(),
+        {} as IResponseBalance,
+    );
     const logout = (): void => {
         userStore.logout();
         nav(PathApp.auctions);
@@ -36,9 +39,9 @@ const PageAccount = observer(() => {
                 {!loading && (
                     <h3 className={styleAccount.userName}>@{userName}</h3>
                 )}
-                {isUser && (
+                {isUser && !loadingBalance && (
                     <>
-                        <h4 className={styleAccount.balance}>{0} Ac</h4>
+                        <h4 className={styleAccount.balance}>{balance} Ac</h4>
                         <Link to={PathApp.bill}>
                             <BaseButton>Пополнить счёт</BaseButton>
                         </Link>

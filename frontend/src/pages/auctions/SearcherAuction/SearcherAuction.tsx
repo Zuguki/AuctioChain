@@ -1,56 +1,58 @@
-import React, { useContext } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import SearchInput from '../../../components/UI/inputs/SearchInput/SearchInput.tsx';
 import BaseSelect from '../../../components/UI/BaseSelect/BaseSelect.tsx';
 import styleSearcher from './searcherAuction.module.css';
 import Hr from '../../../components/UI/Hr/Hr.tsx';
 import { Form } from 'react-router-dom';
+import IParamsAuctions, {
+    BaseParamsAuctions,
+} from '../../../interfaces/IParamsAuctions.ts';
 import { Context } from '../../../context/context.ts';
+import useFilterAuctions from '../../../hooks/useFilterAuctions.ts';
+import useSearchInput from '../../../hooks/useSearchInput.ts';
 
-const SearcherAuction = () => {
-    const a = e => {
-        const { value, name } = e.target;
-        console.log(name, value);
-    };
-    const { userStore } = useContext(Context);
+const SearcherAuction = memo(() => {
+    const [paramsFilter, setParamsFilter] =
+        useState<IParamsAuctions>(BaseParamsAuctions);
+    const { statusFilter, changeFilter } =
+        useFilterAuctions<IParamsAuctions>(setParamsFilter);
+    const { isWrite, changeSearch } =
+        useSearchInput<IParamsAuctions>(setParamsFilter);
+    const { stateApp } = useContext(Context);
+    useEffect((): void => {
+        stateApp.setParamsAuctions(paramsFilter);
+    }, [paramsFilter]);
+
     return (
         <Form>
             <h4 className={styleSearcher.title}>Поиск</h4>
             <SearchInput
-                title=""
-                name="searcher"
+                name="search"
                 width="large"
+                autoFocus={true}
                 autoComplete="off"
-                changeValue={a}
+                changeValue={changeSearch}
                 error={null}
-                errorBlur={() => console.log('sa')}
+                errorBlur={() => ({})}
+                isWrite={isWrite}
             />
             <div className={styleSearcher.selects}>
                 <BaseSelect
-                    title="Фильтровать по:"
+                    title="Сортировать по:"
                     name="filter"
-                    selectors={['1', '2', '3']}
-                    changeValue={a}
+                    selectors={[]}
+                    changeValue={() => ({})}
                 />
                 <BaseSelect
-                    title="Сортировать по:"
-                    name="sort"
-                    selectors={['1', '2', '3']}
-                    changeValue={a}
+                    title=" Фильтровать по статусу:"
+                    name="status"
+                    selectors={statusFilter}
+                    changeValue={changeFilter}
                 />
             </div>
-            {/*<BaseButton type="submit">Применить</BaseButton>
-            <div className={styleSearcher.reset}>
-                <BaseButton
-                    red
-                    type="submit"
-                    onClick={() => userStore.logout()}
-                >
-                    Сбросить
-                </BaseButton>
-            </div>*/}
             <Hr width="large" />
         </Form>
     );
-};
+});
 
 export default SearcherAuction;

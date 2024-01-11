@@ -21,11 +21,14 @@ const useAuthResponse = (
         }
         return PathApp.auctions;
     }, []);
-    const logicButton: ILogicFormDivButton = {
-        textButton: textButton,
-        logicClick: async (): Promise<void> =>
-            (await postData(postResponse)) as undefined,
-    };
+    const logicButton: ILogicFormDivButton = useMemo(
+        (): ILogicFormDivButton => ({
+            textButton: textButton,
+            logicClick: async (): Promise<void> =>
+                (await postData(postResponse)) as undefined,
+        }),
+        [textButton, postResponse],
+    );
 
     useEffect((): void => {
         if (userStore.getAuth()) {

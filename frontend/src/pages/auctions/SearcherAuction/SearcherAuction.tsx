@@ -10,6 +10,7 @@ import IParamsAuctions, {
 import { Context } from '../../../context/context.ts';
 import useFilterAuctions from '../../../hooks/useFilterAuctions.ts';
 import useSearchInput from '../../../hooks/useSearchInput.ts';
+import equalsObjects from '../../../auxiliaryTools/equalsObjects.ts';
 
 const SearcherAuction = memo(() => {
     const { stateApp } = useContext(Context);
@@ -20,6 +21,9 @@ const SearcherAuction = memo(() => {
     const { isWrite, changeSearch } =
         useSearchInput<IParamsAuctions>(setParamsFilter);
     useEffect(() => {
+        if (equalsObjects(paramsFilter, BaseParamsAuctions)) {
+            return;
+        }
         stateApp.setParamsAuctions(paramsFilter);
         return () => stateApp.setParamsAuctions(BaseParamsAuctions);
     }, [paramsFilter]);

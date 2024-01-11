@@ -37,7 +37,7 @@ const NotificationOperation = observer(() => {
                     isEnd
                 />
             ));
-            timer = setTimeout(() => removeNotification(), 5_000);
+            timer = setTimeout(removeNotification, 5_000);
         }
         return () => clearTimeout(timer);
     }, [getNotification]);

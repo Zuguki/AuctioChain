@@ -24,10 +24,10 @@ const FormAuthorization = observer(() => {
             errorBlur={blurError}
             registration
         >
-            <p>{userStore.getUser().userId}</p>
             <FormInput
                 title="Телефон или имя пользователя"
                 name="login"
+                autoFocus={true}
                 autoComplete="on"
                 error={error}
                 changeValue={logicFormValue}

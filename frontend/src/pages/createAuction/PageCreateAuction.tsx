@@ -51,11 +51,14 @@ const PageCreateAuction: FC = () => {
     return (
         <Form onSubmit={postAuction} className={styleCreateAuction.position}>
             <div className={styleCreateAuction.form}>
-                <h1>Создание аукциона</h1>
-                <LogicFormProcessing loading={loading} err={error} />
+                <div className={styleCreateAuction.titleBlock}>
+                    <h1>Создание аукциона</h1>
+                    <LogicFormProcessing loading={loading} err={error} />
+                </div>
                 <FormInput
                     title="Название аукциона"
                     name="name"
+                    autoFocus={true}
                     error={error}
                     changeValue={logicFormValue}
                     errorBlur={blurError}
@@ -67,7 +70,7 @@ const PageCreateAuction: FC = () => {
                     title="Описание аукциона"
                     name="description"
                     error={error}
-                    blurError={blurError}
+                    errorBlur={blurError}
                     changeValue={logicFormValue}
                 />
                 <ImageInput
@@ -78,19 +81,19 @@ const PageCreateAuction: FC = () => {
                     errorBlur={blurError}
                 />
                 <DateInput
-                    title="Дата начала"
+                    title="Дата начала (GMT)"
                     name="dateStart"
                     error={error}
                     changeValue={logicFormValue}
                     errorBlur={blurError}
                 />
                 <p className={styleCreateAuction.additionallyInformation}>
-                    Обратите внимание, что торги аукциона начнуться после
+                    Обратите внимание, что торги аукциона начнутся после
                     подтверждения статуса &quot;завершение редактирования&quot;
                     в отдельной странице аукциона.
                 </p>
                 <DateInput
-                    title="Дата окончания"
+                    title="Дата окончания (GMT)"
                     name="dateEnd"
                     min={DateLogic.getDateNow()}
                     error={error}

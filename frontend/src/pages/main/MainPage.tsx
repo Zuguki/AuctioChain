@@ -32,10 +32,12 @@ const MainPage = () => {
                         text="Удобная система поиска и фильтрации товаров по категориям, цене, состоянию и другим параметрам."
                     />
                 </div>
-                <CardAdvantage
-                    title="Реальные торги:"
-                    text="Возможность участвовать в торгах и делать ставки в реальном времени."
-                />
+                <div className={styleMain.cardAdvantageLeft}>
+                    <CardAdvantage
+                        title="Реальные торги:"
+                        text="Возможность участвовать в торгах и делать ставки в реальном времени."
+                    />
+                </div>
                 <div className={styleMain.cardAdvantageRight}>
                     <CardAdvantage
                         title="Аукцион с гарантией безопасности:"

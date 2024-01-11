@@ -5,7 +5,7 @@ const usePostAPI = () => {
     const [error, setError] = useState<AxiosError | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const blurError = (): void => setError((): null => null);
+    const blurError = useCallback((): void => setError((): null => null), []);
 
     const postData = useCallback(
         async <T>(

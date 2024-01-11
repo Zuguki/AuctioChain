@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styleClose from './closeButton.module.css';
 
 interface ICloseButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-    logicClick?: string;
+    logicClick?: () => void;
     back?: boolean;
 }
 
@@ -18,7 +18,7 @@ const CloseButton: FC<ICloseButton> = ({
             navigate(-1);
             return;
         }
-        navigate(logicClick);
+        logicClick();
     };
 
     return (

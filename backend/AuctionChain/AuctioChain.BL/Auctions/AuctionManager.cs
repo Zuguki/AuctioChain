@@ -49,11 +49,22 @@ public class AuctionManager : IAuctionManager
             auctions = auctions.Where(auc => auc.Name != null && auc.Name.ToLower().Contains(searchLower));
         }
         
-        if (request.Status is not null)
-            auctions = auctions.Where(auc => (int) auc.Status == (int) request.Status);
+        if (request.AuctionStatus is not null)
+            auctions = auctions.Where(auc => (int) auc.Status == (int) request.AuctionStatus);
+
+        if (request.OrderByStatus is not null)
+        {
+            auctions = request.OrderByStatus switch
+            {
+                OrderByAuctionStatus.Name => auctions.OrderBy(a => a.Name),
+                OrderByAuctionStatus.NameDescending => auctions.OrderByDescending(a => a.Name),
+                OrderByAuctionStatus.AuctionDateStart => auctions.OrderBy(a => a.DateStart),
+                OrderByAuctionStatus.AuctionDateEnd => auctions.OrderBy(a => a.DateEnd),
+                _ => auctions
+            };
+        }
 
         var result = auctions
-            .OrderBy(auc => auc.Name)
             .Skip((pagination.Page - 1) * pagination.ItemsPerPage)
             .Take(pagination.ItemsPerPage);
         

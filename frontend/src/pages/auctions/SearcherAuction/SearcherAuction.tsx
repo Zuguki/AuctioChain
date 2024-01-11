@@ -12,15 +12,16 @@ import useFilterAuctions from '../../../hooks/useFilterAuctions.ts';
 import useSearchInput from '../../../hooks/useSearchInput.ts';
 
 const SearcherAuction = memo(() => {
+    const { stateApp } = useContext(Context);
     const [paramsFilter, setParamsFilter] =
         useState<IParamsAuctions>(BaseParamsAuctions);
     const { statusFilter, changeFilter } =
         useFilterAuctions<IParamsAuctions>(setParamsFilter);
     const { isWrite, changeSearch } =
         useSearchInput<IParamsAuctions>(setParamsFilter);
-    const { stateApp } = useContext(Context);
-    useEffect((): void => {
+    useEffect(() => {
         stateApp.setParamsAuctions(paramsFilter);
+        return () => stateApp.setParamsAuctions(BaseParamsAuctions);
     }, [paramsFilter]);
 
     return (
@@ -44,7 +45,7 @@ const SearcherAuction = memo(() => {
                     changeValue={() => ({})}
                 />
                 <BaseSelect
-                    title=" Фильтровать по статусу:"
+                    title="Фильтровать по статусу:"
                     name="status"
                     selectors={statusFilter}
                     changeValue={changeFilter}

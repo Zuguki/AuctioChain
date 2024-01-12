@@ -1,4 +1,4 @@
-import $api, { paramsPagination } from '../api.ts';
+import $api, { paramsPagination, upFirstLetterByParams } from '../api.ts';
 import IPostAuction from '../interfaces/IPostAuction.ts';
 import { AxiosResponse } from 'axios';
 import {
@@ -21,8 +21,7 @@ export default class AuctionService {
         return $api.get(`${this.pathAuctions}`, {
             params: {
                 ...paramsPagination(page, elementOnPage),
-                Search: paramsAuctions.search,
-                Status: paramsAuctions.status,
+                ...upFirstLetterByParams(paramsAuctions),
             },
         });
     }

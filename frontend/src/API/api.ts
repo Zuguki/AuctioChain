@@ -56,5 +56,14 @@ const paramsPagination = (page: number, itemsPerPage: number) => ({
     ItemsPerPage: itemsPerPage,
 });
 
+const upFirstLetterByParams = (paramsAuctions: object): object => {
+    return Object.fromEntries(
+        Object.entries(paramsAuctions).map(([nameParam, valueParam]) => [
+            nameParam.charAt(0).toUpperCase() + nameParam.slice(1),
+            valueParam,
+        ]),
+    );
+};
+
 export default $api;
-export { paramsPagination };
+export { paramsPagination, upFirstLetterByParams };

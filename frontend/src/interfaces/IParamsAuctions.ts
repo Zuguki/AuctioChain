@@ -1,12 +1,12 @@
 interface IParamsAuctions {
     search: string | null;
-    status: number | string | null;
+    auctionStatus: number | string | null;
     orderByStatus: number | string | null;
 }
 
 export const BaseParamsAuctions: IParamsAuctions = {
     search: null,
-    status: null,
+    auctionStatus: null,
     orderByStatus: null,
 };
 

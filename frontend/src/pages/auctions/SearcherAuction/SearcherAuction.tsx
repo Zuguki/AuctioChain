@@ -52,7 +52,7 @@ const SearcherAuction = memo(() => {
                 />
                 <BaseSelect
                     title="Фильтровать по статусу:"
-                    name="status"
+                    name="auctionStatus"
                     selectors={statusFilter}
                     changeValue={changeFilter}
                 />

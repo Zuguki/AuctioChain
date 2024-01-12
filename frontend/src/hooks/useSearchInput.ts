@@ -10,7 +10,7 @@ const useSearchInput = <T>(
     setParamsFilter: Dispatch<SetStateAction<T>>,
     timeWait: number = 1_000,
 ) => {
-    const [stateSearch, setStateSearch] = useState<string>('');
+    const [stateSearch, setStateSearch] = useState<string | null>(null);
     const [isWrite, setIsWrite] = useState<boolean>(false);
     const changeSearch = (e: ChangeEvent<HTMLInputElement>): void => {
         const { value } = e.target;

@@ -8,19 +8,26 @@ import IParamsAuctions, {
     BaseParamsAuctions,
 } from '../../../interfaces/IParamsAuctions.ts';
 import { Context } from '../../../context/context.ts';
-import useFilterAuctions from '../../../hooks/useFilterAuctions.ts';
+import useFilterAuctions from '../../../hooks/useSelectAuctions/useFilterAuctions.ts';
 import useSearchInput from '../../../hooks/useSearchInput.ts';
+import equalsObjects from '../../../auxiliaryTools/equalsObjects.ts';
+import useSortAuctions from '../../../hooks/useSelectAuctions/useSortAuctions.ts';
 
 const SearcherAuction = memo(() => {
+    const { stateApp } = useContext(Context);
     const [paramsFilter, setParamsFilter] =
         useState<IParamsAuctions>(BaseParamsAuctions);
     const { statusFilter, changeFilter } =
         useFilterAuctions<IParamsAuctions>(setParamsFilter);
     const { isWrite, changeSearch } =
         useSearchInput<IParamsAuctions>(setParamsFilter);
-    const { stateApp } = useContext(Context);
-    useEffect((): void => {
+    const { statusSort, changeSort } = useSortAuctions(setParamsFilter);
+    useEffect(() => {
+        if (equalsObjects(paramsFilter, BaseParamsAuctions)) {
+            return;
+        }
         stateApp.setParamsAuctions(paramsFilter);
+        return () => stateApp.setParamsAuctions(BaseParamsAuctions);
     }, [paramsFilter]);
 
     return (
@@ -39,12 +46,12 @@ const SearcherAuction = memo(() => {
             <div className={styleSearcher.selects}>
                 <BaseSelect
                     title="Сортировать по:"
-                    name="filter"
-                    selectors={[]}
-                    changeValue={() => ({})}
+                    name="orderByStatus"
+                    selectors={statusSort}
+                    changeValue={changeSort}
                 />
                 <BaseSelect
-                    title=" Фильтровать по статусу:"
+                    title="Фильтровать по статусу:"
                     name="status"
                     selectors={statusFilter}
                     changeValue={changeFilter}

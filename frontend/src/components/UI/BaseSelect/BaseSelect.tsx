@@ -6,6 +6,7 @@ import React, {
     ReactElement,
 } from 'react';
 import styleSelect from './baseSelect.module.css';
+import SelectsOption from '../../../hooks/useSelectAuctions/ISelectsOption.ts';
 
 const BaseSelect: FC<ISelect> = memo(
     ({ title, selectors, changeValue, ...props }) => {
@@ -19,7 +20,9 @@ const BaseSelect: FC<ISelect> = memo(
                 >
                     <option>—</option>
                     {selectors.map(
-                        (element): ReactElement<HTMLOptionElement> => {
+                        (
+                            element: string | SelectsOption,
+                        ): ReactElement<HTMLOptionElement> => {
                             if (typeof element === 'string') {
                                 return (
                                     <option key={element} value={element}>
@@ -46,7 +49,7 @@ const BaseSelect: FC<ISelect> = memo(
 interface ISelect extends InputHTMLAttributes<HTMLSelectElement> {
     title: string;
     name: string;
-    selectors: string[] | { element: string; value: number }[];
+    selectors: string[] | SelectsOption[];
     changeValue: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 

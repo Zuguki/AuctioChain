@@ -61,7 +61,7 @@ public class BetManager : IBetManager
             return Result.Fail("У вас недостаточно средств");
         
         var previewUser = maxBet is not null
-            ? lot.Bets.Max(b => b.User)
+            ? lot.Bets.MaxBy(b => b.Amount)?.User
             : null;
 
         if (previewUser is not null)

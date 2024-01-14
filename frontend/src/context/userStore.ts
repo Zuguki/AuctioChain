@@ -7,6 +7,7 @@ import IPostLoginUser from '../API/interfaces/IPostLoginUser.ts';
 import IPostRegistrationUser from '../API/interfaces/IPostRegistrationUser.ts';
 import TokenLogic from '../auxiliaryTools/tokenLogic/TokenLogic.ts';
 import LocalStorageLogic from '../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
+import { stateApp } from './context.ts';
 
 export default class UserStore {
     private isAuth: boolean = false;
@@ -59,13 +60,9 @@ export default class UserStore {
     public logout(): void {
         Cookies.remove(TokenLogic.TOKEN);
         Cookies.remove(TokenLogic.REFRESH_TOKEN);
-        localStorage.removeItem(LocalStorageLogic.BILL);
-        localStorage.removeItem(LocalStorageLogic.PREV_BALANCE);
-        localStorage.removeItem(LocalStorageLogic.ADD_BALANCE);
-        localStorage.removeItem(LocalStorageLogic.PROCESS_ADD_MONEY);
-        this.setBill('');
-        this.user = {} as IUser;
-        this.setAuth(false);
+        LocalStorageLogic.removeAllPropsStorage();
+        this.deleteAllPropsUser();
+        stateApp.logoutUser();
     }
 
     public setAuthByToken(token: string): void {
@@ -79,5 +76,11 @@ export default class UserStore {
 
     private setUser(user: IUser): void {
         this.user = user;
+    }
+
+    private deleteAllPropsUser(): void {
+        this.setBill('');
+        this.user = {} as IUser;
+        this.setAuth(false);
     }
 }

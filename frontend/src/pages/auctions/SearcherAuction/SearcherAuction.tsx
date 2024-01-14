@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SearchInput from '../../../components/UI/inputs/SearchInput/SearchInput.tsx';
 import BaseSelect from '../../../components/UI/BaseSelect/BaseSelect.tsx';
 import styleSearcher from './searcherAuction.module.css';
@@ -13,7 +13,7 @@ import useSearchInput from '../../../hooks/useSearchInput.ts';
 import equalsObjects from '../../../auxiliaryTools/equalsObjects.ts';
 import useSortAuctions from '../../../hooks/useSelectAuctions/useSortAuctions.ts';
 
-const SearcherAuction = memo(() => {
+const SearcherAuction = () => {
     const { stateApp } = useContext(Context);
     const [paramsFilter, setParamsFilter] =
         useState<IParamsAuctions>(BaseParamsAuctions);
@@ -60,6 +60,6 @@ const SearcherAuction = memo(() => {
             <Hr width="large" />
         </Form>
     );
-});
+};
 
 export default SearcherAuction;

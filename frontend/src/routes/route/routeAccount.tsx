@@ -1,20 +1,41 @@
-import React from 'react';
+import { FC, lazy, LazyExoticComponent } from 'react';
 import { Route } from 'react-router-dom';
-import PageAccount from '../../pages/account/PageAccount.tsx';
 import PathApp from '../pathApp/PathApp.ts';
 import RequireAuth from '../RequireAuth.tsx';
-import PageCreateAuction from '../../pages/createAuction/PageCreateAuction.tsx';
-import PageCreateLot from '../../pages/createLot/PageCreateLot.tsx';
-import AddMoney from '../../pages/addMoney/AddMoney.tsx';
+import LazyDownload from '../LazyDownload.tsx';
 
+const PageAccount: LazyExoticComponent<FC> = lazy(
+    () => import('../../pages/account/PageAccount.tsx'),
+);
+
+const PageCreateAuction: LazyExoticComponent<FC> = lazy(
+    () => import('../../pages/createAuction/PageCreateAuction.tsx'),
+);
+
+const PageCreateLot: LazyExoticComponent<FC> = lazy(
+    () => import('../../pages/createLot/PageCreateLot.tsx'),
+);
+
+const AddMoney: LazyExoticComponent<FC> = lazy(
+    () => import('../../pages/addMoney/AddMoney.tsx'),
+);
 const routeAccount = (
     <>
-        <Route path={`${PathApp.account}/:id`} element={<PageAccount />} />
+        <Route
+            path={`${PathApp.account}/:id`}
+            element={
+                <LazyDownload>
+                    <PageAccount />
+                </LazyDownload>
+            }
+        />
         <Route
             path={PathApp.createAuction}
             element={
                 <RequireAuth>
-                    <PageCreateAuction />
+                    <LazyDownload>
+                        <PageCreateAuction />
+                    </LazyDownload>
                 </RequireAuth>
             }
         />
@@ -22,7 +43,9 @@ const routeAccount = (
             path={`${PathApp.createLot}/:id`}
             element={
                 <RequireAuth>
-                    <PageCreateLot />
+                    <LazyDownload>
+                        <PageCreateLot />
+                    </LazyDownload>
                 </RequireAuth>
             }
         />
@@ -30,7 +53,9 @@ const routeAccount = (
             path={PathApp.bill}
             element={
                 <RequireAuth>
-                    <AddMoney />
+                    <LazyDownload>
+                        <AddMoney />
+                    </LazyDownload>
                 </RequireAuth>
             }
         />

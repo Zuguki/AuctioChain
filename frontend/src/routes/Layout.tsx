@@ -10,9 +10,11 @@ const Layout = () => {
     return (
         <div onClick={(): void => stateApp.setInterfaceProfile(false)}>
             <Header />
-            <InterfaceProfile />
-            <NotificationOperation />
-            <Outlet />
+            <main>
+                <InterfaceProfile />
+                <NotificationOperation />
+                <Outlet />
+            </main>
         </div>
     );
 };

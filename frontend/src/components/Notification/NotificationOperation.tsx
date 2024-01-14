@@ -9,7 +9,7 @@ const NotificationOperation = observer(() => {
     const { stateApp } = useContext(Context);
     const [notificationWindow, setNotificationWindow] =
         useState<ReactNode>(null);
-    const getNotification = stateApp.getNotification();
+    const getNotification: boolean = stateApp.getNotification();
     const removeNotification = (): void => {
         localStorage.removeItem(LocalStorageLogic.PREV_BALANCE);
         localStorage.removeItem(LocalStorageLogic.PROCESS_ADD_MONEY);

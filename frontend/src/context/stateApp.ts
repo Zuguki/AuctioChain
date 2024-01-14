@@ -13,6 +13,11 @@ export default class StateApp {
         makeAutoObservable(this);
     }
 
+    public logoutUser(): void {
+        this.setInterfaceProfile(false);
+        this.setNotification(false);
+    }
+
     public getSearch(): boolean {
         return this.search;
     }

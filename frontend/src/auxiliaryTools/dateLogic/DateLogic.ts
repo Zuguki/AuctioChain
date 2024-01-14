@@ -44,6 +44,6 @@ export default class DateLogic {
         const month: string = shortMonth
             ? MonthEnum[newDate.month].substring(0, 3)
             : MonthEnum[newDate.month];
-        return `${newDate.day} ${month} ${newDate.year}, ${newDate.hours}:${newDate.hours}:${newDate.minutes}`;
+        return `${newDate.day} ${month} ${newDate.year}, ${newDate.hours}:${newDate.minutes}`;
     }
 }

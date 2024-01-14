@@ -4,10 +4,10 @@ export default class LocalStorageLogic {
     public static readonly PREV_BALANCE: string = 'prevBalance';
     public static readonly PROCESS_ADD_MONEY: string = 'processAddMoney';
 
-    public static setToStorage = (
+    public static setToStorage(
         nameElement: string,
         elementStorage: unknown,
-    ): void => {
+    ): void {
         if (
             typeof elementStorage === 'number' ||
             typeof elementStorage === 'string' ||
@@ -18,14 +18,21 @@ export default class LocalStorageLogic {
                 JSON.stringify(String(elementStorage)),
             );
         }
-    };
+    }
 
-    public static getToStorage = (nameElement: string): string => {
+    public static getToStorage(nameElement: string): string {
         const resultStorage: string | null = localStorage.getItem(nameElement);
 
         if (resultStorage !== null) {
             return JSON.parse(resultStorage);
         }
         return '';
-    };
+    }
+
+    public static removeAllPropsStorage(): void {
+        localStorage.removeItem(LocalStorageLogic.BILL);
+        localStorage.removeItem(LocalStorageLogic.PREV_BALANCE);
+        localStorage.removeItem(LocalStorageLogic.ADD_BALANCE);
+        localStorage.removeItem(LocalStorageLogic.PROCESS_ADD_MONEY);
+    }
 }

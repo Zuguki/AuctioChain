@@ -14,7 +14,6 @@ const ListAuctions: FC = memo(
         const {
             data: { auctions },
             loading,
-            err,
             pagination,
         } = useGetPaginationAPI<ResponseObjAuctions>(
             () =>

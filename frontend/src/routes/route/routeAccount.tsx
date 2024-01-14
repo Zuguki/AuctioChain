@@ -22,7 +22,7 @@ const AddMoney: LazyExoticComponent<FC> = lazy(
 const routeAccount = (
     <>
         <Route
-            path={`${PathApp.account}/:id`}
+            path={`${PathApp.account}${PathApp.id}`}
             element={
                 <LazyDownload>
                     <PageAccount />
@@ -40,7 +40,7 @@ const routeAccount = (
             }
         />
         <Route
-            path={`${PathApp.createLot}/:id`}
+            path={`${PathApp.createLot}${PathApp.id}`}
             element={
                 <RequireAuth>
                     <LazyDownload>

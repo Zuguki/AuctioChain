@@ -25,7 +25,7 @@ const routeAuctions = (
             }
         />
         <Route
-            path={`${PathApp.auction}/:id`}
+            path={`${PathApp.auction}${PathApp.id}`}
             element={
                 <LazyDownload>
                     <PageOneAuction />
@@ -33,7 +33,7 @@ const routeAuctions = (
             }
         />
         <Route
-            path={`${PathApp.lot}/:id`}
+            path={`${PathApp.lot}${PathApp.id}`}
             element={
                 <LazyDownload>
                     <PageLot />

@@ -1,5 +1,5 @@
 import NotificationLogic from './NotificationLogic.ts';
-import LogicCurrency from '../../metamask/LogicCurrency.ts';
+import LogicCurrency from '../metamask/LogicCurrency.ts';
 
 export const NotificationAddMoney = (balance: number): NotificationLogic => {
     return new NotificationLogic(

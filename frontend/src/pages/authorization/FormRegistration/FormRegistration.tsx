@@ -11,7 +11,7 @@ import CloseButton from '../../../components/CloseButton/CloseButton.tsx';
 import PathApp from '../../../routes/pathApp/PathApp.ts';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { RegistrationNotification } from '../../../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
+import { RegistrationNotification } from '../../../appLogic/notificationLogic/VarietesNotifications.ts';
 
 const FormRegistration = () => {
     const nav = useNavigate();

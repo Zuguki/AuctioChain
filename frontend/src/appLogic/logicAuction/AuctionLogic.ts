@@ -1,4 +1,4 @@
-import IAuction from '../API/interfaces/IAuction.ts';
+import IAuction from '../../API/interfaces/IAuction.ts';
 import AuctionStatus from './AuctionStatus.ts';
 
 export default class AuctionLogic {

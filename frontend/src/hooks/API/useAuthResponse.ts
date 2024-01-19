@@ -5,7 +5,7 @@ import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import usePostAPI from './usePostAPI.ts';
 import { AxiosResponse } from 'axios';
 import PathApp from '../../routes/pathApp/PathApp.ts';
-import INotification from '../../auxiliaryTools/notificationLogic/INotification.ts';
+import INotification from '../../appLogic/notificationLogic/INotification.ts';
 
 const useAuthResponse = (
     postResponse: () => Promise<AxiosResponse>,

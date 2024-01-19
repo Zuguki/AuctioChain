@@ -7,7 +7,7 @@ import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
 import IPathLotPage from '../../../interfaces/IPathLotPage.ts';
 import AuctionService from '../../../API/service/AuctionService.ts';
 import IAuction from '../../../API/interfaces/IAuction.ts';
-import AuctionLogic from '../../../logicAuction/AuctionLogic.ts';
+import AuctionLogic from '../../../appLogic/logicAuction/AuctionLogic.ts';
 import ListBetsLot from '../ListBetsLot.tsx';
 import up from '../../../design/icons/collapse.svg';
 import down from '../../../design/icons/collapse close.svg';

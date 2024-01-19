@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import Cookies from 'js-cookie';
-import TokenLogic from '../auxiliaryTools/tokenLogic/TokenLogic.ts';
+import TokenLogic from '../appLogic/tokenLogic/TokenLogic.ts';
 import AuthService from './service/AuthService.ts';
 import { userStore } from '../context/context.ts';
 import PathApp from '../routes/pathApp/PathApp.ts';

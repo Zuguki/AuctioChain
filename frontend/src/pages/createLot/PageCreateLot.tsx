@@ -15,7 +15,7 @@ import PathApp from '../../routes/pathApp/PathApp.ts';
 import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
 import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
 import { stateApp } from '../../context/context.ts';
-import { NotificationCreateLot } from '../../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
+import { NotificationCreateLot } from '../../appLogic/notificationLogic/VarietesNotifications.ts';
 
 const PageCreateLot = () => {
     const { id } = useParams();

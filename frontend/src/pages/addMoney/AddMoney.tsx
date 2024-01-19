@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styleAddMoney from './addMoney.module.css';
 import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
-import MetaMaskLogic from '../../metamask/MetaMaskLogic.ts';
+import MetaMaskLogic from '../../appLogic/metamask/MetaMaskLogic.ts';
 import { Context } from '../../context/context.ts';
 import { observer } from 'mobx-react-lite';
 import FormSendEth from './FormSendEth.tsx';

@@ -1,11 +1,11 @@
 import { useContext, useEffect } from 'react';
 import { Context } from '../context/context.ts';
-import MetaMaskLogic from '../metamask/MetaMaskLogic.ts';
-import LocalStorageLogic from '../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
+import MetaMaskLogic from '../appLogic/metamask/MetaMaskLogic.ts';
+import LocalStorageLogic from '../appLogic/localStorageLogic/LocalStorageLogic.ts';
 import Cookies from 'js-cookie';
-import TokenLogic from '../auxiliaryTools/tokenLogic/TokenLogic.ts';
-import INotification from '../auxiliaryTools/notificationLogic/INotification.ts';
-import { NotificationAddMoney } from '../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
+import TokenLogic from '../appLogic/tokenLogic/TokenLogic.ts';
+import INotification from '../appLogic/notificationLogic/INotification.ts';
+import { NotificationAddMoney } from '../appLogic/notificationLogic/VarietesNotifications.ts';
 
 const useApp = (): void => {
     const { userStore, stateApp } = useContext(Context);

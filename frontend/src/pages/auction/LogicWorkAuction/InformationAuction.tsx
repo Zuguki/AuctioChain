@@ -2,7 +2,7 @@ import IAuction from '../../../API/interfaces/IAuction.ts';
 import stylePage from '../pageOneAuction.module.css';
 import DateLogic from '../../../auxiliaryTools/dateLogic/DateLogic.ts';
 import { FC } from 'react';
-import AuctionLogic from '../../../logicAuction/AuctionLogic.ts';
+import AuctionLogic from '../../../appLogic/logicAuction/AuctionLogic.ts';
 
 const InformationAuction: FC<{ auction: IAuction }> = ({ auction }) => {
     const { description, dateStart, dateEnd } = auction;

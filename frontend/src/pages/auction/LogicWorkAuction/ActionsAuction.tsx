@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import AuctionLogic from '../../../logicAuction/AuctionLogic.ts';
+import AuctionLogic from '../../../appLogic/logicAuction/AuctionLogic.ts';
 import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
 import stylePage from '../pageOneAuction.module.css';
 import { Context } from '../../../context/context.ts';

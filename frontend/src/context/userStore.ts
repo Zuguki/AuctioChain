@@ -5,8 +5,8 @@ import Cookies from 'js-cookie';
 import IUser from '../API/interfaces/IUser.ts';
 import IPostLoginUser from '../API/interfaces/IPostLoginUser.ts';
 import IPostRegistrationUser from '../API/interfaces/IPostRegistrationUser.ts';
-import TokenLogic from '../auxiliaryTools/tokenLogic/TokenLogic.ts';
-import LocalStorageLogic from '../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
+import TokenLogic from '../appLogic/tokenLogic/TokenLogic.ts';
+import LocalStorageLogic from '../appLogic/localStorageLogic/LocalStorageLogic.ts';
 import { stateApp } from './context.ts';
 
 export default class UserStore {

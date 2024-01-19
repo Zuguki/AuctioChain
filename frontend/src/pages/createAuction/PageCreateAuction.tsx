@@ -18,7 +18,7 @@ import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
 import { IResponseCreateAuction } from '../../API/interfaces/response/IResponseAuctions.ts';
 import IResponseImage from '../../API/interfaces/response/IResponseImage.ts';
 import { Context } from '../../context/context.ts';
-import { NotificationCreateAuction } from '../../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
+import { NotificationCreateAuction } from '../../appLogic/notificationLogic/VarietesNotifications.ts';
 
 const PageCreateAuction: FC = () => {
     const nav = useNavigate();

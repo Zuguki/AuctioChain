@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import ElementTableCurrency from './ElementTableCurrency.tsx';
-import LogicCurrency from '../../metamask/LogicCurrency.ts';
+import LogicCurrency from '../../appLogic/metamask/LogicCurrency.ts';
 import styleTable from './currencyRate.module.css';
 import useGetDataCurrency from '../../hooks/useGetDataCurrency/useGetDataCurrency.tsx';
 import { isNaN, roundNumber } from '../../auxiliaryTools/mathOperations.ts';

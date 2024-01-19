@@ -7,7 +7,7 @@ import AuctionService from '../../../API/service/AuctionService.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import PathApp from '../../../routes/pathApp/PathApp.ts';
 import useGetUserName from '../../../hooks/API/useGetUserName.ts';
-import AuctionLogic from '../../../logicAuction/AuctionLogic.ts';
+import AuctionLogic from '../../../appLogic/logicAuction/AuctionLogic.ts';
 import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
 import LotService from '../../../API/service/LotService.ts';
 

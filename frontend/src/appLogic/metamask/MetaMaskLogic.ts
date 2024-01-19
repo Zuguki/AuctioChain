@@ -1,8 +1,8 @@
 import { ethers } from 'ethers';
-import { stateApp, userStore } from '../context/context.ts';
-import LocalStorageLogic from '../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
-import BalanceService from '../API/service/BalanceService.ts';
-import { NotificationTransaction } from '../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
+import { stateApp, userStore } from '../../context/context.ts';
+import LocalStorageLogic from '../localStorageLogic/LocalStorageLogic.ts';
+import BalanceService from '../../API/service/BalanceService.ts';
+import { NotificationTransaction } from '../notificationLogic/VarietesNotifications.ts';
 
 export default class MetaMaskLogic {
     private static contractAddress: string =

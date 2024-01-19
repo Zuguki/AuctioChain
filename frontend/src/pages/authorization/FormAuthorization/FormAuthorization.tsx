@@ -5,7 +5,7 @@ import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
 import IPostLoginUser from '../../../API/interfaces/IPostLoginUser.ts';
 import { Context } from '../../../context/context.ts';
 import { useContext } from 'react';
-import { LoginNotification } from '../../../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
+import { LoginNotification } from '../../../appLogic/notificationLogic/VarietesNotifications.ts';
 
 const FormAuthorization = () => {
     const { userStore } = useContext(Context);

@@ -10,7 +10,7 @@ import { Context } from '../../../context/context.ts';
 import PathApp from '../../../routes/pathApp/PathApp.ts';
 import { Link } from 'react-router-dom';
 import IAuction from '../../../API/interfaces/IAuction.ts';
-import AuctionLogic from '../../../logicAuction/AuctionLogic.ts';
+import AuctionLogic from '../../../appLogic/logicAuction/AuctionLogic.ts';
 
 const ListLot: FC<{ id: string; auction: IAuction }> = ({ id, auction }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);

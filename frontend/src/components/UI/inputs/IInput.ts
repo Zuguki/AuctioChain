@@ -10,4 +10,5 @@ interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     errorBlur: () => void;
 }
 
+export const defaultErrorBlur = () => ({});
 export default IInput;

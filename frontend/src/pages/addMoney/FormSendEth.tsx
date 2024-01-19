@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
 import LogicCurrency from '../../metamask/LogicCurrency.ts';
 import { numberChars } from '../../auxiliaryTools/bloclnvalidChar.ts';
@@ -12,6 +12,8 @@ import styleFormEth from './addMoney.module.css';
 import { Context } from '../../context/context.ts';
 import { roundNumber } from '../../auxiliaryTools/mathOperations.ts';
 import { observer } from 'mobx-react-lite';
+import { NotificationAddMoney } from '../../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
+import { defaultErrorBlur } from '../../components/UI/inputs/IInput.ts';
 
 const Ac: number = LogicCurrency.ValueAc;
 const FormSendEth = observer(() => {
@@ -27,20 +29,10 @@ const FormSendEth = observer(() => {
             alert('Некорректное значение!');
         }
 
-        const addBalance = await MetaMaskLogic.sendEth(eph);
-
-        LocalStorageLogic.setToStorage(
-            LocalStorageLogic.PROCESS_ADD_MONEY,
-            false,
-        );
-
-        stateApp.setNotification(false);
-
+        const addBalance: number | undefined = await MetaMaskLogic.sendEth(eph);
+        LocalStorageLogic.endLoadingTransaction();
         if (addBalance) {
-            LocalStorageLogic.setToStorage(
-                LocalStorageLogic.ADD_BALANCE,
-                addBalance,
-            );
+            stateApp.setNotification(NotificationAddMoney(addBalance));
         }
     };
 
@@ -58,7 +50,7 @@ const FormSendEth = observer(() => {
                 changeValue={(e: ChangeEvent<HTMLInputElement>): void =>
                     logicFormValue(e)
                 }
-                errorBlur={() => ({})}
+                errorBlur={defaultErrorBlur}
             />
             {eph && !Number.isNaN(+eph) && (
                 <div>
@@ -70,7 +62,10 @@ const FormSendEth = observer(() => {
                     </p>
                 </div>
             )}
-            <BaseButton type="submit" disabled={stateApp.getNotification()}>
+            <BaseButton
+                type="submit"
+                disabled={stateApp.getNotification() !== null}
+            >
                 Пополнить
             </BaseButton>
         </Form>

@@ -2,6 +2,7 @@ import { ethers } from 'ethers';
 import { stateApp, userStore } from '../context/context.ts';
 import LocalStorageLogic from '../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
 import BalanceService from '../API/service/BalanceService.ts';
+import { NotificationTransaction } from '../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
 
 export default class MetaMaskLogic {
     private static contractAddress: string =
@@ -79,23 +80,24 @@ export default class MetaMaskLogic {
         MetaMaskLogic.web3Provider,
     );
 
-    // подключить кошлек к сайту типо кнопки
     public static async handleClickMetamask(): Promise<void> {
         try {
-            const [address] = await MetaMaskLogic.web3Provider.send(
+            const [bill] = await MetaMaskLogic.web3Provider.send(
                 'eth_requestAccounts',
                 [],
             );
-            userStore.setBill(address);
-            LocalStorageLogic.setToStorage(LocalStorageLogic.BILL, address);
+            userStore.setBill(bill);
+            LocalStorageLogic.setToStorage<string>(
+                LocalStorageLogic.BILL,
+                bill,
+            );
         } catch (e) {
             alert('He удалось подключить кошлёк!');
             console.log(e);
         }
     }
 
-    // отправка денег
-    public static async sendEth(eph: string) {
+    public static async sendEth(eph: string): Promise<number | undefined> {
         try {
             const billUser: string = userStore.getBill();
             if (!billUser) {
@@ -118,17 +120,18 @@ export default class MetaMaskLogic {
             await BalanceService.postBalance(signer.address);
             await contractWithSigner
                 .getFunction('payForItem')
-                .send({ value: ethers.parseEther(eph) }); // количество денег
-            LocalStorageLogic.setToStorage(
-                LocalStorageLogic.PROCESS_ADD_MONEY,
-                true,
-            );
-            const prevBalance = await this.requestUserMoney();
-            LocalStorageLogic.setToStorage(
-                LocalStorageLogic.PREV_BALANCE,
-                prevBalance || '',
-            );
-            stateApp.setNotification(true);
+                .send({ value: ethers.parseEther(eph) });
+            LocalStorageLogic.setProcessAddMoney(true);
+            const prevBalance: number | undefined =
+                await this.requestUserMoney();
+            if (!prevBalance) {
+                alert(
+                    'Невозможно получить данные о балансе! Уведомления не буут отображаться!',
+                );
+                return;
+            }
+            LocalStorageLogic.startLoadingTransaction(prevBalance);
+            stateApp.setNotification(NotificationTransaction);
             return await this.getUserMoney();
         } catch (error) {
             console.log(JSON.stringify(error, null, 4));
@@ -137,14 +140,16 @@ export default class MetaMaskLogic {
         }
     }
 
-    public static async getUserMoney() {
-        const prevBalance: number = +LocalStorageLogic.getToStorage(
-            LocalStorageLogic.PREV_BALANCE,
-        );
+    public static async getUserMoney(): Promise<number> {
+        const prevBalance: number | null =
+            LocalStorageLogic.getToStorage<number>(
+                LocalStorageLogic.PREV_BALANCE,
+            );
         return new Promise(resolve => {
             const requestBalance: NodeJS.Timer = setInterval(
                 async (): Promise<void> => {
-                    const balance = await this.requestUserMoney();
+                    const balance: number | undefined =
+                        await this.requestUserMoney();
                     if (!prevBalance || !balance) {
                         alert('Ошибка транзакции!');
                         return;
@@ -161,7 +166,7 @@ export default class MetaMaskLogic {
         });
     }
 
-    private static async requestUserMoney() {
+    private static async requestUserMoney(): Promise<number | undefined> {
         try {
             const signer = await MetaMaskLogic.web3Provider.getSigner();
             const balance = await MetaMaskLogic.contract.getUserBalance(

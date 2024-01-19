@@ -10,7 +10,7 @@ const usePostAPI = () => {
     const postData = useCallback(
         async <T>(
             request: () => Promise<AxiosResponse<T>>,
-        ): Promise<AxiosResponse<T> | void> => {
+        ): Promise<AxiosResponse<T> | undefined> => {
             setLoading((): boolean => true);
             try {
                 return await request();

@@ -5,15 +5,19 @@ import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import usePostAPI from './usePostAPI.ts';
 import { AxiosResponse } from 'axios';
 import PathApp from '../../routes/pathApp/PathApp.ts';
+import INotification from '../../auxiliaryTools/notificationLogic/INotification.ts';
 
 const useAuthResponse = (
     postResponse: () => Promise<AxiosResponse>,
     textButton: string,
+    isAuth: boolean,
+    notification: INotification | null = null,
 ) => {
-    const { userStore } = useContext(Context);
+    const { userStore, stateApp } = useContext(Context);
     const nav: NavigateFunction = useNavigate();
     const location = useLocation();
     const { error, loading, blurError, postData } = usePostAPI();
+    const authUser: boolean = userStore.getAuth();
     const fromPath: string = useMemo((): string => {
         const path: string | undefined = location?.state?.from?.pathname;
         if (path && path !== PathApp.auctions) {
@@ -21,6 +25,7 @@ const useAuthResponse = (
         }
         return PathApp.auctions;
     }, []);
+    const startAuth: boolean = useMemo(() => isAuth, []);
     const logicButton: ILogicFormDivButton = useMemo(
         (): ILogicFormDivButton => ({
             textButton: textButton,
@@ -31,8 +36,12 @@ const useAuthResponse = (
     );
 
     useEffect((): void => {
-        if (userStore.getAuth()) {
-            nav(fromPath);
+        if (!authUser) {
+            return;
+        }
+        nav(fromPath);
+        if (!startAuth) {
+            stateApp.setNotification(notification);
         }
     }, [userStore.getAuth()]);
 

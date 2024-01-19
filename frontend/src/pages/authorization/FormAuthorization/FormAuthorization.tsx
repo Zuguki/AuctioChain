@@ -2,17 +2,19 @@ import FormDiv from '../../../components/UI/div/FormDiv/FormDiv.tsx';
 import FormInput from '../../../components/UI/inputs/FormInput/FormInput.tsx';
 import useDataUser from '../../../hooks/useDataUser.ts';
 import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
-import { observer } from 'mobx-react-lite';
 import IPostLoginUser from '../../../API/interfaces/IPostLoginUser.ts';
 import { Context } from '../../../context/context.ts';
 import { useContext } from 'react';
+import { LoginNotification } from '../../../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
 
-const FormAuthorization = observer(() => {
+const FormAuthorization = () => {
     const { userStore } = useContext(Context);
     const { dataUser, logicFormValue } = useDataUser<IPostLoginUser>();
     const { error, logicButton, loading, blurError } = useAuthResponse(
         () => userStore.login(dataUser),
         'Вход',
+        userStore.getAuth(),
+        LoginNotification(userStore.getUser().name),
     );
 
     return (
@@ -44,6 +46,6 @@ const FormAuthorization = observer(() => {
             />
         </FormDiv>
     );
-});
+};
 
 export default FormAuthorization;

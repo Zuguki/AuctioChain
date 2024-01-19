@@ -2,11 +2,12 @@ import { makeAutoObservable } from 'mobx';
 import IParamsAuctions, {
     BaseParamsAuctions,
 } from '../interfaces/IParamsAuctions.ts';
+import INotification from '../auxiliaryTools/notificationLogic/INotification.ts';
 
 export default class StateApp {
     private search: boolean = false;
     private interfaceProfile: boolean = false;
-    private notification: boolean = false;
+    private notification: INotification | null = null;
     private paramsAuctions: IParamsAuctions = BaseParamsAuctions;
 
     constructor() {
@@ -15,7 +16,7 @@ export default class StateApp {
 
     public logoutUser(): void {
         this.setInterfaceProfile(false);
-        this.setNotification(false);
+        this.setNotification(null);
     }
 
     public getSearch(): boolean {
@@ -26,11 +27,11 @@ export default class StateApp {
         return this.paramsAuctions;
     }
 
-    public getNotification(): boolean {
+    public getNotification(): INotification | null {
         return this.notification;
     }
 
-    public setNotification(notification: boolean): void {
+    public setNotification(notification: INotification | null): void {
         this.notification = notification;
     }
 

@@ -24,6 +24,7 @@ export default class UserStore {
 
     public setBill(bill: string): void {
         this.bill = bill;
+        LocalStorageLogic.setToStorage<string>(LocalStorageLogic.BILL, bill);
     }
 
     public getAuth(): boolean {

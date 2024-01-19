@@ -1,47 +1,41 @@
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
-import { Context } from '../../context/context.ts';
+import { FC, memo, ReactNode, useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import LocalStorageLogic from '../../auxiliaryTools/localStorageLogic/LocalStorageLogic.ts';
-import LogicCurrency from '../../metamask/LogicCurrency.ts';
+import INotification from '../../auxiliaryTools/notificationLogic/INotification.ts';
 import ComponentNotification from './ComponentNotification.tsx';
+import { Context } from '../../context/context.ts';
 
-const NotificationOperation = observer(() => {
-    const { stateApp } = useContext(Context);
-    const [notificationWindow, setNotificationWindow] =
-        useState<ReactNode>(null);
-    const getNotification: boolean = stateApp.getNotification();
-    const removeNotification = (): void => {
-        localStorage.removeItem(LocalStorageLogic.PREV_BALANCE);
-        localStorage.removeItem(LocalStorageLogic.PROCESS_ADD_MONEY);
-        localStorage.removeItem(LocalStorageLogic.ADD_BALANCE);
-        setNotificationWindow((): null => null);
-    };
-    useEffect(() => {
-        if (getNotification) {
-            setNotificationWindow(() => (
-                <ComponentNotification
-                    title="Транзакция обрабатывается!"
-                    text="Дождитесь окончания операции."
-                />
-            ));
-        }
-        const balance: string = LocalStorageLogic.getToStorage(
-            LocalStorageLogic.ADD_BALANCE,
-        );
-        let timer: NodeJS.Timeout;
-        if (balance && notificationWindow !== null) {
-            setNotificationWindow(() => (
-                <ComponentNotification
-                    title="Успешно!"
-                    text={`Будет начислено: ${balance} ${LogicCurrency.Ac}`}
-                    isEnd
-                />
-            ));
-            timer = setTimeout(removeNotification, 5_000);
-        }
-        return () => clearTimeout(timer);
-    }, [getNotification]);
-    return <>{notificationWindow}</>;
-});
+const NotificationOperation: FC = memo(
+    observer(() => {
+        const [notificationWindow, setNotificationWindow] =
+            useState<ReactNode>(null);
+        const { stateApp } = useContext(Context);
+        const notification: INotification | null = stateApp.getNotification();
+        const removeNotification = (): void => {
+            setNotificationWindow((): null => null);
+            stateApp.setNotification(null);
+        };
+
+        useEffect(() => {
+            if (notification === null) {
+                setNotificationWindow((): null => null);
+                return;
+            }
+            const { title, text, timeLife, loading } = notification;
+            let timer: NodeJS.Timeout;
+            ((): void => {
+                setNotificationWindow(() => (
+                    <ComponentNotification
+                        title={title}
+                        text={text}
+                        loading={loading}
+                    />
+                ));
+                timer = setTimeout(removeNotification, timeLife);
+            })();
+            return () => clearTimeout(timer);
+        }, [notification]);
+        return <>{notificationWindow}</>;
+    }),
+);
 
 export default NotificationOperation;

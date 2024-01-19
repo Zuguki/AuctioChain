@@ -14,6 +14,8 @@ import usePostImage from '../../hooks/API/usePostImage.ts';
 import PathApp from '../../routes/pathApp/PathApp.ts';
 import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
 import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
+import { stateApp } from '../../context/context.ts';
+import { NotificationCreateLot } from '../../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
 
 const PageCreateLot = () => {
     const { id } = useParams();
@@ -37,9 +39,13 @@ const PageCreateLot = () => {
             image,
         };
 
-        (await postData(
+        const res = await postData(
             (): Promise<AxiosResponse> => LotService.addLot(dataPostUser),
-        )) && nav(`${PathApp.auction}/${id}`);
+        );
+        if (res) {
+            stateApp.setNotification(NotificationCreateLot);
+            nav(`${PathApp.auction}/${id}`);
+        }
     };
     return (
         <Form className={styleCreateLot.position} onSubmit={postLot}>

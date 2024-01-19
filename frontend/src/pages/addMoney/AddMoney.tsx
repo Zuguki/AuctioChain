@@ -11,12 +11,6 @@ import BalanceService from '../../API/service/BalanceService.ts';
 import IResponseBalance from '../../API/interfaces/response/IResponseBalance.ts';
 
 const AddMoney = observer(() => {
-    /*  const {
-          data: { balanceUser },
-      } = useGetAPI(
-          () => ProfileService.getBalanceUser(),
-          {} as IResponseBalance,
-      );*/
     const { userStore } = useContext(Context);
     const billUser: string = userStore.getBill();
     const {

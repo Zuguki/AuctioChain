@@ -11,18 +11,21 @@ import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormP
 import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
 import { Form, useNavigate } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import usePostImage from '../../hooks/API/usePostImage.ts';
 import PathApp from '../../routes/pathApp/PathApp.ts';
 import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
 import { IResponseCreateAuction } from '../../API/interfaces/response/IResponseAuctions.ts';
 import IResponseImage from '../../API/interfaces/response/IResponseImage.ts';
+import { Context } from '../../context/context.ts';
+import { NotificationCreateAuction } from '../../auxiliaryTools/notificationLogic/VarietesNotifications.ts';
 
 const PageCreateAuction: FC = () => {
     const nav = useNavigate();
     const { dataUser, logicFormValue } = useDataUser<IPostAuction>();
     const { error, loading, blurError, postData } = usePostAPI();
     const { setFile, postImage } = usePostImage(postData);
+    const { stateApp } = useContext(Context);
     const postAuction = async (): Promise<void> => {
         blurError();
         const resImage: void | AxiosResponse<IResponseImage> =
@@ -46,6 +49,7 @@ const PageCreateAuction: FC = () => {
         const auctionId: string | undefined = res?.data.auctionId;
         if (auctionId) {
             nav(`${PathApp.auction}/${auctionId}`);
+            stateApp.setNotification(NotificationCreateAuction);
         }
     };
     return (

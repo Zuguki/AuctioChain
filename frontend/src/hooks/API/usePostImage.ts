@@ -10,6 +10,12 @@ const usePostImage = (
     ) => Promise<AxiosResponse<T> | void>,
 ) => {
     const { imageFile, setFile } = useProcessingImageInput();
+    const postCorrectImage = async (): Promise<string | null> => {
+        const resImage = await postImage();
+        const image: string | null = resImage?.data.fileName || null;
+        return image;
+    };
+
     const postImage =
         useCallback(async (): Promise<AxiosResponse<IResponseImage> | void> => {
             if (!imageFile) {
@@ -22,7 +28,7 @@ const usePostImage = (
                 },
             );
         }, [imageFile]);
-    return { setFile, postImage, imageFile };
+    return { setFile, postImage, imageFile, postCorrectImage };
 };
 
 export default usePostImage;

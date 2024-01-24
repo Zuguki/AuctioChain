@@ -61,12 +61,20 @@ const ActionsAuction: FC<IActionsAuction> = ({
                             Удалить аукцион
                         </BaseButton>
                     )}
+
                     {isCreation && (
-                        <p className={stylePage.informationFinish}>
-                            Обратите внимание, что торги аукциона начнуться
-                            после подтверждения статуса &quot;завершение
-                            редактирования&quot; в отдельной странице аукциона.
-                        </p>
+                        <>
+                            <div className={stylePage.positionButtonEdit}>
+                                <BaseButton>Редактировать аукцион</BaseButton>
+                            </div>
+                            <p className={stylePage.informationFinish}>
+                                Обратите внимание, что торги аукциона начнутся
+                                после подтверждения статуса &quot;завершение
+                                редактирования&quot; в отдельной странице
+                                аукциона. Редактирование доступно только при
+                                создании аукциона!
+                            </p>
+                        </>
                     )}
                 </>
             )}

@@ -55,7 +55,8 @@ const LeftPathLotPage: FC<IPathLotPage> = memo(({ lot }) => {
                     </p>
                 </>
             )}
-            {AuctionLogic.isCreation(auction) && (
+            {(AuctionLogic.isCreation(auction) ||
+                AuctionLogic.isWaitBidding(auction)) && (
                 <>
                     <div className={styleLot.positionButton}>
                         <BaseButton
@@ -72,8 +73,8 @@ const LeftPathLotPage: FC<IPathLotPage> = memo(({ lot }) => {
                         </BaseButton>
                     </div>
                     <p className={styleLot.protectedText}>
-                        Удаление лотов доступно только в статусе создания
-                        аукциона!
+                        Удаление и редактирование лотов доступно только в
+                        статусе создания аукциона и ожидания торгов!
                     </p>
                 </>
             )}

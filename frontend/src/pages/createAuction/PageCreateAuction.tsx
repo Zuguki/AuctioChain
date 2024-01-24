@@ -16,32 +16,30 @@ import usePostImage from '../../hooks/API/usePostImage.ts';
 import PathApp from '../../routes/pathApp/PathApp.ts';
 import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
 import { IResponseCreateAuction } from '../../API/interfaces/response/IResponseAuctions.ts';
-import IResponseImage from '../../API/interfaces/response/IResponseImage.ts';
 import { Context } from '../../context/context.ts';
 import { NotificationCreateAuction } from '../../appLogic/notificationLogic/VarietesNotifications.ts';
 
 const PageCreateAuction: FC = () => {
-    const nav = useNavigate();
     const { dataUser, logicFormValue } = useDataUser<IPostAuction>();
     const { error, loading, blurError, postData } = usePostAPI();
-    const { setFile, postImage } = usePostImage(postData);
+    const { setFile, postCorrectImage } = usePostImage(postData);
     const { stateApp } = useContext(Context);
+    const nav = useNavigate();
     const postAuction = async (): Promise<void> => {
         blurError();
-        const resImage: void | AxiosResponse<IResponseImage> =
-            await postImage();
-        const image: string | undefined = resImage?.data.fileName;
+        const image: string | null = await postCorrectImage();
         if (!image) {
             return;
         }
+        const { dateStart, dateEnd } = dataUser;
         const dataPostUser: IPostAuction = {
             ...dataUser,
             image,
-            dateStart: DateLogic.getDateByStringISO(dataUser.dateStart),
-            dateEnd: DateLogic.getDateByStringISO(dataUser.dateEnd),
+            dateStart: DateLogic.getDateByStringISO(dateStart),
+            dateEnd: DateLogic.getDateByStringISO(dateEnd),
         };
 
-        const res: void | AxiosResponse<IResponseCreateAuction> =
+        const res: undefined | AxiosResponse<IResponseCreateAuction> =
             await postData(
                 (): Promise<AxiosResponse<IResponseCreateAuction>> =>
                     AuctionService.addAuction(dataPostUser),

@@ -69,3 +69,7 @@
 .userName:hover {
     color: #615ef3;
 }
+
+.positionButtonEdit {
+    margin-top: 10px;
+}

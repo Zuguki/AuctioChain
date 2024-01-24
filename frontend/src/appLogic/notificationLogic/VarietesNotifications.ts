@@ -20,6 +20,11 @@ export const NotificationCreateLot: NotificationLogic = new NotificationLogic(
     'Проверьте наличие на странице аукциона.',
 );
 
+export const NotificationUpdateLot: NotificationLogic = new NotificationLogic(
+    'Лот успешно отредактирован!',
+    'Проверьте изменение на странице лота.',
+);
+
 export const NotificationCreateAuction: NotificationLogic =
     new NotificationLogic(
         'Аукцион успешно создан!',

@@ -14,9 +14,7 @@ interface IFormTextArea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     title: string;
     error: AxiosError | null;
     errorBlur: () => void;
-    changeValue: (
-        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => void;
+    changeValue: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FormTextArea: FC<IFormTextArea> = memo(

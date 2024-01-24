@@ -7,4 +7,6 @@ interface IPostLot {
     image: string | null;
 }
 
+export type IPutLot = Omit<IPostLot, 'auctionId'> & { lotId: string };
+
 export default IPostLot;

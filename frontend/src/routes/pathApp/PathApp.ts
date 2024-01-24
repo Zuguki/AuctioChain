@@ -11,6 +11,7 @@ enum PathApp {
     bill = '/bill',
     currency = 'currency',
     id = '/:id',
+    editLot = '/editLot',
 }
 
 export default PathApp;

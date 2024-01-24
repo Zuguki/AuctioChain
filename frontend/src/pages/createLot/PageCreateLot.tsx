@@ -1,21 +1,15 @@
 import React from 'react';
-import FormInput from '../../components/UI/inputs/FormInput/FormInput.tsx';
-import FormTextArea from '../../components/UI/inputs/FormTextArea/FormTextArea.tsx';
-import { Form, useNavigate, useParams } from 'react-router-dom';
-import styleCreateLot from '../createAuction/pageCreateAuction.module.css';
-import ImageInput from '../../components/UI/inputs/ImageInput/ImageInput.tsx';
+import { useNavigate, useParams } from 'react-router-dom';
 import usePostAPI from '../../hooks/API/usePostAPI.ts';
 import useDataUser from '../../hooks/useDataUser.ts';
 import IPostLot from '../../API/interfaces/IPostLot.ts';
-import { numberChars } from '../../auxiliaryTools/bloclnvalidChar.ts';
-import LotService from '../../API/service/LotService.ts';
-import { AxiosResponse } from 'axios';
 import usePostImage from '../../hooks/API/usePostImage.ts';
-import PathApp from '../../routes/pathApp/PathApp.ts';
-import LogicFormProcessing from '../../components/LogicFormProcessing/LogicFormProcessing.tsx';
-import SubmitButton from '../../components/SubmitButton/SubmitButton.tsx';
+import LotInteraction from '../../components/flamePages/LotInteraction/LotInteraction.tsx';
+import { AxiosResponse } from 'axios';
+import LotService from '../../API/service/LotService.ts';
 import { stateApp } from '../../context/context.ts';
 import { NotificationCreateLot } from '../../appLogic/notificationLogic/VarietesNotifications.ts';
+import PathApp from '../../routes/pathApp/PathApp.ts';
 
 const PageCreateLot = () => {
     const { id } = useParams();
@@ -48,7 +42,20 @@ const PageCreateLot = () => {
         }
     };
     return (
-        <Form className={styleCreateLot.position} onSubmit={postLot}>
+        <LotInteraction
+            submitForm={postLot}
+            loading={loading}
+            error={error}
+            logicFormValue={logicFormValue}
+            blurError={blurError}
+            setFileImage={postImage}
+            componentLot={{
+                title: 'Создание лота',
+                buttonText: 'Создать',
+                lot: null,
+            }}
+        />
+        /*<Form className={styleCreateLot.position} onSubmit={postLot}>
             <div className={styleCreateLot.form}>
                 <div className={styleCreateLot.titleBlockLot}>
                     <h1>Создание лота</h1>
@@ -101,7 +108,7 @@ const PageCreateLot = () => {
                     <SubmitButton loading={loading}>Создать</SubmitButton>
                 </div>
             </div>
-        </Form>
+        </Form>*/
     );
 };
 

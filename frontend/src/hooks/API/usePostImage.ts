@@ -22,7 +22,7 @@ const usePostImage = (
                 },
             );
         }, [imageFile]);
-    return { setFile, postImage };
+    return { setFile, postImage, imageFile };
 };
 
 export default usePostImage;

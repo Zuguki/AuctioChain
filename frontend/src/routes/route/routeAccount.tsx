@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import PathApp from '../pathApp/PathApp.ts';
 import RequireAuth from '../RequireAuth.tsx';
 import LazyDownload from '../LazyDownload.tsx';
+import PageEditLot from '../../pages/editLot/PageEditLot.tsx';
 
 const PageAccount: LazyExoticComponent<FC> = lazy(
     () => import('../../pages/account/PageAccount.tsx'),
@@ -45,6 +46,16 @@ const routeAccount = (
                 <RequireAuth>
                     <LazyDownload>
                         <PageCreateLot />
+                    </LazyDownload>
+                </RequireAuth>
+            }
+        />
+        <Route
+            path={`${PathApp.editLot}${PathApp.id}`}
+            element={
+                <RequireAuth>
+                    <LazyDownload>
+                        <PageEditLot />
                     </LazyDownload>
                 </RequireAuth>
             }

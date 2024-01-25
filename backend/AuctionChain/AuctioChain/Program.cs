@@ -13,6 +13,7 @@ using AuctioChain.BL.Services.Dto;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Account;
 using AuctioChain.DAL.Models.Profile.Dto;
+using AuctioChain.Extensions;
 using AuctioChain.Libs.Serilog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -46,6 +47,7 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddElasticsearch();
 
 builder.Services.AddSingleton<IConnectionFactory>(_ => new ConnectionFactory
 {

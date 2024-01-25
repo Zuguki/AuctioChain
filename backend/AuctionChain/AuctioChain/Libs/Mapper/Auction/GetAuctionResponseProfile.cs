@@ -11,6 +11,7 @@ public class GetAuctionResponseProfile : Profile
     {
         CreateMap<CreateAuctionRequest, AuctionDal>().ReverseMap();
         CreateMap<GetAuctionByIdResponse, AuctionDal>().ReverseMap();
+        CreateMap<AuctionIndex, AuctionDal>().ReverseMap();
         CreateMap<AuctionDal, AuctionResponse>()
             .ForMember(nameof(AuctionResponse.LotsCount), cfg => cfg.MapFrom(src => src.Lots!.Count));
         CreateMap<UpdateAuctionRequest, AuctionDal>()

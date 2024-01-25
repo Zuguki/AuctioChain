@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import usePostAPI from '../../hooks/API/usePostAPI.ts';
 import useDataUser from '../../hooks/useDataUser.ts';
-import IPostLot from '../../API/interfaces/IPostLot.ts';
+import IPostLot, { reformatLot } from '../../API/interfaces/IPostLot.ts';
 import usePostImage from '../../hooks/API/usePostImage.ts';
 import LotInteraction from '../../components/flamePages/LotInteraction/LotInteraction.tsx';
 import { AxiosResponse } from 'axios';
@@ -24,20 +24,15 @@ const PageCreateLot = () => {
             return;
         }
 
-        const { initialPrice, betStep } = dataUser;
-        const dataPostUser: IPostLot = {
-            ...dataUser,
+        const postLot: IPostLot = {
+            ...reformatLot(dataUser, image),
             auctionId: id as string,
-            initialPrice: +initialPrice,
-            betStep: +betStep,
-            image,
         };
 
-        sendData(
-            async () =>
+        await sendData(
+            async (): Promise<AxiosResponse | undefined> =>
                 await postData(
-                    (): Promise<AxiosResponse> =>
-                        LotService.addLot(dataPostUser),
+                    (): Promise<AxiosResponse> => LotService.addLot(postLot),
                 ),
             NotificationCreateLot,
             `${PathApp.auction}/${id}`,
@@ -54,10 +49,10 @@ const PageCreateLot = () => {
                 setFileImage: setFile,
                 imageFile: imageFile,
             }}
-            componentLot={{
+            componentInteraction={{
                 title: 'Создание лота',
                 buttonText: 'Создать',
-                lot: null,
+                component: null,
             }}
         />
     );

@@ -11,12 +11,12 @@ const InformationAuction: FC<{ auction: IAuction }> = ({ auction }) => {
             <p className={stylePage.information}>
                 <span className={stylePage.description}>Дата начала:</span>
                 &nbsp;
-                {DateLogic.getBaseFormatDateTOStringISO(dateStart)}
+                {DateLogic.getBaseFormatDateToStringISO(dateStart)}
             </p>
             <p className={stylePage.information}>
                 <span className={stylePage.description}>Дата окончания:</span>
                 &nbsp;
-                {DateLogic.getBaseFormatDateTOStringISO(dateEnd)}
+                {DateLogic.getBaseFormatDateToStringISO(dateEnd)}
             </p>
             <p className={stylePage.information}>
                 <span className={stylePage.description}>Статус:</span>&nbsp;

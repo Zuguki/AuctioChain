@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import PathApp from '../pathApp/PathApp.ts';
 import RequireAuth from '../RequireAuth.tsx';
 import LazyDownload from '../LazyDownload.tsx';
-import PageEditLot from '../../pages/editLot/PageEditLot.tsx';
 
 const PageAccount: LazyExoticComponent<FC> = lazy(
     () => import('../../pages/account/PageAccount.tsx'),
@@ -20,6 +19,15 @@ const PageCreateLot: LazyExoticComponent<FC> = lazy(
 const AddMoney: LazyExoticComponent<FC> = lazy(
     () => import('../../pages/addMoney/AddMoney.tsx'),
 );
+
+const PageEditLot: LazyExoticComponent<FC> = lazy(
+    () => import('../../pages/editLot/PageEditLot.tsx'),
+);
+
+const PageEditAuction: LazyExoticComponent<FC> = lazy(
+    () => import('../../pages/editAuction/PageEditAuction.tsx'),
+);
+
 const routeAccount = (
     <>
         <Route
@@ -56,6 +64,16 @@ const routeAccount = (
                 <RequireAuth>
                     <LazyDownload>
                         <PageEditLot />
+                    </LazyDownload>
+                </RequireAuth>
+            }
+        />
+        <Route
+            path={`${PathApp.editAuction}${PathApp.id}`}
+            element={
+                <RequireAuth>
+                    <LazyDownload>
+                        <PageEditAuction />
                     </LazyDownload>
                 </RequireAuth>
             }

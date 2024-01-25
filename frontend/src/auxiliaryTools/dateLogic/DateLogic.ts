@@ -6,6 +6,10 @@ export default class DateLogic {
         return this.getDateNowISO().substring(0, 16);
     }
 
+    public static getDatetimeLocal(date: string): string {
+        return date.substring(0, 16);
+    }
+
     public static getDateNowISO(): string {
         return new Date().toISOString();
     }
@@ -14,7 +18,7 @@ export default class DateLogic {
         return new Date(date).toISOString();
     }
 
-    public static getObjDateTOStringISO(date: string): IObjDate {
+    public static getObjDateToStringISO(date: string): IObjDate {
         const dateOdj = new Date(date);
         return {
             hours: dateOdj.getHours(),
@@ -26,11 +30,11 @@ export default class DateLogic {
         };
     }
 
-    public static getBaseFormatDateTOStringISO(
+    public static getBaseFormatDateToStringISO(
         date: string,
         shortMonth: boolean = false,
     ): string {
-        const newDate = this.getObjDateTOStringISO(date);
+        const newDate = this.getObjDateToStringISO(date);
         Object.entries(newDate).forEach(([key, value]): void => {
             newDate[key] = value.toString();
             if (

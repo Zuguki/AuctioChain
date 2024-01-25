@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from 'react';
+import React, { FC } from 'react';
 import LogicFormProcessing from '../../LogicFormProcessing/LogicFormProcessing.tsx';
 import FormInput from '../../UI/inputs/FormInput/FormInput.tsx';
 import FormTextArea from '../../UI/inputs/FormTextArea/FormTextArea.tsx';
@@ -6,32 +6,22 @@ import ImageInput from '../../UI/inputs/ImageInput/ImageInput.tsx';
 import { numberChars } from '../../../auxiliaryTools/bloclnvalidChar.ts';
 import SubmitButton from '../../SubmitButton/SubmitButton.tsx';
 import { Form } from 'react-router-dom';
-import { AxiosError } from 'axios';
-import ILotComponentInteraction from '../../../interfaces/ILotComponentInteraction.ts';
 import ImageForm from '../../ImageForm/ImageForm.tsx';
-import IImageLogicForm from '../../../interfaces/IImageLogicForm.ts';
 import stylePageLot from './lotInteraction.module.css';
+import IInteraction from '../../../interfaces/interfacesInteraction/IInteraction.ts';
+import { IPutLot } from '../../../API/interfaces/IPostLot.ts';
 
-interface LotInteraction {
-    submitForm: () => Promise<void>;
-    loading: boolean;
-    error: AxiosError | null;
-    logicFormValue: (e: ChangeEvent<HTMLInputElement>) => void;
-    blurError: () => void;
-    logicFileImage: IImageLogicForm;
-    componentLot: ILotComponentInteraction;
-}
-
-const LotInteraction: FC<LotInteraction> = ({
+const LotInteraction: FC<IInteraction<IPutLot>> = ({
     submitForm,
     loading,
     error,
     logicFormValue,
     blurError,
-    logicFileImage: { setFileImage, imageFile },
-    componentLot,
+    logicFileImage,
+    componentInteraction,
 }) => {
-    const { title, buttonText, lot } = componentLot;
+    const { setFileImage, imageFile } = logicFileImage;
+    const { title, buttonText, component } = componentInteraction;
     return (
         <Form className={stylePageLot.position} onSubmit={submitForm}>
             <div className={stylePageLot.form}>
@@ -46,7 +36,7 @@ const LotInteraction: FC<LotInteraction> = ({
                     autoFocus={true}
                     changeValue={logicFormValue}
                     errorBlur={blurError}
-                    defaultValue={lot?.name}
+                    defaultValue={component?.name}
                 />
                 <FormTextArea
                     name="description"
@@ -54,7 +44,7 @@ const LotInteraction: FC<LotInteraction> = ({
                     error={error}
                     errorBlur={blurError}
                     changeValue={logicFormValue}
-                    defaultValue={lot?.description}
+                    defaultValue={component?.description}
                 />
                 <ImageInput
                     title="Изображение лота"
@@ -65,7 +55,7 @@ const LotInteraction: FC<LotInteraction> = ({
                 />
                 <ImageForm
                     className={stylePageLot.image}
-                    src={lot?.image}
+                    src={component?.image}
                     text="Текущее изображение лота"
                     imageFile={imageFile}
                 />
@@ -78,7 +68,7 @@ const LotInteraction: FC<LotInteraction> = ({
                     changeValue={logicFormValue}
                     blockChars={numberChars}
                     errorBlur={blurError}
-                    defaultValue={lot?.initialPrice}
+                    defaultValue={component?.initialPrice}
                 />
                 <FormInput
                     title="Шаг лота (Ac)"
@@ -89,7 +79,7 @@ const LotInteraction: FC<LotInteraction> = ({
                     blockChars={numberChars}
                     changeValue={logicFormValue}
                     errorBlur={blurError}
-                    defaultValue={lot?.betStep}
+                    defaultValue={component?.betStep}
                 />
                 <div className={stylePageLot.positionButton}>
                     <SubmitButton loading={loading}>{buttonText}</SubmitButton>

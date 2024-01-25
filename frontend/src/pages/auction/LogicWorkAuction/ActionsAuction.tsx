@@ -65,7 +65,13 @@ const ActionsAuction: FC<IActionsAuction> = ({
                     {isCreation && (
                         <>
                             <div className={stylePage.positionButtonEdit}>
-                                <BaseButton>Редактировать аукцион</BaseButton>
+                                <BaseButton
+                                    onClick={() =>
+                                        nav(`${PathApp.editAuction}/${id}`)
+                                    }
+                                >
+                                    Редактировать аукцион
+                                </BaseButton>
                             </div>
                             <p className={stylePage.informationFinish}>
                                 Обратите внимание, что торги аукциона начнутся

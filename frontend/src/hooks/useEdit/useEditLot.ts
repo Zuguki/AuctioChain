@@ -1,9 +1,9 @@
-import useGetAPI from './API/useGetAPI.ts';
-import ILot from '../API/interfaces/ILot.ts';
+import useGetAPI from '../API/useGetAPI.ts';
+import LotService from '../../API/service/LotService.ts';
+import ILot from '../../API/interfaces/ILot.ts';
 import { useEffect, useMemo } from 'react';
-import { IPutLot } from '../API/interfaces/IPostLot.ts';
-import useDataUser from './useDataUser.ts';
-import LotService from '../API/service/LotService.ts';
+import { IPutLot } from '../../API/interfaces/IPostLot.ts';
+import useDataUser from '../useDataUser.ts';
 
 const useEditLot = (id: string) => {
     const {

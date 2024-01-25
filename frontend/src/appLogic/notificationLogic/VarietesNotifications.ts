@@ -31,6 +31,12 @@ export const NotificationCreateAuction: NotificationLogic =
         'Проверьте наличие в личном кабинете',
     );
 
+export const NotificationUpdateAuction: NotificationLogic =
+    new NotificationLogic(
+        'Аукцион успешно обновлен!',
+        'Проверьте обновления на странице аукциона',
+    );
+
 export const RegistrationNotification = (userName: string): NotificationLogic =>
     new NotificationLogic(
         `Приветсвуем тебя @${userName}!`,

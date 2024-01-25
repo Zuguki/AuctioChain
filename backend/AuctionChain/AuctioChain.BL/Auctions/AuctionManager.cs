@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ using FluentResults;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using Nest;
+using Result = FluentResults.Result;
 
 namespace AuctioChain.BL.Auctions;
 
@@ -25,52 +28,82 @@ public class AuctionManager : IAuctionManager
     private readonly IMapper _mapper;
     private readonly IBalanceManager _balanceManager;
     private readonly IPublisher<AuctionEndDto> _publisher;
+    private readonly IElasticClient _elastic;
 
     /// <summary>
     /// .ctor
     /// </summary>
-    public AuctionManager(DataContext context, IMapper mapper, IBalanceManager balanceManager, IPublisher<AuctionEndDto> publisher)
+    public AuctionManager(DataContext context, IMapper mapper, IBalanceManager balanceManager, IPublisher<AuctionEndDto> publisher, IElasticClient elastic)
     {
         _context = context;
         _mapper = mapper;
         _balanceManager = balanceManager;
         _publisher = publisher;
+        _elastic = elastic;
     }
 
     /// <inheritdoc />
     public async Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAsync(PaginationRequest pagination, GetAuctionsRequest request)
     {
-        var auctions = _context.Auctions.Include(a => a.Lots).AsEnumerable();
-        var paginationMetadata = new PaginationMetadata(auctions.Count(), pagination.Page, pagination.ItemsPerPage);
-
-        if (!string.IsNullOrWhiteSpace(request.Search))
-        {
-            var searchLower = request.Search.ToLower();
-            auctions = auctions.Where(auc => auc.Name != null && auc.Name.ToLower().Contains(searchLower));
-        }
+        var auctionsEnumerator = await SearchAuctionsByNameOrAllAsync(request.Search);
+        auctionsEnumerator = await FilterAuctionsByStatusAsync(auctionsEnumerator, request.AuctionStatus);
+        auctionsEnumerator = await OrderAuctionsByStatusAsync(auctionsEnumerator, request.OrderByStatus);
         
-        if (request.AuctionStatus is not null)
-            auctions = auctions.Where(auc => (int) auc.Status == (int) request.AuctionStatus);
+        var auctionsList = auctionsEnumerator.ToList();
+        var paginationMetadata = new PaginationMetadata(auctionsList.Count, pagination.Page, pagination.ItemsPerPage);
+        auctionsList = auctionsList
+            .Skip((pagination.Page - 1) * pagination.ItemsPerPage)
+            .Take(pagination.ItemsPerPage).ToList();
 
-        if (request.OrderByStatus is not null)
+        var response = new GetAuctionsResponse {Auctions = auctionsList.Select(a => _mapper.Map<AuctionResponse>(a))};
+        return Result.Ok((response, paginationMetadata));
+    }
+
+    private Task<IEnumerable<AuctionDal>> OrderAuctionsByStatusAsync(IEnumerable<AuctionDal> auctions,
+        OrderByAuctionStatus? orderByStatus)
+    {
+        if (orderByStatus is not null)
         {
-            auctions = request.OrderByStatus switch
+            return Task.FromResult(orderByStatus switch
             {
                 OrderByAuctionStatus.Name => auctions.OrderBy(a => a.Name),
                 OrderByAuctionStatus.NameDescending => auctions.OrderByDescending(a => a.Name),
                 OrderByAuctionStatus.AuctionDateStart => auctions.OrderBy(a => a.DateStart),
                 OrderByAuctionStatus.AuctionDateEnd => auctions.OrderBy(a => a.DateEnd),
                 _ => auctions
-            };
+            });
         }
 
-        var result = auctions
-            .Skip((pagination.Page - 1) * pagination.ItemsPerPage)
-            .Take(pagination.ItemsPerPage);
-        
-        var response = new GetAuctionsResponse {Auctions = result.Select(a => _mapper.Map<AuctionResponse>(a))};
-        return Result.Ok((response, paginationMetadata));
+        return Task.FromResult(auctions);
     }
+
+    private async Task<IEnumerable<AuctionDal>> SearchAuctionsByNameOrAllAsync(string? name)
+    {
+        var auctions = _context.Auctions.Include(a => a.Lots);
+        var auctionsList = new List<AuctionDal>();
+        
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            name = name.ToLower();
+            var searchResponse = await _elastic.SearchAsync<AuctionIndex>(s => s
+                .Query(q => q
+                    .Term(t => t.Name, name)));
+
+            foreach (var auc in searchResponse.Documents)
+            {
+                var auctionDal = await auctions.FirstOrDefaultAsync(item => item.Id == auc.Id);
+                if (auctionDal is not null)
+                    auctionsList.Add(auctionDal);
+            }
+        }
+        else
+            auctionsList = auctions.ToList();
+
+        return auctionsList;
+    }
+
+    private Task<IEnumerable<AuctionDal>> FilterAuctionsByStatusAsync(IEnumerable<AuctionDal> auctions, AuctionStatus? status) =>
+        Task.FromResult(status is null ? auctions : auctions.Where(auc => (int) auc.Status == (int) status));
 
     /// <inheritdoc />
     public async Task<Result<GetAuctionByIdResponse>> GetByIdAsync(Guid request)
@@ -100,9 +133,13 @@ public class AuctionManager : IAuctionManager
             DateEnd = auction.DateEnd,
         };
 
+        var auctionIndex = _mapper.Map<AuctionIndex>(auction);
+        await _elastic.IndexDocumentAsync(auctionIndex);
+        
         await _publisher.Publish("topic", "auction.events", "auction.check-end", dto);
         await _context.Auctions.AddAsync(auction);
         await _context.SaveChangesAsync();
+        
         return Result.Ok(new CreateAuctionResponse {AuctionId = auction.Id});
     }
 

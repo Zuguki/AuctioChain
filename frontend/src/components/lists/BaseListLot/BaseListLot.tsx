@@ -1,10 +1,10 @@
-import React, { FC, ReactElement } from 'react';
-import stylePage from '../../../pages/auction/pageOneAuction.module.css';
-import styleList from './listLot.module.css';
-import CardLot from './CardLot/CardLot.tsx';
-import Pagination from '../../UI/Pagination/Pagination.tsx';
-import ILot from '../../../API/interfaces/ILot.ts';
-import ILogicPagination from '../../../hooks/API/useGetPaginationAPI/ILogicPagination.ts';
+import React, { FC, ReactElement } from "react";
+import stylePage from "../../../pages/auction/pageOneAuction.module.css";
+import styleList from "./listLot.module.css";
+import CardLot from "./CardLot/CardLot.tsx";
+import Pagination from "../../UI/Pagination/Pagination.tsx";
+import ILot from "../../../API/interfaces/ILot.ts";
+import ILogicPagination from "../../../hooks/API/useGetPaginationAPI/ILogicPagination.ts";
 
 interface IBaseListLot {
     lots: ILot[];

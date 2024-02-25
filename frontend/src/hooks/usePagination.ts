@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { numberArray } from '../auxiliaryTools/numberArray.ts';
-import ILogicPagination from './API/useGetPaginationAPI/ILogicPagination.ts';
+import { useEffect, useState } from "react";
+import { numberArray } from "../auxiliaryTools/numberArray.ts";
+import ILogicPagination from "./API/useGetPaginationAPI/ILogicPagination.ts";
 
 const usePagination = (
     pagination: ILogicPagination,
@@ -12,7 +12,7 @@ const usePagination = (
     );
     useEffect((): void => {
         sendCurrentPage(currentPage);
-        setPaginationArray((): ('...' | number)[] =>
+        setPaginationArray((): ("..." | number)[] =>
             numberArray(currentPage, endPage),
         );
     }, [currentPage]);

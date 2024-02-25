@@ -1,5 +1,5 @@
-import IObjDate from './IObjDate.ts';
-import MonthEnum from './MonthEnum.ts';
+import IObjDate from "./IObjDate.ts";
+import MonthEnum from "./MonthEnum.ts";
 
 export default class DateLogic {
     public static getDateNow(): string {
@@ -39,10 +39,10 @@ export default class DateLogic {
             newDate[key] = value.toString();
             if (
                 newDate[key].length !== 2 &&
-                key !== 'year' &&
-                key !== 'month'
+                key !== "year" &&
+                key !== "month"
             ) {
-                newDate[key] = '0' + value;
+                newDate[key] = "0" + value;
             }
         });
         const month: string = shortMonth

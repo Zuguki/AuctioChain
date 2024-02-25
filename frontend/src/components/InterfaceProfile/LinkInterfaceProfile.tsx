@@ -1,7 +1,7 @@
-import React, { FC, ReactNode, useContext } from 'react';
-import { Context } from '../../context/context.ts';
-import { Link } from 'react-router-dom';
-import styleInterface from './interfaceProfile.module.css';
+import React, { FC, ReactNode, useContext } from "react";
+import { Context } from "@/context/context.ts";
+import { Link } from "react-router-dom";
+import styleInterface from "./interfaceProfile.module.css";
 
 const LinkInterfaceProfile: FC<{ path: string; children: ReactNode }> = ({
     children,

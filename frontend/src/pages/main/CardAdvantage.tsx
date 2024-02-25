@@ -1,5 +1,5 @@
-import React, { FC, HTMLAttributes } from 'react';
-import styleMain from './mainPage.module.css';
+import React, { FC, HTMLAttributes } from "react";
+import styleMain from "./mainPage.module.css";
 
 interface ICardAdvantage extends HTMLAttributes<HTMLDivElement> {
     title: string;

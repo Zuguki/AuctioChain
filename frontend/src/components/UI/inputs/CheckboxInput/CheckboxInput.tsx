@@ -4,8 +4,8 @@ import {
     forwardRef,
     InputHTMLAttributes,
     ReactNode,
-} from 'react';
-import styleCheckbox from './checkboxInput.module.css';
+} from "react";
+import styleCheckbox from "./checkboxInput.module.css";
 
 interface ICheckBoxInput extends InputHTMLAttributes<HTMLInputElement> {
     children: ReactNode;

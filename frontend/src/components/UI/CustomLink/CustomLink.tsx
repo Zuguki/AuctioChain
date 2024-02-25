@@ -1,6 +1,6 @@
-import { FC, memo, ReactNode } from 'react';
-import { Link, useMatch } from 'react-router-dom';
-import styleLink from './customLink.module.css';
+import { FC, memo, ReactNode } from "react";
+import { Link, useMatch } from "react-router-dom";
+import styleLink from "./customLink.module.css";
 
 interface ICustomLink {
     children: ReactNode;

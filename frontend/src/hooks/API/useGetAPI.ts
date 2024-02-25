@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { AxiosError, AxiosResponse } from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { AxiosResponse } from "axios";
+import { useQuery } from "@tanstack/react-query";
+/*
 
 const useGetAPI = <T>(
     response: () => Promise<AxiosResponse>,
@@ -26,10 +26,32 @@ const useGetAPI = <T>(
     }, [...depends]);
     useEffect((): void => {
         if (err?.response?.status === 404) {
-            nav('*');
+            nav("*");
         }
     }, [err]);
     return { data, loading, err };
+};
+*/
+
+const useGetAPI = <T>(
+    response: () => Promise<AxiosResponse<T>>,
+    queryKey: unknown[],
+    baseData: T = {} as T,
+) => {
+    const { data, isSuccess, isLoading, error } = useQuery({
+        queryKey,
+        queryFn: () => response(),
+        retry: 3,
+        staleTime: 1000,
+    });
+
+    return {
+        data: data?.data ?? baseData,
+        isLoading,
+        isSuccess,
+        error,
+        headers: data?.headers,
+    };
 };
 
 export default useGetAPI;

@@ -1,12 +1,12 @@
-import $api, { paramsPagination } from '../api.ts';
-import { AxiosResponse } from 'axios';
-import ILot, { ResponseObjLots } from '../interfaces/ILot.ts';
-import IPostBet from '../interfaces/IPostBet.ts';
-import { ResponseObjBets } from '../interfaces/IBet.ts';
-import IPostLot, { IPutLot } from '../interfaces/IPostLot.ts';
+import $api, { paramsPagination } from "../api.ts";
+import { AxiosResponse } from "axios";
+import ILot, { ResponseObjLots } from "../interfaces/ILot.ts";
+import IPostBet from "../interfaces/IPostBet.ts";
+import { ResponseObjBets } from "../interfaces/IBet.ts";
+import IPostLot, { IPutLot } from "../interfaces/IPostLot.ts";
 
 export default class LotService {
-    private static readonly pathLots: string = 'auction/lots';
+    private static readonly pathLots: string = "auction/lots";
     private static readonly pathLotBets: string = `${this.pathLots}/bets`;
 
     public static async getLots(

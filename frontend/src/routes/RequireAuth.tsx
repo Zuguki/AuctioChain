@@ -1,7 +1,7 @@
-import React, { FC, ReactElement, useContext } from 'react';
-import { Context } from '../context/context.ts';
-import { Navigate, useLocation } from 'react-router-dom';
-import PathApp from './pathApp/PathApp.ts';
+import React, { FC, ReactElement, useContext } from "react";
+import { Context } from "../context/context.ts";
+import { Navigate, useLocation } from "react-router-dom";
+import PathApp from "./pathApp/PathApp.ts";
 
 interface IRequireAuth {
     children: ReactElement;

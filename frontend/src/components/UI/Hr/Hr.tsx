@@ -1,8 +1,8 @@
-import { FC } from 'react';
-import sizeStyle from '../../../auxiliaryTools/logicSize.ts';
-import styleHr from './hr.module.css';
+import { FC } from "react";
+import sizeStyle from "../../../auxiliaryTools/logicSize.ts";
+import styleHr from "./hr.module.css";
 
-const Hr: FC<IHr> = ({ width = 'base', extraSmall = false }) => {
+const Hr: FC<IHr> = ({ width = "base", extraSmall = false }) => {
     return (
         <hr
             className={`${styleHr.hr} ${
@@ -13,7 +13,7 @@ const Hr: FC<IHr> = ({ width = 'base', extraSmall = false }) => {
 };
 
 interface IHr {
-    width?: 'small' | 'base' | 'large';
+    width?: "small" | "base" | "large";
     extraSmall?: boolean;
 }
 

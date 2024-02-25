@@ -1,9 +1,9 @@
-import { AxiosResponse } from 'axios';
-import IResponseBalance from '../interfaces/response/IResponseBalance.ts';
-import $api from '../api.ts';
+import { AxiosResponse } from "axios";
+import IResponseBalance from "../interfaces/response/IResponseBalance.ts";
+import $api from "../api.ts";
 
 export default class BalanceService {
-    private static readonly pathBalance = 'balance';
+    private static readonly pathBalance = "balance";
 
     public static async getBalanceUser(): Promise<
         AxiosResponse<IResponseBalance>

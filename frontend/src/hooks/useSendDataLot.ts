@@ -1,12 +1,12 @@
-import { stateApp } from '../context/context.ts';
-import { useNavigate } from 'react-router-dom';
-import INotification from '../appLogic/notificationLogic/INotification.ts';
-import { AxiosResponse } from 'axios';
+import { stateApp } from "../context/context.ts";
+import { useNavigate } from "react-router-dom";
+import INotification from "../appLogic/notificationLogic/INotification.ts";
+import { AxiosResponse } from "axios";
 
 const useSendDataLot = () => {
     const nav = useNavigate();
     const sendData = async (
-        request: () => Promise<AxiosResponse | undefined>,
+        request: () => Promise<AxiosResponse>,
         notification: INotification,
         pathNav: string,
     ) => {

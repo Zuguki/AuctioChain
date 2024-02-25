@@ -1,22 +1,22 @@
-import React, { FC, ForwardedRef, forwardRef, memo } from 'react';
-import inputStyle from './searchInput.module.css';
-import IInput from '../IInput.ts';
-import sizeStyle from '../../../../auxiliaryTools/logicSize.ts';
+import React, { FC, ForwardedRef, forwardRef, memo } from "react";
+import inputStyle from "./searchInput.module.css";
+import IInput from "../IInput.ts";
+import sizeStyle from "../../../../auxiliaryTools/logicSize.ts";
 
-interface ISearchInput extends Omit<IInput, 'title'> {
+interface ISearchInput extends Omit<IInput, "title"> {
     isWrite: boolean;
 }
 
 const SearchInput: FC<ISearchInput> = memo(
     forwardRef(
         (
-            { changeValue, width = 'base', isWrite, ...props },
+            { changeValue, width = "base", isWrite, ...props },
             ref: ForwardedRef<HTMLInputElement>,
         ) => {
             return (
                 <>
                     <input
-                        style={{ display: 'inline-block' }}
+                        style={{ display: "inline-block" }}
                         className={`${inputStyle.input} ${
                             sizeStyle(inputStyle.small, inputStyle.large)[width]
                         }`}

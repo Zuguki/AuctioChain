@@ -1,11 +1,11 @@
-import { CSSModulesOptions } from 'vite';
+import { CSSModulesOptions } from "vite";
 
 const sizeStyle = (
     smallStyle: CSSModulesOptions,
     largeStyle: CSSModulesOptions,
 ) => ({
     small: smallStyle,
-    base: '',
+    base: "",
     large: largeStyle,
 });
 

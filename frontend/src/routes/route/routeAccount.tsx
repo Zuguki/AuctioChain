@@ -1,31 +1,31 @@
-import { FC, lazy, LazyExoticComponent } from 'react';
-import { Route } from 'react-router-dom';
-import PathApp from '../pathApp/PathApp.ts';
-import RequireAuth from '../RequireAuth.tsx';
-import LazyDownload from '../LazyDownload.tsx';
+import { FC, lazy, LazyExoticComponent } from "react";
+import { Route } from "react-router-dom";
+import PathApp from "../pathApp/PathApp.ts";
+import RequireAuth from "../RequireAuth.tsx";
+import LazyDownload from "../LazyDownload.tsx";
 
 const PageAccount: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/account/PageAccount.tsx'),
+    () => import("../../pages/account/PageAccount.tsx"),
 );
 
 const PageCreateAuction: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/createAuction/PageCreateAuction.tsx'),
+    () => import("../../pages/createAuction/PageCreateAuction.tsx"),
 );
 
 const PageCreateLot: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/createLot/PageCreateLot.tsx'),
+    () => import("../../pages/createLot/PageCreateLot.tsx"),
 );
 
 const AddMoney: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/addMoney/AddMoney.tsx'),
+    () => import("../../pages/addMoney/AddMoney.tsx"),
 );
 
 const PageEditLot: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/editLot/PageEditLot.tsx'),
+    () => import("../../pages/editLot/PageEditLot.tsx"),
 );
 
 const PageEditAuction: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/editAuction/PageEditAuction.tsx'),
+    () => import("../../pages/editAuction/PageEditAuction.tsx"),
 );
 
 const routeAccount = (

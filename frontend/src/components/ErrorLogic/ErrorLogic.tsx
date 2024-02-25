@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
-import { AxiosError } from 'axios';
-import styleError from './errorLogic.module.css';
+import React, { FC } from "react";
+import { AxiosError } from "axios";
+import styleError from "./errorLogic.module.css";
 
 interface IErrorLogic {
     err: AxiosError;

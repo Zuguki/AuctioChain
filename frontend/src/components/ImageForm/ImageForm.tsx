@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes } from 'react';
+import React, { FC, HTMLAttributes } from "react";
 
 interface IImageForm extends HTMLAttributes<HTMLImageElement> {
     src: string | null | undefined;

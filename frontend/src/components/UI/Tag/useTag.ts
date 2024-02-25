@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import tagStyle from './tag.module.css';
+import { useEffect, useState } from "react";
+import tagStyle from "./tag.module.css";
 
 interface IUseTag {
     style: string;

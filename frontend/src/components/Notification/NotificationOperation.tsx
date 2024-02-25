@@ -1,8 +1,8 @@
-import { FC, memo, ReactNode, useContext, useEffect, useState } from 'react';
-import { observer } from 'mobx-react-lite';
-import INotification from '../../appLogic/notificationLogic/INotification.ts';
-import ComponentNotification from './ComponentNotification.tsx';
-import { Context } from '../../context/context.ts';
+import { FC, memo, ReactNode, useContext, useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+import INotification from "../../appLogic/notificationLogic/INotification.ts";
+import ComponentNotification from "./ComponentNotification.tsx";
+import { Context } from "@/context/context.ts";
 
 const NotificationOperation: FC = memo(
     observer(() => {

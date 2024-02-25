@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import styleSpinner from './spinner.module.css';
+import React, { FC } from "react";
+import styleSpinner from "./spinner.module.css";
 
 interface ISpinner {
     form?: boolean;

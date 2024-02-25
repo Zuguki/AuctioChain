@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import SearcherAuction from './SearcherAuction/SearcherAuction.tsx';
-import stylePage from './pageAuctions.module.css';
-import { Context } from '../../context/context.ts';
-import ListAuctions from './ListAuctions/ListAuctions.tsx';
-import { observer } from 'mobx-react-lite';
+import React, { useContext } from "react";
+import stylePage from "./pageAuctions.module.css";
+import { observer } from "mobx-react-lite";
+import { Context } from "@/context/context.ts";
+import SearcherAuction from "./SearcherAuction/SearcherAuction.tsx";
+import ListAuctions from "@/pages/auctions/ListAuctions/ListAuctions.tsx";
 
 const PageAuctions = observer(() => {
     const { stateApp } = useContext(Context);

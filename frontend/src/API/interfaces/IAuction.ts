@@ -1,5 +1,5 @@
-import IResponseAuction from './response/IResponseAuctions.ts';
+import IResponseAuction from "./response/IResponseAuctions.ts";
 
-type IAuction = Omit<IResponseAuction, 'lotsCount'>;
+type IAuction = Omit<IResponseAuction, "lotsCount">;
 
 export default IAuction;

@@ -1,4 +1,4 @@
-import IUser from '../../../API/interfaces/IUser.ts';
+import IUser from "../../../API/interfaces/IUser.ts";
 
 export interface ILinkLogicUser {
     auth: boolean;

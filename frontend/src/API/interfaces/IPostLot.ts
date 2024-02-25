@@ -7,7 +7,7 @@ interface IPostLot {
     image: string | null;
 }
 
-export type IPutLot = Omit<IPostLot, 'auctionId' | 'image'> & {
+export type IPutLot = Omit<IPostLot, "auctionId" | "image"> & {
     lotId: string;
     image: string;
 };

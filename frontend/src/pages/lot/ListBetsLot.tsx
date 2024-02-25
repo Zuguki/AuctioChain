@@ -4,11 +4,11 @@ import React, {
     ReactElement,
     useEffect,
     useState,
-} from 'react';
-import IBet from '../../API/interfaces/IBet.ts';
-import ProfileService from '../../API/service/ProfileService.ts';
-import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
-import styleLot from './pageLot.module.css';
+} from "react";
+import IBet from "../../API/interfaces/IBet.ts";
+import ProfileService from "../../API/service/ProfileService.ts";
+import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
+import styleLot from "./pageLot.module.css";
 
 interface IListBetsLot extends HTMLAttributes<HTMLDivElement> {
     betsLot: IBet[];
@@ -24,14 +24,14 @@ const ListBetsLot: FC<IListBetsLot> = ({ betsLot, ...props }) => {
             setLoading((): boolean => true);
             try {
                 const dataBets = await Promise.all(
-                    betsLot.map(async bet => {
+                    betsLot.map(async (bet) => {
                         const { userId, amount, id } = bet;
                         const {
                             data: { userName },
                         } = await ProfileService.getUserName(userId);
                         return (
                             <p key={id} className={styleLot.informationBet}>
-                                Пользователь @{userName} поставил ставку{' '}
+                                Пользователь @{userName} поставил ставку{" "}
                                 {amount} Ac
                             </p>
                         );

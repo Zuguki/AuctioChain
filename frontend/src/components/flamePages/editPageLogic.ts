@@ -1,4 +1,4 @@
-import equalsObjects from '../../auxiliaryTools/equalsObjects.ts';
+import equalsObjects from "../../auxiliaryTools/equalsObjects.ts";
 
 const editPageLogic = async <
     T extends {
@@ -12,15 +12,15 @@ const editPageLogic = async <
     postCorrectImage: () => Promise<string | null>,
 ): Promise<string | undefined> => {
     if (equalsObjects(dataUser, baseObj) && !imageFile) {
-        alert('Правок не было!');
+        alert("Правок не было!");
         return;
     }
     blurError();
     let { image } = dataUser;
     if (imageFile) {
-        image = (await postCorrectImage()) || '';
+        image = (await postCorrectImage()) || "";
         if (!image) {
-            alert('Ошибка загрузки изображения!');
+            alert("Ошибка загрузки изображения!");
             return;
         }
     }

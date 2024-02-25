@@ -1,27 +1,29 @@
-import $api, { paramsPagination, upFirstLetterByParams } from '../api.ts';
-import IPostAuction, { IPutAuction } from '../interfaces/IPostAuction.ts';
-import { AxiosResponse } from 'axios';
+import $api, { paramsPagination } from "../api.ts";
+import IPostAuction, { IPutAuction } from "../interfaces/IPostAuction.ts";
+import { AxiosResponse } from "axios";
 import {
     IResponseCreateAuction,
     ResponseObjAuctions,
-} from '../interfaces/response/IResponseAuctions.ts';
-import IAuction from '../interfaces/IAuction.ts';
+} from "../interfaces/response/IResponseAuctions.ts";
+import IAuction from "../interfaces/IAuction.ts";
 import IParamsAuctions, {
     BaseParamsAuctions,
-} from '../../interfaces/IParamsAuctions.ts';
+} from "../../interfaces/IParamsAuctions.ts";
 
 export default class AuctionService {
-    private static readonly pathAuctions: string = 'auctions';
+    private static readonly pathAuctions: string = "auctions";
 
     public static async getAuctions(
         page: number = 1,
         elementOnPage: number = 12,
         paramsAuctions: IParamsAuctions = BaseParamsAuctions,
     ): Promise<AxiosResponse<ResponseObjAuctions>> {
+        console.log(paramsAuctions);
         return $api.get(`${this.pathAuctions}`, {
             params: {
                 ...paramsPagination(page, elementOnPage),
-                ...upFirstLetterByParams(paramsAuctions),
+                /*...upFirstLetterByParams(paramsAuctions),*/
+                ...paramsAuctions,
             },
         });
     }

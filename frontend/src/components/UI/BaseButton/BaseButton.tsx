@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import styleBtn from './baseButton.module.css';
-import IBaseButton from './IBaseButton.ts';
+import { FC } from "react";
+import styleBtn from "./baseButton.module.css";
+import IBaseButton from "./IBaseButton.ts";
 
 const BaseButton: FC<IBaseButton> = ({
     red = false,

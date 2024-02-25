@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from "react";
 
 interface IButtonSwipe extends ButtonHTMLAttributes<HTMLButtonElement> {
     back?: boolean;

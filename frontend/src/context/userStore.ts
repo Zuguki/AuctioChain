@@ -1,18 +1,18 @@
-import { makeAutoObservable } from 'mobx';
-import AuthService from '../API/service/AuthService.ts';
-import { AxiosResponse } from 'axios';
-import Cookies from 'js-cookie';
-import IUser from '../API/interfaces/IUser.ts';
-import IPostLoginUser from '../API/interfaces/IPostLoginUser.ts';
-import IPostRegistrationUser from '../API/interfaces/IPostRegistrationUser.ts';
-import TokenLogic from '../appLogic/tokenLogic/TokenLogic.ts';
-import LocalStorageLogic from '../appLogic/localStorageLogic/LocalStorageLogic.ts';
-import { stateApp } from './context.ts';
+import { makeAutoObservable } from "mobx";
+import AuthService from "../API/service/AuthService.ts";
+import { AxiosResponse } from "axios";
+import Cookies from "js-cookie";
+import IUser from "../API/interfaces/IUser.ts";
+import IPostLoginUser from "../API/interfaces/IPostLoginUser.ts";
+import IPostRegistrationUser from "../API/interfaces/IPostRegistrationUser.ts";
+import TokenLogic from "../appLogic/tokenLogic/TokenLogic.ts";
+import LocalStorageLogic from "../appLogic/localStorageLogic/LocalStorageLogic.ts";
+import { stateApp } from "./context.ts";
 
 export default class UserStore {
     private isAuth: boolean = false;
     private user: IUser = {} as IUser;
-    private bill: string = '';
+    private bill: string = "";
 
     constructor() {
         makeAutoObservable(this);
@@ -80,7 +80,7 @@ export default class UserStore {
     }
 
     private deleteAllPropsUser(): void {
-        this.setBill('');
+        this.setBill("");
         this.user = {} as IUser;
         this.setAuth(false);
     }

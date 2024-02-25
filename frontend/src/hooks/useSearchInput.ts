@@ -4,7 +4,7 @@ import {
     SetStateAction,
     useEffect,
     useState,
-} from 'react';
+} from "react";
 
 const useSearchInput = <T>(
     setParamsFilter: Dispatch<SetStateAction<T>>,

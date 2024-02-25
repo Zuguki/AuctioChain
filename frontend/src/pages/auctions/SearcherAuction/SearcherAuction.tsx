@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import SearchInput from '../../../components/UI/inputs/SearchInput/SearchInput.tsx';
-import BaseSelect from '../../../components/UI/BaseSelect/BaseSelect.tsx';
-import styleSearcher from './searcherAuction.module.css';
-import Hr from '../../../components/UI/Hr/Hr.tsx';
-import { Form } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import SearchInput from "../../../components/UI/inputs/SearchInput/SearchInput.tsx";
+import BaseSelect from "../../../components/UI/BaseSelect/BaseSelect.tsx";
+import styleSearcher from "./searcherAuction.module.css";
+import Hr from "../../../components/UI/Hr/Hr.tsx";
+import { Form } from "react-router-dom";
 import IParamsAuctions, {
     BaseParamsAuctions,
-} from '../../../interfaces/IParamsAuctions.ts';
-import { Context } from '../../../context/context.ts';
-import useFilterAuctions from '../../../hooks/useSelectAuctions/useFilterAuctions.ts';
-import useSearchInput from '../../../hooks/useSearchInput.ts';
-import equalsObjects from '../../../auxiliaryTools/equalsObjects.ts';
-import useSortAuctions from '../../../hooks/useSelectAuctions/useSortAuctions.ts';
+} from "../../../interfaces/IParamsAuctions.ts";
+import { Context } from "../../../context/context.ts";
+import useFilterAuctions from "../../../hooks/useSelectAuctions/useFilterAuctions.ts";
+import useSearchInput from "../../../hooks/useSearchInput.ts";
+import equalsObjects from "../../../auxiliaryTools/equalsObjects.ts";
+import useSortAuctions from "../../../hooks/useSelectAuctions/useSortAuctions.ts";
 
 const SearcherAuction = () => {
     const { stateApp } = useContext(Context);

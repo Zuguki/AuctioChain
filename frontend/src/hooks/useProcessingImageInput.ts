@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from "react";
 
 const useProcessingImageInput = () => {
     const [imageFile, setImageFile] = useState<File | null>(null);

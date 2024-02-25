@@ -1,15 +1,15 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from "react";
 import {
     ICorrectPassword,
     IPasswords,
     IUseLogicRequirement,
-} from './interfaceCardRequirement.ts';
-import HasSymbol from '../../../auxiliaryTools/hasSymbol.ts';
+} from "./interfaceCardRequirement.ts";
+import HasSymbol from "../../../auxiliaryTools/hasSymbol.ts";
 
 const useLogicRequirement = (): IUseLogicRequirement => {
     const [showRequirement, setShowRequirement] = useState<boolean>(false);
     const [passwords, setPasswords] = useState<IPasswords>({
-        userPassword: '',
+        userPassword: "",
         correctPassword: null,
     });
 
@@ -29,7 +29,7 @@ const useLogicRequirement = (): IUseLogicRequirement => {
                 userPassword: e.target.value,
             }),
         );
-        Object.values(isCorrectPassword).every(val => val === true) &&
+        Object.values(isCorrectPassword).every((val) => val === true) &&
             setPasswords(
                 (prevState: IPasswords): IPasswords => ({
                     ...prevState,
@@ -41,11 +41,11 @@ const useLogicRequirement = (): IUseLogicRequirement => {
     useEffect(() => {
         const newIsCorrect: ICorrectPassword = { ...isCorrectPassword };
 
-        newIsCorrect['lengthPassword'] = passwords.userPassword.length >= 8;
-        newIsCorrect['haveUpCase'] = HasSymbol.hasUppercase(
+        newIsCorrect["lengthPassword"] = passwords.userPassword.length >= 8;
+        newIsCorrect["haveUpCase"] = HasSymbol.hasUppercase(
             passwords.userPassword,
         );
-        newIsCorrect['haveNumber'] = HasSymbol.hasNumber(
+        newIsCorrect["haveNumber"] = HasSymbol.hasNumber(
             passwords.userPassword,
         );
 
@@ -57,7 +57,7 @@ const useLogicRequirement = (): IUseLogicRequirement => {
     }, [passwords]);
 
     useEffect(() => {
-        Object.values(isCorrectPassword).every(val => val === true)
+        Object.values(isCorrectPassword).every((val) => val === true)
             ? setPasswords(
                   (prevState: IPasswords): IPasswords => ({
                       ...prevState,

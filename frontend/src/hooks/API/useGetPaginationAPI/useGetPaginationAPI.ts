@@ -1,35 +1,49 @@
-import { useEffect, useState } from 'react';
-import { AxiosError, AxiosResponse } from 'axios';
-import ILogicPagination from './ILogicPagination.ts';
+import { AxiosResponse } from "axios";
+import ILogicPagination from "./ILogicPagination.ts";
+import { useEffect, useState } from "react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 const useGetPaginationAPI = <T>(
-    response: () => Promise<AxiosResponse>,
-    currentPage: number,
+    response: () => Promise<AxiosResponse<T>>,
+    queryKey: unknown[],
     baseData: T,
-    ...depends: unknown[]
 ) => {
-    const [data, setData] = useState<T>(baseData);
+    /*const [data, setData] = useState<T>(baseData);
     const [loading, setLoading] = useState<boolean>(false);
-    const [err, setError] = useState<AxiosError | null>(null);
+    const [err, setError] = useState<AxiosError | null>(null);*/
     const [pagination, setPagination] = useState<ILogicPagination | null>(null);
+    const { data, isLoading, error } = useQuery({
+        queryKey,
+        queryFn: async () => await response(),
+        placeholderData: keepPreviousData,
+        retry: 3,
+        staleTime: 1000,
+    });
 
-    useEffect((): void => {
-        setLoading((): boolean => true);
-        response()
-            .then((res: AxiosResponse): void => {
-                const { data, headers } = res;
-                setData((): T => data);
-                setPagination(() => JSON.parse(headers['x-pagination']));
-            })
-            .catch((resError: unknown): void => {
-                if (resError instanceof AxiosError) {
-                    setError((): AxiosError => resError);
-                }
-            })
-            .finally((): void => setLoading((): boolean => false));
-    }, [currentPage, ...depends]);
+    useEffect(() => {
+        if (data != null) {
+            const { headers } = data;
+            headers && setPagination(() => JSON.parse(headers["x-pagination"]));
+        }
+    }, [data]);
 
-    return { data, loading, err, pagination };
+    /* useEffect((): void => {
+         setLoading((): boolean => true);
+         response()
+             .then((res: AxiosResponse): void => {
+                 const { data, headers } = res;
+                 setData((): T => data);
+                 setPagination(() => JSON.parse(headers["x-pagination"]));
+             })
+             .catch((resError: unknown): void => {
+                 if (resError instanceof AxiosError) {
+                     setError((): AxiosError => resError);
+                 }
+             })
+             .finally((): void => setLoading((): boolean => false));
+     }, [currentPage, ...depends]);*/
+
+    return { data: data?.data ?? baseData, isLoading, error, pagination };
 };
 
 export default useGetPaginationAPI;

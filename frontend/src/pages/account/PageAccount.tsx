@@ -1,33 +1,29 @@
-import React, { useContext } from 'react';
-import { Context } from '../../context/context.ts';
-import Hr from '../../components/UI/Hr/Hr.tsx';
-import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
-import { observer } from 'mobx-react-lite';
-import styleAccount from './pageAccount.module.css';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import ListAuctionsProfile from './ListAuctionsProfile.tsx';
-import ListWinLots from './ListWinLots.tsx';
-import PathApp from '../../routes/pathApp/PathApp.ts';
-import ListActiveLots from './ListActiveLots.tsx';
-import useGetUserName from '../../hooks/API/useGetUserName.ts';
-import BalanceService from '../../API/service/BalanceService.ts';
-import useGetAPI from '../../hooks/API/useGetAPI.ts';
-import IResponseBalance from '../../API/interfaces/response/IResponseBalance.ts';
+import React, { useContext } from "react";
+import { Context } from "@/context/context.ts";
+import Hr from "../../components/UI/Hr/Hr.tsx";
+import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
+import { observer } from "mobx-react-lite";
+import styleAccount from "./pageAccount.module.css";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import ListAuctionsProfile from "./ListAuctionsProfile.tsx";
+import ListWinLots from "./ListWinLots.tsx";
+import PathApp from "../../routes/pathApp/PathApp.ts";
+import ListActiveLots from "./ListActiveLots.tsx";
+import useGetUserName from "../../hooks/API/useGetUserName.ts";
+import BalanceService from "../../API/service/BalanceService.ts";
+import useGetAPI from "../../hooks/API/useGetAPI.ts";
 
 const PageAccount = observer(() => {
-    const { userStore, stateApp } = useContext(Context);
+    const { userStore } = useContext(Context);
     const userId = userStore.getUser().userId;
     const { id } = useParams();
     const nav = useNavigate();
     const isUser: boolean = id === userId;
-    const { userName, loading, err } = useGetUserName(id);
+    const { username, isLoading } = useGetUserName(id);
     const {
         data: { balance },
-        loading: loadingBalance,
-    } = useGetAPI(
-        () => BalanceService.getBalanceUser(),
-        {} as IResponseBalance,
-    );
+        isLoading: loadingBalance,
+    } = useGetAPI(() => BalanceService.getBalanceUser(), ["balance"]);
     const logout = (): void => {
         userStore.logout();
         nav(PathApp.auctions);
@@ -36,8 +32,8 @@ const PageAccount = observer(() => {
         <>
             <div className={styleAccount.position}>
                 <h1 className={styleAccount.title}>Аккаунт</h1>
-                {!loading && (
-                    <h3 className={styleAccount.userName}>@{userName}</h3>
+                {!isLoading && (
+                    <h3 className={styleAccount.userName}>@{username}</h3>
                 )}
                 {isUser && !loadingBalance && (
                     <>

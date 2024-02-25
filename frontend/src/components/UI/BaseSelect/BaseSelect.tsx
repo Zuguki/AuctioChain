@@ -4,9 +4,9 @@ import React, {
     InputHTMLAttributes,
     memo,
     ReactElement,
-} from 'react';
-import styleSelect from './baseSelect.module.css';
-import SelectsOption from '../../../hooks/useSelectAuctions/ISelectsOption.ts';
+} from "react";
+import styleSelect from "./baseSelect.module.css";
+import SelectsOption from "../../../hooks/useSelectAuctions/ISelectsOption.ts";
 
 const BaseSelect: FC<ISelect> = memo(
     ({ title, selectors, changeValue, ...props }) => {
@@ -23,7 +23,7 @@ const BaseSelect: FC<ISelect> = memo(
                         (
                             element: string | SelectsOption,
                         ): ReactElement<HTMLOptionElement> => {
-                            if (typeof element === 'string') {
+                            if (typeof element === "string") {
                                 return (
                                     <option key={element} value={element}>
                                         {element}

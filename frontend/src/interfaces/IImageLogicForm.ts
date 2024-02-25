@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from "react";
 
 interface IImageLogicForm {
     setFileImage: (e: ChangeEvent<HTMLInputElement>) => void;

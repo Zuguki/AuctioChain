@@ -1,19 +1,20 @@
-import FormDiv from '../../../components/UI/div/FormDiv/FormDiv.tsx';
-import FormInput from '../../../components/UI/inputs/FormInput/FormInput.tsx';
-import useDataUser from '../../../hooks/useDataUser.ts';
-import useAuthResponse from '../../../hooks/API/useAuthResponse.ts';
-import IPostLoginUser from '../../../API/interfaces/IPostLoginUser.ts';
-import { Context } from '../../../context/context.ts';
-import { useContext } from 'react';
-import { LoginNotification } from '../../../appLogic/notificationLogic/VarietesNotifications.ts';
+import FormDiv from "../../../components/UI/div/FormDiv/FormDiv.tsx";
+import FormInput from "../../../components/UI/inputs/FormInput/FormInput.tsx";
+import useDataUser from "../../../hooks/useDataUser.ts";
+import useAuthResponse from "../../../hooks/API/useAuthResponse.ts";
+import IPostLoginUser from "../../../API/interfaces/IPostLoginUser.ts";
+import { Context } from "@/context/context.ts";
+import { useContext } from "react";
+import { LoginNotification } from "@/appLogic/notificationLogic/VarietesNotifications.ts";
 
 const FormAuthorization = () => {
     const { userStore } = useContext(Context);
     const { dataUser, logicFormValue } = useDataUser<IPostLoginUser>();
     const { error, logicButton, loading, blurError } = useAuthResponse(
-        () => userStore.login(dataUser),
-        'Вход',
+        (dataUser: IPostLoginUser) => userStore.login(dataUser),
+        "Вход",
         userStore.getAuth(),
+        dataUser,
         LoginNotification(userStore.getUser().name),
     );
 

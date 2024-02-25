@@ -1,4 +1,4 @@
-import INotification from './INotification.ts';
+import INotification from "./INotification.ts";
 
 export default class NotificationLogic implements INotification {
     readonly title: string;

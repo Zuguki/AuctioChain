@@ -1,78 +1,80 @@
-import { ethers } from 'ethers';
-import { stateApp, userStore } from '../../context/context.ts';
-import LocalStorageLogic from '../localStorageLogic/LocalStorageLogic.ts';
-import BalanceService from '../../API/service/BalanceService.ts';
-import { NotificationTransaction } from '../notificationLogic/VarietesNotifications.ts';
+import { ethers } from "ethers";
+import { stateApp, userStore } from "@/context/context.ts";
+import LocalStorageLogic from "../localStorageLogic/LocalStorageLogic.ts";
+import BalanceService from "../../API/service/BalanceService.ts";
+import { NotificationTransaction } from "../notificationLogic/VarietesNotifications.ts";
 
 export default class MetaMaskLogic {
     private static contractAddress: string =
-        '0x524043c049c5bDEdEB9A6014bc11Db4cA9dBDBD0';
+        import.meta.env.BILL_KEY ??
+        "0x524043c049c5bDEdEB9A6014bc11Db4cA9dBDBD0";
+
     private static contractABI = [
         {
             inputs: [],
-            name: 'payForItem',
+            name: "payForItem",
             outputs: [],
-            stateMutability: 'payable',
-            type: 'function',
+            stateMutability: "payable",
+            type: "function",
         },
         {
             inputs: [
                 {
-                    internalType: 'address',
-                    name: 'userAddress',
-                    type: 'address',
+                    internalType: "address",
+                    name: "userAddress",
+                    type: "address",
                 },
             ],
-            name: 'removeUserFromMap',
+            name: "removeUserFromMap",
             outputs: [],
-            stateMutability: 'nonpayable',
-            type: 'function',
+            stateMutability: "nonpayable",
+            type: "function",
         },
         {
             inputs: [],
-            stateMutability: 'nonpayable',
-            type: 'constructor',
+            stateMutability: "nonpayable",
+            type: "constructor",
         },
         {
             inputs: [
                 {
-                    internalType: 'address',
-                    name: 'userAddress',
-                    type: 'address',
+                    internalType: "address",
+                    name: "userAddress",
+                    type: "address",
                 },
             ],
-            name: 'getUserBalance',
+            name: "getUserBalance",
             outputs: [
                 {
-                    internalType: 'uint256',
-                    name: 'result',
-                    type: 'uint256',
+                    internalType: "uint256",
+                    name: "result",
+                    type: "uint256",
                 },
             ],
-            stateMutability: 'view',
-            type: 'function',
+            stateMutability: "view",
+            type: "function",
         },
         {
             inputs: [
                 {
-                    internalType: 'address',
-                    name: '',
-                    type: 'address',
+                    internalType: "address",
+                    name: "",
+                    type: "address",
                 },
             ],
-            name: 'payments',
+            name: "payments",
             outputs: [
                 {
-                    internalType: 'uint256',
-                    name: '',
-                    type: 'uint256',
+                    internalType: "uint256",
+                    name: "",
+                    type: "uint256",
                 },
             ],
-            stateMutability: 'view',
-            type: 'function',
+            stateMutability: "view",
+            type: "function",
         },
     ];
-    // открытие метамаска
+
     private static web3Provider = new ethers.BrowserProvider(window.ethereum);
     private static contract = new ethers.Contract(
         MetaMaskLogic.contractAddress,
@@ -83,7 +85,7 @@ export default class MetaMaskLogic {
     public static async handleClickMetamask(): Promise<void> {
         try {
             const [bill] = await MetaMaskLogic.web3Provider.send(
-                'eth_requestAccounts',
+                "eth_requestAccounts",
                 [],
             );
             userStore.setBill(bill);
@@ -92,7 +94,7 @@ export default class MetaMaskLogic {
                 bill,
             );
         } catch (e) {
-            alert('He удалось подключить кошлёк!');
+            alert("He удалось подключить кошлёк!");
             console.log(e);
         }
     }
@@ -101,16 +103,16 @@ export default class MetaMaskLogic {
         try {
             const billUser: string = userStore.getBill();
             if (!billUser) {
-                alert('Кошлек не подключён к сайту!');
+                alert("Кошлек не подключён к сайту!");
                 return;
             }
             const [address] = await MetaMaskLogic.web3Provider.send(
-                'eth_requestAccounts',
+                "eth_requestAccounts",
                 [],
             );
             if (address !== billUser) {
                 alert(
-                    'Невозможно выполнить транзакцию! Проверьте номер кошлека в MetaMask!',
+                    "Невозможно выполнить транзакцию! Проверьте номер кошлека в MetaMask!",
                 );
                 return;
             }
@@ -119,14 +121,14 @@ export default class MetaMaskLogic {
             const contractWithSigner = MetaMaskLogic.contract.connect(signer);
             await BalanceService.postBalance(signer.address);
             await contractWithSigner
-                .getFunction('payForItem')
+                .getFunction("payForItem")
                 .send({ value: ethers.parseEther(eph) });
             LocalStorageLogic.setProcessAddMoney(true);
             const prevBalance: number | undefined =
                 await this.requestUserMoney();
             if (!prevBalance) {
                 alert(
-                    'Невозможно получить данные о балансе! Уведомления не буут отображаться!',
+                    "Невозможно получить данные о балансе! Уведомления не будут отображаться!",
                 );
                 return;
             }
@@ -135,7 +137,7 @@ export default class MetaMaskLogic {
             return await this.getUserMoney();
         } catch (error) {
             console.log(JSON.stringify(error, null, 4));
-            alert(`Ошибка транзакции! ${error?.info?.error?.message || ''}`);
+            alert(`Ошибка транзакции! ${error?.info?.error?.message || ""}`);
             return;
         }
     }
@@ -145,13 +147,13 @@ export default class MetaMaskLogic {
             LocalStorageLogic.getToStorage<number>(
                 LocalStorageLogic.PREV_BALANCE,
             );
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             const requestBalance: NodeJS.Timer = setInterval(
                 async (): Promise<void> => {
                     const balance: number | undefined =
                         await this.requestUserMoney();
                     if (!prevBalance || !balance) {
-                        alert('Ошибка транзакции!');
+                        alert("Ошибка транзакции!");
                         return;
                     }
                     if (prevBalance < balance) {
@@ -174,7 +176,7 @@ export default class MetaMaskLogic {
             );
             return Number(balance);
         } catch (e) {
-            console.log('requestUserMoney err');
+            console.log("requestUserMoney err");
         }
     }
 }

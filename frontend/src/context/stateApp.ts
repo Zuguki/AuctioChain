@@ -1,8 +1,8 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from "mobx";
 import IParamsAuctions, {
     BaseParamsAuctions,
-} from '../interfaces/IParamsAuctions.ts';
-import INotification from '../appLogic/notificationLogic/INotification.ts';
+} from "../interfaces/IParamsAuctions.ts";
+import INotification from "../appLogic/notificationLogic/INotification.ts";
 
 export default class StateApp {
     private search: boolean = false;

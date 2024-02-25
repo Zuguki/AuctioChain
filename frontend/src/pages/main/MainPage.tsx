@@ -1,10 +1,10 @@
-import React from 'react';
-import styleMain from './mainPage.module.css';
-import logo from '../../design/logo symbol.svg';
-import CardAdvantage from './CardAdvantage.tsx';
-import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
-import { Link } from 'react-router-dom';
-import PathApp from '../../routes/pathApp/PathApp.ts';
+import React from "react";
+import styleMain from "./mainPage.module.css";
+import logo from "../../design/logo symbol.svg";
+import CardAdvantage from "./CardAdvantage.tsx";
+import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
+import { Link } from "react-router-dom";
+import PathApp from "../../routes/pathApp/PathApp.ts";
 
 const MainPage = () => {
     return (
@@ -41,7 +41,7 @@ const MainPage = () => {
                 <div className={styleMain.cardAdvantageRight}>
                     <CardAdvantage
                         title="Аукцион с гарантией безопасности:"
-                        text="Мы обеспечиваем защиту ваших личных данных и средств благодаря конвертации ваших средств в виртуальную валюту через блокчейн"
+                        text="Мы обеспечиваем защиту ваших личных данных и средств благодаря конвертации ваших средств в виртуальную валюту через блокчейн."
                     />
                 </div>
             </div>

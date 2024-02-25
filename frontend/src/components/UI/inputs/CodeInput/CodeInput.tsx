@@ -1,10 +1,10 @@
-import { FC, KeyboardEvent, ReactElement } from 'react';
-import styleCodeInput from './codeInput.module.css';
-import useCode from './useCode.ts';
+import { FC, KeyboardEvent, ReactElement } from "react";
+import styleCodeInput from "./codeInput.module.css";
+import useCode from "./useCode.ts";
 import {
     blockInvalidChar,
     numberChars,
-} from '../../../../auxiliaryTools/bloclnvalidChar.ts';
+} from "../../../../auxiliaryTools/bloclnvalidChar.ts";
 
 const CodeInput: FC<{ children: string; numbers?: number }> = ({
     children,
@@ -17,7 +17,7 @@ const CodeInput: FC<{ children: string; numbers?: number }> = ({
             <label className={styleCodeInput.label}>{children}</label>
             <form className={styleCodeInput.form}>
                 {Array(numbers)
-                    .fill('')
+                    .fill("")
                     .map(
                         (_, index: number): ReactElement<HTMLInputElement> => (
                             <input

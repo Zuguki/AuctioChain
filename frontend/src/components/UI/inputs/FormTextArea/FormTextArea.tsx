@@ -5,9 +5,9 @@ import {
     forwardRef,
     memo,
     TextareaHTMLAttributes,
-} from 'react';
-import textAreaStyle from './formTextArea.module.css';
-import { AxiosError } from 'axios';
+} from "react";
+import textAreaStyle from "./formTextArea.module.css";
+import { AxiosError } from "axios";
 
 interface IFormTextArea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     name: string;

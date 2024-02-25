@@ -1,39 +1,47 @@
-import React, { FC, memo } from 'react';
-import styleLot from '../pageLot.module.css';
-import IPathLotPage from '../../../interfaces/IPathLotPage.ts';
-import useGetAPI from '../../../hooks/API/useGetAPI.ts';
-import IAuction from '../../../API/interfaces/IAuction.ts';
-import AuctionService from '../../../API/service/AuctionService.ts';
-import { Link, useNavigate } from 'react-router-dom';
-import PathApp from '../../../routes/pathApp/PathApp.ts';
-import useGetUserName from '../../../hooks/API/useGetUserName.ts';
-import AuctionLogic from '../../../appLogic/logicAuction/AuctionLogic.ts';
-import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
-import LotService from '../../../API/service/LotService.ts';
+import React, { FC, memo, useContext } from "react";
+import styleLot from "../pageLot.module.css";
+import IPathLotPage from "../../../interfaces/IPathLotPage.ts";
+import useGetAPI from "../../../hooks/API/useGetAPI.ts";
+import IAuction from "../../../API/interfaces/IAuction.ts";
+import AuctionService from "../../../API/service/AuctionService.ts";
+import { Link, useNavigate } from "react-router-dom";
+import PathApp from "../../../routes/pathApp/PathApp.ts";
+import useGetUserName from "../../../hooks/API/useGetUserName.ts";
+import AuctionLogic from "../../../appLogic/logicAuction/AuctionLogic.ts";
+import BaseButton from "../../../components/UI/BaseButton/BaseButton.tsx";
+import LotService from "../../../API/service/LotService.ts";
+import { Context } from "@/context/context.ts";
+
+const { isCreation, isWaitBidding } = AuctionLogic;
 
 const LeftPathLotPage: FC<IPathLotPage> = memo(({ lot }) => {
     const { image, auctionId, name, id } = lot;
-    if (!auctionId) return null;
+    const { userStore } = useContext(Context);
     const nav = useNavigate();
+
     const { data: auction } = useGetAPI<IAuction>(
         () => AuctionService.getAuctionByID(auctionId),
-        {} as IAuction,
-        auctionId,
+        ["auction", auctionId],
     );
+
     const { userId } = auction;
-    const { userName } = useGetUserName(userId);
+    const { username } = useGetUserName(userId);
+    const canEdit: boolean =
+        userId === userStore.getUser().userId &&
+        (isCreation(auction) || isWaitBidding(auction));
+
     const deleteLot = async (): Promise<void> => {
         try {
             await LotService.deleteLotById(id);
             nav(`${PathApp.auction}/${auctionId}`);
         } catch (err) {
-            alert('Ошибка удаления лота!');
+            alert(`Ошибка удаления лота!`);
         }
     };
     return (
         <div className={styleLot.left}>
             <img className={styleLot.img} src={image} alt="lot" />
-            {userName && auctionId && (
+            {username && auctionId && (
                 <>
                     <p className={styleLot.auxiliaryText}>
                         Владелец:&nbsp;
@@ -41,7 +49,7 @@ const LeftPathLotPage: FC<IPathLotPage> = memo(({ lot }) => {
                             to={`${PathApp.account}/${userId}`}
                             className={styleLot.linkLot}
                         >
-                            @{userName}
+                            @{username}
                         </Link>
                     </p>
                     <p className={styleLot.auxiliaryText}>
@@ -55,8 +63,7 @@ const LeftPathLotPage: FC<IPathLotPage> = memo(({ lot }) => {
                     </p>
                 </>
             )}
-            {(AuctionLogic.isCreation(auction) ||
-                AuctionLogic.isWaitBidding(auction)) && (
+            {canEdit && (
                 <>
                     <div className={styleLot.positionButton}>
                         <BaseButton
@@ -78,9 +85,7 @@ const LeftPathLotPage: FC<IPathLotPage> = memo(({ lot }) => {
                     </p>
                 </>
             )}
-            {!AuctionLogic.isCreation(auction) && (
-                <p className={styleLot.protectedText}>Все права защищены.</p>
-            )}
+            <p className={styleLot.protectedText}>Все права защищены.</p>
         </div>
     );
 });

@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import stylePagination from '../pagination.module.css';
-import IButtonSwipe from './IButtonSwipe.ts';
+import React, { FC } from "react";
+import stylePagination from "../pagination.module.css";
+import IButtonSwipe from "./IButtonSwipe.ts";
 
-const BaseButtonSwipe: FC<Omit<IButtonSwipe, 'setCurrentPage'>> = ({
+const BaseButtonSwipe: FC<Omit<IButtonSwipe, "setCurrentPage">> = ({
     back = false,
     ...props
 }) => {

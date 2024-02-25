@@ -1,7 +1,7 @@
-import $api from '../api.ts';
-import { AxiosResponse } from 'axios';
-import IPostLoginUser from '../interfaces/IPostLoginUser.ts';
-import IPostRegistrationUser from '../interfaces/IPostRegistrationUser.ts';
+import $api from "../api.ts";
+import { AxiosResponse } from "axios";
+import IPostLoginUser from "../interfaces/IPostLoginUser.ts";
+import IPostRegistrationUser from "../interfaces/IPostRegistrationUser.ts";
 
 interface AuthResponse {
     token: string;
@@ -9,7 +9,7 @@ interface AuthResponse {
 }
 
 export default class AuthService {
-    private static readonly pathAccount: string = '/accounts';
+    private static readonly pathAccount: string = "/accounts";
 
     static async login(
         dataLogin: IPostLoginUser,

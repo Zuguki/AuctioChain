@@ -1,12 +1,12 @@
-import React, { FC, useContext } from 'react';
-import AuctionLogic from '../../../appLogic/logicAuction/AuctionLogic.ts';
-import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
-import stylePage from '../pageOneAuction.module.css';
-import { Context } from '../../../context/context.ts';
-import IAuction from '../../../API/interfaces/IAuction.ts';
-import AuctionService from '../../../API/service/AuctionService.ts';
-import { useNavigate } from 'react-router-dom';
-import PathApp from '../../../routes/pathApp/PathApp.ts';
+import React, { FC, useContext } from "react";
+import AuctionLogic from "../../../appLogic/logicAuction/AuctionLogic.ts";
+import BaseButton from "../../../components/UI/BaseButton/BaseButton.tsx";
+import stylePage from "../pageOneAuction.module.css";
+import { Context } from "../../../context/context.ts";
+import IAuction from "../../../API/interfaces/IAuction.ts";
+import AuctionService from "../../../API/service/AuctionService.ts";
+import { useNavigate } from "react-router-dom";
+import PathApp from "../../../routes/pathApp/PathApp.ts";
 
 interface IActionsAuction {
     auction: IAuction;
@@ -34,7 +34,7 @@ const ActionsAuction: FC<IActionsAuction> = ({
             await AuctionService.getAuctionByID(id);
             setChangeStatus(true);
         } catch (err) {
-            alert('Ошибка обновления. Попробуйте перезагрузить страницу!');
+            alert("Ошибка обновления. Попробуйте перезагрузить страницу!");
         }
     };
     const deleteAuction = async (): Promise<void> => {
@@ -42,7 +42,7 @@ const ActionsAuction: FC<IActionsAuction> = ({
             await AuctionService.deleteAuctionById(id);
             nav(`${PathApp.account}/${userId}`);
         } catch (err) {
-            alert('Ошибка удаления');
+            alert("Ошибка удаления");
         }
     };
     return (

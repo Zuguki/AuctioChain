@@ -1,11 +1,11 @@
-import $api, { paramsPagination } from '../api.ts';
-import { AxiosResponse } from 'axios';
-import { ResponseObjAuctions } from '../interfaces/response/IResponseAuctions.ts';
-import { ResponseActiveLots, ResponseWinLots } from '../interfaces/ILot.ts';
-import IUserName from '../interfaces/IUserName.ts';
+import $api, { paramsPagination } from "../api.ts";
+import { AxiosResponse } from "axios";
+import { ResponseObjAuctions } from "../interfaces/response/IResponseAuctions.ts";
+import { ResponseActiveLots, ResponseWinLots } from "../interfaces/ILot.ts";
+import IUserName from "../interfaces/IUserName.ts";
 
 export default class ProfileService {
-    private static pathProfile: string = 'profiles';
+    private static pathProfile: string = "profiles";
 
     public static async getUserName(
         id: string,

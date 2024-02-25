@@ -1,28 +1,28 @@
-import React, { FC, useState } from 'react';
-import useGetAPI from '../../../hooks/API/useGetAPI.ts';
-import { ResponseObjBets } from '../../../API/interfaces/IBet.ts';
-import LotService from '../../../API/service/LotService.ts';
-import styleLot from '../pageLot.module.css';
-import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
-import IPathLotPage from '../../../interfaces/IPathLotPage.ts';
-import AuctionService from '../../../API/service/AuctionService.ts';
-import IAuction from '../../../API/interfaces/IAuction.ts';
-import AuctionLogic from '../../../appLogic/logicAuction/AuctionLogic.ts';
-import ListBetsLot from '../ListBetsLot.tsx';
-import up from '../../../design/icons/collapse.svg';
-import down from '../../../design/icons/collapse close.svg';
+import React, { FC, useState } from "react";
+import useGetAPI from "../../../hooks/API/useGetAPI.ts";
+import { ResponseObjBets } from "@/API/interfaces/IBet.ts";
+import LotService from "../../../API/service/LotService.ts";
+import styleLot from "../pageLot.module.css";
+import BaseButton from "../../../components/UI/BaseButton/BaseButton.tsx";
+import IPathLotPage from "../../../interfaces/IPathLotPage.ts";
+import AuctionService from "../../../API/service/AuctionService.ts";
+import IAuction from "../../../API/interfaces/IAuction.ts";
+import AuctionLogic from "../../../appLogic/logicAuction/AuctionLogic.ts";
+import ListBetsLot from "../ListBetsLot.tsx";
+import up from "../../../design/icons/collapse.svg";
+import down from "../../../design/icons/collapse close.svg";
 
 const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
-    if (!lot.id) {
-        return null;
-    }
     const {
         data: { bets },
-        loading,
-        err,
-    } = useGetAPI<ResponseObjBets>(() => LotService.getBetsByLotID(lot.id), {
-        bets: [],
-    });
+        isLoading,
+    } = useGetAPI<ResponseObjBets>(
+        () => LotService.getBetsByLotID(lot.id),
+        ["bets"],
+        {
+            bets: [],
+        },
+    );
     const {
         name,
         currentMaxBet,
@@ -31,9 +31,14 @@ const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
         betStep,
         auctionId,
     } = lot;
-    const { data: auction, loading: loadingAuction } = useGetAPI<IAuction>(
+
+    const {
+        data: auction,
+        isLoading: loadingAuction,
+        error,
+    } = useGetAPI<IAuction>(
         () => AuctionService.getAuctionByID(auctionId),
-        {} as IAuction,
+        ["auction"],
     );
     const [showBets, setShowBets] = useState<boolean>(false);
 
@@ -49,7 +54,7 @@ const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
             <div className={styleLot.information}>
                 <p>Начальная цена: {initialPrice} Ac</p>
                 <p>Шаг: {betStep} Ac</p>
-                {!loading && !err && (
+                {!isLoading && !error && (
                     <div>
                         <p>Количество ставок: {bets.length}</p>
                         <div>
@@ -65,7 +70,7 @@ const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
                                 />
                             </div>
                             <ListBetsLot
-                                style={{ display: showBets ? 'block' : 'none' }}
+                                style={{ display: showBets ? "block" : "none" }}
                                 betsLot={bets}
                             />
                         </div>

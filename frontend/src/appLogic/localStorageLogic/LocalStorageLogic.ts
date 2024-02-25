@@ -1,11 +1,11 @@
-import INotification from '../notificationLogic/INotification.ts';
-import { NotificationTransaction } from '../notificationLogic/VarietesNotifications.ts';
+import INotification from "../notificationLogic/INotification.ts";
+import { NotificationTransaction } from "../notificationLogic/VarietesNotifications.ts";
 
 export default class LocalStorageLogic {
-    public static readonly BILL: string = 'bill';
-    public static readonly PREV_BALANCE: string = 'prevBalance';
-    public static readonly PROCESS_ADD_MONEY: string = 'processAddMoney';
-    public static readonly NOTIFICATION: string = 'notification';
+    public static readonly BILL: string = "bill";
+    public static readonly PREV_BALANCE: string = "prevBalance";
+    public static readonly PROCESS_ADD_MONEY: string = "processAddMoney";
+    public static readonly NOTIFICATION: string = "notification";
 
     public static setToStorage<T>(
         nameElement: string,

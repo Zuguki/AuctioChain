@@ -1,21 +1,22 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import usePostAPI from '../../hooks/API/usePostAPI.ts';
-import useDataUser from '../../hooks/useDataUser.ts';
-import IPostLot, { reformatLot } from '../../API/interfaces/IPostLot.ts';
-import usePostImage from '../../hooks/API/usePostImage.ts';
-import LotInteraction from '../../components/flamePages/LotInteraction/LotInteraction.tsx';
-import { AxiosResponse } from 'axios';
-import LotService from '../../API/service/LotService.ts';
-import { NotificationCreateLot } from '../../appLogic/notificationLogic/VarietesNotifications.ts';
-import PathApp from '../../routes/pathApp/PathApp.ts';
-import useSendDataLot from '../../hooks/useSendDataLot.ts';
+import { FC } from "react";
+import { useParams } from "react-router-dom";
+import usePostAPI from "../../hooks/API/usePostAPI.ts";
+import useDataUser from "../../hooks/useDataUser.ts";
+import IPostLot, { reformatLot } from "../../API/interfaces/IPostLot.ts";
+import usePostImage from "../../hooks/API/usePostImage.ts";
+import LotInteraction from "../../components/flamePages/LotInteraction/LotInteraction.tsx";
+import LotService from "../../API/service/LotService.ts";
+import { NotificationCreateLot } from "@/appLogic/notificationLogic/VarietesNotifications.ts";
+import PathApp from "../../routes/pathApp/PathApp.ts";
+import useSendDataLot from "../../hooks/useSendDataLot.ts";
 
-const PageCreateLot = () => {
+const PageCreateLot: FC = () => {
     const { id } = useParams();
-    const { loading, error, blurError, postData } = usePostAPI();
+    const { error, isPending, blurError, postData } = usePostAPI<IPostLot>(
+        (postLot: IPostLot) => LotService.addLot(postLot),
+    );
     const { dataUser, logicFormValue } = useDataUser<IPostLot>();
-    const { setFile, imageFile, postCorrectImage } = usePostImage(postData);
+    const { setFile, imageFile, postCorrectImage } = usePostImage();
     const { sendData } = useSendDataLot();
     const postLot = async (): Promise<void> => {
         blurError();
@@ -30,10 +31,7 @@ const PageCreateLot = () => {
         };
 
         await sendData(
-            async (): Promise<AxiosResponse | undefined> =>
-                await postData(
-                    (): Promise<AxiosResponse> => LotService.addLot(postLot),
-                ),
+            () => postData(postLot),
             NotificationCreateLot,
             `${PathApp.auction}/${id}`,
         );
@@ -41,7 +39,7 @@ const PageCreateLot = () => {
     return (
         <LotInteraction
             submitForm={postLot}
-            loading={loading}
+            loading={isPending}
             error={error}
             logicFormValue={logicFormValue}
             blurError={blurError}
@@ -50,8 +48,8 @@ const PageCreateLot = () => {
                 imageFile: imageFile,
             }}
             componentInteraction={{
-                title: 'Создание лота',
-                buttonText: 'Создать',
+                title: "Создание лота",
+                buttonText: "Создать",
                 component: null,
             }}
         />

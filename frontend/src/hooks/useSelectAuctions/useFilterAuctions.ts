@@ -1,7 +1,7 @@
-import { ChangeEvent, Dispatch, SetStateAction, useMemo } from 'react';
-import SelectsOption from './ISelectsOption.ts';
-import AuctionLogic from '../../appLogic/logicAuction/AuctionLogic.ts';
-import changeSelect from './changeSelect.ts';
+import { ChangeEvent, Dispatch, SetStateAction, useMemo } from "react";
+import SelectsOption from "./ISelectsOption.ts";
+import AuctionLogic from "../../appLogic/logicAuction/AuctionLogic.ts";
+import changeSelect from "./changeSelect.ts";
 
 const useFilterAuctions = <T>(setParamsFilter: Dispatch<SetStateAction<T>>) => {
     const statusFilter: SelectsOption[] = useMemo(

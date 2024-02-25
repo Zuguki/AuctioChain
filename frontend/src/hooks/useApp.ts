@@ -1,11 +1,11 @@
-import { useContext, useEffect } from 'react';
-import { Context } from '../context/context.ts';
-import MetaMaskLogic from '../appLogic/metamask/MetaMaskLogic.ts';
-import LocalStorageLogic from '../appLogic/localStorageLogic/LocalStorageLogic.ts';
-import Cookies from 'js-cookie';
-import TokenLogic from '../appLogic/tokenLogic/TokenLogic.ts';
-import INotification from '../appLogic/notificationLogic/INotification.ts';
-import { NotificationAddMoney } from '../appLogic/notificationLogic/VarietesNotifications.ts';
+import { useContext, useEffect } from "react";
+import { Context } from "../context/context.ts";
+import MetaMaskLogic from "../appLogic/metamask/MetaMaskLogic.ts";
+import LocalStorageLogic from "../appLogic/localStorageLogic/LocalStorageLogic.ts";
+import Cookies from "js-cookie";
+import TokenLogic from "../appLogic/tokenLogic/TokenLogic.ts";
+import INotification from "../appLogic/notificationLogic/INotification.ts";
+import { NotificationAddMoney } from "../appLogic/notificationLogic/VarietesNotifications.ts";
 
 const useApp = (): void => {
     const { userStore, stateApp } = useContext(Context);
@@ -24,6 +24,7 @@ const useApp = (): void => {
             processAddBalance(process);
         })();
     }, []);
+
     const processAddBalance = async (process: boolean): Promise<void> => {
         if (process) {
             const notification: INotification | null =

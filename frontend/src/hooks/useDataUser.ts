@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from "react";
 
 const useDataUser = <T>(baseData: T = {} as T) => {
     const [dataUser, setDataUser] = useState<T>(baseData);

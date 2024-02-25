@@ -1,43 +1,55 @@
 @font-face {
-    font-family: 'SF Pro Display';
+    font-family: "SF Pro Display";
     font-style: normal;
     font-weight: 400;
 
     /* Браузер сначала попробует найти шрифт локально */
-    src: local('SF Pro Display'),
-        /* Если не получилось, загрузит woff2 */ url('SFPro/SFProDisplay-Regular.woff') format('woff2'),
-        /* Если браузер не поддерживает woff2, загрузит woff */ url('SFPro/SFProDisplay-Regular.woff2') format('woff');
+    src:
+        local("SF Pro Display"),
+        /* Если не получилось, загрузит woff2 */
+            url("SFPro/SFProDisplay-Regular.woff") format("woff2"),
+        /* Если браузер не поддерживает woff2, загрузит woff */
+            url("SFPro/SFProDisplay-Regular.woff2") format("woff");
 }
 
 @font-face {
-    font-family: 'SF Pro Display';
+    font-family: "SF Pro Display";
     font-style: normal;
     font-weight: 900;
 
     /* Браузер сначала попробует найти шрифт локально */
-    src: local('SF Pro Display'),
-        /* Если не получилось, загрузит woff2 */ url('SFPro/SFProDisplay-Black.woff') format('woff2'),
-        /* Если браузер не поддерживает woff2, загрузит woff */ url('SFPro/SFProDisplay-Black.woff2') format('woff');
+    src:
+        local("SF Pro Display"),
+        /* Если не получилось, загрузит woff2 */
+            url("SFPro/SFProDisplay-Black.woff") format("woff2"),
+        /* Если браузер не поддерживает woff2, загрузит woff */
+            url("SFPro/SFProDisplay-Black.woff2") format("woff");
 }
 
 @font-face {
-    font-family: 'SF Pro Display';
+    font-family: "SF Pro Display";
     font-style: normal;
     font-weight: 800;
 
     /* Браузер сначала попробует найти шрифт локально */
-    src: local('SF Pro Display'),
-        /* Если не получилось, загрузит woff2 */ url('SFPro/SFProDisplay-Heavy.woff') format('woff2'),
-        /* Если браузер не поддерживает woff2, загрузит woff */ url('SFPro/SFProDisplay-Heavy.woff2') format('woff');
+    src:
+        local("SF Pro Display"),
+        /* Если не получилось, загрузит woff2 */
+            url("SFPro/SFProDisplay-Heavy.woff") format("woff2"),
+        /* Если браузер не поддерживает woff2, загрузит woff */
+            url("SFPro/SFProDisplay-Heavy.woff2") format("woff");
 }
 
 @font-face {
-    font-family: 'SF Pro Display';
+    font-family: "SF Pro Display";
     font-style: normal;
     font-weight: 700;
 
     /* Браузер сначала попробует найти шрифт локально */
-    src: local('SF Pro Display'),
-        /* Если не получилось, загрузит woff2 */ url('SFPro/SFProDisplay-Bold.woff') format('woff2'),
-        /* Если браузер не поддерживает woff2, загрузит woff */ url('SFPro/SFProDisplay-Bold.woff2') format('woff');
+    src:
+        local("SF Pro Display"),
+        /* Если не получилось, загрузит woff2 */
+            url("SFPro/SFProDisplay-Bold.woff") format("woff2"),
+        /* Если браузер не поддерживает woff2, загрузит woff */
+            url("SFPro/SFProDisplay-Bold.woff2") format("woff");
 }

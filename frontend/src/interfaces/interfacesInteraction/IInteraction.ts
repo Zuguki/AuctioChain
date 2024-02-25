@@ -1,7 +1,7 @@
-import { AxiosError } from 'axios';
-import { ChangeEvent } from 'react';
-import IImageLogicForm from '../IImageLogicForm.ts';
-import IComponentInteraction from './IComponentInteraction.ts';
+import { AxiosError } from "axios";
+import { ChangeEvent } from "react";
+import IImageLogicForm from "../IImageLogicForm.ts";
+import IComponentInteraction from "./IComponentInteraction.ts";
 
 interface IInteraction<T> {
     submitForm: () => Promise<void>;

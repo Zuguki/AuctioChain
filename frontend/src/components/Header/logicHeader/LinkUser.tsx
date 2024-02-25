@@ -1,11 +1,11 @@
-import React, { FC, memo, useContext } from 'react';
-import styleHeader from '../header.module.css';
-import { Link, useLocation } from 'react-router-dom';
-import userAuth from '../../../design/icons/icon authorized.svg';
-import userLog from '../../../design/icons/icon log in.svg';
-import ILinkLogicUser from './ILinkLogicUser.ts';
-import { Context } from '../../../context/context.ts';
-import PathApp from '../../../routes/pathApp/PathApp.ts';
+import React, { FC, memo, useContext } from "react";
+import styleHeader from "../header.module.css";
+import { Link, useLocation } from "react-router-dom";
+import userAuth from "../../../design/icons/icon authorized.svg";
+import userLog from "../../../design/icons/icon log in.svg";
+import ILinkLogicUser from "./ILinkLogicUser.ts";
+import { Context } from "@/context/context.ts";
+import PathApp from "../../../routes/pathApp/PathApp.ts";
 
 const LinkUser: FC<ILinkLogicUser> = memo(({ auth, user }) => {
     const location = useLocation();
@@ -15,7 +15,7 @@ const LinkUser: FC<ILinkLogicUser> = memo(({ auth, user }) => {
             <div className={styleHeader.positionUser}>
                 <button
                     className={styleHeader.buttonAuth}
-                    onClick={e => {
+                    onClick={(e) => {
                         e.stopPropagation();
                         stateApp.setInterfaceProfile(
                             !stateApp.getInterfaceProfile(),

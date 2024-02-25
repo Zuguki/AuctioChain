@@ -1,10 +1,10 @@
-import React, { FC, memo, useContext } from 'react';
-import styleHeader from './header.module.css';
-import { Context } from '../../context/context.ts';
-import { observer } from 'mobx-react-lite';
-import IUser from '../../API/interfaces/IUser.ts';
-import LinksHeaders from './logicHeader/LinksHeaders.tsx';
-import '../../App.css';
+import React, { FC, memo, useContext } from "react";
+import styleHeader from "./header.module.css";
+import { Context } from "@/context/context.ts";
+import { observer } from "mobx-react-lite";
+import IUser from "../../API/interfaces/IUser.ts";
+import LinksHeaders from "./logicHeader/LinksHeaders.tsx";
+import "../../App.css";
 
 const Header: FC = memo(
     observer(() => {

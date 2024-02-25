@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from "react";
 
 interface IBaseButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     red?: boolean;

@@ -1,9 +1,15 @@
-import { useEffect, useState } from 'react';
-import ProfileService from '../../API/service/ProfileService.ts';
-import { AxiosError } from 'axios';
+import ProfileService from "../../API/service/ProfileService.ts";
+import { useQuery } from "@tanstack/react-query";
 
 const useGetUserName = (userId: string) => {
-    const [userName, setUserName] = useState<string | null>(null);
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["username", userId],
+        queryFn: async () => await ProfileService.getUserName(userId),
+    });
+
+    const username: string | null = data?.data.userName ?? null;
+    return { username, isLoading, error };
+    /*const [userName, setUserName] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [err, setError] = useState<AxiosError | null>(null);
     useEffect((): void => {
@@ -25,7 +31,7 @@ const useGetUserName = (userId: string) => {
         };
         getUserName();
     }, [userId]);
-    return { userName, loading, err };
+    return { userName, loading, err };*/
 };
 
 export default useGetUserName;

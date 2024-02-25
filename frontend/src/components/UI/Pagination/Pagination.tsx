@@ -1,10 +1,10 @@
-import React, { FC, ReactElement } from 'react';
-import stylePagination from './pagination.module.css';
-import ButtonPage from './ButtonPage.tsx';
-import ButtonSwipeUp from './ButtonSwipes/ButtonSwipeUp.tsx';
-import ButtonSwipeBack from './ButtonSwipes/ButtonSwipeBack.tsx';
-import ILogicPagination from '../../../hooks/API/useGetPaginationAPI/ILogicPagination.ts';
-import usePagination from '../../../hooks/usePagination.ts';
+import React, { FC, ReactElement } from "react";
+import stylePagination from "./pagination.module.css";
+import ButtonPage from "./ButtonPage.tsx";
+import ButtonSwipeUp from "./ButtonSwipes/ButtonSwipeUp.tsx";
+import ButtonSwipeBack from "./ButtonSwipes/ButtonSwipeBack.tsx";
+import ILogicPagination from "../../../hooks/API/useGetPaginationAPI/ILogicPagination.ts";
+import usePagination from "../../../hooks/usePagination.ts";
 
 interface IPagination {
     pagination: ILogicPagination | null;
@@ -29,7 +29,7 @@ const Pagination: FC<IPagination> = ({ pagination, sendCurrentPage }) => {
                 setCurrentPage={sendCurrentPage}
             />
             {paginationArray.map(
-                (el: '...' | number): ReactElement => (
+                (el: "..." | number): ReactElement => (
                     <ButtonPage
                         current={el === currentPage}
                         key={el}

@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import useTag from './useTag.ts';
+import { FC } from "react";
+import useTag from "./useTag.ts";
 
 interface ITag {
     children: string;
@@ -7,7 +7,7 @@ interface ITag {
 }
 
 const Tag: FC<ITag> = ({ children, isClick = false }) => {
-    const textTag = '#' + children.replace(/\s+/g, '_');
+    const textTag = "#" + children.replace(/\s+/g, "_");
 
     // hook
     const { style, changeActive } = useTag();
@@ -17,7 +17,7 @@ const Tag: FC<ITag> = ({ children, isClick = false }) => {
             className={style}
             onClick={() => {
                 if (!isClick) return;
-                console.log('style');
+                console.log("style");
                 changeActive();
             }}
         >

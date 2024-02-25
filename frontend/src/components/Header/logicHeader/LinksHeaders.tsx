@@ -1,13 +1,13 @@
-import React, { FC, memo } from 'react';
-import CustomLink from '../../UI/CustomLink/CustomLink.tsx';
-import { Link } from 'react-router-dom';
-import logo from '../../../design/logo.svg';
-import LinkUser from './LinkUser.tsx';
-import ILinkLogicUser from './ILinkLogicUser.ts';
-import LinkSearch from './LinkSearch.tsx';
-import PathApp from '../../../routes/pathApp/PathApp.ts';
-import fox from '../../../design/metamask-fox.jpg';
-import styleHeader from '../header.module.css';
+import React, { FC, memo } from "react";
+import CustomLink from "../../UI/CustomLink/CustomLink.tsx";
+import { Link } from "react-router-dom";
+import logo from "../../../design/logo.svg";
+import LinkUser from "./LinkUser.tsx";
+import ILinkLogicUser from "./ILinkLogicUser.ts";
+import LinkSearch from "./LinkSearch.tsx";
+import PathApp from "../../../routes/pathApp/PathApp.ts";
+import fox from "../../../design/metamask-fox.jpg";
+import styleHeader from "../header.module.css";
 
 const LinksHeaders: FC<ILinkLogicUser> = memo(({ auth, user }) => {
     return (

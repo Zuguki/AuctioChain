@@ -1,16 +1,16 @@
-import React, { FC } from 'react';
-import styleCreateAuction from '../LotInteraction/lotInteraction.module.css';
-import LogicFormProcessing from '../../LogicFormProcessing/LogicFormProcessing.tsx';
-import FormInput from '../../UI/inputs/FormInput/FormInput.tsx';
-import FormTextArea from '../../UI/inputs/FormTextArea/FormTextArea.tsx';
-import ImageInput from '../../UI/inputs/ImageInput/ImageInput.tsx';
-import DateInput from '../../UI/inputs/DataInput/DateInput.tsx';
-import DateLogic from '../../../auxiliaryTools/dateLogic/DateLogic.ts';
-import SubmitButton from '../../SubmitButton/SubmitButton.tsx';
-import { Form } from 'react-router-dom';
-import IInteraction from '../../../interfaces/interfacesInteraction/IInteraction.ts';
-import { IPutAuction } from '../../../API/interfaces/IPostAuction.ts';
-import ImageForm from '../../ImageForm/ImageForm.tsx';
+import React, { FC } from "react";
+import styleCreateAuction from "../LotInteraction/lotInteraction.module.css";
+import LogicFormProcessing from "../../LogicFormProcessing/LogicFormProcessing.tsx";
+import FormInput from "../../UI/inputs/FormInput/FormInput.tsx";
+import FormTextArea from "../../UI/inputs/FormTextArea/FormTextArea.tsx";
+import ImageInput from "../../UI/inputs/ImageInput/ImageInput.tsx";
+import DateInput from "../../UI/inputs/DataInput/DateInput.tsx";
+import DateLogic from "../../../auxiliaryTools/dateLogic/DateLogic.ts";
+import SubmitButton from "../../SubmitButton/SubmitButton.tsx";
+import { Form } from "react-router-dom";
+import IInteraction from "../../../interfaces/interfacesInteraction/IInteraction.ts";
+import { IPutAuction } from "@/API/interfaces/IPostAuction.ts";
+import ImageForm from "../../ImageForm/ImageForm.tsx";
 
 const { getDatetimeLocal } = DateLogic;
 const AuctionInteraction: FC<IInteraction<IPutAuction>> = ({

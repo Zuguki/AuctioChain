@@ -1,7 +1,7 @@
-import { ChangeEvent, InputHTMLAttributes } from 'react';
+import { ChangeEvent, InputHTMLAttributes } from "react";
 
 interface IInput extends InputHTMLAttributes<HTMLInputElement> {
-    width?: 'small' | 'base' | 'large';
+    width?: "small" | "base" | "large";
     blockChars?: string[];
     title: string;
     name: string;

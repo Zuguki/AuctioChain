@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import CardDiv from '../../../UI/div/CardDiv/CardDiv.tsx';
-import styleCard from './cardLot.module.css';
-import ILot from '../../../../API/interfaces/ILot.ts';
-import { IBaseCard, IObjCard } from '../../../../interfaces/BaseCard.ts';
+import React, { FC } from "react";
+import CardDiv from "../../../UI/div/CardDiv/CardDiv.tsx";
+import styleCard from "./cardLot.module.css";
+import { IBaseCard, IObjCard } from "@/interfaces/BaseCard.ts";
+import ILot from "../../../../API/interfaces/ILot.ts";
 
 const CardLot: FC<{ lot: ILot }> = ({ lot }) => {
     const { currentMaxBet, id, name, description, image, initialPrice } = lot;

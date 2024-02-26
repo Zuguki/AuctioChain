@@ -3,10 +3,10 @@ import ILogicPagination from "./ILogicPagination.ts";
 import { useEffect, useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-const useGetPaginationAPI = <T>(
-    response: () => Promise<AxiosResponse<T>>,
+const useGetPaginationAPI = <Res>(
+    response: () => Promise<AxiosResponse<Res>>,
     queryKey: unknown[],
-    baseData: T,
+    baseData: Res,
 ) => {
     /*const [data, setData] = useState<T>(baseData);
     const [loading, setLoading] = useState<boolean>(false);

@@ -14,7 +14,7 @@ import BalanceService from "../../API/service/BalanceService.ts";
 import useGetAPI from "../../hooks/API/useGetAPI.ts";
 
 const PageAccount = observer(() => {
-    const { userStore } = useContext(Context);
+    const { userStore, stateApp } = useContext(Context);
     const userId = userStore.getUser().userId;
     const { id } = useParams();
     const nav = useNavigate();
@@ -24,12 +24,14 @@ const PageAccount = observer(() => {
         data: { balance },
         isLoading: loadingBalance,
     } = useGetAPI(() => BalanceService.getBalanceUser(), ["balance"]);
+
     const logout = (): void => {
         userStore.logout();
         nav(PathApp.auctions);
     };
+
     return (
-        <>
+        <div>
             <div className={styleAccount.position}>
                 <h1 className={styleAccount.title}>Аккаунт</h1>
                 {!isLoading && (
@@ -55,7 +57,7 @@ const PageAccount = observer(() => {
                     </BaseButton>
                 </div>
             )}
-        </>
+        </div>
     );
 });
 

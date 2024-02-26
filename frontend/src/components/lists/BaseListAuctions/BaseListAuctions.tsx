@@ -28,7 +28,7 @@ const BaseListAuctions: FC<IBaseListAuctions> = ({
                     ),
                 )}
             </div>
-            {auctions.length !== 0 && (
+            {auctions.length !== 0 && pagination && (
                 <Pagination
                     pagination={pagination}
                     sendCurrentPage={setCurrentPage}

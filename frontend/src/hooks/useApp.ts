@@ -9,16 +9,19 @@ import { NotificationAddMoney } from "../appLogic/notificationLogic/VarietesNoti
 
 const useApp = (): void => {
     const { userStore, stateApp } = useContext(Context);
+
     useEffect((): void => {
         (async (): Promise<void> => {
             const process: boolean | null =
                 LocalStorageLogic.getToStorage<boolean>(
                     LocalStorageLogic.PROCESS_ADD_MONEY,
                 ) === true;
+
             const token: string | undefined = Cookies.get(TokenLogic.TOKEN);
             const bill: string | null = LocalStorageLogic.getToStorage<string>(
                 LocalStorageLogic.BILL,
             );
+
             token && userStore.setAuthByToken(token);
             bill && userStore.setBill(bill);
             processAddBalance(process);
@@ -31,10 +34,12 @@ const useApp = (): void => {
                 LocalStorageLogic.getToStorage<INotification | null>(
                     LocalStorageLogic.NOTIFICATION,
                 );
+
             if (!notification) {
                 LocalStorageLogic.setProcessAddMoney(false);
                 return;
             }
+
             stateApp.setNotification(notification);
             const balance: number = await MetaMaskLogic.getUserMoney();
             LocalStorageLogic.endLoadingTransaction();

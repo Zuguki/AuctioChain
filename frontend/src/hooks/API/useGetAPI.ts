@@ -33,10 +33,10 @@ const useGetAPI = <T>(
 };
 */
 
-const useGetAPI = <T>(
-    response: () => Promise<AxiosResponse<T>>,
+const useGetAPI = <Res>(
+    response: () => Promise<AxiosResponse<Res>>,
     queryKey: unknown[],
-    baseData: T = {} as T,
+    baseData: Res = {} as Res,
 ) => {
     const { data, isSuccess, isLoading, error } = useQuery({
         queryKey,

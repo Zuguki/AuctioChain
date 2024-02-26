@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 
 const usePathLocation = (basePath: string) => {
     const location = useLocation();
+
     const fromPath: string = useMemo((): string => {
         const path: string | undefined = location.state?.from?.pathname;
         if (path) {
@@ -10,7 +11,7 @@ const usePathLocation = (basePath: string) => {
         }
         return basePath;
     }, []);
-    console.log(fromPath);
+
     return { fromPath };
 };
 

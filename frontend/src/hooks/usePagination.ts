@@ -10,12 +10,14 @@ const usePagination = (
     const [paginationArray, setPaginationArray] = useState(
         numberArray(currentPage, endPage),
     );
+
     useEffect((): void => {
         sendCurrentPage(currentPage);
         setPaginationArray((): ("..." | number)[] =>
             numberArray(currentPage, endPage),
         );
     }, [currentPage]);
+
     return { currentPage, endPage, paginationArray };
 };
 

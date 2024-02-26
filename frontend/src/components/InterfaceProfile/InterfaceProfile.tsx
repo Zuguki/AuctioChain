@@ -7,6 +7,7 @@ import BaseButton from "../UI/BaseButton/BaseButton.tsx";
 import { Context } from "@/context/context.ts";
 import { observer } from "mobx-react-lite";
 import LinkInterfaceProfile from "./LinkInterfaceProfile.tsx";
+import { EventClickInterfaceProfile } from "@/components/InterfaceProfile/EventClickInterfaceProfile.ts";
 
 const InterfaceProfile = observer(() => {
     const { userStore, stateApp } = useContext(Context);
@@ -19,11 +20,14 @@ const InterfaceProfile = observer(() => {
         userStore.logout();
         nav(PathApp.auctions);
     };
+
+    const clickWindow = (e: EventClickInterfaceProfile<HTMLDivElement>) => {
+        e._isClickInterfaceProfile = true;
+        stateApp.setInterfaceProfile(true);
+    };
+
     return (
-        <div
-            className={styleInterface.modal}
-            onClick={(e) => e.stopPropagation()}
-        >
+        <div className={styleInterface.modal} onClick={clickWindow}>
             <div className={styleInterface.position}>
                 <LinkInterfaceProfile path={`${PathApp.account}/${userId}`}>
                     Аккаунт

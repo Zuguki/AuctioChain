@@ -28,10 +28,12 @@ const BaseListLot: FC<IBaseListLot> = ({
                             ),
                         )}
                     </div>
-                    <Pagination
-                        pagination={pagination}
-                        sendCurrentPage={setCurrentPage}
-                    />
+                    {pagination && (
+                        <Pagination
+                            pagination={pagination}
+                            sendCurrentPage={setCurrentPage}
+                        />
+                    )}
                 </>
             ) : (
                 <p className={stylePage.informationLots}>Лотов нет</p>

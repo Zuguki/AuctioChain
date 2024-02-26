@@ -1,7 +1,7 @@
 import React, { FC, useContext } from "react";
 import LotInteraction from "../../components/flamePages/LotInteraction/LotInteraction.tsx";
 import { Navigate, useParams } from "react-router-dom";
-import { IPutLot, reformatLot } from "@/API/interfaces/IPostLot.ts";
+import { IPutLot, reformatLot } from "@/API/interfaces/request/IPostLot.ts";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
 import LotService from "../../API/service/LotService.ts";
 import equalsObjects from "../../auxiliaryTools/equalsObjects.ts";

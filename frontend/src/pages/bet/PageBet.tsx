@@ -7,7 +7,7 @@ import CloseButton from "../../components/CloseButton/CloseButton.tsx";
 import usePostAPI from "../../hooks/API/usePostAPI.ts";
 import LotService from "../../API/service/LotService.ts";
 import useDataUser from "../../hooks/useDataUser.ts";
-import IPostBet from "../../API/interfaces/IPostBet.ts";
+import IPostBet from "../../API/interfaces/request/IPostBet.ts";
 import LogicFormProcessing from "../../components/LogicFormProcessing/LogicFormProcessing.tsx";
 import { Form } from "react-router-dom";
 import ILot from "../../API/interfaces/ILot.ts";

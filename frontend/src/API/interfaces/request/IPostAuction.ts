@@ -1,5 +1,5 @@
-import { IResponseCreateAuction } from "./response/IResponseAuctions.ts";
-import DateLogic from "../../auxiliaryTools/dateLogic/DateLogic.ts";
+import { IResponseCreateAuction } from "../response/IResponseAuctions.ts";
+import DateLogic from "../../../auxiliaryTools/dateLogic/DateLogic.ts";
 
 interface IPostAuction {
     name: string;

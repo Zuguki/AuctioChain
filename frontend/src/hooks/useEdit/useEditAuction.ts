@@ -1,7 +1,7 @@
 import useGetAPI from "../API/useGetAPI.ts";
 import AuctionService from "../../API/service/AuctionService.ts";
 import { useEffect, useMemo } from "react";
-import { IPutAuction } from "@/API/interfaces/IPostAuction.ts";
+import { IPutAuction } from "@/API/interfaces/request/IPostAuction.ts";
 import useDataUser from "../useDataUser.ts";
 
 const useEditAuction = (id: string) => {

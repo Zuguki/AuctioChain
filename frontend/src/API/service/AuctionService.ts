@@ -1,5 +1,7 @@
 import $api, { paramsPagination } from "../api.ts";
-import IPostAuction, { IPutAuction } from "../interfaces/IPostAuction.ts";
+import IPostAuction, {
+    IPutAuction,
+} from "../interfaces/request/IPostAuction.ts";
 import { AxiosResponse } from "axios";
 import {
     IResponseCreateAuction,
@@ -10,10 +12,10 @@ import IParamsAuctions, {
     BaseParamsAuctions,
 } from "../../interfaces/IParamsAuctions.ts";
 
-export default class AuctionService {
-    private static readonly pathAuctions: string = "auctions";
+class AuctionService {
+    private readonly pathAuctions: string = "auctions";
 
-    public static async getAuctions(
+    public async getAuctions(
         page: number = 1,
         elementOnPage: number = 12,
         paramsAuctions: IParamsAuctions = BaseParamsAuctions,
@@ -28,31 +30,27 @@ export default class AuctionService {
         });
     }
 
-    public static async getAuctionByID(
-        id: string,
-    ): Promise<AxiosResponse<IAuction>> {
+    public async getAuctionByID(id: string): Promise<AxiosResponse<IAuction>> {
         return $api.get(`${this.pathAuctions}/${id}`);
     }
 
-    public static async addAuction(
+    public async addAuction(
         auction: IPostAuction,
     ): Promise<AxiosResponse<IResponseCreateAuction>> {
         return $api.post(this.pathAuctions, auction);
     }
 
-    public static async updateAuction(
-        auction: IPutAuction,
-    ): Promise<AxiosResponse> {
+    public async updateAuction(auction: IPutAuction): Promise<AxiosResponse> {
         return $api.put(this.pathAuctions, auction);
     }
 
-    public static async setNewStatusAuction(
-        id: string,
-    ): Promise<AxiosResponse> {
+    public async setNewStatusAuction(id: string): Promise<AxiosResponse> {
         return $api.patch(`${this.pathAuctions}/changeCreationState/${id}`);
     }
 
-    public static async deleteAuctionById(id: string): Promise<AxiosResponse> {
+    public async deleteAuctionById(id: string): Promise<AxiosResponse> {
         return $api.delete(`${this.pathAuctions}/${id}`);
     }
 }
+
+export default new AuctionService();

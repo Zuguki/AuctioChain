@@ -6,7 +6,7 @@ import PasswordInputCard from "../PasswordInputCard/PasswordInputCard.tsx";
 import useDataUser from "../../../hooks/useDataUser.ts";
 import useAuthResponse from "../../../hooks/API/useAuthResponse.ts";
 import { Context } from "../../../context/context.ts";
-import IPostRegistrationUser from "../../../API/interfaces/IPostRegistrationUser.ts";
+import IPostRegistrationUser from "../../../API/interfaces/request/IPostRegistrationUser.ts";
 import CloseButton from "../../../components/CloseButton/CloseButton.tsx";
 import PathApp from "../../../routes/pathApp/PathApp.ts";
 import { useNavigate } from "react-router-dom";

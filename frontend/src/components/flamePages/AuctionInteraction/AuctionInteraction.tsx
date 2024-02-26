@@ -9,7 +9,7 @@ import DateLogic from "../../../auxiliaryTools/dateLogic/DateLogic.ts";
 import SubmitButton from "../../SubmitButton/SubmitButton.tsx";
 import { Form } from "react-router-dom";
 import IInteraction from "../../../interfaces/interfacesInteraction/IInteraction.ts";
-import { IPutAuction } from "@/API/interfaces/IPostAuction.ts";
+import { IPutAuction } from "@/API/interfaces/request/IPostAuction.ts";
 import ImageForm from "../../ImageForm/ImageForm.tsx";
 
 const { getDatetimeLocal } = DateLogic;

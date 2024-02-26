@@ -63,6 +63,7 @@ $api.interceptors.response.use(
         throw error;
     },
 );
+
 const paramsPagination = (
     page: number,
     itemsPerPage: number,
@@ -70,17 +71,6 @@ const paramsPagination = (
     Page: page,
     ItemsPerPage: itemsPerPage,
 });
-
-/*const upFirstLetterByParams = (
-    paramsAuctions: Record<PropertyKey, unknown>,
-): Record<PropertyKey, unknown> => {
-    return Object.fromEntries(
-        Object.entries(paramsAuctions).map(([nameParam, valueParam]) => [
-            nameParam.charAt(0).toUpperCase() + nameParam.slice(1),
-            valueParam,
-        ]),
-    );
-};*/
 
 export default $api;
 export { paramsPagination };

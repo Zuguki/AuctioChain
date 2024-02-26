@@ -2,7 +2,9 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 import usePostAPI from "../../hooks/API/usePostAPI.ts";
 import useDataUser from "../../hooks/useDataUser.ts";
-import IPostLot, { reformatLot } from "../../API/interfaces/IPostLot.ts";
+import IPostLot, {
+    reformatLot,
+} from "../../API/interfaces/request/IPostLot.ts";
 import usePostImage from "../../hooks/API/usePostImage.ts";
 import LotInteraction from "../../components/flamePages/LotInteraction/LotInteraction.tsx";
 import LotService from "../../API/service/LotService.ts";

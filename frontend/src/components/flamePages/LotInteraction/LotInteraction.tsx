@@ -9,7 +9,7 @@ import { Form } from "react-router-dom";
 import ImageForm from "../../ImageForm/ImageForm.tsx";
 import stylePageLot from "./lotInteraction.module.css";
 import IInteraction from "../../../interfaces/interfacesInteraction/IInteraction.ts";
-import { IPutLot } from "../../../API/interfaces/IPostLot.ts";
+import { IPutLot } from "../../../API/interfaces/request/IPostLot.ts";
 
 const LotInteraction: FC<IInteraction<IPutLot>> = ({
     submitForm,

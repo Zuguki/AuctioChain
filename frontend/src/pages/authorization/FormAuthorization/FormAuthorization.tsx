@@ -2,7 +2,7 @@ import FormDiv from "../../../components/UI/div/FormDiv/FormDiv.tsx";
 import FormInput from "../../../components/UI/inputs/FormInput/FormInput.tsx";
 import useDataUser from "../../../hooks/useDataUser.ts";
 import useAuthResponse from "../../../hooks/API/useAuthResponse.ts";
-import IPostLoginUser from "../../../API/interfaces/IPostLoginUser.ts";
+import IPostLoginUser from "../../../API/interfaces/request/IPostLoginUser.ts";
 import { Context } from "@/context/context.ts";
 import { useContext } from "react";
 import { LoginNotification } from "@/appLogic/notificationLogic/VarietesNotifications.ts";

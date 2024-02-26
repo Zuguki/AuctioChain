@@ -1,23 +1,23 @@
 import $api from "../api.ts";
 import { AxiosResponse } from "axios";
-import IPostLoginUser from "../interfaces/IPostLoginUser.ts";
-import IPostRegistrationUser from "../interfaces/IPostRegistrationUser.ts";
+import IPostLoginUser from "../interfaces/request/IPostLoginUser.ts";
+import IPostRegistrationUser from "../interfaces/request/IPostRegistrationUser.ts";
 
 interface AuthResponse {
     token: string;
     refreshToken: string;
 }
 
-export default class AuthService {
-    private static readonly pathAccount: string = "/accounts";
+class AuthService {
+    private readonly pathAccount: string = "/accounts";
 
-    static async login(
+    public async login(
         dataLogin: IPostLoginUser,
     ): Promise<AxiosResponse<AuthResponse>> {
         return $api.post<AuthResponse>(`${this.pathAccount}/login`, dataLogin);
     }
 
-    static async registration(
+    public async registration(
         dataLogin: IPostRegistrationUser,
     ): Promise<AxiosResponse> {
         return $api.post<AxiosResponse>(
@@ -26,7 +26,7 @@ export default class AuthService {
         );
     }
 
-    static async refresh(
+    public async refresh(
         refreshToken: string,
     ): Promise<AxiosResponse<AuthResponse>> {
         return $api.post<AuthResponse>(`${this.pathAccount}/refresh`, {
@@ -34,3 +34,5 @@ export default class AuthService {
         });
     }
 }
+
+export default new AuthService();

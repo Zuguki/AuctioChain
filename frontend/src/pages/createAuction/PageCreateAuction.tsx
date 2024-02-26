@@ -1,7 +1,7 @@
 import useDataUser from "../../hooks/useDataUser.ts";
 import IPostAuction, {
     reformatAuction,
-} from "../../API/interfaces/IPostAuction.ts";
+} from "../../API/interfaces/request/IPostAuction.ts";
 import AuctionService from "../../API/service/AuctionService.ts";
 import usePostAPI from "../../hooks/API/usePostAPI.ts";
 import { useNavigate } from "react-router-dom";

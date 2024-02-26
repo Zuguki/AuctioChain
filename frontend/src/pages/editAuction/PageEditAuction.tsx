@@ -1,7 +1,10 @@
 import React, { FC, useContext } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import AuctionService from "../../API/service/AuctionService.ts";
-import { IPutAuction, reformatAuction } from "@/API/interfaces/IPostAuction.ts";
+import {
+    IPutAuction,
+    reformatAuction,
+} from "@/API/interfaces/request/IPostAuction.ts";
 import AuctionInteraction from "../../components/flamePages/AuctionInteraction/AuctionInteraction.tsx";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
 import usePostAPI from "../../hooks/API/usePostAPI.ts";

@@ -22,7 +22,7 @@ const ListAuctions: FC = memo(
                     12,
                     stateApp.getParamsAuctions(),
                 ),
-            ["auctions", currentPage],
+            ["auctions", currentPage, stateApp.getParamsAuctions()],
             { auctions: [] },
         );
         return (

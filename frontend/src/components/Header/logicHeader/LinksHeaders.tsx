@@ -20,7 +20,7 @@ const LinksHeaders: FC<ILinkLogicUser> = memo(({ auth, user }) => {
                     <img src={logo} alt="logo" />
                 </Link>
                 <div className={styleHeader.fox}>
-                    <img src={fox} />
+                    <img src={fox} alt="fox" />
                 </div>
             </li>
             <li>

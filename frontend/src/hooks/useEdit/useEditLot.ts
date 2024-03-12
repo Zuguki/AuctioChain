@@ -2,7 +2,7 @@ import useGetAPI from "../API/useGetAPI.ts";
 import LotService from "../../API/service/LotService.ts";
 import ILot from "../../API/interfaces/ILot.ts";
 import { useEffect, useMemo, useState } from "react";
-import { IPutLot } from "@/API/interfaces/IPostLot.ts";
+import { IPutLot } from "@/API/interfaces/request/IPostLot.ts";
 import useDataUser from "../useDataUser.ts";
 import IAuction from "../../API/interfaces/IAuction.ts";
 import AuctionService from "../../API/service/AuctionService.ts";

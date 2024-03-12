@@ -16,6 +16,7 @@ function CardDiv<T extends IBaseCard>({
     const path: string = status ? PathApp.auction : PathApp.lot;
     description = sliceText(description, 60);
     const location = useLocation();
+
     return (
         <div className={styleCard.card}>
             <h5 className={styleCard.title}>{name}</h5>

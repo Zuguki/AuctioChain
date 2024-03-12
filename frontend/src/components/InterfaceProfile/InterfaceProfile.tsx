@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import styleInterface from "./interfaceProfile.module.css";
 import { useNavigate } from "react-router-dom";
 import PathApp from "../../routes/pathApp/PathApp.ts";

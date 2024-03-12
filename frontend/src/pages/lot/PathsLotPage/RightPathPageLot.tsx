@@ -47,7 +47,7 @@ const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
             <h1>{name}</h1>
             <p>{description}</p>
             <h3 className={styleLot.price}>
-                Цена на данный момент:&nbsp;
+                Цена на рынке:&nbsp;
                 {currentMaxBet ? currentMaxBet : initialPrice}
                 &nbsp;Ac
             </h3>
@@ -60,14 +60,19 @@ const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
                         <div>
                             <p className={styleLot.textBets}>Показать ставки</p>
                             <div className={styleLot.positionShowBet}>
-                                <img
-                                    src={showBets ? down : up}
+                                <button
+                                    className={styleLot.btnArrow}
                                     onClick={() =>
                                         setShowBets(
                                             (prevState: boolean) => !prevState,
                                         )
                                     }
-                                />
+                                >
+                                    <img
+                                        src={showBets ? down : up}
+                                        alt="arrow"
+                                    />
+                                </button>
                             </div>
                             <ListBetsLot
                                 style={{ display: showBets ? "block" : "none" }}
@@ -77,9 +82,7 @@ const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
                     </div>
                 )}
             </div>
-            {loadingAuction ? (
-                <></>
-            ) : AuctionLogic.isBidding(auction) ? (
+            {!loadingAuction && AuctionLogic.isBidding(auction) ? (
                 <BaseButton onClick={openBet}>Поставить ставку</BaseButton>
             ) : (
                 <p className={styleLot.notBet}>Ставки не принимаются!</p>

@@ -17,7 +17,6 @@ const useGetPaginationAPI = <Res>(
         queryFn: async () => await response(),
         placeholderData: keepPreviousData,
         retry: 3,
-        staleTime: 1000,
     });
 
     useEffect(() => {

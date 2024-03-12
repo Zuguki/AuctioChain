@@ -7,11 +7,12 @@ import { Form } from "react-router-dom";
 import IParamsAuctions, {
     BaseParamsAuctions,
 } from "../../../interfaces/IParamsAuctions.ts";
-import { Context } from "../../../context/context.ts";
+
 import useFilterAuctions from "../../../hooks/useSelectAuctions/useFilterAuctions.ts";
 import useSearchInput from "../../../hooks/useSearchInput.ts";
 import equalsObjects from "../../../auxiliaryTools/equalsObjects.ts";
 import useSortAuctions from "../../../hooks/useSelectAuctions/useSortAuctions.ts";
+import { Context } from "@/context/context.ts";
 
 const SearcherAuction = () => {
     const { stateApp } = useContext(Context);
@@ -22,13 +23,14 @@ const SearcherAuction = () => {
     const { isWrite, changeSearch } =
         useSearchInput<IParamsAuctions>(setParamsFilter);
     const { statusSort, changeSort } = useSortAuctions(setParamsFilter);
+
     useEffect(() => {
         if (equalsObjects(paramsFilter, BaseParamsAuctions)) {
             return;
         }
         stateApp.setParamsAuctions(paramsFilter);
         return () => stateApp.setParamsAuctions(BaseParamsAuctions);
-    }, [paramsFilter]);
+    }, [paramsFilter, stateApp]);
 
     return (
         <Form>

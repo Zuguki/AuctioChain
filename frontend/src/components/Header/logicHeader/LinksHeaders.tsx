@@ -3,13 +3,12 @@ import CustomLink from "../../UI/CustomLink/CustomLink.tsx";
 import { Link } from "react-router-dom";
 import logo from "../../../design/logo.svg";
 import LinkUser from "./LinkUser.tsx";
-import ILinkLogicUser from "./ILinkLogicUser.ts";
 import LinkSearch from "./LinkSearch.tsx";
 import PathApp from "../../../routes/pathApp/PathApp.ts";
 import fox from "../../../design/metamask-fox.jpg";
 import styleHeader from "../header.module.css";
 
-const LinksHeaders: FC<ILinkLogicUser> = memo(({ auth, user }) => {
+const LinksHeaders: FC = memo(() => {
     return (
         <ul>
             <li>
@@ -30,7 +29,7 @@ const LinksHeaders: FC<ILinkLogicUser> = memo(({ auth, user }) => {
                 <CustomLink to={PathApp.currency}>Курс валют</CustomLink>
             </li>
             <li>
-                <LinkUser auth={auth} user={user} />
+                <LinkUser />
             </li>
         </ul>
     );

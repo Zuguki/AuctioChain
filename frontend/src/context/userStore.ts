@@ -15,7 +15,7 @@ export default class UserStore {
     private bill: string = "";
 
     constructor() {
-        makeAutoObservable(this);
+        makeAutoObservable(this, {}, { autoBind: true });
     }
 
     public getBill(): string {
@@ -67,8 +67,9 @@ export default class UserStore {
     }
 
     public setAuthByToken(token: string): void {
-        this.setUser(TokenLogic.convertTokenToUser(token));
-        this.setAuth(true);
+        const user = TokenLogic.convertTokenToUser(token);
+        this.user = user;
+        this.isAuth = true;
     }
 
     private setAuth(status: boolean): void {

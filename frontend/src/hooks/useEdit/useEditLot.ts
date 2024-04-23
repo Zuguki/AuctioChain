@@ -26,16 +26,13 @@ const useEditLot = (id: string) => {
         })();
     }, [lot.id]);
     if (lot.id != null) {
-        /*   let isGetAuction: boolean = false;
-           if (!isGetAuction) {*/
         AuctionService.getAuctionByID(lot.auctionId).then(
             (res: AxiosResponse<IAuction>) =>
                 setAuction((): IAuction => res.data),
         );
-        /*     isGetAuction = true;
-         }*/
     }
     const baseLot = useMemo((): IPutLot => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id, currentMaxBet, auctionId, ...intermediateLot } = lot;
         if (id == null) {
             return {} as IPutLot;

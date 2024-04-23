@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import stylePage from "./pageAuctions.module.css";
 import { observer } from "mobx-react-lite";
 import { Context } from "@/context/context.ts";

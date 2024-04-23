@@ -5,11 +5,10 @@ import { IPutAuction } from "@/API/interfaces/request/IPostAuction.ts";
 import useDataUser from "../useDataUser.ts";
 
 const useEditAuction = (id: string) => {
-    const {
-        data: auction,
-        error,
-        isLoading: loadingAuction,
-    } = useGetAPI(() => AuctionService.getAuctionByID(id), ["auction", id]);
+    const { data: auction, isLoading: loadingAuction } = useGetAPI(
+        () => AuctionService.getAuctionByID(id),
+        ["auction", id],
+    );
 
     const baseAuction = useMemo((): IPutAuction => {
         const {

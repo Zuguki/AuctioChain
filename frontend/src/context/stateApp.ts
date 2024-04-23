@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import IParamsAuctions, {
-    BaseParamsAuctions,
+    baseParamsAuctions,
 } from "../interfaces/IParamsAuctions.ts";
 import INotification from "../appLogic/notificationLogic/INotification.ts";
 
@@ -8,7 +8,7 @@ export default class StateApp {
     private search: boolean = false;
     private interfaceProfile: boolean = false;
     private notification: INotification | null = null;
-    private paramsAuctions: IParamsAuctions = BaseParamsAuctions;
+    private paramsAuctions: IParamsAuctions = baseParamsAuctions;
 
     constructor() {
         makeAutoObservable(this);

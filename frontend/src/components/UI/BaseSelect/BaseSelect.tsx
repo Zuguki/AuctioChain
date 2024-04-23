@@ -8,6 +8,13 @@ import React, {
 import styleSelect from "./baseSelect.module.css";
 import SelectsOption from "../../../hooks/useSelectAuctions/ISelectsOption.ts";
 
+interface ISelect extends InputHTMLAttributes<HTMLSelectElement> {
+    title: string;
+    name: string;
+    selectors: string[] | SelectsOption[];
+    changeValue: (e: ChangeEvent<HTMLSelectElement>) => void;
+}
+
 const BaseSelect: FC<ISelect> = memo(
     ({ title, selectors, changeValue, ...props }) => {
         return (
@@ -45,12 +52,5 @@ const BaseSelect: FC<ISelect> = memo(
         );
     },
 );
-
-interface ISelect extends InputHTMLAttributes<HTMLSelectElement> {
-    title: string;
-    name: string;
-    selectors: string[] | SelectsOption[];
-    changeValue: (e: ChangeEvent<HTMLSelectElement>) => void;
-}
 
 export default BaseSelect;

@@ -3,7 +3,7 @@ import LogicFormProcessing from "../../LogicFormProcessing/LogicFormProcessing.t
 import FormInput from "../../UI/inputs/FormInput/FormInput.tsx";
 import FormTextArea from "../../UI/inputs/FormTextArea/FormTextArea.tsx";
 import ImageInput from "../../UI/inputs/ImageInput/ImageInput.tsx";
-import { numberChars } from "../../../auxiliaryTools/bloclnvalidChar.ts";
+import { numberChars } from "../../../auxiliaryTools/blockInvalidChar.ts";
 import SubmitButton from "../../SubmitButton/SubmitButton.tsx";
 import { Form } from "react-router-dom";
 import ImageForm from "../../ImageForm/ImageForm.tsx";

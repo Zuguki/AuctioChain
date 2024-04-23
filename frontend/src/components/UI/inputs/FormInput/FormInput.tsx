@@ -8,7 +8,7 @@ import {
 } from "react";
 import IInput from "../IInput.ts";
 import styleFormInput from "./formInput.module.css";
-import { blockInvalidChar } from "../../../../auxiliaryTools/bloclnvalidChar.ts";
+import { blockInvalidChar } from "../../../../auxiliaryTools/blockInvalidChar.ts";
 import sizeStyle from "../../../../auxiliaryTools/logicSize.ts";
 
 const FormInput: FC<IInput> = memo(

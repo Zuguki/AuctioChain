@@ -22,6 +22,7 @@ const PageCreateAuction: FC = () => {
     const { setFile, postCorrectImage, imageFile } = usePostImage();
     const { stateApp } = useContext(Context);
     const nav = useNavigate();
+
     const postAuction = async (): Promise<void> => {
         blurError();
         const image: string | null = await postCorrectImage();

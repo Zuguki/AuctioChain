@@ -4,7 +4,7 @@ import useCode from "./useCode.ts";
 import {
     blockInvalidChar,
     numberChars,
-} from "../../../../auxiliaryTools/bloclnvalidChar.ts";
+} from "../../../../auxiliaryTools/blockInvalidChar.ts";
 
 const CodeInput: FC<{ children: string; numbers?: number }> = ({
     children,

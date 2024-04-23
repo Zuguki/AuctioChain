@@ -1,7 +1,7 @@
 import FormInput from "../../../components/UI/inputs/FormInput/FormInput.tsx";
 import CardRequirementsPassword from "../CardRequirementsPassword/CardRequirementsPassword.tsx";
 import useLogicRequirement from "../CardRequirementsPassword/useLogicRequirement.ts";
-import { passwordChars } from "../../../auxiliaryTools/bloclnvalidChar.ts";
+import { passwordChars } from "../../../auxiliaryTools/blockInvalidChar.ts";
 import { AxiosError } from "axios";
 import { ChangeEvent, FC } from "react";
 

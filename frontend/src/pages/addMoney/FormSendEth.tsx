@@ -1,7 +1,7 @@
 import { ChangeEvent, useContext } from "react";
 import FormInput from "../../components/UI/inputs/FormInput/FormInput.tsx";
 import LogicCurrency from "../../appLogic/metamask/LogicCurrency.ts";
-import { numberChars } from "../../auxiliaryTools/bloclnvalidChar.ts";
+import { numberChars } from "../../auxiliaryTools/blockInvalidChar.ts";
 import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
 import LocalStorageLogic from "../../appLogic/localStorageLogic/LocalStorageLogic.ts";
 import MetaMaskLogic from "../../appLogic/metamask/MetaMaskLogic.ts";

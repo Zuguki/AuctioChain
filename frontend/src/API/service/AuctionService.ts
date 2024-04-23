@@ -9,7 +9,7 @@ import {
 } from "../interfaces/response/IResponseAuctions.ts";
 import IAuction from "../interfaces/IAuction.ts";
 import IParamsAuctions, {
-    BaseParamsAuctions,
+    baseParamsAuctions,
 } from "../../interfaces/IParamsAuctions.ts";
 
 class AuctionService {
@@ -18,13 +18,12 @@ class AuctionService {
     public async getAuctions(
         page: number = 1,
         elementOnPage: number = 12,
-        paramsAuctions: IParamsAuctions = BaseParamsAuctions,
+        paramsAuctions: IParamsAuctions = baseParamsAuctions,
     ): Promise<AxiosResponse<ResponseObjAuctions>> {
         console.log(paramsAuctions);
         return $api.get(`${this.pathAuctions}`, {
             params: {
                 ...paramsPagination(page, elementOnPage),
-                /*...upFirstLetterByParams(paramsAuctions),*/
                 ...paramsAuctions,
             },
         });

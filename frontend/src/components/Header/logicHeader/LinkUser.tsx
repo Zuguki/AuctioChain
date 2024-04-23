@@ -8,19 +8,12 @@ import PathApp from "../../../routes/pathApp/PathApp.ts";
 import { EventClickInterfaceProfile } from "@/components/InterfaceProfile/EventClickInterfaceProfile.ts";
 import IUser from "@/API/interfaces/IUser.ts";
 import { observer } from "mobx-react-lite";
-import Cookies from "js-cookie";
-import TokenLogic from "@/appLogic/tokenLogic/TokenLogic.ts";
 
 const LinkUser: FC = observer(() => {
     const location = useLocation();
     const { stateApp, userStore } = useContext(Context);
-    const token = Cookies.get(TokenLogic.TOKEN);
-    /*if (token != null) {
-                userStore.setAuthByToken(token);
-            }*/
     const auth: boolean = userStore.getAuth();
     const user: IUser = userStore.getUser();
-    console.log(auth, user);
     if (!auth) {
         return (
             <div className={styleHeader.positionUserNot}>

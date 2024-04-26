@@ -30,6 +30,7 @@ const ActionsAuction: FC<IActionsAuction> = ({
             alert(`Ошибка обновления статуса: ${err}`);
             return;
         }
+
         try {
             await AuctionService.getAuctionByID(id);
             setChangeStatus(true);
@@ -47,7 +48,7 @@ const ActionsAuction: FC<IActionsAuction> = ({
     };
     return (
         <>
-            {userStore.getUser().userId === userId && (
+            {userStore.user.userId === userId && (
                 <>
                     {isCreation && (
                         <div className={stylePage.positionButtonActive}>

@@ -21,9 +21,9 @@ const ListAuctions: FC = memo(
                 AuctionService.getAuctions(
                     currentPage,
                     2,
-                    stateApp.getParamsAuctions(),
+                    stateApp.paramsAuctions,
                 ),
-            ["auctions", currentPage, stateApp.getParamsAuctions()],
+            ["auctions", currentPage, stateApp.paramsAuctions],
             { auctions: [] },
         );
         return (

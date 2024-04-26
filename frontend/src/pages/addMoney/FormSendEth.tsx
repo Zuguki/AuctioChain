@@ -32,7 +32,7 @@ const FormSendEth = observer(() => {
         const addBalance: number | undefined = await MetaMaskLogic.sendEth(eph);
         LocalStorageLogic.endLoadingTransaction();
         if (addBalance) {
-            stateApp.setNotification(NotificationAddMoney(addBalance));
+            stateApp.notification = NotificationAddMoney(addBalance);
         }
     };
 
@@ -62,10 +62,7 @@ const FormSendEth = observer(() => {
                     </p>
                 </div>
             )}
-            <BaseButton
-                type="submit"
-                disabled={stateApp.getNotification() !== null}
-            >
+            <BaseButton type="submit" disabled={stateApp.notification !== null}>
                 Пополнить
             </BaseButton>
         </Form>

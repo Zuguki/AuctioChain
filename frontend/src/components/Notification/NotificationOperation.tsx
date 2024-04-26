@@ -8,11 +8,13 @@ const NotificationOperation: FC = memo(
     observer(() => {
         const [notificationWindow, setNotificationWindow] =
             useState<ReactNode>(null);
+
         const { stateApp } = useContext(Context);
-        const notification: INotification | null = stateApp.getNotification();
+        const notification: INotification | null = stateApp.notification;
+
         const removeNotification = (): void => {
             setNotificationWindow((): null => null);
-            stateApp.setNotification(null);
+            stateApp.notification = null;
         };
 
         useEffect(() => {
@@ -20,7 +22,9 @@ const NotificationOperation: FC = memo(
                 setNotificationWindow((): null => null);
                 return;
             }
+
             const { title, text, timeLife, loading } = notification;
+
             let timer: NodeJS.Timeout;
             ((): void => {
                 setNotificationWindow(() => (
@@ -32,6 +36,7 @@ const NotificationOperation: FC = memo(
                 ));
                 timer = setTimeout(removeNotification, timeLife);
             })();
+
             return () => clearTimeout(timer);
         }, [notification]);
         return <>{notificationWindow}</>;

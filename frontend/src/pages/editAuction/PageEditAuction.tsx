@@ -28,9 +28,10 @@ const PageEditAuction: FC = () => {
     const nav = useNavigate();
     const { stateApp, userStore } = useContext(Context);
     const { userId, status } = auction;
+
     if (
         userId !== undefined &&
-        (userId !== userStore.getUser().userId || status !== 1)
+        (userId !== userStore.user.userId || status !== 1)
     ) {
         alert("Вам отказано в доступе!");
         return <Navigate to={PathApp.auctions} />;
@@ -53,7 +54,7 @@ const PageEditAuction: FC = () => {
         );
         if (res) {
             nav(`${PathApp.auction}/${auction.id}`);
-            stateApp.setNotification(NotificationUpdateAuction);
+            stateApp.notification = NotificationUpdateAuction;
         }
     };
 

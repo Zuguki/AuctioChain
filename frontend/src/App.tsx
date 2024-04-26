@@ -11,6 +11,7 @@ const client = new QueryClient();
 function App() {
     const { userStore, stateApp } = useContext(Context);
     useApp();
+
     return (
         <QueryClientProvider client={client}>
             <Context.Provider value={{ userStore, stateApp }}>

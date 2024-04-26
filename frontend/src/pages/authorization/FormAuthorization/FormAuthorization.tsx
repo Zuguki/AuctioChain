@@ -10,12 +10,13 @@ import { LoginNotification } from "@/appLogic/notificationLogic/VarietesNotifica
 const FormAuthorization = () => {
     const { userStore } = useContext(Context);
     const { dataUser, logicFormValue } = useDataUser<IPostLoginUser>();
+
     const { error, logicButton, loading, blurError } = useAuthResponse(
         (dataUser: IPostLoginUser) => userStore.login(dataUser),
         "Вход",
-        userStore.getAuth(),
+        userStore.isAuth,
         dataUser,
-        LoginNotification(userStore.getUser().name),
+        LoginNotification(userStore.user.name),
     );
 
     return (

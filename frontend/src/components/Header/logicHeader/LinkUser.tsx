@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import { FC, useContext } from "react";
 import styleHeader from "../header.module.css";
 import { Link, useLocation } from "react-router-dom";
 import userAuth from "../../../design/icons/icon authorized.svg";
@@ -12,8 +12,9 @@ import { observer } from "mobx-react-lite";
 const LinkUser: FC = observer(() => {
     const location = useLocation();
     const { stateApp, userStore } = useContext(Context);
-    const auth: boolean = userStore.getAuth();
-    const user: IUser = userStore.getUser();
+    const auth: boolean = userStore.isAuth;
+    const user: IUser = userStore.user;
+
     if (!auth) {
         return (
             <div className={styleHeader.positionUserNot}>
@@ -27,7 +28,7 @@ const LinkUser: FC = observer(() => {
     const clickProfile = (e: EventClickInterfaceProfile<HTMLButtonElement>) => {
         if (!e._isClickInterfaceProfile) {
             e._isClickInterfaceProfile = true;
-            stateApp.setInterfaceProfile(!stateApp.getInterfaceProfile());
+            stateApp.interfaceProfile = !stateApp.interfaceProfile;
         }
     };
 

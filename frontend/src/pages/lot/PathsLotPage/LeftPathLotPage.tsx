@@ -27,7 +27,7 @@ const LeftPathLotPage: FC<IPathLotPage> = memo(({ lot }) => {
     const { userId } = auction;
     const { username } = useGetUserName(userId);
     const canEdit: boolean =
-        userId === userStore.getUser().userId &&
+        userId === userStore.user.userId &&
         (isCreation(auction) || isWaitBidding(auction));
 
     const deleteLot = async (): Promise<void> => {

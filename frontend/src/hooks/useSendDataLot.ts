@@ -12,7 +12,7 @@ const useSendDataLot = () => {
     ) => {
         const res = await request();
         if (res) {
-            stateApp.setNotification(notification);
+            stateApp.notification(notification);
             nav(pathNav);
         }
     };

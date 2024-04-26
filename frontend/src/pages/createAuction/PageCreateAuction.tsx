@@ -33,7 +33,7 @@ const PageCreateAuction: FC = () => {
         const auctionId: string | undefined = res?.data.auctionId;
         if (auctionId) {
             nav(`${PathApp.auction}/${auctionId}`);
-            stateApp.setNotification(NotificationCreateAuction);
+            stateApp.notification = NotificationCreateAuction;
         }
     };
     return (

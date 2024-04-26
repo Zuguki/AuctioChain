@@ -19,10 +19,15 @@ export const useApp = () => {
             const bill: string | null = LocalStorageLogic.getToStorage<string>(
                 LocalStorageLogic.BILL,
             );
+
             if (token != null) {
                 userStore.setAuthByToken(token);
             }
-            bill && userStore.setBill(bill);
+
+            if (bill) {
+                userStore.bill = bill;
+            }
+
             processAddBalance(process);
         })();
     }, []);
@@ -37,10 +42,10 @@ export const useApp = () => {
                 LocalStorageLogic.setProcessAddMoney(false);
                 return;
             }
-            stateApp.setNotification(notification);
+            stateApp.notification = notification;
             const balance: number = await MetaMaskLogic.getUserMoney();
             LocalStorageLogic.endLoadingTransaction();
-            stateApp.setNotification(NotificationAddMoney(balance));
+            stateApp.notification = NotificationAddMoney(balance);
         }
     };
 };

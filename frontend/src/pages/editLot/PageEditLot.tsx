@@ -28,7 +28,7 @@ const PageEditLot: FC = () => {
 
     if (auction) {
         const { userId, status } = auction;
-        if (userId !== userStore.getUser().userId || status < 1 || status > 2) {
+        if (userId !== userStore.user.userId || status < 1 || status > 2) {
             alert("Вам отказано в доступе!");
             return <Navigate to={PathApp.auctions} />;
         }

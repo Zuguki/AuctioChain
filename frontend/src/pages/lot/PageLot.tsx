@@ -20,6 +20,7 @@ const PageLot: FC = () => {
     const nav = useNavigate();
     const location = useLocation();
     const [bet, setBet] = useState<AxiosResponse | null>(null);
+
     const {
         data: lot,
         isLoading,
@@ -33,7 +34,7 @@ const PageLot: FC = () => {
     const closeBet = () => setShowBet((): boolean => false);
 
     const openBet = (): void => {
-        if (userStore.getAuth()) {
+        if (userStore.isAuth) {
             setShowBet((): boolean => true);
             return;
         }

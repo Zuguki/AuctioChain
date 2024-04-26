@@ -17,11 +17,12 @@ const FormRegistration = () => {
     const nav = useNavigate();
     const { userStore } = useContext(Context);
     const { dataUser, logicFormValue } = useDataUser<IPostRegistrationUser>();
+
     const { error, logicButton, blurError, loading } = useAuthResponse(
         () => userStore.registration(dataUser),
         "Зарегестрироваться",
-        userStore.getAuth(),
-        RegistrationNotification(userStore.getUser().name),
+        userStore.isAuth,
+        RegistrationNotification(userStore.user.name),
     );
 
     return (

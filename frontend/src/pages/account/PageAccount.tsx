@@ -14,12 +14,14 @@ import BalanceService from "../../API/service/BalanceService.ts";
 import useGetAPI from "../../hooks/API/useGetAPI.ts";
 
 const PageAccount = observer(() => {
-    const { userStore, stateApp } = useContext(Context);
-    const userId = userStore.getUser().userId;
+    const { userStore } = useContext(Context);
     const { id } = useParams();
     const nav = useNavigate();
+
+    const userId = userStore.user.userId;
     const isUser: boolean = id === userId;
     const { username, isLoading } = useGetUserName(id);
+
     const {
         data: { balance },
         isLoading: loadingBalance,

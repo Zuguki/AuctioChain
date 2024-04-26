@@ -11,7 +11,8 @@ import BalanceService from "../../API/service/BalanceService.ts";
 
 const AddMoney = observer(() => {
     const { userStore } = useContext(Context);
-    const billUser: string = userStore.getBill();
+    const billUser: string = userStore.bill;
+
     const {
         data: { balance },
     } = useGetAPI(() => BalanceService.getBalanceUser(), ["balance"]);

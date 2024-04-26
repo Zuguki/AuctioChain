@@ -88,7 +88,7 @@ export default class MetaMaskLogic {
                 "eth_requestAccounts",
                 [],
             );
-            userStore.setBill(bill);
+            userStore.bill(bill);
             LocalStorageLogic.setToStorage<string>(
                 LocalStorageLogic.BILL,
                 bill,
@@ -101,7 +101,7 @@ export default class MetaMaskLogic {
 
     public static async sendEth(eph: string): Promise<number | undefined> {
         try {
-            const billUser: string = userStore.getBill();
+            const billUser: string = userStore.bill();
             if (!billUser) {
                 alert("Кошлек не подключён к сайту!");
                 return;
@@ -133,7 +133,7 @@ export default class MetaMaskLogic {
                 return;
             }
             LocalStorageLogic.startLoadingTransaction(prevBalance);
-            stateApp.setNotification(NotificationTransaction);
+            stateApp.notification(NotificationTransaction);
             return await this.getUserMoney();
         } catch (error) {
             console.log(JSON.stringify(error, null, 4));

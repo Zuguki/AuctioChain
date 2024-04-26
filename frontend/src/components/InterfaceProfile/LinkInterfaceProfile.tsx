@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useContext } from "react";
+import { FC, ReactNode, useContext } from "react";
 import { Context } from "@/context/context.ts";
 import { Link } from "react-router-dom";
 import styleInterface from "./interfaceProfile.module.css";
@@ -12,7 +12,7 @@ const LinkInterfaceProfile: FC<{ path: string; children: ReactNode }> = ({
         <Link
             className={styleInterface.link}
             to={path}
-            onClick={() => stateApp.setInterfaceProfile(false)}
+            onClick={() => (stateApp.interfaceProfile = false)}
         >
             {children}
         </Link>

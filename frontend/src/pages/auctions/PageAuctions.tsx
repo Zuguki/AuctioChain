@@ -8,11 +8,11 @@ import { useLocation } from "react-router-dom";
 
 const PageAuctions = observer(() => {
     const { stateApp } = useContext(Context);
-
     const location = useLocation();
+
     useEffect(() => {
         if (location.search) {
-            stateApp.setSearch(true);
+            stateApp.search = true;
         }
     }, [location]);
 
@@ -20,7 +20,7 @@ const PageAuctions = observer(() => {
         <div>
             <div className={stylePage.position}>
                 <h1 className={stylePage.title}>Список аукционов</h1>
-                {stateApp.getSearch() && <SearcherAuction />}
+                {stateApp.search && <SearcherAuction />}
             </div>
             <ListAuctions />
         </div>

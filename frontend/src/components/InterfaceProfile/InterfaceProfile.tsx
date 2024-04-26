@@ -12,10 +12,12 @@ import { EventClickInterfaceProfile } from "@/components/InterfaceProfile/EventC
 const InterfaceProfile = observer(() => {
     const { userStore, stateApp } = useContext(Context);
     const nav = useNavigate();
-    if (!userStore.getAuth() || !stateApp.getInterfaceProfile()) {
+
+    if (!userStore.isAuth || !stateApp.interfaceProfile) {
         return null;
     }
-    const { userId, name } = userStore.getUser();
+
+    const { userId, name } = userStore.user;
     const logout = (): void => {
         userStore.logout();
         nav(PathApp.auctions);
@@ -23,7 +25,7 @@ const InterfaceProfile = observer(() => {
 
     const clickWindow = (e: EventClickInterfaceProfile<HTMLDivElement>) => {
         e._isClickInterfaceProfile = true;
-        stateApp.setInterfaceProfile(true);
+        stateApp.interfaceProfile = true;
     };
 
     return (

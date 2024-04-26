@@ -34,8 +34,11 @@ const SearcherAuction = () => {
         useChangeSelect<IParamsAuctions>(setParamsFilter);
 
     useEffect(() => {
-        stateApp.setParamsAuctions(paramsFilter);
-        return () => stateApp.setParamsAuctions(baseParamsAuctions);
+        stateApp.paramsAuctions = paramsFilter;
+
+        return () => {
+            stateApp.paramsAuctions = baseParamsAuctions;
+        };
     }, [paramsFilter]);
 
     return (

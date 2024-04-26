@@ -21,7 +21,7 @@ const useAuthResponse = <T>(
         (responseData: T) => postResponse(responseData),
     );
 
-    const authUser: boolean = userStore.getAuth();
+    const authUser: boolean = userStore.isAuth;
     const { fromPath } = usePathLocation(PathApp.auctions);
     const startAuth: boolean = useMemo(() => isAuth, []);
 
@@ -37,9 +37,11 @@ const useAuthResponse = <T>(
         if (!authUser) {
             return;
         }
+
         nav(fromPath);
+
         if (!startAuth) {
-            stateApp.setNotification(notification);
+            stateApp.notification = notification;
         }
     }, [authUser]);
 

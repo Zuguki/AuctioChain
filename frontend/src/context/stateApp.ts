@@ -6,7 +6,7 @@ import INotification from "../appLogic/notificationLogic/INotification.ts";
 
 export default class StateApp {
     constructor() {
-        makeAutoObservable(this);
+        makeAutoObservable(this, {}, { autoBind: true, deep: true });
     }
 
     private _search: boolean = false;

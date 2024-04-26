@@ -12,23 +12,26 @@ const URL_CURRENCY: string =
 
 const useGetDataCurrency = (): IGetDataCurrency => {
     const [rubEth, setRubEth] = useState<number>(0);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const getCurrently = async () => {
+        setIsLoading(() => true);
         const { data } = await axios.get(
             `${URL_CURRENCY}price?fsym=ETH&tsyms=RUB&api_key=${API_KEY}`,
         );
         setRubEth((): number => data["RUB"]);
+        setIsLoading(() => false);
     };
 
     useEffect(() => {
-        let timer: NodeJS.Timer;
+        let timer: NodeJS.Timeout;
         getCurrently();
         (async () => {
             timer = setInterval(async () => getCurrently(), 10_000);
         })();
-        return () => clearTimeout(timer);
+        return () => clearInterval(timer);
     }, []);
 
-    return { rubEth };
+    return { rubEth, isLoading };
 };
 
 export default useGetDataCurrency;

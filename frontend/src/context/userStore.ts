@@ -11,7 +11,7 @@ import { stateApp } from "./context.ts";
 
 export default class UserStore {
     constructor() {
-        makeAutoObservable(this);
+        makeAutoObservable(this, {}, { autoBind: true, deep: true });
     }
 
     private _isAuth: boolean = false;

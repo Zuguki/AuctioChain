@@ -16,8 +16,8 @@ const PageCreateLot: LazyExoticComponent<FC> = lazy(
     () => import("../../pages/createLot/PageCreateLot.tsx"),
 );
 
-const AddMoney: LazyExoticComponent<FC> = lazy(
-    () => import("../../pages/addMoney/AddMoney.tsx"),
+const MoneyManipulation: LazyExoticComponent<FC> = lazy(
+    () => import("@/pages/moneyManipulation/MoneyManipulation.tsx"),
 );
 
 const PageEditLot: LazyExoticComponent<FC> = lazy(
@@ -83,7 +83,7 @@ const routeAccount = (
             element={
                 <RequireAuth>
                     <LazyDownload>
-                        <AddMoney />
+                        <MoneyManipulation />
                     </LazyDownload>
                 </RequireAuth>
             }

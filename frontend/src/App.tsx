@@ -2,7 +2,6 @@ import { RouterProvider } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "./context/context.ts";
 import router from "./routes/router.tsx";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useApp } from "@/hooks/useApp.ts";
 
@@ -13,12 +12,12 @@ function App() {
     useApp();
 
     return (
-        <QueryClientProvider client={client}>
-            <Context.Provider value={{ userStore, stateApp }}>
+        <Context.Provider value={{ userStore, stateApp }}>
+            <QueryClientProvider client={client}>
                 <RouterProvider router={router} />
-            </Context.Provider>
-            <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+                {/*<ReactQueryDevtools initialIsOpen={false} />*/}
+            </QueryClientProvider>
+        </Context.Provider>
     );
 }
 

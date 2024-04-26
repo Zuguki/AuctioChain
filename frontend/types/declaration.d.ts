@@ -7,7 +7,7 @@ declare module "@tanstack/react-query" {
     }
 }
 
-declare module "*.module.css" {
+declare module "*.module.scss" {
     interface IClassNames {
         [classname: string]: string;
     }
@@ -16,7 +16,7 @@ declare module "*.module.css" {
     export = classNames;
 }
 
-declare module "*.scss" {
+declare module "*.module.css" {
     interface IClassNames {
         [classname: string]: string;
     }

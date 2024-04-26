@@ -19,6 +19,7 @@ const PageCreateAuction: FC = () => {
         IPostAuction,
         IResponseCreateAuction
     >((postAuction: IPostAuction) => AuctionService.addAuction(postAuction));
+
     const { setFile, postCorrectImage, imageFile } = usePostImage();
     const { stateApp } = useContext(Context);
     const nav = useNavigate();

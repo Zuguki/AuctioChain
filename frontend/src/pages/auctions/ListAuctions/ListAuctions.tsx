@@ -6,6 +6,7 @@ import useGetPaginationAPI from "../../../hooks/API/useGetPaginationAPI/useGetPa
 import BaseListAuctions from "../../../components/lists/BaseListAuctions/BaseListAuctions.tsx";
 import { observer } from "mobx-react-lite";
 import { Context } from "@/context/context.ts";
+import { TYPE_DEVICE } from "@/auxiliaryTools/defineTypeDevice.ts";
 
 const ListAuctions: FC = memo(
     observer(() => {
@@ -20,7 +21,7 @@ const ListAuctions: FC = memo(
             () =>
                 AuctionService.getAuctions(
                     currentPage,
-                    2,
+                    TYPE_DEVICE === "desktop" ? 12 : 6,
                     stateApp.paramsAuctions,
                 ),
             ["auctions", currentPage, stateApp.paramsAuctions],

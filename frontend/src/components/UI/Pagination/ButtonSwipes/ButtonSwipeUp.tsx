@@ -9,7 +9,7 @@ const ButtonSwipeUp: FC<IButtonSwipe & { endPage: number }> = ({
     ...props
 }) => {
     const clickSwipe = (): void => {
-        if (currentPage == endPage) {
+        if (currentPage === endPage) {
             return;
         }
         setCurrentPage(currentPage + 1);

@@ -16,6 +16,7 @@ const Pagination: FC<IPagination> = ({ pagination, sendCurrentPage }) => {
         pagination,
         sendCurrentPage,
     );
+
     if (endPage <= 1) {
         return null;
     }
@@ -24,6 +25,7 @@ const Pagination: FC<IPagination> = ({ pagination, sendCurrentPage }) => {
             <ButtonSwipeBack
                 currentPage={currentPage}
                 setCurrentPage={sendCurrentPage}
+                disabled={currentPage === 1}
             />
             {paginationArray.map(
                 (el: "..." | number): ReactElement => (
@@ -41,6 +43,7 @@ const Pagination: FC<IPagination> = ({ pagination, sendCurrentPage }) => {
                 currentPage={currentPage}
                 setCurrentPage={sendCurrentPage}
                 endPage={endPage}
+                disabled={currentPage === endPage}
             />
         </div>
     );

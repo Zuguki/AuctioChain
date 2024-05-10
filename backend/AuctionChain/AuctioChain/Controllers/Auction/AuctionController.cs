@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AuctioChain.BL.Auctions;
+using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
+using AuctioChain.DAL.Models.Account;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
 using AuctioChain.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctioChain.Controllers.Auction;
@@ -21,13 +25,15 @@ namespace AuctioChain.Controllers.Auction;
 public class AuctionController : ControllerBase
 {
     private readonly IAuctionManager _manager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
     /// <summary>
     /// .ctor
     /// </summary>
-    public AuctionController(IAuctionManager manager)
+    public AuctionController(IAuctionManager manager, UserManager<ApplicationUser> userManager)
     {
         _manager = manager;
+        _userManager = userManager;
     }
 
     /// <summary>
@@ -159,6 +165,7 @@ public class AuctionController : ControllerBase
     /// Получение аукциона по Id
     /// </summary>
     [HttpGet("{id:guid}")]
+    [Authorize]
     public async Task<IActionResult> GetAuctionByIdAsync([FromRoute (Name = "id")] Guid id)
     {
         if (!ModelState.IsValid)
@@ -169,5 +176,22 @@ public class AuctionController : ControllerBase
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
         return Ok(result.Value);
+    }
+
+    /// <summary>
+    /// Подтвердить аукцион
+    /// </summary>
+    [HttpPatch("approve/{id:guid}")]
+    [Authorize]
+    public async Task<IActionResult> ApproveAuctionByIdAsync([FromRoute] Guid id)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest("Переданны некорректные данные");
+
+        if (User.HasClaim(ClaimTypes.Role, RoleConsts.Moderator))
+            return Ok();
+        return BadRequest();
+        
+        return Ok();
     }
 }

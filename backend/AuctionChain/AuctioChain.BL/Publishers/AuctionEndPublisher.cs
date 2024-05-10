@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 
 namespace AuctioChain.BL.Publishers;
 
-public class AuctionEndPublisher : IPublisher<AuctionEndDto>
+public class AuctionEndPublisher : IPublishers<AuctionEndDto>
 {
     private readonly IConnectionFactory _connectionFactory;
 

@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Balance;
-using AuctioChain.BL.Publishers;
 using AuctioChain.BL.Services.Dto;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
-using AuctioChain.DAL.Models.Lot;
 using AuctioChain.DAL.Models.Pagination;
+using AuctioChain.MQ.Publishers;
 using AutoMapper;
 using FluentResults;
-using Microsoft.AspNetCore.StaticFiles;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using Nest;
 using Result = FluentResults.Result;
 
@@ -27,13 +24,13 @@ public class AuctionManager : IAuctionManager
     private readonly DataContext _context;
     private readonly IMapper _mapper;
     private readonly IBalanceManager _balanceManager;
-    private readonly IPublisher<AuctionEndDto> _publisher;
+    private readonly IPublishEndpoint _publisher;
     private readonly IElasticClient _elastic;
 
     /// <summary>
     /// .ctor
     /// </summary>
-    public AuctionManager(DataContext context, IMapper mapper, IBalanceManager balanceManager, IPublisher<AuctionEndDto> publisher, IElasticClient elastic)
+    public AuctionManager(DataContext context, IMapper mapper, IBalanceManager balanceManager, IPublishEndpoint publisher, IElasticClient elastic)
     {
         _context = context;
         _mapper = mapper;
@@ -136,7 +133,7 @@ public class AuctionManager : IAuctionManager
         var auctionIndex = _mapper.Map<AuctionIndex>(auction);
         await _elastic.IndexDocumentAsync(auctionIndex);
         
-        await _publisher.Publish("topic", "auction.events", "auction.check-end", dto);
+        await _publisher.Publish(dto);
         await _context.Auctions.AddAsync(auction);
         await _context.SaveChangesAsync();
         

@@ -1,4 +1,5 @@
 using System;
+using System.Security.Claims;
 using System.Text;
 using AuctioChain.BL.Accounts;
 using AuctioChain.BL.Auctions;
@@ -15,6 +16,7 @@ using AuctioChain.DAL.Models.Account;
 using AuctioChain.DAL.Models.Profile.Dto;
 using AuctioChain.Extensions;
 using AuctioChain.Libs.Serilog;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -40,8 +42,8 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IImageManager, ImageManager>();
 builder.Services.AddScoped<IProfileManager, ProfileManager>();
 builder.Services.AddScoped<IBalanceManager, BalanceManager>();
-builder.Services.AddScoped<IPublisher<CheckBalanceReplenishmentDto>, BlockchainPublisher>();
-builder.Services.AddScoped<IPublisher<AuctionEndDto>, AuctionEndPublisher>();
+// builder.Services.AddScoped<IPublishers<CheckBalanceReplenishmentDto>, BlockchainPublisher>();
+// builder.Services.AddScoped<IPublishers<AuctionEndDto>, AuctionEndPublisher>();
 
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -49,13 +51,38 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddElasticsearch();
 
-builder.Services.AddSingleton<IConnectionFactory>(_ => new ConnectionFactory
+// builder.Services.AddSingleton<IConnectionFactory>(_ => new ConnectionFactory
+// {
+//     Endpoint = new AmqpTcpEndpoint(),
+//     DispatchConsumersAsync = true,
+// });
+// builder.Services.AddHostedService<BlockchainBalanceListener>();
+// builder.Services.AddHostedService<AuctionEndListener>();
+
+builder.Services.AddMassTransit(x =>
 {
-    Endpoint = new AmqpTcpEndpoint(),
-    DispatchConsumersAsync = true,
+    x.AddConsumer<AuctionEndConsumer>();
+    x.AddConsumer<BlockchainBalanceConsumer>();
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("amqp://localhost", c =>
+        {
+            c.Username("guest");
+            c.Password("guest");
+        });
+
+        cfg.ReceiveEndpoint("AuctionEndQueue", e =>
+        {
+            e.ConfigureConsumer<AuctionEndConsumer>(context);
+        });
+
+        cfg.ReceiveEndpoint("BlockchainBalanceQueue", e =>
+        {
+            e.ConfigureConsumer<BlockchainBalanceConsumer>(context);
+        });
+    });
 });
-builder.Services.AddHostedService<BlockchainBalanceListener>();
-builder.Services.AddHostedService<AuctionEndListener>();
 
 builder.Services.AddCors(c => c.AddPolicy("cors", opt =>
 {
@@ -86,13 +113,17 @@ builder.Services.AddAuthentication(opt =>
         };
     });
 
-builder.Services.AddAuthorization(options => options.DefaultPolicy =
-    new AuthorizationPolicyBuilder
-            (JwtBearerDefaults.AuthenticationScheme)
-        .RequireAuthenticatedUser()
-        .Build());
+builder.Services.AddAuthorization(
+    options =>
+    {
+        options.DefaultPolicy =
+            new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser()
+                .Build();
+    });
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
+    .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<DataContext>()
     .AddUserManager<UserManager<ApplicationUser>>()
     .AddSignInManager<SignInManager<ApplicationUser>>();

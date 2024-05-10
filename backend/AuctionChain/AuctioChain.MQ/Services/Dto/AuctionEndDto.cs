@@ -21,5 +21,4 @@ public class AuctionEndDto
     /// </summary>
     [JsonPropertyName("dateEnd")]
     public DateTime DateEnd { get; init; }
-
 }

@@ -66,7 +66,7 @@ public class AccountManager : IAccountManager
         if (findUser is null)
             return Result.Fail($"Пользователь с {appUser.Email} не найден");
 
-        await _userManager.AddToRoleAsync(findUser, RoleConsts.Member);
+        await _userManager.AddToRoleAsync(findUser, RoleConsts.Moderator);
         return Result.Ok();
     }
 

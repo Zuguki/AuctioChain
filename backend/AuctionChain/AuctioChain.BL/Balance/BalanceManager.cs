@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using AuctioChain.BL.Publishers;
+using AuctioChain.BL.Balance.Blockchain.Functions;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Profile.Dto;
 using AuctioChain.MQ.Blockchain.Dto;
-using AuctioChain.MQ.Blockchain.Functions;
 using FluentResults;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Nethereum.Web3;
@@ -14,12 +14,12 @@ namespace AuctioChain.BL.Balance;
 
 public class BalanceManager : IBalanceManager
 {
-    private readonly IPublisher<CheckBalanceReplenishmentDto> _publisher;
+    private readonly IPublishEndpoint _publisher;
     private readonly DataContext _context;
     private readonly IConfiguration _configuration;
     private readonly Web3 _web3;
 
-    public BalanceManager(IPublisher<CheckBalanceReplenishmentDto> publisher, DataContext context, IConfiguration configuration)
+    public BalanceManager(IPublishEndpoint publisher, DataContext context, IConfiguration configuration)
     {
         _publisher = publisher;
         _context = context;
@@ -56,7 +56,7 @@ public class BalanceManager : IBalanceManager
             DateSend = DateTime.UtcNow
         };
 
-        await _publisher.Publish("topic", "blockchain.events", "blockchain.balance.updated", dto);
+        await _publisher.Publish(dto);
         return Result.Ok();
     }
 

@@ -148,7 +148,7 @@ export default class MetaMaskLogic {
                 LocalStorageLogic.PREV_BALANCE,
             );
         return new Promise((resolve) => {
-            const requestBalance: NodeJS.Timer = setInterval(
+            const requestBalance: NodeJS.Timeout = setInterval(
                 async (): Promise<void> => {
                     const balance: number | undefined =
                         await this.requestUserMoney();

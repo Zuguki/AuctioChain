@@ -1,15 +1,15 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import LogicFormProcessing from "../../LogicFormProcessing/LogicFormProcessing.tsx";
 import FormInput from "../../UI/inputs/FormInput/FormInput.tsx";
 import FormTextArea from "../../UI/inputs/FormTextArea/FormTextArea.tsx";
 import ImageInput from "../../UI/inputs/ImageInput/ImageInput.tsx";
-import { numberChars } from "../../../auxiliaryTools/blockInvalidChar.ts";
+import { numberChars } from "@/auxiliaryTools/blockInvalidChar.ts";
 import SubmitButton from "../../SubmitButton/SubmitButton.tsx";
 import { Form } from "react-router-dom";
 import ImageForm from "../../ImageForm/ImageForm.tsx";
 import stylePageLot from "./lotInteraction.module.css";
 import IInteraction from "../../../interfaces/interfacesInteraction/IInteraction.ts";
-import { IPutLot } from "../../../API/interfaces/request/IPostLot.ts";
+import { IPutLot } from "@/API/interfaces/request/IPostLot.ts";
 
 const LotInteraction: FC<IInteraction<IPutLot>> = ({
     submitForm,

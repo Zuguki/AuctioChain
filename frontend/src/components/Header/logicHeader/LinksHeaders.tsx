@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import { FC, memo } from "react";
 import CustomLink from "../../UI/CustomLink/CustomLink.tsx";
 import { Link } from "react-router-dom";
 import logo from "../../../design/logo.svg";

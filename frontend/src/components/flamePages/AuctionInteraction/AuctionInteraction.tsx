@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styleCreateAuction from "../LotInteraction/lotInteraction.module.css";
 import LogicFormProcessing from "../../LogicFormProcessing/LogicFormProcessing.tsx";
 import FormInput from "../../UI/inputs/FormInput/FormInput.tsx";

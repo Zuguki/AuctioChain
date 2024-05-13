@@ -1,0 +1,109 @@
+.header {
+    width: 100%;
+    height: 90px;
+    background: #ffffff;
+    box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.25);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    @media screen and (max-width: 1600px) {
+        height: 70px;
+    }
+
+    @media screen and (max-width: 960px) {
+        height: 50px;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: 30px;
+    }
+}
+
+.fox {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+}
+
+ul:first-child {
+    padding-left: 20%;
+}
+
+.positionUser {
+    padding-top: 0;
+    text-align: center;
+}
+
+.buttonAuth {
+    background: none;
+    border: none;
+}
+
+.positionUser:hover,
+.positionUserNot:hover {
+    transform: scale(1.03);
+}
+
+.positionUserNot {
+    height: 90px;
+    padding-top: 15px;
+    @media screen and (max-width: 1600px) {
+        height: 70px;
+        padding-top: 10px;
+    }
+
+    @media screen and (max-width: 960px) {
+        height: 50px;
+        padding-top: 5px;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: 30px;
+    }
+}
+
+ul:last-child {
+    margin-right: 100px;
+}
+
+ul li:nth-child(2) {
+    padding-left: 12%;
+}
+
+ul li:nth-child(2) img {
+    width: auto;
+    max-height: 30px;
+
+    @media screen and (max-width: 960px) {
+        height: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: 10px;
+    }
+}
+
+.userName {
+    color: #818080;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    margin-bottom: 0;
+    text-align: center;
+
+    @media screen and (max-width: 960px) {
+        font-size: 10px;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: 8px;
+    }
+}

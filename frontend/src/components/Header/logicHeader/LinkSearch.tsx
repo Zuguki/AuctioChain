@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Context } from "@/context/context.ts";
 import styleLink from "../../UI/CustomLink/customLink.module.css";

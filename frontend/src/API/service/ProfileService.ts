@@ -1,8 +1,9 @@
 import $api, { paramsPagination } from "../api.ts";
 import { AxiosResponse } from "axios";
 import { ResponseObjAuctions } from "../interfaces/response/IResponseAuctions.ts";
-import { ResponseActiveLots, ResponseWinLots } from "../interfaces/ILot.ts";
+import { ResponseActiveLots } from "../interfaces/ILot.ts";
 import IUserName from "../interfaces/IUserName.ts";
+import { ResponseWinLots } from "@/API/interfaces/IWinLot.ts";
 
 class ProfileService {
     private readonly pathProfile: string = "profiles";

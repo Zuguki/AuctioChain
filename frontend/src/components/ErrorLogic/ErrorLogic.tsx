@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { AxiosError } from "axios";
 import styleError from "./errorLogic.module.css";
 

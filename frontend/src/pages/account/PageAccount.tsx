@@ -12,6 +12,7 @@ import ListActiveLots from "./ListActiveLots.tsx";
 import useGetUserName from "../../hooks/API/useGetUserName.ts";
 import BalanceService from "../../API/service/BalanceService.ts";
 import useGetAPI from "../../hooks/API/useGetAPI.ts";
+import { TIME_ZONE } from "@/auxiliaryTools/dateLogic/timeZone.ts";
 
 const PageAccount = observer(() => {
     const { userStore } = useContext(Context);
@@ -36,6 +37,9 @@ const PageAccount = observer(() => {
         <div>
             <div className={styleAccount.position}>
                 <h1 className={styleAccount.title}>Аккаунт</h1>
+                <p className={styleAccount.timeZone}>
+                    Часовая зона: {TIME_ZONE}
+                </p>
                 {!isLoading && (
                     <h3 className={styleAccount.userName}>@{username}</h3>
                 )}

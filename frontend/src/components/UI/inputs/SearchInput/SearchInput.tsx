@@ -1,7 +1,8 @@
-import React, { FC, ForwardedRef, forwardRef, memo } from "react";
+import { FC, ForwardedRef, forwardRef, memo } from "react";
 import inputStyle from "./searchInput.module.css";
 import IInput from "../IInput.ts";
 import sizeStyle from "../../../../auxiliaryTools/logicSize.ts";
+import { CSSModulesOptions } from "vite";
 
 interface ISearchInput extends Omit<IInput, "title"> {
     isWrite: boolean;
@@ -18,7 +19,10 @@ const SearchInput: FC<ISearchInput> = memo(
                     <input
                         style={{ display: "inline-block" }}
                         className={`${inputStyle.input} ${
-                            sizeStyle(inputStyle.small, inputStyle.large)[width]
+                            sizeStyle(
+                                inputStyle.small as CSSModulesOptions,
+                                inputStyle.large as CSSModulesOptions,
+                            )[width]
                         }`}
                         placeholder="Поиск"
                         ref={ref}

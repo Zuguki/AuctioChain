@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, FC, MouseEvent } from "react";
+import { ButtonHTMLAttributes, FC, MouseEvent } from "react";
 import stylePagination from "./pagination.module.css";
 
 interface IButtonPage extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -17,10 +17,12 @@ const ButtonPage: FC<IButtonPage> = ({
         current && stylePagination.currentNumber
     }`;
     const clickButton = (e: MouseEvent<HTMLButtonElement>): void => {
-        if (e.target.value === "...") {
-            return;
+        if ("value" in e.target) {
+            if (e.target.value === "...") {
+                return;
+            }
+            sendCurrentPage(Number(e.target.value));
         }
-        sendCurrentPage(Number(e.target.value));
     };
     return (
         <div>

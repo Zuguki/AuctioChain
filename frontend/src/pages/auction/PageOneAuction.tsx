@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import stylePage from "./pageOneAuction.module.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
 import CloseButton from "../../components/CloseButton/CloseButton.tsx";
 import AuctionService from "../../API/service/AuctionService.ts";
@@ -16,19 +16,12 @@ import usePathLocation from "../../hooks/usePathLocation.ts";
 
 const PageOneAuction = observer(() => {
     const { id } = useParams<{ id: string }>();
+    if (id == null) {
+        alert("Ошибка загрузки страницы!");
+        return <Navigate to={PathApp.main} />;
+    }
     const [changeStatus, setChangeStatus] = useState<boolean>(false);
-    /*const { data: auction, isLoading } = useGetAPI(
-        () => AuctionService.getAuctionByID(id),
-        {} as IAuction,
-        id,
-        changeStatus,
-    );*/
-    const {
-        data: auction,
-        isLoading,
-        isSuccess,
-        error,
-    } = useGetAPI(
+    const { data: auction, isLoading } = useGetAPI(
         () => AuctionService.getAuctionByID(id),
         ["auction", id, changeStatus],
     );

@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import { FC, useContext } from "react";
 import LotInteraction from "../../components/flamePages/LotInteraction/LotInteraction.tsx";
 import { Navigate, useParams } from "react-router-dom";
 import { IPutLot, reformatLot } from "@/API/interfaces/request/IPostLot.ts";
@@ -17,6 +17,10 @@ import { Context } from "@/context/context.ts";
 
 const PageEditLot: FC = () => {
     const { id } = useParams();
+    if (id == null) {
+        alert("Ошибка загрузки страницы!");
+        return <Navigate to={PathApp.main} />;
+    }
     const { dataUser, logicFormValue, loadingLot, baseLot, auction } =
         useEditLot(id);
     const { error, isPending, blurError, postData } = usePostAPI<IPutLot>(

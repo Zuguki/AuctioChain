@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styleNotification from "./notificationOperation.module.css";
 
 const ComponentNotification: FC<{

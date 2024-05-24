@@ -1,0 +1,1 @@
+const a=(...t)=>{const r=JSON.stringify(t[0]);return t.every(e=>r===JSON.stringify(e))},c=async(t,r,e,n,s)=>{if(a(t,r)&&!e){alert("Правок не было!");return}n();let{image:i}=t;if(e&&(i=await s()||"",!i)){alert("Ошибка загрузки изображения!");return}return i};export{c as a,a as e};

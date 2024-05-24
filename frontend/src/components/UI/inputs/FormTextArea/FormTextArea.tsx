@@ -23,6 +23,11 @@ const FormTextArea: FC<IFormTextArea> = memo(
             { changeValue, title, error, errorBlur, ...props },
             ref: ForwardedRef<HTMLTextAreaElement>,
         ) => {
+            const textAreaChangeValue: (
+                e: ChangeEvent<HTMLTextAreaElement>,
+            ) => void = changeValue as unknown as (
+                e: ChangeEvent<HTMLTextAreaElement>,
+            ) => void;
             return (
                 <div>
                     <label className={textAreaStyle.title}>{title}</label>
@@ -32,7 +37,7 @@ const FormTextArea: FC<IFormTextArea> = memo(
                         }`}
                         required
                         onFocus={errorBlur}
-                        onChange={changeValue}
+                        onChange={textAreaChangeValue}
                         ref={ref}
                         {...props}
                     ></textarea>

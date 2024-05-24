@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styleAccount from "../../../pages/account/pageAccount.module.css";
 import LogicDownload from "../../LogicDownload/LogicDownload.tsx";
 import BaseListLot from "./BaseListLot.tsx";

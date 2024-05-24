@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styleSearcher from "./searcherAuction.module.css";
 import { Form, useSearchParams } from "react-router-dom";
 import Hr from "@/components/UI/Hr/Hr.tsx";

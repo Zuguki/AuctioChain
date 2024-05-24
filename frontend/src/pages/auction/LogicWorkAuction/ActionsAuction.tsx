@@ -1,8 +1,8 @@
-import React, { FC, useContext } from "react";
+import { FC, useContext } from "react";
 import AuctionLogic from "../../../appLogic/logicAuction/AuctionLogic.ts";
 import BaseButton from "../../../components/UI/BaseButton/BaseButton.tsx";
 import stylePage from "../pageOneAuction.module.css";
-import { Context } from "../../../context/context.ts";
+import { Context } from "@/context/context.ts";
 import IAuction from "../../../API/interfaces/IAuction.ts";
 import AuctionService from "../../../API/service/AuctionService.ts";
 import { useNavigate } from "react-router-dom";

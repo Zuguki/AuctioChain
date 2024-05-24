@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react";
+import { FC, ReactElement } from "react";
 import styleList from "./listAuctions.module.css";
 import CardAuction from "../CardAuction/CardAuction.tsx";
 import Pagination from "../../UI/Pagination/Pagination.tsx";

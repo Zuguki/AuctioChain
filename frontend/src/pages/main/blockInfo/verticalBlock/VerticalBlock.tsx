@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styles from "./verticalBlock.module.scss";
 import IBlockInfo from "@/pages/main/blockInfo/IBlockInfo.ts";
 

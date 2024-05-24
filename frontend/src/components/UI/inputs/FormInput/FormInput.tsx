@@ -8,8 +8,9 @@ import {
 } from "react";
 import IInput from "../IInput.ts";
 import styleFormInput from "./formInput.module.scss";
-import { blockInvalidChar } from "../../../../auxiliaryTools/blockInvalidChar.ts";
+import { blockInvalidChar } from "@/auxiliaryTools/blockInvalidChar.ts";
 import sizeStyle from "../../../../auxiliaryTools/logicSize.ts";
+import { CSSModulesOptions } from "vite";
 
 const FormInput: FC<IInput> = memo(
     forwardRef(
@@ -34,8 +35,8 @@ const FormInput: FC<IInput> = memo(
                             error && styleFormInput.inputError
                         } ${
                             sizeStyle(
-                                styleFormInput.small,
-                                styleFormInput.large,
+                                styleFormInput.small as CSSModulesOptions,
+                                styleFormInput.large as CSSModulesOptions,
                             )[width]
                         }`}
                         {...props}

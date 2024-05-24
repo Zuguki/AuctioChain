@@ -1,4 +1,4 @@
-import React, { FC, memo, useContext } from "react";
+import { FC, memo, useContext } from "react";
 import styleLot from "../pageLot.module.css";
 import IPathLotPage from "../../../interfaces/IPathLotPage.ts";
 import useGetAPI from "../../../hooks/API/useGetAPI.ts";

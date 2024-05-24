@@ -31,8 +31,9 @@ const CardRequirementsPassword: FC<ICardCardRequirement> = ({
                                 <li
                                     key={requirement}
                                     className={`${styleCard.requirement} ${
-                                        isCorrect[requirement] &&
-                                        styleCard.requirementDone
+                                        isCorrect[
+                                            requirement as keyof ICorrectPassword
+                                        ] && styleCard.requirementDone
                                     }`}
                                 >
                                     {valueRequirement}

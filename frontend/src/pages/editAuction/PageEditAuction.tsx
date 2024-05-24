@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import { FC, useContext } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import AuctionService from "../../API/service/AuctionService.ts";
 import {

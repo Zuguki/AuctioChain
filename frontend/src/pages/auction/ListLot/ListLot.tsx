@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 import LogicDownload from "../../../components/LogicDownload/LogicDownload.tsx";
 import LotService from "../../../API/service/LotService.ts";
 import useGetPaginationAPI from "../../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts";
@@ -18,7 +18,6 @@ const ListLot: FC<{ id: string; auction: IAuction }> = ({ id, auction }) => {
 
     const {
         data: { lots },
-        error,
         pagination,
         isLoading,
     } = useGetPaginationAPI(

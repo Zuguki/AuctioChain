@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Hr from "../../components/UI/Hr/Hr.tsx";
 import FormInput from "../../components/UI/inputs/FormInput/FormInput.tsx";
 import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";

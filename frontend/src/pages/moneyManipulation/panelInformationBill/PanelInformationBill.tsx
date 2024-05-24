@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styles from "./panelInformationBill.module.scss";
 import useGetDataCurrency from "@/hooks/useGetDataCurrency/useGetDataCurrency.tsx";
 import useGetAPI from "@/hooks/API/useGetAPI.ts";

@@ -137,7 +137,7 @@ export default class MetaMaskLogic {
             return await this.getUserMoney();
         } catch (error) {
             console.log(JSON.stringify(error, null, 4));
-            alert(`Ошибка транзакции! ${error?.info?.error?.message || ""}`);
+            alert(`Ошибка транзакции! ${error}`);
             return;
         }
     }

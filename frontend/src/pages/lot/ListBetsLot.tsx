@@ -1,10 +1,4 @@
-import React, {
-    FC,
-    HTMLAttributes,
-    ReactElement,
-    useEffect,
-    useState,
-} from "react";
+import { FC, HTMLAttributes, ReactElement, useEffect, useState } from "react";
 import IBet from "../../API/interfaces/IBet.ts";
 import ProfileService from "../../API/service/ProfileService.ts";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";

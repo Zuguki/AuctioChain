@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes } from "react";
 import styleSpinner from "./spinner.module.css";
 
 interface ISpinner extends HTMLAttributes<HTMLDivElement> {

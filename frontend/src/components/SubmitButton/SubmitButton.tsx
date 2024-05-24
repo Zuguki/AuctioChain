@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import BaseButton from "../UI/BaseButton/BaseButton.tsx";
 import IBaseButton from "../UI/BaseButton/IBaseButton.ts";
 import styleSubmitForm from "./submitForm.module.css";

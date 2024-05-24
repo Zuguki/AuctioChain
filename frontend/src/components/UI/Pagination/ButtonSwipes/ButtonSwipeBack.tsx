@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import BaseButtonSwipe from "./BaseButtonSwipe.tsx";
 import IButtonSwipe from "./IButtonSwipe.ts";
 

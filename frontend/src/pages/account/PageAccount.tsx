@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Context } from "@/context/context.ts";
 import Hr from "../../components/UI/Hr/Hr.tsx";
 import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
 import { observer } from "mobx-react-lite";
 import styleAccount from "./pageAccount.module.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import ListAuctionsProfile from "./ListAuctionsProfile.tsx";
 import ListWinLots from "./ListWinLots.tsx";
 import PathApp from "../../routes/pathApp/PathApp.ts";
@@ -18,6 +18,11 @@ const PageAccount = observer(() => {
     const { userStore } = useContext(Context);
     const { id } = useParams();
     const nav = useNavigate();
+
+    if (id == null) {
+        alert("Ошибка загрузки страницы!");
+        return <Navigate to={PathApp.main} />;
+    }
 
     const userId = userStore.user.userId;
     const isUser: boolean = id === userId;

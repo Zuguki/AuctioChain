@@ -5,13 +5,13 @@ import styleRegistration from "../FormAuthorization/formAuthorization.module.css
 import PasswordInputCard from "../PasswordInputCard/PasswordInputCard.tsx";
 import useDataUser from "../../../hooks/useDataUser.ts";
 import useAuthResponse from "../../../hooks/API/useAuthResponse.ts";
-import { Context } from "../../../context/context.ts";
+import { Context } from "@/context/context.ts";
 import IPostRegistrationUser from "../../../API/interfaces/request/IPostRegistrationUser.ts";
 import CloseButton from "../../../components/CloseButton/CloseButton.tsx";
 import PathApp from "../../../routes/pathApp/PathApp.ts";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { RegistrationNotification } from "../../../appLogic/notificationLogic/VarietesNotifications.ts";
+import { RegistrationNotification } from "@/appLogic/notificationLogic/VarietesNotifications.ts";
 
 const FormRegistration = () => {
     const nav = useNavigate();

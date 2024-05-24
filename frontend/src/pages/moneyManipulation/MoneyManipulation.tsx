@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import styleAddMoney from "./addMoney.module.css";
 import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
 import MetaMaskLogic from "../../appLogic/metamask/MetaMaskLogic.ts";

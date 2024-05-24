@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import stylePagination from "../pagination.module.css";
 import IButtonSwipe from "./IButtonSwipe.ts";
 

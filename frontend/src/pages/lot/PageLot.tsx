@@ -1,6 +1,11 @@
-import React, { FC, useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 import styleLot from "./pageLot.module.css";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+    Navigate,
+    useLocation,
+    useNavigate,
+    useParams,
+} from "react-router-dom";
 import ILot from "../../API/interfaces/ILot.ts";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
 import CloseButton from "../../components/CloseButton/CloseButton.tsx";
@@ -16,16 +21,19 @@ import usePathLocation from "../../hooks/usePathLocation.ts";
 
 const PageLot: FC = () => {
     const { id } = useParams();
+
     const { userStore } = useContext(Context);
     const nav = useNavigate();
     const location = useLocation();
     const [bet, setBet] = useState<AxiosResponse | null>(null);
-
-    const {
-        data: lot,
-        isLoading,
-        error,
-    } = useGetAPI<ILot>(() => LotService.getLotByID(id), ["lot", bet]);
+    if (id == null) {
+        alert("Ошибка загрузки страницы!");
+        return <Navigate to={PathApp.main} />;
+    }
+    const { data: lot, isLoading } = useGetAPI<ILot>(
+        () => LotService.getLotByID(id),
+        ["lot", bet],
+    );
 
     const [showBet, setShowBet] = useState<boolean>(false);
     const { fromPath: closePath } = usePathLocation(

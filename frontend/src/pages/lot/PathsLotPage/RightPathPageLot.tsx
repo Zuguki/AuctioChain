@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import useGetAPI from "../../../hooks/API/useGetAPI.ts";
 import { ResponseObjBets } from "@/API/interfaces/IBet.ts";
 import LotService from "../../../API/service/LotService.ts";

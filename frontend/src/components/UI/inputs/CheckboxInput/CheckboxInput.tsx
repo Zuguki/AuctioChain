@@ -1,8 +1,14 @@
-import { FC, ForwardedRef, forwardRef, InputHTMLAttributes } from "react";
+import {
+    FC,
+    ForwardedRef,
+    forwardRef,
+    InputHTMLAttributes,
+    ReactElement,
+} from "react";
 import styleCheckbox from "./checkboxInput.module.css";
 
 interface ICheckBoxInput extends InputHTMLAttributes<HTMLInputElement> {
-    children: string;
+    children: ReactElement;
 }
 
 const CheckboxInput: FC<ICheckBoxInput> = forwardRef(

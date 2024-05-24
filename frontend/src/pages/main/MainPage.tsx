@@ -1,6 +1,5 @@
 import styles from "./mainPage.module.css";
 import IconBackground from "@/pages/main/iconBack/IconBackground.tsx";
-import plant from "../../design/mainBackground/plant.svg";
 import HorizontalBlock from "@/pages/main/blockInfo/horizontalBlock/HorizontalBlock.tsx";
 import VerticalBlock from "@/pages/main/blockInfo/verticalBlock/VerticalBlock.tsx";
 import { Link } from "react-router-dom";
@@ -11,7 +10,7 @@ const MainPage = () => {
     return (
         <div>
             <div className={styles.blockTitle}>
-                <IconBackground src={plant} />
+                <IconBackground />
                 <h1 className={styles.title}>AuctioChain</h1>
                 <h4 className={styles.infoTitle}>
                     Биржа аукционов с Web3 кошельком

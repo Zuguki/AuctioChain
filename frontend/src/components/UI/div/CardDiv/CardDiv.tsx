@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import styleCard from "./cardDiv.module.css";
 import ButtonCard from "./ButtonCard/ButtonCard.tsx";
 import { Link, useLocation } from "react-router-dom";

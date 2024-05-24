@@ -1,8 +1,8 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import useGetPaginationAPI from "../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts";
 import ProfileService from "../../API/service/ProfileService.ts";
 import ListLotsAccount from "../../components/lists/BaseListLot/ListLotsAccount.tsx";
-import { ResponseWinLots } from "@/API/interfaces/ILot.ts";
+import { ResponseWinLots } from "@/API/interfaces/IWinLot.ts";
 
 const ListWinLots: FC<{
     id: string;
@@ -12,7 +12,6 @@ const ListWinLots: FC<{
     const {
         data: { winLots },
         isLoading,
-        error,
         pagination,
     } = useGetPaginationAPI<ResponseWinLots>(
         () => ProfileService.getWinLot(id, currentPage),

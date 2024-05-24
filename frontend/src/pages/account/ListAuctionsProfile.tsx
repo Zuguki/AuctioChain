@@ -1,8 +1,8 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
 import BaseListAuctions from "../../components/lists/BaseListAuctions/BaseListAuctions.tsx";
 import ProfileService from "../../API/service/ProfileService.ts";
-import { ResponseObjAuctions } from "../../API/interfaces/response/IResponseAuctions.ts";
+import { ResponseObjAuctions } from "@/API/interfaces/response/IResponseAuctions.ts";
 import useGetPaginationAPI from "../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts";
 import styleAccount from "./pageAccount.module.css";
 import { Link } from "react-router-dom";
@@ -18,7 +18,6 @@ const ListAuctionsProfile: FC<{ id: string; isUser: boolean }> = ({
         data: { auctions },
         isLoading,
         pagination,
-        error,
     } = useGetPaginationAPI<ResponseObjAuctions>(
         () => ProfileService.getProfileAuctions(id, currentPage),
         ["auctionsProfile", id, currentPage],

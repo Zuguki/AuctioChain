@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import CardDiv from "../../../UI/div/CardDiv/CardDiv.tsx";
 import styleCard from "./cardLot.module.css";
 import { IBaseCard, IObjCard } from "@/interfaces/BaseCard.ts";

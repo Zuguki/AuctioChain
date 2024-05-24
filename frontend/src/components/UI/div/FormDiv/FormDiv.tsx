@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import styleDiv from "./formDiv.module.css";
+import styleDiv from "./formDiv.module.scss";
 import BaseButton from "../../BaseButton/BaseButton.tsx";
 import { Form, Link } from "react-router-dom";
 import ILogicFormDivButton from "./logicFormDivButton.ts";
@@ -17,6 +17,7 @@ interface IFormDiv {
     children: ReactNode;
 }
 
+``;
 const FormDiv: FC<IFormDiv> = ({
     title,
     logicButton,

@@ -6,9 +6,33 @@ import LinkUser from "./LinkUser.tsx";
 import LinkSearch from "./LinkSearch.tsx";
 import PathApp from "../../../routes/pathApp/PathApp.ts";
 import fox from "../../../design/metamask-fox.jpg";
-import styleHeader from "../header.module.css";
+import styleHeader from "../header.module.scss";
+import { TYPE_DEVICE } from "@/auxiliaryTools/defineTypeDevice.ts";
+import menu from "../../../design/menu.svg";
 
 const LinksHeaders: FC = memo(() => {
+    if (TYPE_DEVICE === "mobile") {
+        return (
+            <ul>
+                <li>
+                    <img src={menu} alt="menu" />
+                </li>
+
+                <li>
+                    <Link to="/">
+                        <img
+                            src={logo}
+                            className={styleHeader.mobileTitle}
+                            alt="logo"
+                        />
+                    </Link>
+                </li>
+                <li>
+                    <LinkUser />
+                </li>
+            </ul>
+        );
+    }
     return (
         <ul>
             <li>
@@ -19,7 +43,7 @@ const LinksHeaders: FC = memo(() => {
                     <img src={logo} alt="logo" />
                 </Link>
                 <div className={styleHeader.fox}>
-                    <img src={fox} alt="fox" />
+                    <img src={fox} width="30" height={30} alt="fox" />
                 </div>
             </li>
             <li>

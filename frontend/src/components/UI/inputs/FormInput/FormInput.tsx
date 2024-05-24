@@ -7,7 +7,7 @@ import {
     memo,
 } from "react";
 import IInput from "../IInput.ts";
-import styleFormInput from "./formInput.module.css";
+import styleFormInput from "./formInput.module.scss";
 import { blockInvalidChar } from "../../../../auxiliaryTools/blockInvalidChar.ts";
 import sizeStyle from "../../../../auxiliaryTools/logicSize.ts";
 
@@ -26,7 +26,7 @@ const FormInput: FC<IInput> = memo(
             ref: ForwardedRef<HTMLInputElement>,
         ) => {
             return (
-                <div>
+                <div className={styleFormInput.inputDiv}>
                     <label className={styleFormInput.title}>{title}</label>
                     <input
                         ref={ref}

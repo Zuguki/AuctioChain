@@ -6,10 +6,15 @@ import TokenLogic from "@/appLogic/tokenLogic/TokenLogic.ts";
 import INotification from "@/appLogic/notificationLogic/INotification.ts";
 import MetaMaskLogic from "@/appLogic/metamask/MetaMaskLogic.ts";
 import { NotificationAddMoney } from "@/appLogic/notificationLogic/VarietesNotifications.ts";
+import AOS from "aos";
 
 export const useApp = () => {
     const { userStore, stateApp } = useContext(Context);
     useEffect((): void => {
+        AOS.init({
+            duration: 1000,
+        });
+        AOS.refresh();
         (async (): Promise<void> => {
             const process: boolean | null =
                 LocalStorageLogic.getToStorage<boolean>(

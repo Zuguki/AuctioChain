@@ -1,0 +1,19 @@
+.position {
+    position: absolute;
+    z-index: -1;
+}
+
+.img {
+    width: 100%;
+    height: 100vh;
+    animation: waveFade 3s infinite ease-in-out alternate;
+}
+
+@keyframes waveFade {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.3; /* Прозрачность картинки на конечном кадре */
+    }
+}

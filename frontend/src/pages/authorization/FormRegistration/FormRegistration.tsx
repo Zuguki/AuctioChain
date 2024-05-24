@@ -69,7 +69,7 @@ const FormRegistration = () => {
                 changeValue={logicFormValue}
             />
             <CheckboxInput required>
-                <p style={{ display: "inline" }}>
+                <p className={styleRegistration.checkbox}>
                     Принимаете{" "}
                     <span className={styleRegistration.link}>
                         {" "}

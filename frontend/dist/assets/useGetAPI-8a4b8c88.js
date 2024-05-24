@@ -1,1 +1,0 @@
-import{u as n}from"./useQuery-baed50f9.js";const c=(r,s,u={})=>{const{data:e,isSuccess:o,isLoading:t,error:i}=n({queryKey:s,queryFn:()=>r(),retry:3,staleTime:1e3});return{data:(e==null?void 0:e.data)??u,isLoading:t,isSuccess:o,error:i,headers:e==null?void 0:e.headers}};export{c as u};

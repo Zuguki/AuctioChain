@@ -1,1 +1,0 @@
-import{e as s,r as n}from"./index-de2d1123.js";const u=a=>{const e=s();return{fromPath:n.useMemo(()=>{var o,r;const t=(r=(o=e.state)==null?void 0:o.from)==null?void 0:r.pathname;return t||a},[])}};export{u};

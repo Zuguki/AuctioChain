@@ -1,1 +1,0 @@
-import{u as r,j as c}from"./index-de2d1123.js";const u="_close_wvyrj_1",l="_back_wvyrj_15",e={close:u,back:l},b=({back:o=!1,logicClick:s,...n})=>{const t=r(),a=()=>{if(!s){t(-1);return}if(typeof s=="string"){t(s);return}s()};return c.jsx("button",{...n,onClick:a,className:`${e.close} ${o&&e.back}`})};export{b as C};

@@ -8,7 +8,6 @@ using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
-using AuctioChain.MQ.Publishers;
 using AutoMapper;
 using FluentResults;
 using MassTransit;
@@ -147,7 +146,7 @@ public class AuctionManager : IAuctionManager
             .Include(auc => auc.Lots)
             .FirstOrDefaultAsync(auc => auc.Id == model.Id);
         
-        if (auction is null || auction.Status != AuctionStatus.Complete)
+        if (auction is null || (int) auction.Status != (int) AuctionStatus.Complete)
             return Result.Ok();
 
         if (auction.Lots is null || auction.Lots.Count == 0)
@@ -256,5 +255,39 @@ public class AuctionManager : IAuctionManager
         auction.IsCanceled = true;
         await _context.SaveChangesAsync();
         return Result.Ok();
+    }
+
+    public async Task<Result> ApproveByIdAsync(Guid auctionId, Guid userId)
+    {
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == auctionId);
+
+        if (auction is null)
+            return Result.Fail("Аукцион не найден");
+        
+        if (!auction.IsEditable)
+            return Result.Fail("Данный аукцион нельзя отменить");
+        
+        if (auction.DateStart < DateTime.UtcNow)
+            return Result.Fail("Сначала настройте время так, чтобы аукцион начинался позже");
+
+        auction.IsApproved = true;
+        auction.ManagerId = userId;
+        await _context.SaveChangesAsync();
+        return Result.Ok();
+    }
+
+    public async Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAuctionsForApproveAsync(PaginationRequest pagination)
+    {
+        var auctionsList = await _context.Auctions.Include(auc => auc.Lots)
+            .ToListAsync();
+        
+        var auctions = auctionsList.Where(auc => (int)auc.Status == (int)AuctionStatus.Moderation).ToList();
+        var paginationMetadata = new PaginationMetadata(auctions.Count, pagination.Page, pagination.ItemsPerPage);
+        auctions = auctions
+            .Skip((pagination.Page - 1) * pagination.ItemsPerPage)
+            .Take(pagination.ItemsPerPage).ToList();
+
+        var response = new GetAuctionsResponse {Auctions = auctions.Select(a => _mapper.Map<AuctionResponse>(a))};
+        return Result.Ok((response, paginationMetadata));
     }
 }

@@ -59,6 +59,9 @@ public class AuctionDal
                 return AuctionStatus.Canceled;
             if (IsCreation)
                 return AuctionStatus.Creation;
+            if (!IsApproved)
+                return AuctionStatus.Moderation;
+            
             if (dateTimeNow > DateEnd)
                 return AuctionStatus.Complete;
             if (dateTimeNow < DateStart)
@@ -78,13 +81,25 @@ public class AuctionDal
     /// <summary>
     /// Флаг, можно ли редактировать аукцион
     /// </summary>
-    public bool IsEditable => Status is not (AuctionStatus.Bidding or AuctionStatus.Complete or AuctionStatus.Canceled);
+    public bool IsEditable => Status is not (AuctionStatus.Bidding or AuctionStatus.Complete or AuctionStatus.Canceled or AuctionStatus.WaitBidding);
     
     /// <summary>
     /// Флаг, этапа создания аукциона 
     /// </summary>
     [Column("isCreation")]
     public bool IsCreation { get; set; }
+
+    /// <summary>
+    /// Флаг, подтвержден ли аукцион менеджером
+    /// </summary>
+    [Column("isApproved")]
+    public bool IsApproved { get; set; } = false;
+    
+    /// <summary>
+    /// Идентификатор менеджера, который апрувнул аукицон.
+    /// </summary>
+    [Column("managerId")]
+    public Guid ManagerId { get; set; }
     
     /// <summary>
     /// Флаг, отмены аукциона

@@ -4,16 +4,11 @@ using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AuctioChain.BL.Auctions;
-using AuctioChain.DAL.EF;
-using AuctioChain.DAL.Models;
-using AuctioChain.DAL.Models.Account;
 using AuctioChain.DAL.Models.Admin.Dto;
-using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
 using AuctioChain.Extensions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctioChain.Controllers.Auction;
@@ -26,15 +21,13 @@ namespace AuctioChain.Controllers.Auction;
 public class AuctionController : ControllerBase
 {
     private readonly IAuctionManager _manager;
-    private readonly UserManager<ApplicationUser> _userManager;
 
     /// <summary>
     /// .ctor
     /// </summary>
-    public AuctionController(IAuctionManager manager, UserManager<ApplicationUser> userManager)
+    public AuctionController(IAuctionManager manager)
     {
         _manager = manager;
-        _userManager = userManager;
     }
 
     /// <summary>
@@ -45,7 +38,7 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> CreateAuctionAsync([FromBody] CreateAuctionRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
 
         if (request.DateStart >= request.DateEnd)
             return BadRequest("Дата завершения аукциона должна быть больше даты начала аукциона");
@@ -69,7 +62,7 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> CancelAuctionAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
 
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
@@ -90,7 +83,7 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> ChangeAuctionCreationStateAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
 
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
@@ -111,7 +104,7 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> DeleteAuctionAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
         
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
@@ -132,7 +125,7 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> UpdateAuctionAsync([FromBody] UpdateAuctionRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
         
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
@@ -152,7 +145,7 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> GetAuctionsAsync([FromQuery] PaginationRequest pagination, [FromQuery] GetAuctionsRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
         
         var result = await _manager.GetAllAsync(pagination, request);
         if (result.IsFailed)
@@ -170,7 +163,7 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> GetAuctionByIdAsync([FromRoute (Name = "id")] Guid id)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
 
         var result = await _manager.GetByIdAsync(id);
         if (result.IsFailed)
@@ -182,17 +175,47 @@ public class AuctionController : ControllerBase
     /// <summary>
     /// Подтвердить аукцион
     /// </summary>
-    [HttpPatch("approve/{id:guid}")]
+    [HttpPatch("approve/{auctionId:guid}")]
     [Authorize]
-    public async Task<IActionResult> ApproveAuctionByIdAsync([FromRoute] Guid id)
+    public async Task<IActionResult> ApproveAuctionByIdAsync([FromRoute] Guid auctionId)
     {
+        if (!User.HasClaim(ClaimTypes.Role, RoleEnum.Moderator.ToString()) &&
+            !User.HasClaim(ClaimTypes.Role, RoleEnum.Administrator.ToString()))
+            return Unauthorized();
+        
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
+        
+        var userId = HttpContext.TryGetUserId();
+        if (userId is null)
+            return Unauthorized();
 
-        if (User.HasClaim(ClaimTypes.Role, RoleEnum.Moderator.ToString()))
-            return Ok();
-        return BadRequest();
+        var result = await _manager.ApproveByIdAsync(auctionId, userId.Value);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
         return Ok();
+    }
+    
+    /// <summary>
+    /// Получить все аукциона на поддтверждение
+    /// </summary>
+    [HttpGet("approve")]
+    [Authorize]
+    public async Task<IActionResult> GetAllForApproveAsync([FromQuery] PaginationRequest pagination)
+    {
+        if (!User.HasClaim(ClaimTypes.Role, RoleEnum.Moderator.ToString()) &&
+            !User.HasClaim(ClaimTypes.Role, RoleEnum.Administrator.ToString()))
+            return Unauthorized();
+        
+        if (!ModelState.IsValid)
+            return BadRequest("Переданы некорректные данные");
+
+        var result = await _manager.GetAllAuctionsForApproveAsync(pagination);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(result.Value.Item2));
+        return Ok(result.Value.Item1);
     }
 }

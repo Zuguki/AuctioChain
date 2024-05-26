@@ -56,4 +56,16 @@ public interface IAuctionManager
     /// <param name="id">Id аукциона</param>
     /// <param name="userId">Id пользователя, который сделал запрос</param>
     Task<Result> CancelAsync(Guid id, Guid userId);
+    
+    /// <summary>
+    /// Отменить аукцион
+    /// </summary>
+    /// <param name="id">Id аукциона</param>
+    /// <param name="userId">Id пользователя, который апрувнул аукцион</param>
+    Task<Result> ApproveByIdAsync(Guid id, Guid userId);
+    
+    /// <summary>
+    /// Отменить аукцион
+    /// </summary>
+    Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAuctionsForApproveAsync(PaginationRequest pagination);
 }

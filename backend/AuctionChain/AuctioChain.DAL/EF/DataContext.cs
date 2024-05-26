@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AuctioChain.DAL.Models.Account;
+using AuctioChain.DAL.Models.Admin.Dto;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Bet;
 using AuctioChain.DAL.Models.Lot;
@@ -43,9 +44,9 @@ public sealed class DataContext : IdentityDbContext<ApplicationUser, IdentityRol
 
         builder.Entity<IdentityRole<Guid>>().HasData(new List<IdentityRole<Guid>>
         {
-            new() {Id = Guid.NewGuid(), Name = RoleConsts.Member, NormalizedName = RoleConsts.Member.ToUpper()},
-            new() {Id = Guid.NewGuid(), Name = RoleConsts.Moderator, NormalizedName = RoleConsts.Moderator.ToUpper()},
-            new() {Id = Guid.NewGuid(), Name = RoleConsts.Administrator, NormalizedName = RoleConsts.Administrator.ToUpper()},
+            new() {Id = Guid.NewGuid(), Name = RoleEnum.Member.ToString(), NormalizedName = RoleEnum.Member.ToString().ToUpper()},
+            new() {Id = Guid.NewGuid(), Name = RoleEnum.Moderator.ToString(), NormalizedName = RoleEnum.Moderator.ToString().ToUpper()},
+            new() {Id = Guid.NewGuid(), Name = RoleEnum.Administrator.ToString(), NormalizedName = RoleEnum.Administrator.ToString().ToUpper()},
         });
     }
 }

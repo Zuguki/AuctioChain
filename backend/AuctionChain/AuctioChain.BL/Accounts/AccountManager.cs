@@ -5,6 +5,7 @@ using AuctioChain.BL.Extensions;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Account;
 using AuctioChain.DAL.Models.Account.Dto;
+using AuctioChain.DAL.Models.Admin.Dto;
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -54,7 +55,7 @@ public class AccountManager : IAccountManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> CreateMemberAsync(RegisterRequest request)
+    public async Task<Result> CreateMemberAsync(RegisterRequest request, RoleEnum role = RoleEnum.Member)
     {
         var userWithSameLogin = await _userManager.Users.FirstOrDefaultAsync(u =>
             u.Email == request.Email || u.UserName == request.UserName);
@@ -72,7 +73,7 @@ public class AccountManager : IAccountManager
         if (findUser is null)
             return Result.Fail($"Пользователь с {appUser.Email} не найден");
 
-        await _userManager.AddToRoleAsync(findUser, RoleConsts.Moderator);
+        await _userManager.AddToRoleAsync(findUser, role.ToString());
         return Result.Ok();
     }
 

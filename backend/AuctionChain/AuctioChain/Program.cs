@@ -2,18 +2,18 @@ using System;
 using System.Security.Claims;
 using System.Text;
 using AuctioChain.BL.Accounts;
+using AuctioChain.BL.Admin;
 using AuctioChain.BL.Auctions;
 using AuctioChain.BL.Balance;
 using AuctioChain.BL.Bets;
 using AuctioChain.BL.Files;
 using AuctioChain.BL.Lots;
 using AuctioChain.BL.Profile;
-using AuctioChain.BL.Publishers;
 using AuctioChain.BL.Services;
-using AuctioChain.BL.Services.Dto;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Account;
-using AuctioChain.DAL.Models.Profile.Dto;
+using AuctioChain.DAL.Models.Account.Dto;
+using AuctioChain.DAL.Models.Admin.Dto;
 using AuctioChain.Extensions;
 using AuctioChain.Libs.Serilog;
 using MassTransit;
@@ -26,7 +26,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using RabbitMQ.Client;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +41,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IImageManager, ImageManager>();
 builder.Services.AddScoped<IProfileManager, ProfileManager>();
 builder.Services.AddScoped<IBalanceManager, BalanceManager>();
+builder.Services.AddScoped<IAdminManager, AdminManager>();
 
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -150,6 +150,22 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    using (var serviceScope = app.Services.CreateScope())
+    {
+        var services = serviceScope.ServiceProvider;
+        var userManager = services.GetService<UserManager<ApplicationUser>>();
+        var accountManager = services.GetService<IAccountManager>();
+
+        if (await userManager?.FindByEmailAsync("admin@admin.com")! is null)
+            await accountManager?.CreateMemberAsync(new RegisterRequest
+            {
+                Email = "admin@admin.com",
+                UserName = "admin",
+                Password = "Qwerty!234",
+                PasswordConfirm = "Qwerty!234",
+            }, RoleEnum.Administrator)!;
+    }
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }

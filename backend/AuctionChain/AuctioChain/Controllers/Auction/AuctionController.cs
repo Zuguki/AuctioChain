@@ -7,6 +7,7 @@ using AuctioChain.BL.Auctions;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models;
 using AuctioChain.DAL.Models.Account;
+using AuctioChain.DAL.Models.Admin.Dto;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
@@ -188,7 +189,7 @@ public class AuctionController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданны некорректные данные");
 
-        if (User.HasClaim(ClaimTypes.Role, RoleConsts.Moderator))
+        if (User.HasClaim(ClaimTypes.Role, RoleEnum.Moderator.ToString()))
             return Ok();
         return BadRequest();
         

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AuctioChain.DAL.Models.Account;
 using AuctioChain.DAL.Models.Account.Dto;
+using AuctioChain.DAL.Models.Admin.Dto;
 using FluentResults;
 
 namespace AuctioChain.BL.Accounts;
@@ -18,7 +19,8 @@ public interface IAccountManager
     /// Создать модель
     /// </summary>
     /// <param name="request">Модель регистрации</param>
-    Task<Result> CreateMemberAsync(RegisterRequest request);
+    /// <param name="role">Роль</param>
+    Task<Result> CreateMemberAsync(RegisterRequest request, RoleEnum role = RoleEnum.Member);
     
     /// <summary>
     /// Получить токен доступа и токен обновления

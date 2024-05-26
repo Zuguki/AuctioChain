@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace AuctioChain.BL.Accounts;
 
+/// <inheritdoc />
 public class AccountManager : IAccountManager
 {
     private readonly UserManager<ApplicationUser> _userManager;
@@ -19,6 +20,9 @@ public class AccountManager : IAccountManager
     private readonly ITokenService _tokenService;
     private readonly IConfiguration _configuration;
 
+    /// <summary>
+    /// .ctor
+    /// </summary>
     public AccountManager(UserManager<ApplicationUser> userManager, DataContext context, ITokenService tokenService, IConfiguration configuration)
     {
         _userManager = userManager;
@@ -27,6 +31,7 @@ public class AccountManager : IAccountManager
         _configuration = configuration;
     }
 
+    /// <inheritdoc />
     public async Task<Result<AuthResponse>> AuthenticateAsync(AuthRequest request)
     {
         var appUserEmail = await _userManager.FindByEmailAsync(request.Login);
@@ -48,6 +53,7 @@ public class AccountManager : IAccountManager
         return Result.Ok(new AuthResponse {Token = result.Value.AccessToken, RefreshToken = result.Value.RefreshToken});
     }
 
+    /// <inheritdoc />
     public async Task<Result> CreateMemberAsync(RegisterRequest request)
     {
         var userWithSameLogin = await _userManager.Users.FirstOrDefaultAsync(u =>
@@ -70,6 +76,7 @@ public class AccountManager : IAccountManager
         return Result.Ok();
     }
 
+    /// <inheritdoc />
     public async Task<Result<TokenResponse>> CreateTokenAsync(ApplicationUser appUser)
     {
         var user = await _userManager.FindByEmailAsync(appUser.Email!);
@@ -87,6 +94,7 @@ public class AccountManager : IAccountManager
         return Result.Ok(new TokenResponse {AccessToken = accessToken, RefreshToken = user.RefreshToken});
     }
 
+    /// <inheritdoc />
     public async Task<Result<RefreshResponse>> RefreshTokenAsync(RefreshRequest request)
     {
         var user = await _userManager.Users.FirstOrDefaultAsync(appUser =>
@@ -100,5 +108,16 @@ public class AccountManager : IAccountManager
             return Result.Fail(string.Join(", ", token.Reasons.Select(r => r.Message)));
 
         return Result.Ok(new RefreshResponse {Token = token.Value.AccessToken, RefreshToken = token.Value.RefreshToken});
+    }
+
+    /// <inheritdoc />
+    public async Task<Result<RoleResponse>> GetUserRoleAsync(Guid request)
+    {
+        var user = await _userManager.FindByIdAsync(request.ToString());
+        if (user is null)
+            return Result.Fail("Пользователь не найден");
+
+        var roles = await _userManager.GetRolesAsync(user);
+        return Result.Ok(new RoleResponse { Roles = roles.ToList() });
     }
 }

@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using AuctioChain.BL.Accounts;
 using AuctioChain.DAL.Models.Account.Dto;
+using AuctioChain.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctioChain.Controllers.Account;
@@ -50,6 +52,24 @@ public class AccountsController : ControllerBase
             return BadRequest("Переданны некорректные данные");
 
         var response = await _accountManager.RefreshTokenAsync(request);
+        if (response.IsFailed)
+            return BadRequest(string.Join(", ", response.Reasons.Select(r => r.Message)));
+
+        return Ok(response.Value);
+    }
+    
+    [Authorize]
+    [HttpGet("roles")]
+    public async Task<IActionResult> GetRolesAsync()
+    {
+        if (!ModelState.IsValid)
+            return BadRequest("Переданны некорректные данные");
+
+        var userId = HttpContext.TryGetUserId();
+        if (userId is null)
+            return Unauthorized();
+        
+        var response = await _accountManager.GetUserRoleAsync(userId.Value);
         if (response.IsFailed)
             return BadRequest(string.Join(", ", response.Reasons.Select(r => r.Message)));
 

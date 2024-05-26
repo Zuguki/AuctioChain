@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AuctioChain.DAL.Models.Account;
 using AuctioChain.DAL.Models.Account.Dto;
 using FluentResults;
@@ -30,4 +31,10 @@ public interface IAccountManager
     /// </summary>
     /// <param name="request">Модель refresh токена</param>
     Task<Result<RefreshResponse>> RefreshTokenAsync(RefreshRequest request);
+
+    /// <summary>
+    /// Получить роль пользователя.
+    /// </summary>
+    /// <param name="request">Id пользователя.</param>
+    Task<Result<RoleResponse>> GetUserRoleAsync(Guid request);
 }

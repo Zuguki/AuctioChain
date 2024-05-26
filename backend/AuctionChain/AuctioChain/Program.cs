@@ -42,22 +42,12 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IImageManager, ImageManager>();
 builder.Services.AddScoped<IProfileManager, ProfileManager>();
 builder.Services.AddScoped<IBalanceManager, BalanceManager>();
-// builder.Services.AddScoped<IPublishers<CheckBalanceReplenishmentDto>, BlockchainPublisher>();
-// builder.Services.AddScoped<IPublishers<AuctionEndDto>, AuctionEndPublisher>();
 
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddElasticsearch();
-
-// builder.Services.AddSingleton<IConnectionFactory>(_ => new ConnectionFactory
-// {
-//     Endpoint = new AmqpTcpEndpoint(),
-//     DispatchConsumersAsync = true,
-// });
-// builder.Services.AddHostedService<BlockchainBalanceListener>();
-// builder.Services.AddHostedService<AuctionEndListener>();
 
 builder.Services.AddMassTransit(x =>
 {

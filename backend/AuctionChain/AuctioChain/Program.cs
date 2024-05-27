@@ -1,5 +1,4 @@
 using System;
-using System.Security.Claims;
 using System.Text;
 using AuctioChain.BL.Accounts;
 using AuctioChain.BL.Admin;
@@ -61,6 +60,11 @@ builder.Services.AddMassTransit(x =>
             c.Username("guest");
             c.Password("guest");
         });
+        // cfg.Host("amqp://localhost", c =>
+        // {
+        //     c.Username("guest");
+        //     c.Password("guest");
+        // });
 
         cfg.ReceiveEndpoint("AuctionEndQueue", e =>
         {

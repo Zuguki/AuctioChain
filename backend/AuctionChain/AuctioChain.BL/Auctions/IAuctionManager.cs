@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AuctioChain.BL.Services.Dto;
+using AuctioChain.DAL.Models.Admin.Dto;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
 using FluentResults;
@@ -55,7 +56,8 @@ public interface IAuctionManager
     /// </summary>
     /// <param name="id">Id аукциона</param>
     /// <param name="userId">Id пользователя, который сделал запрос</param>
-    Task<Result> CancelAsync(Guid id, Guid userId);
+    /// <param name="isMember">Это обычный пользователь?</param>
+    Task<Result> CancelAsync(Guid id, Guid userId, bool isMember);
     
     /// <summary>
     /// Отменить аукцион

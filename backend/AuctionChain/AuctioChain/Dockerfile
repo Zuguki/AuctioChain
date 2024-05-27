@@ -10,7 +10,6 @@ WORKDIR /src
 COPY ["AuctioChain/AuctioChain.csproj", "AuctioChain/"]
 COPY ["AuctioChain.BL/AuctioChain.BL.csproj", "AuctioChain.BL/"]
 COPY ["AuctioChain.DAL/AuctioChain.DAL.csproj", "AuctioChain.DAL/"]
-COPY ["AuctioChain.MQ/AuctioChain.MQ.csproj", "AuctioChain.MQ/"]
 RUN dotnet restore "AuctioChain/AuctioChain.csproj"
 COPY . .
 WORKDIR "/src/AuctioChain"

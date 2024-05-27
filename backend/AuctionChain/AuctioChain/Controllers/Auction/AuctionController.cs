@@ -67,8 +67,8 @@ public class AuctionController : ControllerBase
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
             return Unauthorized();
-        
-        var result = await _manager.CancelAsync(id, (Guid) userId);
+
+        var result = await _manager.CancelAsync(id, (Guid)userId, !User.HasClaim(ClaimTypes.Role, RoleEnum.Moderator.ToString()) && !User.HasClaim(ClaimTypes.Role, RoleEnum.Administrator.ToString()));
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -179,8 +179,12 @@ public class AuctionController : ControllerBase
     [Authorize]
     public async Task<IActionResult> ApproveAuctionByIdAsync([FromRoute] Guid auctionId)
     {
-        if (!User.HasClaim(ClaimTypes.Role, RoleEnum.Moderator.ToString()) &&
-            !User.HasClaim(ClaimTypes.Role, RoleEnum.Administrator.ToString()))
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        if (!splited.Contains(RoleEnum.Moderator.ToString()) && !splited.Contains(RoleEnum.Administrator.ToString()))
             return Unauthorized();
         
         if (!ModelState.IsValid)
@@ -198,14 +202,18 @@ public class AuctionController : ControllerBase
     }
     
     /// <summary>
-    /// Получить все аукциона на поддтверждение
+    /// Получить все аукциона на подтверждение
     /// </summary>
     [HttpGet("approve")]
     [Authorize]
     public async Task<IActionResult> GetAllForApproveAsync([FromQuery] PaginationRequest pagination)
     {
-        if (!User.HasClaim(ClaimTypes.Role, RoleEnum.Moderator.ToString()) &&
-            !User.HasClaim(ClaimTypes.Role, RoleEnum.Administrator.ToString()))
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        if (!splited.Contains(RoleEnum.Moderator.ToString()) && !splited.Contains(RoleEnum.Administrator.ToString()))
             return Unauthorized();
         
         if (!ModelState.IsValid)

@@ -9,7 +9,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AuctioChain.DAL\AuctioChain.DAL.csproj" />
-      <ProjectReference Include="..\AuctioChain.MQ\AuctioChain.MQ.csproj" />
     </ItemGroup>
 
     <ItemGroup>

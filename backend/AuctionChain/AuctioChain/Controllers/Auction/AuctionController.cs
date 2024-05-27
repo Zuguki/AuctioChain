@@ -68,7 +68,12 @@ public class AuctionController : ControllerBase
         if (userId is null)
             return Unauthorized();
 
-        var result = await _manager.CancelAsync(id, (Guid)userId, !User.HasClaim(ClaimTypes.Role, RoleEnum.Moderator.ToString()) && !User.HasClaim(ClaimTypes.Role, RoleEnum.Administrator.ToString()));
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        var result = await _manager.CancelAsync(id, (Guid)userId, !splited.Contains(RoleEnum.Moderator.ToString()) && !splited.Contains(RoleEnum.Administrator.ToString()));
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         

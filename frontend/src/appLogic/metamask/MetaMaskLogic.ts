@@ -5,9 +5,7 @@ import BalanceService from "../../API/service/BalanceService.ts";
 import { NotificationTransaction } from "../notificationLogic/VarietesNotifications.ts";
 
 export default class MetaMaskLogic {
-    private static contractAddress: string =
-        import.meta.env.BILL_KEY ??
-        "0x524043c049c5bDEdEB9A6014bc11Db4cA9dBDBD0";
+    private static contractAddress: string = import.meta.env.VITE_BILL_KEY;
 
     private static contractABI = [
         {

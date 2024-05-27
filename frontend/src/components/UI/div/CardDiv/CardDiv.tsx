@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, SyntheticEvent } from "react";
 import styleCard from "./cardDiv.module.css";
 import ButtonCard from "./ButtonCard/ButtonCard.tsx";
 import { Link, useLocation } from "react-router-dom";
@@ -23,9 +23,10 @@ function CardDiv<T extends IBaseCard>({
             <img
                 className={styleCard.img}
                 src={image}
-                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {
                     e.currentTarget.onerror = null;
                     e.currentTarget.src = defaultImage;
+                    e.currentTarget.style.objectFit = "none";
                 }}
                 alt={name}
             />

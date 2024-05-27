@@ -1,8 +1,8 @@
-import { FC } from 'react';
-import inputStyle from './imageInput.module.css';
-import IInput from '../IInput.ts';
+import { FC } from "react";
+import inputStyle from "./imageInput.module.css";
+import IInput from "../IInput.ts";
 // in development
-const ImageInput: FC<Omit<IInput, 'width'>> = ({
+const ImageInput: FC<Omit<IInput, "width">> = ({
     changeValue,
     title,
     error,

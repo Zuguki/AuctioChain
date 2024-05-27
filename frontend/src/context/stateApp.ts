@@ -1,52 +1,56 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from "mobx";
 import IParamsAuctions, {
-    BaseParamsAuctions,
-} from '../interfaces/IParamsAuctions.ts';
+    baseParamsAuctions,
+} from "../interfaces/IParamsAuctions.ts";
+import INotification from "../appLogic/notificationLogic/INotification.ts";
 
 export default class StateApp {
-    private search: boolean = false;
-    private interfaceProfile: boolean = false;
-    private notification: boolean = false;
-    private paramsAuctions: IParamsAuctions = BaseParamsAuctions;
-
     constructor() {
-        makeAutoObservable(this);
+        makeAutoObservable(this, {}, { autoBind: true, deep: true });
+    }
+
+    private _search: boolean = false;
+
+    public get search(): boolean {
+        return this._search;
+    }
+
+    public set search(stateSearch: boolean) {
+        this._search = stateSearch;
+    }
+
+    private _interfaceProfile: boolean = false;
+
+    public get interfaceProfile(): boolean {
+        return this._interfaceProfile;
+    }
+
+    public set interfaceProfile(stateInterface: boolean) {
+        this._interfaceProfile = stateInterface;
+    }
+
+    private _notification: INotification | null = null;
+
+    public get notification(): INotification | null {
+        return this._notification;
+    }
+
+    public set notification(notification: INotification | null) {
+        this._notification = notification;
+    }
+
+    private _paramsAuctions: IParamsAuctions = baseParamsAuctions;
+
+    public get paramsAuctions(): IParamsAuctions {
+        return this._paramsAuctions;
+    }
+
+    public set paramsAuctions(params: IParamsAuctions) {
+        this._paramsAuctions = params;
     }
 
     public logoutUser(): void {
-        this.setInterfaceProfile(false);
-        this.setNotification(false);
-    }
-
-    public getSearch(): boolean {
-        return this.search;
-    }
-
-    public getParamsAuctions(): IParamsAuctions {
-        return this.paramsAuctions;
-    }
-
-    public getNotification(): boolean {
-        return this.notification;
-    }
-
-    public setNotification(notification: boolean): void {
-        this.notification = notification;
-    }
-
-    public setParamsAuctions(params: IParamsAuctions): void {
-        this.paramsAuctions = params;
-    }
-
-    public getInterfaceProfile(): boolean {
-        return this.interfaceProfile;
-    }
-
-    public setSearch(stateSearch: boolean): void {
-        this.search = stateSearch;
-    }
-
-    public setInterfaceProfile(stateInterface: boolean): void {
-        this.interfaceProfile = stateInterface;
+        this.interfaceProfile = false;
+        this.notification = null;
     }
 }

@@ -48,3 +48,16 @@
     margin-left: 165px;
     margin-top: 5px;
 }
+
+.timeZone {
+    color: #818080;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 520px;
+}

@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
-import BaseButtonSwipe from './BaseButtonSwipe.tsx';
-import IButtonSwipe from './IButtonSwipe.ts';
+import { FC } from "react";
+import BaseButtonSwipe from "./BaseButtonSwipe.tsx";
+import IButtonSwipe from "./IButtonSwipe.ts";
 
 const ButtonSwipeUp: FC<IButtonSwipe & { endPage: number }> = ({
     currentPage,
@@ -9,7 +9,7 @@ const ButtonSwipeUp: FC<IButtonSwipe & { endPage: number }> = ({
     ...props
 }) => {
     const clickSwipe = (): void => {
-        if (currentPage == endPage) {
+        if (currentPage === endPage) {
             return;
         }
         setCurrentPage(currentPage + 1);

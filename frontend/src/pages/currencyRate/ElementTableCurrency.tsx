@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import styleElTable from './currencyRate.module.css';
+import { FC } from "react";
+import styleElTable from "./currencyRate.module.css";
 
 type ObjectTableCurrency = {
     name: string;

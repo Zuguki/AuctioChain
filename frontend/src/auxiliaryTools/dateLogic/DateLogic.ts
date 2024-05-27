@@ -1,9 +1,12 @@
-import IObjDate from './IObjDate.ts';
-import MonthEnum from './MonthEnum.ts';
+import { TIME_ZONE as timeZone } from "@/auxiliaryTools/dateLogic/timeZone.ts";
 
 export default class DateLogic {
     public static getDateNow(): string {
         return this.getDateNowISO().substring(0, 16);
+    }
+
+    public static getDatetimeLocal(date: string): string {
+        return date.substring(0, 16);
     }
 
     public static getDateNowISO(): string {
@@ -14,36 +17,18 @@ export default class DateLogic {
         return new Date(date).toISOString();
     }
 
-    public static getObjDateTOStringISO(date: string): IObjDate {
-        const dateOdj = new Date(date);
-        return {
-            hours: dateOdj.getHours(),
-            minutes: dateOdj.getMinutes(),
-            seconds: dateOdj.getSeconds(),
-            day: dateOdj.getDate(),
-            month: dateOdj.getMonth(),
-            year: dateOdj.getFullYear(),
-        };
-    }
-
-    public static getBaseFormatDateTOStringISO(
+    public static getBaseFormatDateToStringISO(
         date: string,
         shortMonth: boolean = false,
     ): string {
-        const newDate = this.getObjDateTOStringISO(date);
-        Object.entries(newDate).forEach(([key, value]): void => {
-            newDate[key] = value.toString();
-            if (
-                newDate[key].length !== 2 &&
-                key !== 'year' &&
-                key !== 'month'
-            ) {
-                newDate[key] = '0' + value;
-            }
-        });
-        const month: string = shortMonth
-            ? MonthEnum[newDate.month].substring(0, 3)
-            : MonthEnum[newDate.month];
-        return `${newDate.day} ${month} ${newDate.year}, ${newDate.hours}:${newDate.minutes}`;
+        return new Intl.DateTimeFormat("ru", {
+            year: "numeric",
+            month: shortMonth ? "short" : "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric",
+            timeZone,
+        }).format(new Date(date));
     }
 }

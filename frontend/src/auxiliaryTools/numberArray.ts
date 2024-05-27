@@ -1,5 +1,5 @@
-const POINTS: IPoints = '...';
-type IPoints = '...';
+const POINTS: IPoints = "...";
+type IPoints = "...";
 
 const numberArray = (
     start: number,

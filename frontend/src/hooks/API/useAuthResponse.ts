@@ -1,42 +1,51 @@
-import { useContext, useEffect, useMemo } from 'react';
-import { Context } from '../../context/context.ts';
-import ILogicFormDivButton from '../../components/UI/div/FormDiv/logicFormDivButton.ts';
-import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
-import usePostAPI from './usePostAPI.ts';
-import { AxiosResponse } from 'axios';
-import PathApp from '../../routes/pathApp/PathApp.ts';
+import { useContext, useEffect, useMemo } from "react";
+import { Context } from "@/context/context.ts";
+import ILogicFormDivButton from "../../components/UI/div/FormDiv/logicFormDivButton.ts";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import usePostAPI from "./usePostAPI.ts";
+import { AxiosResponse } from "axios";
+import PathApp from "../../routes/pathApp/PathApp.ts";
+import INotification from "../../appLogic/notificationLogic/INotification.ts";
+import usePathLocation from "../usePathLocation.ts";
 
-const useAuthResponse = (
-    postResponse: () => Promise<AxiosResponse>,
+const useAuthResponse = <T>(
+    postResponse: (responseData: T) => Promise<AxiosResponse>,
     textButton: string,
+    isAuth: boolean,
+    dataUser: T,
+    notification: INotification | null = null,
 ) => {
-    const { userStore } = useContext(Context);
+    const { userStore, stateApp } = useContext(Context);
     const nav: NavigateFunction = useNavigate();
-    const location = useLocation();
-    const { error, loading, blurError, postData } = usePostAPI();
-    const fromPath: string = useMemo((): string => {
-        const path: string | undefined = location?.state?.from?.pathname;
-        if (path && path !== PathApp.auctions) {
-            return path;
-        }
-        return PathApp.auctions;
-    }, []);
+    const { error, isPending, blurError, postData } = usePostAPI<T>(
+        (responseData: T) => postResponse(responseData),
+    );
+
+    const authUser: boolean = userStore.isAuth;
+    const { fromPath } = usePathLocation(PathApp.auctions);
+    const startAuth: boolean = useMemo(() => isAuth, []);
+
     const logicButton: ILogicFormDivButton = useMemo(
         (): ILogicFormDivButton => ({
             textButton: textButton,
-            logicClick: async (): Promise<void> =>
-                (await postData(postResponse)) as undefined,
+            logicClick: (): Promise<AxiosResponse> => postData(dataUser),
         }),
         [textButton, postResponse],
     );
 
     useEffect((): void => {
-        if (userStore.getAuth()) {
-            nav(fromPath);
+        if (!authUser) {
+            return;
         }
-    }, [userStore.getAuth()]);
 
-    return { error, logicButton, blurError, loading };
+        nav(fromPath);
+
+        if (!startAuth) {
+            stateApp.notification = notification;
+        }
+    }, [authUser]);
+
+    return { error, logicButton, blurError, loading: isPending };
 };
 
 export default useAuthResponse;

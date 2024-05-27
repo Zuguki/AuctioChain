@@ -1,28 +1,29 @@
-import React, { FC, useState } from 'react';
-import useGetAPI from '../../../hooks/API/useGetAPI.ts';
-import { ResponseObjBets } from '../../../API/interfaces/IBet.ts';
-import LotService from '../../../API/service/LotService.ts';
-import styleLot from '../pageLot.module.css';
-import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
-import IPathLotPage from '../../../interfaces/IPathLotPage.ts';
-import AuctionService from '../../../API/service/AuctionService.ts';
-import IAuction from '../../../API/interfaces/IAuction.ts';
-import AuctionLogic from '../../../logicAuction/AuctionLogic.ts';
-import ListBetsLot from '../ListBetsLot.tsx';
-import up from '../../../design/icons/collapse.svg';
-import down from '../../../design/icons/collapse close.svg';
+import { FC, useState } from "react";
+import useGetAPI from "../../../hooks/API/useGetAPI.ts";
+import { ResponseObjBets } from "@/API/interfaces/IBet.ts";
+import LotService from "../../../API/service/LotService.ts";
+import styleLot from "../pageLot.module.css";
+import BaseButton from "../../../components/UI/BaseButton/BaseButton.tsx";
+import IPathLotPage from "../../../interfaces/IPathLotPage.ts";
+import AuctionService from "../../../API/service/AuctionService.ts";
+import IAuction from "../../../API/interfaces/IAuction.ts";
+import AuctionLogic from "../../../appLogic/logicAuction/AuctionLogic.ts";
+import up from "../../../design/icons/collapse.svg";
+import down from "../../../design/icons/collapse close.svg";
+import ListBetsLot from "@/pages/lot/ListBetsLot.tsx";
+import LogicDownload from "@/components/LogicDownload/LogicDownload.tsx";
 
 const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
-    if (!lot.id) {
-        return null;
-    }
     const {
         data: { bets },
-        loading,
-        err,
-    } = useGetAPI<ResponseObjBets>(() => LotService.getBetsByLotID(lot.id), {
-        bets: [],
-    });
+        isLoading,
+    } = useGetAPI<ResponseObjBets>(
+        () => LotService.getBetsByLotID(lot.id),
+        ["bets", lot.id],
+        {
+            bets: [],
+        },
+    );
     const {
         name,
         currentMaxBet,
@@ -31,53 +32,96 @@ const RightPathLotPage: FC<IPathLotPage> = ({ lot, openBet }) => {
         betStep,
         auctionId,
     } = lot;
-    const { data: auction, loading: loadingAuction } = useGetAPI<IAuction>(
+
+    const {
+        data: auction,
+        isLoading: loadingAuction,
+        error,
+    } = useGetAPI<IAuction>(
         () => AuctionService.getAuctionByID(auctionId),
-        {} as IAuction,
+        ["auction", auctionId],
     );
     const [showBets, setShowBets] = useState<boolean>(false);
-
+    const isAddBet = !loadingAuction && AuctionLogic.isBidding(auction);
     return (
         <div className={styleLot.right}>
-            <h1>{name}</h1>
-            <p>{description}</p>
-            <h3 className={styleLot.price}>
-                Цена на данный момент:&nbsp;
-                {currentMaxBet ? currentMaxBet : initialPrice}
-                &nbsp;Ac
-            </h3>
-            <div className={styleLot.information}>
-                <p>Начальная цена: {initialPrice} Ac</p>
-                <p>Шаг: {betStep} Ac</p>
-                {!loading && !err && (
-                    <div>
-                        <p>Количество ставок: {bets.length}</p>
-                        <div>
-                            <p className={styleLot.textBets}>Показать ставки</p>
-                            <div className={styleLot.positionShowBet}>
-                                <img
-                                    src={showBets ? down : up}
-                                    onClick={() =>
-                                        setShowBets(
-                                            (prevState: boolean) => !prevState,
-                                        )
-                                    }
-                                />
-                            </div>
-                            <ListBetsLot
-                                style={{ display: showBets ? 'block' : 'none' }}
-                                betsLot={bets}
-                            />
-                        </div>
-                    </div>
-                )}
+            <div className={styleLot.backgroundInformation}>
+                <h1>{name}</h1>
+                <p>{description}</p>
             </div>
-            {loadingAuction ? (
-                <></>
-            ) : AuctionLogic.isBidding(auction) ? (
-                <BaseButton onClick={openBet}>Поставить ставку</BaseButton>
-            ) : (
-                <p className={styleLot.notBet}>Ставки не принимаются!</p>
+
+            <div className={styleLot.backgroundInformation}>
+                <h3 className={styleLot.price}>
+                    Цена на рынке:&nbsp;
+                    {currentMaxBet ? currentMaxBet : initialPrice}
+                    &nbsp;Ac
+                </h3>
+                <div className={styleLot.information}>
+                    <p>Начальная цена: {initialPrice} Ac</p>
+                    <p>Шаг: {betStep} Ac</p>
+                    <LogicDownload isLoading={isLoading}>
+                        <>
+                            {!isLoading && !error && (
+                                <div>
+                                    <p>Количество ставок: {bets.length}</p>
+                                    {bets.length !== 0 && (
+                                        <div>
+                                            <p className={styleLot.textBets}>
+                                                Показать ставки
+                                            </p>
+                                            <div
+                                                className={
+                                                    styleLot.positionShowBet
+                                                }
+                                            >
+                                                <button
+                                                    className={
+                                                        styleLot.btnArrow
+                                                    }
+                                                    onClick={() =>
+                                                        setShowBets(
+                                                            (
+                                                                prevState: boolean,
+                                                            ) => !prevState,
+                                                        )
+                                                    }
+                                                >
+                                                    <img
+                                                        src={
+                                                            showBets ? down : up
+                                                        }
+                                                        alt="arrow"
+                                                    />
+                                                </button>
+                                            </div>
+                                            <ListBetsLot
+                                                style={{
+                                                    display: showBets
+                                                        ? "block"
+                                                        : "none",
+                                                }}
+                                                betsLot={bets}
+                                            />
+                                        </div>
+                                    )}
+                                    {isAddBet && (
+                                        <BaseButton onClick={openBet}>
+                                            Поставить ставку
+                                        </BaseButton>
+                                    )}
+                                </div>
+                            )}
+                        </>
+                    </LogicDownload>
+                </div>
+            </div>
+
+            {!isAddBet && (
+                <div className={styleLot.cannotAddBet}>
+                    <p className={styleLot.textCannotAddBet}>
+                        Невозможно поставить ставку!
+                    </p>
+                </div>
             )}
         </div>
     );

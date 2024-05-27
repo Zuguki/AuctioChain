@@ -1,23 +1,24 @@
-import $api from '../api.ts';
-import { AxiosResponse } from 'axios';
-import IPostLoginUser from '../interfaces/IPostLoginUser.ts';
-import IPostRegistrationUser from '../interfaces/IPostRegistrationUser.ts';
+import $api from "../api.ts";
+import { AxiosResponse } from "axios";
+import IPostLoginUser from "../interfaces/request/IPostLoginUser.ts";
+import IPostRegistrationUser from "../interfaces/request/IPostRegistrationUser.ts";
+import IResponseRoles from "@/API/interfaces/response/IResponseRoles.ts";
 
 interface AuthResponse {
     token: string;
     refreshToken: string;
 }
 
-export default class AuthService {
-    private static readonly pathAccount: string = '/accounts';
+class AuthService {
+    private readonly pathAccount: string = "/accounts";
 
-    static async login(
+    public async login(
         dataLogin: IPostLoginUser,
     ): Promise<AxiosResponse<AuthResponse>> {
         return $api.post<AuthResponse>(`${this.pathAccount}/login`, dataLogin);
     }
 
-    static async registration(
+    public async registration(
         dataLogin: IPostRegistrationUser,
     ): Promise<AxiosResponse> {
         return $api.post<AxiosResponse>(
@@ -26,11 +27,17 @@ export default class AuthService {
         );
     }
 
-    static async refresh(
+    public async refresh(
         refreshToken: string,
     ): Promise<AxiosResponse<AuthResponse>> {
         return $api.post<AuthResponse>(`${this.pathAccount}/refresh`, {
             refreshToken: refreshToken,
         });
     }
+
+    public async roles(): Promise<AxiosResponse<IResponseRoles>> {
+        return $api.get(`${this.pathAccount}/roles`);
+    }
 }
+
+export default new AuthService();

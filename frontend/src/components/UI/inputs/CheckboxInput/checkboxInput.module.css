@@ -2,6 +2,9 @@
     margin-top: 5px;
     display: flex;
     align-items: center;
+    @media screen and (max-width: 768px) {
+        width: 330px;
+    }
 }
 
 .label {
@@ -11,4 +14,8 @@
     font-size: 20px;
     font-weight: 400;
     line-height: normal;
+    @media screen and (max-width: 768px) {
+        font-size: 16px;
+        margin: 5px 0 0 10px;
+    }
 }

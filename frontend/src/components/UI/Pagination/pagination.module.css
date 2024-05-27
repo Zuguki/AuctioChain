@@ -5,7 +5,7 @@
 }
 
 .btnSwipe {
-    background: url('../../../design/icons/pagination/forvard.svg') no-repeat;
+    background: url("../../../design/icons/pagination/forvard.svg") no-repeat;
     width: 14px;
     height: 16px;
     border: 0;
@@ -16,7 +16,7 @@
 }
 
 .btnSwipeBack {
-    background: url('../../../design/icons/pagination/back.svg') no-repeat;
+    background: url("../../../design/icons/pagination/back.svg") no-repeat;
 }
 
 .number {
@@ -41,7 +41,8 @@
 }
 
 .line {
-    background: url('../../../design/icons/pagination/line pagination.svg') no-repeat;
+    background: url("../../../design/icons/pagination/line pagination.svg")
+        no-repeat;
     width: 20px;
     height: 2px;
 }

@@ -1,9 +1,9 @@
-import React, { ButtonHTMLAttributes, FC } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styleClose from './closeButton.module.css';
+import { ButtonHTMLAttributes, FC } from "react";
+import { useNavigate } from "react-router-dom";
+import styleClose from "./closeButton.module.css";
 
 interface ICloseButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-    logicClick?: () => void;
+    logicClick?: (() => void) | string;
     back?: boolean;
 }
 
@@ -16,6 +16,10 @@ const CloseButton: FC<ICloseButton> = ({
     const clickClose = (): void => {
         if (!logicClick) {
             navigate(-1);
+            return;
+        }
+        if (typeof logicClick === "string") {
+            navigate(logicClick);
             return;
         }
         logicClick();

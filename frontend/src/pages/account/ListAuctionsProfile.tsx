@@ -1,13 +1,13 @@
-import React, { FC, useState } from 'react';
-import LogicDownload from '../../components/LogicDownload/LogicDownload.tsx';
-import BaseListAuctions from '../../components/lists/BaseListAuctions/BaseListAuctions.tsx';
-import ProfileService from '../../API/service/ProfileService.ts';
-import { ResponseObjAuctions } from '../../API/interfaces/response/IResponseAuctions.ts';
-import useGetPaginationAPI from '../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts';
-import styleAccount from './pageAccount.module.css';
-import { Link } from 'react-router-dom';
-import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
-import PathApp from '../../routes/pathApp/PathApp.ts';
+import { FC, useState } from "react";
+import LogicDownload from "../../components/LogicDownload/LogicDownload.tsx";
+import BaseListAuctions from "../../components/lists/BaseListAuctions/BaseListAuctions.tsx";
+import ProfileService from "../../API/service/ProfileService.ts";
+import { ResponseObjAuctions } from "@/API/interfaces/response/IResponseAuctions.ts";
+import useGetPaginationAPI from "../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts";
+import styleAccount from "./pageAccount.module.css";
+import { Link } from "react-router-dom";
+import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
+import PathApp from "../../routes/pathApp/PathApp.ts";
 
 const ListAuctionsProfile: FC<{ id: string; isUser: boolean }> = ({
     id,
@@ -16,21 +16,19 @@ const ListAuctionsProfile: FC<{ id: string; isUser: boolean }> = ({
     const [currentPage, setCurrentPage] = useState<number>(1);
     const {
         data: { auctions },
-        loading,
+        isLoading,
         pagination,
-        err,
     } = useGetPaginationAPI<ResponseObjAuctions>(
         () => ProfileService.getProfileAuctions(id, currentPage),
-        currentPage,
+        ["auctionsProfile", id, currentPage],
         { auctions: [] },
-        id,
     );
     return (
         <div className={styleAccount.positionBlock}>
             <h2 className={styleAccount.positionTitle}>
-                {isUser ? 'Мои аукционы' : 'Аукционы'}
+                {isUser ? "Мои аукционы" : "Аукционы"}
             </h2>
-            <LogicDownload isLoading={loading}>
+            <LogicDownload isLoading={isLoading}>
                 <>
                     {!!auctions.length && (
                         <p className={styleAccount.countCards}>

@@ -1,31 +1,40 @@
-import axios, { AxiosError, AxiosInstance } from 'axios';
-import Cookies from 'js-cookie';
-import TokenLogic from '../auxiliaryTools/tokenLogic/TokenLogic.ts';
-import AuthService from './service/AuthService.ts';
-import { userStore } from '../context/context.ts';
-import PathApp from '../routes/pathApp/PathApp.ts';
+import axios, {
+    AxiosError,
+    AxiosInstance,
+    AxiosResponse,
+    InternalAxiosRequestConfig,
+} from "axios";
+import Cookies from "js-cookie";
+import TokenLogic from "../appLogic/tokenLogic/TokenLogic.ts";
+import AuthService from "./service/AuthService.ts";
+import { userStore } from "../context/context.ts";
+import PathApp from "../routes/pathApp/PathApp.ts";
 
-const BASE_URL: string = 'http://localhost:5121/api/v1/';
+const BASE_URL: string = import.meta.env.VITE_API_URL;
+
+type ErrorConfig =
+    | (InternalAxiosRequestConfig & { _isRetry?: boolean })
+    | undefined;
 
 const $api: AxiosInstance = axios.create({
     baseURL: BASE_URL,
     withCredentials: true,
 });
 
-$api.interceptors.request.use(config => {
+$api.interceptors.request.use((config) => {
     const token = Cookies.get(TokenLogic.TOKEN);
-    if (typeof token === 'string') {
+    if (typeof token === "string") {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 });
 
 $api.interceptors.response.use(
-    config => {
+    (config: AxiosResponse) => {
         return config;
     },
     async (error: AxiosError) => {
-        const originalRequest = error.config;
+        const originalRequest: ErrorConfig = error.config;
         const refreshTokenStore: string | undefined = Cookies.get(
             TokenLogic.REFRESH_TOKEN,
         );
@@ -38,9 +47,10 @@ $api.interceptors.response.use(
             originalRequest._isRetry = true;
             const res = await AuthService.refresh(refreshTokenStore);
             const { token, refreshToken } = res.data;
-            console.log('ref', refreshToken);
+
             Cookies.set(TokenLogic.TOKEN, token);
             Cookies.set(TokenLogic.REFRESH_TOKEN, refreshToken);
+
             userStore.setAuthByToken(token);
             return $api.request(originalRequest);
         }
@@ -48,22 +58,18 @@ $api.interceptors.response.use(
         if (error.response?.status === 401) {
             window.location.pathname = PathApp.authorization;
         }
+
         throw error;
     },
 );
-const paramsPagination = (page: number, itemsPerPage: number) => ({
+
+const paramsPagination = (
+    page: number,
+    itemsPerPage: number,
+): Record<PropertyKey, unknown> => ({
     Page: page,
     ItemsPerPage: itemsPerPage,
 });
 
-const upFirstLetterByParams = (paramsAuctions: object): object => {
-    return Object.fromEntries(
-        Object.entries(paramsAuctions).map(([nameParam, valueParam]) => [
-            nameParam.charAt(0).toUpperCase() + nameParam.slice(1),
-            valueParam,
-        ]),
-    );
-};
-
 export default $api;
-export { paramsPagination, upFirstLetterByParams };
+export { paramsPagination };

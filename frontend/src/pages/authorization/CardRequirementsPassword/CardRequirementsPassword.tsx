@@ -1,11 +1,11 @@
-import { FC, ReactElement } from 'react';
-import styleCard from './cardRequirementsPassword.module.css';
-import { ICorrectPassword } from './interfaceCardRequirement.ts';
+import { FC, ReactElement } from "react";
+import styleCard from "./cardRequirementsPassword.module.css";
+import { ICorrectPassword } from "./interfaceCardRequirement.ts";
 
 const requirementsPassword = {
-    lengthPassword: 'Минимум 8 символов',
-    haveUpCase: 'Наличие верхнего регистра',
-    haveNumber: 'Наличие цифры и спецсимвола',
+    lengthPassword: "Минимум 8 символов",
+    haveUpCase: "Наличие верхнего регистра",
+    haveNumber: "Наличие цифры и спецсимвола",
 };
 
 interface ICardCardRequirement {
@@ -31,8 +31,9 @@ const CardRequirementsPassword: FC<ICardCardRequirement> = ({
                                 <li
                                     key={requirement}
                                     className={`${styleCard.requirement} ${
-                                        isCorrect[requirement] &&
-                                        styleCard.requirementDone
+                                        isCorrect[
+                                            requirement as keyof ICorrectPassword
+                                        ] && styleCard.requirementDone
                                     }`}
                                 >
                                     {valueRequirement}

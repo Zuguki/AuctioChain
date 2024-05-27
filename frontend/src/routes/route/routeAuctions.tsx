@@ -1,18 +1,18 @@
-import { FC, lazy, LazyExoticComponent } from 'react';
-import { Route } from 'react-router-dom';
-import PathApp from '../pathApp/PathApp.ts';
-import LazyDownload from '../LazyDownload.tsx';
+import { FC, lazy, LazyExoticComponent } from "react";
+import { Route } from "react-router-dom";
+import PathApp from "../pathApp/PathApp.ts";
+import LazyDownload from "../LazyDownload.tsx";
 
 const PageAuctions: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/auctions/PageAuctions.tsx'),
+    () => import("../../pages/auctions/PageAuctions.tsx"),
 );
 
 const PageOneAuction: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/auction/PageOneAuction.tsx'),
+    () => import("../../pages/auction/PageOneAuction.tsx"),
 );
 
 const PageLot: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/lot/PageLot.tsx'),
+    () => import("../../pages/lot/PageLot.tsx"),
 );
 const routeAuctions = (
     <>

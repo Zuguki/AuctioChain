@@ -1,24 +1,37 @@
-import { FC, lazy, LazyExoticComponent } from 'react';
-import { Route } from 'react-router-dom';
-import PathApp from '../pathApp/PathApp.ts';
-import RequireAuth from '../RequireAuth.tsx';
-import LazyDownload from '../LazyDownload.tsx';
+import { FC, lazy, LazyExoticComponent } from "react";
+import { Route } from "react-router-dom";
+import PathApp from "../pathApp/PathApp.ts";
+import RequireAuth from "../RequireAuth.tsx";
+import LazyDownload from "../LazyDownload.tsx";
 
 const PageAccount: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/account/PageAccount.tsx'),
+    () => import("../../pages/account/PageAccount.tsx"),
 );
 
 const PageCreateAuction: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/createAuction/PageCreateAuction.tsx'),
+    () => import("../../pages/createAuction/PageCreateAuction.tsx"),
 );
 
 const PageCreateLot: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/createLot/PageCreateLot.tsx'),
+    () => import("../../pages/createLot/PageCreateLot.tsx"),
 );
 
-const AddMoney: LazyExoticComponent<FC> = lazy(
-    () => import('../../pages/addMoney/AddMoney.tsx'),
+const MoneyManipulation: LazyExoticComponent<FC> = lazy(
+    () => import("@/pages/moneyManipulation/MoneyManipulation.tsx"),
 );
+
+const PageEditLot: LazyExoticComponent<FC> = lazy(
+    () => import("../../pages/editLot/PageEditLot.tsx"),
+);
+
+const PageEditAuction: LazyExoticComponent<FC> = lazy(
+    () => import("../../pages/editAuction/PageEditAuction.tsx"),
+);
+
+const PageModeration: LazyExoticComponent<FC> = lazy(
+    () => import("../../pages/moderation/PageModeration.tsx"),
+);
+
 const routeAccount = (
     <>
         <Route
@@ -50,11 +63,41 @@ const routeAccount = (
             }
         />
         <Route
+            path={`${PathApp.editLot}${PathApp.id}`}
+            element={
+                <RequireAuth>
+                    <LazyDownload>
+                        <PageEditLot />
+                    </LazyDownload>
+                </RequireAuth>
+            }
+        />
+        <Route
+            path={`${PathApp.editAuction}${PathApp.id}`}
+            element={
+                <RequireAuth>
+                    <LazyDownload>
+                        <PageEditAuction />
+                    </LazyDownload>
+                </RequireAuth>
+            }
+        />
+        <Route
             path={PathApp.bill}
             element={
                 <RequireAuth>
                     <LazyDownload>
-                        <AddMoney />
+                        <MoneyManipulation />
+                    </LazyDownload>
+                </RequireAuth>
+            }
+        />
+        <Route
+            path={`${PathApp.moderation}${PathApp.id}`}
+            element={
+                <RequireAuth>
+                    <LazyDownload>
+                        <PageModeration />
                     </LazyDownload>
                 </RequireAuth>
             }

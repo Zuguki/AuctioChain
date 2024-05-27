@@ -1,12 +1,12 @@
-import React, { FC, useContext } from 'react';
-import AuctionLogic from '../../../logicAuction/AuctionLogic.ts';
-import BaseButton from '../../../components/UI/BaseButton/BaseButton.tsx';
-import stylePage from '../pageOneAuction.module.css';
-import { Context } from '../../../context/context.ts';
-import IAuction from '../../../API/interfaces/IAuction.ts';
-import AuctionService from '../../../API/service/AuctionService.ts';
-import { useNavigate } from 'react-router-dom';
-import PathApp from '../../../routes/pathApp/PathApp.ts';
+import { FC, useContext } from "react";
+import AuctionLogic from "../../../appLogic/logicAuction/AuctionLogic.ts";
+import BaseButton from "../../../components/UI/BaseButton/BaseButton.tsx";
+import stylePage from "../pageOneAuction.module.css";
+import { Context } from "@/context/context.ts";
+import IAuction from "../../../API/interfaces/IAuction.ts";
+import AuctionService from "../../../API/service/AuctionService.ts";
+import { useNavigate } from "react-router-dom";
+import PathApp from "../../../routes/pathApp/PathApp.ts";
 
 interface IActionsAuction {
     auction: IAuction;
@@ -30,11 +30,12 @@ const ActionsAuction: FC<IActionsAuction> = ({
             alert(`Ошибка обновления статуса: ${err}`);
             return;
         }
+
         try {
             await AuctionService.getAuctionByID(id);
             setChangeStatus(true);
         } catch (err) {
-            alert('Ошибка обновления. Попробуйте перезагрузить страницу!');
+            alert("Ошибка обновления. Попробуйте перезагрузить страницу!");
         }
     };
     const deleteAuction = async (): Promise<void> => {
@@ -42,12 +43,12 @@ const ActionsAuction: FC<IActionsAuction> = ({
             await AuctionService.deleteAuctionById(id);
             nav(`${PathApp.account}/${userId}`);
         } catch (err) {
-            alert('Ошибка удаления');
+            alert("Ошибка удаления");
         }
     };
     return (
         <>
-            {userStore.getUser().userId === userId && (
+            {userStore.user.userId === userId && (
                 <>
                     {isCreation && (
                         <div className={stylePage.positionButtonActive}>
@@ -61,12 +62,26 @@ const ActionsAuction: FC<IActionsAuction> = ({
                             Удалить аукцион
                         </BaseButton>
                     )}
+
                     {isCreation && (
-                        <p className={stylePage.informationFinish}>
-                            Обратите внимание, что торги аукциона начнуться
-                            после подтверждения статуса &quot;завершение
-                            редактирования&quot; в отдельной странице аукциона.
-                        </p>
+                        <>
+                            <div className={stylePage.positionButtonEdit}>
+                                <BaseButton
+                                    onClick={() =>
+                                        nav(`${PathApp.editAuction}/${id}`)
+                                    }
+                                >
+                                    Редактировать аукцион
+                                </BaseButton>
+                            </div>
+                            <p className={stylePage.informationFinish}>
+                                Обратите внимание, что торги аукциона начнутся
+                                после подтверждения статуса &quot;завершение
+                                редактирования&quot; в отдельной странице
+                                аукциона. Редактирование доступно только при
+                                создании аукциона!
+                            </p>
+                        </>
                     )}
                 </>
             )}

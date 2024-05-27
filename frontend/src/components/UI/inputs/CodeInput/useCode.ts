@@ -4,7 +4,7 @@ import {
     useEffect,
     useRef,
     useState,
-} from 'react';
+} from "react";
 
 type PropsInput = {
     value: string;
@@ -41,7 +41,7 @@ const focusInput = (
 
 const useCode = (numbers: number): TUseCode => {
     const [userValue, setUserValue] = useState<string[]>(
-        Array(numbers).fill(''),
+        Array(numbers).fill(""),
     );
     const [code, setCode] = useState<number | null>(null);
     const ref = useRef<HTMLInputElement[]>([]);
@@ -54,7 +54,7 @@ const useCode = (numbers: number): TUseCode => {
 
         if (lengthValue === 0) {
             setUserValue((prevCode: string[]): string[] =>
-                newUserValue(prevCode, idNumber, ''),
+                newUserValue(prevCode, idNumber, ""),
             );
             return;
         }
@@ -71,11 +71,11 @@ const useCode = (numbers: number): TUseCode => {
     };
 
     useEffect((): void => {
-        if (userValue.includes('')) {
+        if (userValue.includes("")) {
             setCode((): null => null);
             return;
         }
-        setCode((): number => Number(userValue.join('')));
+        setCode((): number => Number(userValue.join("")));
     }, [userValue]);
 
     return [code, changeData, ref];

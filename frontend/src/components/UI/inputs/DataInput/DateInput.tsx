@@ -1,28 +1,32 @@
-import { FC } from 'react';
-import dataStyle from './dataInput.module.css';
-import IInput from '../IInput.ts';
-import styleFormInput from '../FormInput/formInput.module.css';
+import { FC, ForwardedRef, forwardRef, memo } from "react";
+import dataStyle from "./dataInput.module.css";
+import IInput from "../IInput.ts";
+import styleFormInput from "../FormInput/formInput.module.scss";
 
-const DateInput: FC<Omit<IInput, 'width'>> = ({
-    changeValue,
-    title,
-    error,
-    errorBlur,
-    ...props
-}) => {
-    return (
-        <div>
-            <label className={styleFormInput.title}>{title}</label>
-            <input
-                type="datetime-local"
-                required
-                {...props}
-                onFocus={errorBlur}
-                className={`${dataStyle.input} ${error && dataStyle.error}`}
-                onChange={changeValue}
-            />
-        </div>
-    );
-};
+const DateInput: FC<Omit<IInput, "width">> = memo(
+    forwardRef(
+        (
+            { changeValue, title, error, errorBlur, ...props },
+            ref: ForwardedRef<HTMLInputElement>,
+        ) => {
+            return (
+                <div className={styleFormInput.inputDiv}>
+                    <label className={styleFormInput.title}>{title}</label>
+                    <input
+                        type="datetime-local"
+                        required
+                        ref={ref}
+                        {...props}
+                        onFocus={errorBlur}
+                        className={`${dataStyle.input} ${
+                            error && dataStyle.error
+                        }`}
+                        onChange={changeValue}
+                    />
+                </div>
+            );
+        },
+    ),
+);
 
 export default DateInput;

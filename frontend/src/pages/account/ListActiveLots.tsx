@@ -1,8 +1,8 @@
-import React, { FC, useState } from 'react';
-import useGetPaginationAPI from '../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts';
-import ProfileService from '../../API/service/ProfileService.ts';
-import ListLotsAccount from '../../components/lists/BaseListLot/ListLotsAccount.tsx';
-import { ResponseActiveLots } from '../../API/interfaces/ILot.ts';
+import { FC, useState } from "react";
+import useGetPaginationAPI from "../../hooks/API/useGetPaginationAPI/useGetPaginationAPI.ts";
+import ProfileService from "../../API/service/ProfileService.ts";
+import ListLotsAccount from "../../components/lists/BaseListLot/ListLotsAccount.tsx";
+import { ResponseActiveLots } from "@/API/interfaces/ILot.ts";
 
 const ListActiveLots: FC<{
     id: string;
@@ -11,20 +11,18 @@ const ListActiveLots: FC<{
     const [currentPage, setCurrentPage] = useState<number>(1);
     const {
         data: { activeLots },
-        loading,
-        err,
+        isLoading,
         pagination,
     } = useGetPaginationAPI<ResponseActiveLots>(
         () => ProfileService.getActiveLots(id, currentPage),
-        currentPage,
+        ["activeLots", id, currentPage],
         { activeLots: [] },
-        id,
     );
     return (
         <ListLotsAccount
             title="Активные лоты"
             lots={activeLots}
-            loading={loading}
+            loading={isLoading}
             pagination={pagination}
             setCurrentPage={setCurrentPage}
         />

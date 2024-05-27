@@ -1,19 +1,19 @@
-import { AxiosResponse } from 'axios';
-import $api from '../api.ts';
-import IResponseImage from '../interfaces/response/IResponseImage.ts';
+import { AxiosResponse } from "axios";
+import $api from "../api.ts";
+import IResponseImage from "../interfaces/response/IResponseImage.ts";
 
-export default class ImageService {
-    private static readonly pathImage: string = '/images';
+class ImageService {
+    private readonly pathImage: string = "/images";
 
-    public static async postImage(
-        file: File,
-    ): Promise<AxiosResponse<IResponseImage>> {
+    public async postImage(file: File): Promise<AxiosResponse<IResponseImage>> {
         return $api.post(
             this.pathImage,
             { file: file },
             {
-                headers: { 'Content-Type': 'multipart/form-data' },
+                headers: { "Content-Type": "multipart/form-data" },
             },
         );
     }
 }
+
+export default new ImageService();

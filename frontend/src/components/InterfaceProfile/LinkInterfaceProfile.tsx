@@ -1,7 +1,8 @@
-import React, { FC, ReactNode, useContext } from 'react';
-import { Context } from '../../context/context.ts';
-import { Link } from 'react-router-dom';
-import styleInterface from './interfaceProfile.module.css';
+import { FC, ReactNode, useContext } from "react";
+import { Context } from "@/context/context.ts";
+import { Link } from "react-router-dom";
+import styleInterface from "./interfaceProfile.module.css";
+import { EventClickInterfaceProfile } from "@/components/InterfaceProfile/EventClickInterfaceProfile.ts";
 
 const LinkInterfaceProfile: FC<{ path: string; children: ReactNode }> = ({
     children,
@@ -12,7 +13,10 @@ const LinkInterfaceProfile: FC<{ path: string; children: ReactNode }> = ({
         <Link
             className={styleInterface.link}
             to={path}
-            onClick={() => stateApp.setInterfaceProfile(false)}
+            onClick={(e: EventClickInterfaceProfile<HTMLAnchorElement>) => {
+                e._isClickInterfaceProfile = false;
+                stateApp.interfaceProfile = false;
+            }}
         >
             {children}
         </Link>

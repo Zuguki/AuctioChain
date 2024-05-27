@@ -2,15 +2,16 @@
     width: 570px;
     height: 200px;
     flex-shrink: 0;
-    border-radius: 10px;
+    border-radius: 15px;
     background: #f5f5f5;
     border: 0;
     outline: 0;
 
     color: #818080;
-    font-family: SF Pro Display,
-    Montserrat,
-    sans-serif;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
     font-size: 20px;
     line-height: 28px; /* 140% */
     padding: 20px 30px;
@@ -34,9 +35,10 @@
 
     color: #f76f7a;
     border: 2px solid #f76f7a;
-    font-family: SF Pro Display,
-    Montserrat,
-    sans-serif;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
     font-size: 20px;
     line-height: 28px; /* 140% */
     padding-left: 30px;

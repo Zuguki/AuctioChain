@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import BaseButton from '../UI/BaseButton/BaseButton.tsx';
-import IBaseButton from '../UI/BaseButton/IBaseButton.ts';
-import styleSubmitForm from './submitForm.module.css';
+import { FC } from "react";
+import BaseButton from "../UI/BaseButton/BaseButton.tsx";
+import IBaseButton from "../UI/BaseButton/IBaseButton.ts";
+import styleSubmitForm from "./submitForm.module.css";
 
 interface ISubmitButton extends IBaseButton {
     loading: boolean;

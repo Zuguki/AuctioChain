@@ -1,7 +1,7 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from "react";
 
-const useDataUser = <T>() => {
-    const [dataUser, setDataUser] = useState<T>({} as T);
+const useDataUser = <T>(baseData: T = {} as T) => {
+    const [dataUser, setDataUser] = useState<T>(baseData);
     const logicFormValue = useCallback(
         (e: ChangeEvent<HTMLInputElement>): void => {
             const { value, name } = e.target;
@@ -11,7 +11,7 @@ const useDataUser = <T>() => {
         },
         [],
     );
-    return { dataUser, logicFormValue };
+    return { dataUser, setDataUser, logicFormValue };
 };
 
 export default useDataUser;

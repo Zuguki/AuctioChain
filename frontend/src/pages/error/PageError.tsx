@@ -1,8 +1,8 @@
-import { FC } from 'react';
-import errLogo from '../../design/404.png';
-import { Link } from 'react-router-dom';
-import BaseButton from '../../components/UI/BaseButton/BaseButton.tsx';
-import styleErr from './pageError.module.css';
+import { FC } from "react";
+import errLogo from "../../design/404.png";
+import { Link } from "react-router-dom";
+import BaseButton from "../../components/UI/BaseButton/BaseButton.tsx";
+import styleErr from "./pageError.module.css";
 
 const PageError: FC = () => {
     return (

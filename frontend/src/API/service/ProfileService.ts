@@ -1,15 +1,14 @@
-import $api, { paramsPagination } from '../api.ts';
-import { AxiosResponse } from 'axios';
-import { ResponseObjAuctions } from '../interfaces/response/IResponseAuctions.ts';
-import { ResponseActiveLots, ResponseWinLots } from '../interfaces/ILot.ts';
-import IUserName from '../interfaces/IUserName.ts';
+import $api, { paramsPagination } from "../api.ts";
+import { AxiosResponse } from "axios";
+import { ResponseObjAuctions } from "../interfaces/response/IResponseAuctions.ts";
+import { ResponseActiveLots } from "../interfaces/ILot.ts";
+import IUserName from "../interfaces/IUserName.ts";
+import { ResponseWinLots } from "@/API/interfaces/IWinLot.ts";
 
-export default class ProfileService {
-    private static pathProfile: string = 'profiles';
+class ProfileService {
+    private readonly pathProfile: string = "profiles";
 
-    public static async getUserName(
-        id: string,
-    ): Promise<AxiosResponse<IUserName>> {
+    public async getUserName(id: string): Promise<AxiosResponse<IUserName>> {
         return $api.get(`${this.pathProfile}/userName`, {
             params: {
                 UserId: id,
@@ -17,7 +16,7 @@ export default class ProfileService {
         });
     }
 
-    public static async getProfileAuctions(
+    public async getProfileAuctions(
         id: string,
         page: number = 1,
         elementOnPage: number = 3,
@@ -28,7 +27,7 @@ export default class ProfileService {
         );
     }
 
-    public static async getActiveLots(
+    public async getActiveLots(
         id: string,
         page: number = 1,
         elementOnPage: number = 3,
@@ -39,7 +38,7 @@ export default class ProfileService {
         );
     }
 
-    public static async getWinLot(
+    public async getWinLot(
         id: string,
         page: number = 1,
         elementOnPage: number = 3,
@@ -50,7 +49,7 @@ export default class ProfileService {
         );
     }
 
-    private static getConfig(id: string, page: number, elementOnPage: number) {
+    private getConfig(id: string, page: number, elementOnPage: number) {
         return {
             params: {
                 ...paramsPagination(page, elementOnPage),
@@ -59,3 +58,5 @@ export default class ProfileService {
         };
     }
 }
+
+export default new ProfileService();

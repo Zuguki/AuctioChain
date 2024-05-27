@@ -1,17 +1,26 @@
-import React, { useContext } from 'react';
-import SearcherAuction from './SearcherAuction/SearcherAuction.tsx';
-import stylePage from './pageAuctions.module.css';
-import { Context } from '../../context/context.ts';
-import ListAuctions from './ListAuctions/ListAuctions.tsx';
-import { observer } from 'mobx-react-lite';
+import { useContext, useEffect } from "react";
+import stylePage from "./pageAuctions.module.css";
+import { observer } from "mobx-react-lite";
+import { Context } from "@/context/context.ts";
+import SearcherAuction from "./SearcherAuction/SearcherAuction.tsx";
+import ListAuctions from "@/pages/auctions/ListAuctions/ListAuctions.tsx";
+import { useLocation } from "react-router-dom";
 
 const PageAuctions = observer(() => {
     const { stateApp } = useContext(Context);
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.search) {
+            stateApp.search = true;
+        }
+    }, [location]);
+
     return (
         <div>
             <div className={stylePage.position}>
                 <h1 className={stylePage.title}>Список аукционов</h1>
-                {stateApp.getSearch() && <SearcherAuction />}
+                {stateApp.search && <SearcherAuction />}
             </div>
             <ListAuctions />
         </div>

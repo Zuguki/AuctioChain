@@ -1,5 +1,5 @@
-import React, { FC, ReactElement } from 'react';
-import Spinner from '../UI/Spinner/Spinner.tsx';
+import { FC, ReactElement } from "react";
+import Spinner from "../UI/Spinner/Spinner.tsx";
 
 interface ILogicDownload {
     isLoading: boolean;

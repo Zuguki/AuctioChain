@@ -1,9 +1,9 @@
-import React, { FC, ReactElement } from 'react';
-import styleList from './listAuctions.module.css';
-import CardAuction from '../CardAuction/CardAuction.tsx';
-import Pagination from '../../UI/Pagination/Pagination.tsx';
-import IResponseAuction from '../../../API/interfaces/response/IResponseAuctions.ts';
-import ILogicPagination from '../../../hooks/API/useGetPaginationAPI/ILogicPagination.ts';
+import { FC, ReactElement } from "react";
+import styleList from "./listAuctions.module.css";
+import CardAuction from "../CardAuction/CardAuction.tsx";
+import Pagination from "../../UI/Pagination/Pagination.tsx";
+import IResponseAuction from "../../../API/interfaces/response/IResponseAuctions.ts";
+import ILogicPagination from "../../../hooks/API/useGetPaginationAPI/ILogicPagination.ts";
 
 interface IBaseListAuctions {
     auctions: IResponseAuction[];
@@ -19,6 +19,7 @@ const BaseListAuctions: FC<IBaseListAuctions> = ({
     if (!auctions.length) {
         return <p className={styleList.information}>Аукционов нет</p>;
     }
+
     return (
         <div>
             <div className={styleList.position}>
@@ -28,7 +29,7 @@ const BaseListAuctions: FC<IBaseListAuctions> = ({
                     ),
                 )}
             </div>
-            {auctions.length !== 0 && (
+            {auctions.length !== 0 && pagination && (
                 <Pagination
                     pagination={pagination}
                     sendCurrentPage={setCurrentPage}

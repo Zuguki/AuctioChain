@@ -13,6 +13,8 @@ import { observer } from "mobx-react-lite";
 import useGetUserName from "../../hooks/API/useGetUserName.ts";
 import ActionsAuction from "./LogicWorkAuction/ActionsAuction.tsx";
 import usePathLocation from "../../hooks/usePathLocation.ts";
+import AuctionLogic from "@/appLogic/logicAuction/AuctionLogic.ts";
+import ModerationWindow from "@/pages/auction/ModerationWindow/ModerationWindow.tsx";
 
 const PageOneAuction = observer(() => {
     const { id } = useParams<{ id: string }>();
@@ -28,8 +30,12 @@ const PageOneAuction = observer(() => {
     const { userId } = auction;
     const { username, isLoading: loadingUser } = useGetUserName(userId);
     const { fromPath: closePath } = usePathLocation(PathApp.auctions);
+
     return (
         <div>
+            {AuctionLogic.isModeration(auction) && (
+                <ModerationWindow auctionId={id} />
+            )}
             <div className={stylePage.positionClose}>
                 <CloseButton logicClick={closePath} />
             </div>

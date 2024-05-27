@@ -13,6 +13,8 @@ import useGetUserName from "../../hooks/API/useGetUserName.ts";
 import BalanceService from "../../API/service/BalanceService.ts";
 import useGetAPI from "../../hooks/API/useGetAPI.ts";
 import { TIME_ZONE } from "@/auxiliaryTools/dateLogic/timeZone.ts";
+import AuthService from "@/API/service/AuthService.ts";
+import AdminService from "@/API/service/AdminService.ts";
 
 const PageAccount = observer(() => {
     const { userStore } = useContext(Context);
@@ -27,7 +29,10 @@ const PageAccount = observer(() => {
     const userId = userStore.user.userId;
     const isUser: boolean = id === userId;
     const { username, isLoading } = useGetUserName(id);
-
+    const { data: roles, isLoading: loadingRoles } = useGetAPI(
+        () => AuthService.roles(),
+        ["roles", id],
+    );
     const {
         data: { balance },
         isLoading: loadingBalance,
@@ -48,12 +53,19 @@ const PageAccount = observer(() => {
                 {!isLoading && (
                     <h3 className={styleAccount.userName}>@{username}</h3>
                 )}
-                {isUser && !loadingBalance && (
+                {isUser && !loadingBalance && !loadingRoles && (
                     <>
                         <h4 className={styleAccount.balance}>{balance} Ac</h4>
-                        <Link to={PathApp.bill}>
-                            <BaseButton>Пополнить счёт</BaseButton>
-                        </Link>
+                        <div className={styleAccount.buttons}>
+                            <Link to={PathApp.bill}>
+                                <BaseButton>Пополнить счёт</BaseButton>
+                            </Link>
+                            {AdminService.isModerator(roles) && (
+                                <Link to={`${PathApp.moderation}/${id}`}>
+                                    <BaseButton>Модераторство</BaseButton>
+                                </Link>
+                            )}
+                        </div>
                     </>
                 )}
                 <Hr />

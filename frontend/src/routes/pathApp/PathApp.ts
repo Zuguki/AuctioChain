@@ -13,6 +13,7 @@ enum PathApp {
     id = "/:id",
     editLot = "/editLot",
     editAuction = "/editAuction",
+    moderation = "/moderation",
 }
 
 export default PathApp;

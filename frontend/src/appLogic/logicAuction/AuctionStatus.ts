@@ -5,6 +5,7 @@ enum AuctionStatus {
     bidding,
     complete,
     canceled,
+    moderation,
 }
 
 export default AuctionStatus;

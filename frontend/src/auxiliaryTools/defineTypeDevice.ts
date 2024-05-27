@@ -1,6 +1,6 @@
 type TypeDevice = "mobile" | "desktop";
 
-const getDeviceType = (): TypeDevice => {
+export const TYPE_DEVICE = ((): TypeDevice => {
     const userAgent: string = navigator.userAgent.toLowerCase();
     const isMobile: boolean =
         /mobile|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(
@@ -8,6 +8,4 @@ const getDeviceType = (): TypeDevice => {
         );
 
     return isMobile ? "mobile" : "desktop";
-};
-
-export const TYPE_DEVICE = getDeviceType();
+})();

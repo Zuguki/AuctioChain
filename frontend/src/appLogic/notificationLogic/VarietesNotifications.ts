@@ -48,3 +48,8 @@ export const LoginNotification = (userName: string): NotificationLogic =>
         "Успешный вход!",
         `Вы авторизовались под никнеймом @${userName}`,
     );
+
+export const NotificationModeration: NotificationLogic = new NotificationLogic(
+    "Успешно!",
+    "Действия модератора были применены к аукциону.",
+);

@@ -2,6 +2,7 @@ import $api from "../api.ts";
 import { AxiosResponse } from "axios";
 import IPostLoginUser from "../interfaces/request/IPostLoginUser.ts";
 import IPostRegistrationUser from "../interfaces/request/IPostRegistrationUser.ts";
+import IResponseRoles from "@/API/interfaces/response/IResponseRoles.ts";
 
 interface AuthResponse {
     token: string;
@@ -32,6 +33,10 @@ class AuthService {
         return $api.post<AuthResponse>(`${this.pathAccount}/refresh`, {
             refreshToken: refreshToken,
         });
+    }
+
+    public async roles(): Promise<AxiosResponse<IResponseRoles>> {
+        return $api.get(`${this.pathAccount}/roles`);
     }
 }
 

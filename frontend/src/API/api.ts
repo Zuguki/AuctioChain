@@ -10,8 +10,7 @@ import AuthService from "./service/AuthService.ts";
 import { userStore } from "../context/context.ts";
 import PathApp from "../routes/pathApp/PathApp.ts";
 
-const BASE_URL: string =
-    import.meta.env.API_URL ?? "http://localhost:5121/api/v1/";
+const BASE_URL: string = import.meta.env.VITE_API_URL;
 
 type ErrorConfig =
     | (InternalAxiosRequestConfig & { _isRetry?: boolean })

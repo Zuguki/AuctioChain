@@ -20,13 +20,20 @@ class AuctionService {
         elementOnPage: number = 12,
         paramsAuctions: IParamsAuctions = baseParamsAuctions,
     ): Promise<AxiosResponse<ResponseObjAuctions>> {
-        console.log(paramsAuctions);
-        return $api.get(`${this.pathAuctions}`, {
-            params: {
-                ...paramsPagination(page, elementOnPage),
-                ...paramsAuctions,
-            },
-        });
+        return this.shellGetAuctions(page, elementOnPage, paramsAuctions);
+    }
+
+    public async getApproveAuctions(
+        page: number = 1,
+        elementOnPage: number = 12,
+        paramsAuctions: IParamsAuctions = baseParamsAuctions,
+    ) {
+        return this.shellGetAuctions(
+            page,
+            elementOnPage,
+            paramsAuctions,
+            `approve`,
+        );
     }
 
     public async getAuctionByID(id: string): Promise<AxiosResponse<IAuction>> {
@@ -47,8 +54,30 @@ class AuctionService {
         return $api.patch(`${this.pathAuctions}/changeCreationState/${id}`);
     }
 
+    public async approveAuction(auctionId: string): Promise<AxiosResponse> {
+        return $api.patch(`${this.pathAuctions}/approve/${auctionId}`);
+    }
+
+    public async cancelAuction(auctionId: string): Promise<AxiosResponse> {
+        return $api.patch(`${this.pathAuctions}/cancel/${auctionId}`);
+    }
+
     public async deleteAuctionById(id: string): Promise<AxiosResponse> {
         return $api.delete(`${this.pathAuctions}/${id}`);
+    }
+
+    private async shellGetAuctions(
+        page: number = 1,
+        elementOnPage: number = 12,
+        paramsAuctions: IParamsAuctions = baseParamsAuctions,
+        path: string = "",
+    ): Promise<AxiosResponse<ResponseObjAuctions>> {
+        return $api.get(`${this.pathAuctions}/${path}`, {
+            params: {
+                ...paramsPagination(page, elementOnPage),
+                ...paramsAuctions,
+            },
+        });
     }
 }
 

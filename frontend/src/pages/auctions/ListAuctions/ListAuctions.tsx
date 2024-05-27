@@ -8,7 +8,9 @@ import { observer } from "mobx-react-lite";
 import { Context } from "@/context/context.ts";
 import { TYPE_DEVICE } from "@/auxiliaryTools/defineTypeDevice.ts";
 
-const ListAuctions: FC = memo(
+interface IListAuctions {}
+
+const ListAuctions: FC<IListAuctions> = memo(
     observer(() => {
         const [currentPage, setCurrentPage] = useState<number>(1);
         const { stateApp } = useContext(Context);

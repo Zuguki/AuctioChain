@@ -10,6 +10,7 @@ export default class AuctionLogic {
             3: "Торги",
             4: "Завершен",
             5: "Отменён",
+            6: "Ожидание подтверждения",
         }[status];
     }
 
@@ -23,5 +24,9 @@ export default class AuctionLogic {
 
     public static isWaitBidding(auction: IAuction): boolean {
         return auction.status === AuctionStatus.waitBidding;
+    }
+
+    public static isModeration(auction: IAuction): boolean {
+        return auction.status === AuctionStatus.moderation;
     }
 }

@@ -28,6 +28,10 @@ const PageEditAuction: LazyExoticComponent<FC> = lazy(
     () => import("../../pages/editAuction/PageEditAuction.tsx"),
 );
 
+const PageModeration: LazyExoticComponent<FC> = lazy(
+    () => import("../../pages/moderation/PageModeration.tsx"),
+);
+
 const routeAccount = (
     <>
         <Route
@@ -84,6 +88,16 @@ const routeAccount = (
                 <RequireAuth>
                     <LazyDownload>
                         <MoneyManipulation />
+                    </LazyDownload>
+                </RequireAuth>
+            }
+        />
+        <Route
+            path={`${PathApp.moderation}${PathApp.id}`}
+            element={
+                <RequireAuth>
+                    <LazyDownload>
+                        <PageModeration />
                     </LazyDownload>
                 </RequireAuth>
             }

@@ -10,7 +10,7 @@ const DateInput: FC<Omit<IInput, "width">> = memo(
             ref: ForwardedRef<HTMLInputElement>,
         ) => {
             return (
-                <div>
+                <div className={styleFormInput.inputDiv}>
                     <label className={styleFormInput.title}>{title}</label>
                     <input
                         type="datetime-local"

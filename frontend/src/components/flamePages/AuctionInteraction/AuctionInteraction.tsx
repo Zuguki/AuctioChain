@@ -77,8 +77,7 @@ const AuctionInteraction: FC<IInteraction<IPutAuction>> = ({
                 />
                 <p className={styleCreateAuction.additionallyInformation}>
                     Обратите внимание, что торги аукциона начнутся после
-                    подтверждения статуса &quot;завершение редактирования&quot;
-                    в отдельной странице аукциона.
+                    подтверждения модератора.
                 </p>
                 <DateInput
                     title="Дата окончания"

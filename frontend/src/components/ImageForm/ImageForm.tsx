@@ -10,16 +10,16 @@ const ImageForm: FC<IImageForm> = ({ src, imageFile, text, ...props }) => {
     if (imageFile === null && (src === null || src === undefined)) {
         return null;
     }
-    const srcImage = (): string => {
-        if (imageFile === null) {
-            return src as string;
+    const srcImage = ((): string => {
+        if (imageFile == null) {
+            return "";
         }
         return URL.createObjectURL(imageFile);
-    };
+    })();
     return (
         <div>
             <p>{text}</p>
-            <img {...props} src={srcImage()} alt="img" />
+            {srcImage !== "" && <img {...props} src={srcImage} alt="img" />}
         </div>
     );
 };

@@ -24,8 +24,10 @@ const InterfaceProfile = observer(() => {
     };
 
     const clickWindow = (e: EventClickInterfaceProfile<HTMLDivElement>) => {
-        e._isClickInterfaceProfile = true;
-        stateApp.interfaceProfile = true;
+        if (e._isClickInterfaceProfile !== false) {
+            e._isClickInterfaceProfile = true;
+            stateApp.interfaceProfile = true;
+        }
     };
 
     return (

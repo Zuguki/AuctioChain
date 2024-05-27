@@ -29,7 +29,6 @@ services:
   
   rabbitmq:
     image: "rabbitmq:3-management"
-    hostname: "localhost"
     environment:
       RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
       RABBITMQ_DEFAULT_USER: "guest"
@@ -40,6 +39,8 @@ services:
       - "5672:5672"
     labels:
       NAME: "rabbitmq"
+    networks:
+      - rabbit-network
   
   postgres_db:
     container_name: postgres_db
@@ -55,11 +56,31 @@ services:
     networks:
       - postgres-network
     restart: unless-stopped
+    
+  auctiochain:
+    image: auctiochain
+    build:
+      context: .
+      dockerfile: AuctioChain/Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - postgres-network
+      - rabbit-network
+      - stack
+    depends_on:
+      - postgres_db
+      - rabbitmq
+      - elasticsearch
+      - kibana
 
 networks:
   postgres-network:
+    driver: bridge
+  rabbit-network:
     driver: bridge
   stack: {}
       
 volumes:
   postgres-data:
+

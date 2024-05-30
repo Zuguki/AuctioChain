@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AuctioChain.BL.Balance;
 using AuctioChain.BL.Services.Dto;
 using AuctioChain.DAL.EF;
+using AuctioChain.DAL.Models.Admin.Dto;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
@@ -239,14 +240,14 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> CancelAsync(Guid auctionId, Guid userId)
+    public async Task<Result> CancelAsync(Guid auctionId, Guid userId, bool isMember)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == auctionId);
 
         if (auction is null)
             return Result.Fail("Аукцион не найден");
         
-        if (auction.UserId != userId)
+        if (auction.UserId != userId && isMember)
             return Result.Fail("У вас нет доступа к редактированию данного аукциона");
 
         if (!auction.IsEditable)

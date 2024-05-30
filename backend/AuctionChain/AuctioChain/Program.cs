@@ -1,5 +1,4 @@
 using System;
-using System.Security.Claims;
 using System.Text;
 using AuctioChain.BL.Accounts;
 using AuctioChain.BL.Admin;
@@ -56,11 +55,16 @@ builder.Services.AddMassTransit(x =>
 
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("amqp://localhost", c =>
+        cfg.Host("amqp://rabbitmq", c =>
         {
             c.Username("guest");
             c.Password("guest");
         });
+        // cfg.Host("amqp://localhost", c =>
+        // {
+        //     c.Username("guest");
+        //     c.Password("guest");
+        // });
 
         cfg.ReceiveEndpoint("AuctionEndQueue", e =>
         {

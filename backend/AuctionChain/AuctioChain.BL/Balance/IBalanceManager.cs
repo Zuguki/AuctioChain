@@ -12,4 +12,6 @@ public interface IBalanceManager
     Task<Result> CheckBalanceReplenishmentAsync(Guid userId, CheckBalanceReplenishmentRequest request);
 
     Task<Result> AddCashToBalanceAsync(Guid userId, decimal weiValue);
+
+    Task<Result> WithdrawAsync(Guid userId, WithdrawCashRequest request);
 }

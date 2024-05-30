@@ -45,4 +45,16 @@ public class BalanceController : ControllerBase
         
         return Ok();
     }
+    
+    [HttpPost("withdraw")]
+    [Authorize]
+    public async Task<IActionResult> WithdrawCashAsync([FromBody] WithdrawCashRequest request)
+    {
+        var userId = (Guid) HttpContext.TryGetUserId()!;
+        var result = await _balanceManager.WithdrawAsync(userId, request);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+        
+        return Ok();
+    }
 }

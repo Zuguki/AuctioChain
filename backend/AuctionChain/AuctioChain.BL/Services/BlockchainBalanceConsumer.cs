@@ -7,6 +7,7 @@ using AuctioChain.MQ.Blockchain.Dto;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Nethereum.Web3;
+using GetUserBalanceOfOutputDTO = AuctioChain.BL.Balance.Blockchain.Dto.GetUserBalanceOfOutputDTO;
 
 namespace AuctioChain.BL.Services;
 
@@ -32,8 +33,8 @@ public class BlockchainBalanceConsumer : IConsumer<CheckBalanceReplenishmentDto>
 	    var contractFunction = _web3.Eth.GetContractQueryHandler<GetUserBalanceFunction>();
 	    var currentBalance = await contractFunction.QueryAsync<GetUserBalanceOfOutputDTO>(contractAddress, userBalanceModel);
 
-	    if (currentBalance.Result > context.Message.StartBalanceInBlockchain)
-		    await _balanceManager.AddCashToBalanceAsync(context.Message.UserId, currentBalance.Result - context.Message.StartBalanceInBlockchain);
+	    if (currentBalance.Balance > context.Message.StartBalanceInBlockchain)
+		    await _balanceManager.AddCashToBalanceAsync(context.Message.UserId, currentBalance.Balance - context.Message.StartBalanceInBlockchain);
 
 	    if (DateTime.UtcNow - context.Message.DateSend > new TimeSpan(0, 5, 0))
 		    return;

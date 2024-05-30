@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AuctioChain.BL.Balance;
 using AuctioChain.BL.Services.Dto;
 using AuctioChain.DAL.EF;
-using AuctioChain.DAL.Models.Admin.Dto;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
@@ -13,7 +12,7 @@ using AutoMapper;
 using FluentResults;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Nest;
+// using Nest;
 using Result = FluentResults.Result;
 
 namespace AuctioChain.BL.Auctions;
@@ -25,18 +24,17 @@ public class AuctionManager : IAuctionManager
     private readonly IMapper _mapper;
     private readonly IBalanceManager _balanceManager;
     private readonly IPublishEndpoint _publisher;
-    private readonly IElasticClient _elastic;
+    // private readonly IElasticClient _elastic;
 
     /// <summary>
     /// .ctor
     /// </summary>
-    public AuctionManager(DataContext context, IMapper mapper, IBalanceManager balanceManager, IPublishEndpoint publisher, IElasticClient elastic)
+    public AuctionManager(DataContext context, IMapper mapper, IBalanceManager balanceManager, IPublishEndpoint publisher)
     {
         _context = context;
         _mapper = mapper;
         _balanceManager = balanceManager;
         _publisher = publisher;
-        _elastic = elastic;
     }
 
     /// <inheritdoc />
@@ -82,16 +80,17 @@ public class AuctionManager : IAuctionManager
         if (!string.IsNullOrWhiteSpace(name))
         {
             name = name.ToLower();
-            var searchResponse = await _elastic.SearchAsync<AuctionIndex>(s => s
-                .Query(q => q
-                    .Term(t => t.Name, name)));
+            // var searchResponse = await _elastic.SearchAsync<AuctionIndex>(s => s
+            //     .Query(q => q
+            //         .Term(t => t.Name, name)));
 
-            foreach (var auc in searchResponse.Documents)
-            {
-                var auctionDal = await auctions.FirstOrDefaultAsync(item => item.Id == auc.Id);
-                if (auctionDal is not null)
-                    auctionsList.Add(auctionDal);
-            }
+            await auctions.Where(item => item.Name.ToLower() == name).ToListAsync();
+            // foreach (var auc in searchResponse.Documents)
+            // {
+            //     var auctionDal = await auctions.FirstOrDefaultAsync(item => item.Id == auc.Id);
+            //     if (auctionDal is not null)
+            //         auctionsList.Add(auctionDal);
+            // }
         }
         else
             auctionsList = auctions.ToList();
@@ -130,8 +129,8 @@ public class AuctionManager : IAuctionManager
             DateEnd = auction.DateEnd,
         };
 
-        var auctionIndex = _mapper.Map<AuctionIndex>(auction);
-        await _elastic.IndexDocumentAsync(auctionIndex);
+        // var auctionIndex = _mapper.Map<AuctionIndex>(auction);
+        // await _elastic.IndexDocumentAsync(auctionIndex);
         
         await _publisher.Publish(dto);
         await _context.Auctions.AddAsync(auction);

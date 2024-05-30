@@ -46,7 +46,6 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddElasticsearch();
 
 builder.Services.AddMassTransit(x =>
 {

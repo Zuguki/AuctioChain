@@ -14,6 +14,7 @@ services:
       NAME: "rabbitmq"
     networks:
       - rabbit-network
+    user: root
       
   auctiochain:
     image: auctiochain
@@ -28,6 +29,7 @@ services:
       - auctio-chain-app:/data/auctiochainapp
     depends_on:
       - rabbitmq
+    user: root
 
 networks:
   postgres-network:

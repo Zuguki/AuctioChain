@@ -33,7 +33,10 @@ public class BlockchainBalanceConsumer : IConsumer<CheckBalanceReplenishmentDto>
 	    var currentBalance = await contractFunction.QueryAsync<GetUserBalanceOfOutputDTO>(contractAddress, userBalanceModel);
 
 	    if (currentBalance.Balance > context.Message.StartBalanceInBlockchain)
+	    {
 		    await _balanceManager.AddCashToBalanceAsync(context.Message.UserId, currentBalance.Balance - context.Message.StartBalanceInBlockchain);
+		    return;
+	    }
 
 	    if (DateTime.UtcNow - context.Message.DateSend > new TimeSpan(0, 5, 0))
 		    return;

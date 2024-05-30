@@ -1,32 +1,5 @@
 services:
 
-#  elasticsearch:
-#    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
-#    environment:
-#      - bootstrap.memory_lock=true
-#      - ELASTIC_PASSWORD=helloworld1990
-#      - discovery.type=single-node
-#      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
-#      - cluster.routing.allocation.disk.threshold_enabled=false
-#      - xpack.security.enabled=false
-#    ulimits:
-#      memlock:
-#        soft: -1
-#        hard: -1
-#    ports:
-#      - 9200:9200
-#    networks: ['stack']
-#
-#  kibana:
-#    image: docker.elastic.co/kibana/kibana:8.12.0
-#    links:
-#      - elasticsearch
-#    ports:
-#      - 5601:5601
-#    networks: ['stack']
-#    depends_on:
-#      - elasticsearch
-  
   rabbitmq:
     image: "rabbitmq:3-management"
     environment:
@@ -41,22 +14,7 @@ services:
       NAME: "rabbitmq"
     networks:
       - rabbit-network
-#  
-#  postgres_db:
-#    container_name: postgres_db
-#    image: postgres:latest
-#    environment:
-#      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-passwd}
-#      POSTGRES_DB: auctionChain
-#    volumes:
-#      - postgres-data:/data/postgres
-#    ports:
-#      - "5432:5432"
-#    networks:
-#      - postgres-network
-#    restart: unless-stopped
-#    
+      
   auctiochain:
     image: auctiochain
     build:

@@ -24,7 +24,7 @@ public class ImageManager : IImageManager
 
         await WebFileHelper.UploadAndResizeImage(formFile.OpenReadStream(), fileName, width, height);
 
-        var uri = $"http://localhost:5121/{string.Join('/', fileName.Split('/').Skip(2))}";
+        var uri = $"{string.Join('/', fileName.Split('/').Skip(2))}";
         return new UploadImageResponse {FileName = uri};
     }
 }

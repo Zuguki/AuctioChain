@@ -151,8 +151,8 @@ builder.Services.AddSwaggerGen(option =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     using (var serviceScope = app.Services.CreateScope())
     {
         var services = serviceScope.ServiceProvider;
@@ -169,9 +169,25 @@ if (app.Environment.IsDevelopment())
             }, RoleEnum.Administrator)!;
     }
 
+    using (var serviceScope = app.Services.CreateScope())
+    {
+        var services = serviceScope.ServiceProvider;
+        var userManager = services.GetService<UserManager<ApplicationUser>>();
+        var accountManager = services.GetService<IAccountManager>();
+
+        if (await userManager?.FindByEmailAsync("moderator@moderator.com")! is null)
+            await accountManager?.CreateMemberAsync(new RegisterRequest
+            {
+                Email = "moderator@moderator.com",
+                UserName = "moderator",
+                Password = "Qwerty!234",
+                PasswordConfirm = "Qwerty!234",
+            }, RoleEnum.Moderator)!;
+    }
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 app.UseStaticFiles();
 app.UseHttpsRedirection();

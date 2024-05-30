@@ -81,12 +81,11 @@ public class BalanceManager : IBalanceManager
         if (user is null)
             return Result.Fail("Пользователь не найден");
 
-        if (request.AuctioChain >= user.Balance)
+        var cash = (decimal) ((double) request.EthValue * Math.Pow(10, 4));
+
+        if (cash >= user.Balance)
             return Result.Fail("Недостаточно средств");
         
-        // var weiValue = (double) request.AuctioChain * Math.Pow(10, 14);
-        // user.Balance -= request.AuctioChain;
-        //
         // var withdrowModel = new WithdrowToFunction
         // {
         //     UserAddress = request.WalletAddress,
@@ -97,6 +96,8 @@ public class BalanceManager : IBalanceManager
         //
         // var contractFunction = _web3.Eth.GetContractQueryHandler<WithdrowToFunction>();
         // var currentBalance = await contractFunction.QueryAsync<byte[]>(contractAddress, withdrowModel);
+        
+        user.Balance -= cash;
         await _context.SaveChangesAsync();
         return Result.Ok();
     }

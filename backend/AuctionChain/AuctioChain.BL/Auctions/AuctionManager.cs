@@ -61,10 +61,10 @@ public class AuctionManager : IAuctionManager
         {
             return Task.FromResult(orderByStatus switch
             {
-                OrderByAuctionStatus.Name => auctions.OrderBy(a => a.Name),
-                OrderByAuctionStatus.NameDescending => auctions.OrderByDescending(a => a.Name),
-                OrderByAuctionStatus.AuctionDateStart => auctions.OrderBy(a => a.DateStart),
-                OrderByAuctionStatus.AuctionDateEnd => auctions.OrderBy(a => a.DateEnd),
+                OrderByAuctionStatus.Name => auctions.OrderBy(a => a.Name).ToList(),
+                OrderByAuctionStatus.NameDescending => auctions.OrderByDescending(a => a.Name).ToList(),
+                OrderByAuctionStatus.AuctionDateStart => auctions.OrderBy(a => a.DateStart).ToList(),
+                OrderByAuctionStatus.AuctionDateEnd => auctions.OrderBy(a => a.DateEnd).ToList(),
                 _ => auctions
             });
         }
@@ -74,7 +74,7 @@ public class AuctionManager : IAuctionManager
 
     private async Task<IEnumerable<AuctionDal>> SearchAuctionsByNameOrAllAsync(string? name)
     {
-        var auctions = _context.Auctions.Include(a => a.Lots);
+        var auctions = await _context.Auctions.Include(a => a.Lots).ToListAsync();
         var auctionsList = new List<AuctionDal>();
         
         if (!string.IsNullOrWhiteSpace(name))
@@ -84,7 +84,7 @@ public class AuctionManager : IAuctionManager
             //     .Query(q => q
             //         .Term(t => t.Name, name)));
 
-            await auctions.Where(item => item.Name.ToLower() == name).ToListAsync();
+            return auctions.Where(item => item.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
             // foreach (var auc in searchResponse.Documents)
             // {
             //     var auctionDal = await auctions.FirstOrDefaultAsync(item => item.Id == auc.Id);

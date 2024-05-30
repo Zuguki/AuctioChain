@@ -16,7 +16,7 @@ public class WithdrawCashRequest
     [Required]
     public string WalletAddress { get; set; }
     
-    [JsonPropertyName("auctioChain")]
+    [JsonPropertyName("ethValue")]
     [Required]
-    public decimal AuctioChain { get; set; }
+    public decimal EthValue { get; set; }
 }

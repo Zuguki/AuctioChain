@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AuctioChain.BL.Balance;
 using AuctioChain.BL.Balance.Blockchain.Functions;
 using AuctioChain.DAL.Models.Profile.Dto;
-using AuctioChain.MQ.Blockchain.Dto;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Nethereum.Web3;

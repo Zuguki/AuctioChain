@@ -18,11 +18,13 @@ const PanelInformationBill: FC<IPanelInformationBill> = ({ bill }) => {
         isLoading: isLoadingBalance,
     } = useGetAPI(() => BalanceService.getBalanceUser(), ["balance"]);
 
+    const isLoadingInfoBalance: boolean = !isLoading && !isLoadingBalance;
+
     return (
         <div className={styles.background}>
             <div className={styles.positionBlock}>
                 <h2 className={styles.title}>Баланс:</h2>
-                {!isLoadingBalance ? (
+                {isLoadingInfoBalance ? (
                     <p className={styles.balance}>
                         {balance} {LogicCurrency.Ac}
                         <span className={styles.balanceRub}>

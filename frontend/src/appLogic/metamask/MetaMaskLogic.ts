@@ -2,32 +2,12 @@ import { ethers } from "ethers";
 import { stateApp, userStore } from "@/context/context.ts";
 import LocalStorageLogic from "../localStorageLogic/LocalStorageLogic.ts";
 import BalanceService from "../../API/service/BalanceService.ts";
-import { NotificationTransaction } from "../notificationLogic/VarietesNotifications.ts";
+import { NotificationTransaction } from "@/appLogic/notificationLogic/VarietesNotifications.ts";
 
 export default class MetaMaskLogic {
     private static contractAddress: string = import.meta.env.VITE_BILL_KEY;
 
     private static contractABI = [
-        {
-            inputs: [],
-            name: "payForItem",
-            outputs: [],
-            stateMutability: "payable",
-            type: "function",
-        },
-        {
-            inputs: [
-                {
-                    internalType: "address",
-                    name: "userAddress",
-                    type: "address",
-                },
-            ],
-            name: "removeUserFromMap",
-            outputs: [],
-            stateMutability: "nonpayable",
-            type: "function",
-        },
         {
             inputs: [],
             stateMutability: "nonpayable",
@@ -45,11 +25,31 @@ export default class MetaMaskLogic {
             outputs: [
                 {
                     internalType: "uint256",
-                    name: "result",
+                    name: "balance",
                     type: "uint256",
                 },
             ],
             stateMutability: "view",
+            type: "function",
+        },
+        {
+            inputs: [],
+            name: "owner",
+            outputs: [
+                {
+                    internalType: "address",
+                    name: "",
+                    type: "address",
+                },
+            ],
+            stateMutability: "view",
+            type: "function",
+        },
+        {
+            inputs: [],
+            name: "payForItem",
+            outputs: [],
+            stateMutability: "payable",
             type: "function",
         },
         {
@@ -69,6 +69,24 @@ export default class MetaMaskLogic {
                 },
             ],
             stateMutability: "view",
+            type: "function",
+        },
+        {
+            inputs: [
+                {
+                    internalType: "address",
+                    name: "userAddress",
+                    type: "address",
+                },
+                {
+                    internalType: "uint256",
+                    name: "value",
+                    type: "uint256",
+                },
+            ],
+            name: "withdrowTo",
+            outputs: [],
+            stateMutability: "nonpayable",
             type: "function",
         },
     ];
@@ -118,10 +136,6 @@ export default class MetaMaskLogic {
             const signer = await MetaMaskLogic.web3Provider.getSigner();
             const contractWithSigner = MetaMaskLogic.contract.connect(signer);
             await BalanceService.postBalance(signer.address);
-            await contractWithSigner
-                .getFunction("payForItem")
-                .send({ value: ethers.parseEther(eph) });
-            LocalStorageLogic.setProcessAddMoney(true);
             const prevBalance: number | undefined =
                 await this.requestUserMoney();
             if (!prevBalance) {
@@ -132,10 +146,17 @@ export default class MetaMaskLogic {
             }
             LocalStorageLogic.startLoadingTransaction(prevBalance);
             stateApp.notification = NotificationTransaction;
+            LocalStorageLogic.setProcessAddMoney(true);
+            await contractWithSigner
+                .getFunction("payForItem")
+                .send({ value: ethers.parseEther(eph) });
             return await this.getUserMoney();
         } catch (error) {
             console.log(JSON.stringify(error, null, 4));
             alert(`Ошибка транзакции! ${error}`);
+            LocalStorageLogic.setProcessAddMoney(false);
+            LocalStorageLogic.endLoadingTransaction();
+            stateApp.notification = null;
             return;
         }
     }

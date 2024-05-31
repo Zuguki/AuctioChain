@@ -28,6 +28,7 @@ const PageCreateAuction: FC = () => {
         blurError();
         const image: string | null = await postCorrectImage();
         if (!image) {
+            alert("Ошибка загрузки изображения!");
             return;
         }
         const res = await postData(reformatAuction(dataUser, image));

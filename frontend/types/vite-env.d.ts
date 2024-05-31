@@ -5,4 +5,5 @@ interface ImportMetaEnv {
     readonly VITE_BILL_KEY: string;
     readonly VITE_API_KEY_CURRENCY: string;
     readonly VITE_API_URL_CURRENCY: string;
+    readonly VITE_URL_IMG: string;
 }

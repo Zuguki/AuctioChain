@@ -92,7 +92,9 @@ const AuctionInteraction: FC<IInteraction<IPutAuction>> = ({
                     }
                 />
                 <div className={styleCreateAuction.positionButton}>
-                    <SubmitButton loading={loading}>{buttonText}</SubmitButton>
+                    <SubmitButton type="submit" loading={loading}>
+                        {buttonText}
+                    </SubmitButton>
                 </div>
             </div>
         </Form>

@@ -37,19 +37,19 @@ public interface IAuctionManager
     /// <summary>
     /// Удалить модель
     /// </summary>
-    Task<Result> DeleteAsync(Guid id, Guid userId);
+    Task<Result> DeleteAsync(Guid id, Guid userId, bool isAdmin);
 
     /// <summary>
     /// Обновить модель
     /// </summary>
-    Task<Result> UpdateAsync(UpdateAuctionRequest model, Guid userId);
+    Task<Result> UpdateAsync(UpdateAuctionRequest model, Guid userId, bool isAdmin);
 
     /// <summary>
     /// Изменить состояние создания аукциона
     /// </summary>
     /// <param name="id">Id аукциона</param>
     /// <param name="userId">Id пользователя, который сделал запрос</param>
-    Task<Result> ChangeCreationStateAsync(Guid id, Guid userId);
+    Task<Result> ChangeCreationStateAsync(Guid id, Guid userId, bool isAdmin);
 
     /// <summary>
     /// Отменить аукцион

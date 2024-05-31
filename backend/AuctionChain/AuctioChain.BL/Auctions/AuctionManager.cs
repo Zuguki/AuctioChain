@@ -12,7 +12,6 @@ using AutoMapper;
 using FluentResults;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
-// using Nest;
 using Result = FluentResults.Result;
 
 namespace AuctioChain.BL.Auctions;
@@ -178,17 +177,17 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> DeleteAsync(Guid request, Guid userId)
+    public async Task<Result> DeleteAsync(Guid request, Guid userId, bool isAdmin)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == request);
 
         if (auction is null)
             return Result.Ok();
         
-        if (auction.UserId != userId)
+        if (auction.UserId != userId && !isAdmin)
             return Result.Fail("У вас нет доступа к редактированию данного аукциона");
         
-        if (!auction.IsEditable)
+        if (!auction.IsEditable && !isAdmin)
             return Result.Fail("Данный аукцион нельзя удалить");
         
         _context.Auctions.Remove(auction);
@@ -197,14 +196,14 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> UpdateAsync(UpdateAuctionRequest model, Guid userId)
+    public async Task<Result> UpdateAsync(UpdateAuctionRequest model, Guid userId, bool isAdmin)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == model.AuctionId);
         
         if (auction is null)
             return Result.Fail("Аукцион не найден");
         
-        if (auction.UserId != userId)
+        if (auction.UserId != userId && !isAdmin)
             return Result.Fail("У вас нет доступа к редактированию данного аукциона");
         
         if (!auction.IsEditable)
@@ -221,13 +220,13 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> ChangeCreationStateAsync(Guid auctionId, Guid userId)
+    public async Task<Result> ChangeCreationStateAsync(Guid auctionId, Guid userId, bool isAdmin)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == auctionId);
         if (auction is null)
             return Result.Fail("Аукцион не найден");
 
-        if (auction.UserId != userId)
+        if (auction.UserId != userId && !isAdmin)
             return Result.Fail("У вас нет доступа к редактированию данного аукциона");
 
         if (!auction.IsEditable)

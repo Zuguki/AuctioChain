@@ -89,12 +89,19 @@ public class AuctionController : ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest("Переданы некорректные данные");
+        
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        var isAdmin = splited.Contains(RoleEnum.Administrator.ToString());
 
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
             return Unauthorized();
         
-        var result = await _manager.ChangeCreationStateAsync(id, (Guid) userId);
+        var result = await _manager.ChangeCreationStateAsync(id, (Guid) userId, isAdmin);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -111,11 +118,18 @@ public class AuctionController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданы некорректные данные");
         
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        var isAdmin = splited.Contains(RoleEnum.Administrator.ToString());
+        
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
             return Unauthorized();
 
-        var result = await _manager.DeleteAsync(id, (Guid) userId);
+        var result = await _manager.DeleteAsync(id, (Guid) userId, isAdmin);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -132,11 +146,18 @@ public class AuctionController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest("Переданы некорректные данные");
         
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        var isAdmin = splited.Contains(RoleEnum.Administrator.ToString());
+        
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
             return Unauthorized();
 
-        var result = await _manager.UpdateAsync(request, (Guid) userId);
+        var result = await _manager.UpdateAsync(request, (Guid) userId, isAdmin);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         

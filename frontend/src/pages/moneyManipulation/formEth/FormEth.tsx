@@ -21,6 +21,7 @@ import stateFormImg from "../../../design/icons/changeStateForm.svg";
 import { useMutation } from "@tanstack/react-query";
 import IPostWithdraw from "@/API/interfaces/request/IPostWithdraw.ts";
 import BalanceService from "@/API/service/BalanceService.ts";
+import useGetAPI from "@/hooks/API/useGetAPI.ts";
 
 const Ac: number = LogicCurrency.ValueAc;
 type StateForm = "add" | "takeOf";
@@ -42,6 +43,10 @@ const FormEth = observer(() => {
             BalanceService.withdraw(variables),
         mutationKey: ["withdraw"],
     });
+    const { refetch } = useGetAPI(
+        () => BalanceService.getBalanceUser(),
+        ["balance"],
+    );
     if (error) alert(error.message);
     const { stateApp } = useContext(Context);
     const [stateForm, setStateForm] = useState<StateForm>("add");
@@ -68,6 +73,7 @@ const FormEth = observer(() => {
                     console.log(e);
                 } finally {
                     setIsSendEph(() => false);
+                    refetch();
                 }
                 break;
             }
@@ -77,6 +83,7 @@ const FormEth = observer(() => {
                     walletAddress: LocalStorageLogic.BILL,
                     ethValue: ephFloat,
                 });
+                refetch();
                 stateApp.notification = NotificationWithdraw(
                     ephFloat * LogicCurrency.ValueAc,
                 );

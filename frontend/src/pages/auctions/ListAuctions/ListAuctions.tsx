@@ -23,7 +23,7 @@ const ListAuctions: FC<IListAuctions> = memo(
             () =>
                 AuctionService.getAuctions(
                     currentPage,
-                    TYPE_DEVICE === "desktop" ? 2 : 6,
+                    TYPE_DEVICE === "desktop" ? 12 : 6,
                     stateApp.paramsAuctions,
                 ),
             ["auctions", currentPage, stateApp.paramsAuctions],

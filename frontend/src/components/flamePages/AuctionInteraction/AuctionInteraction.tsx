@@ -67,6 +67,7 @@ const AuctionInteraction: FC<IInteraction<IPutAuction>> = ({
                 <DateInput
                     title="Дата начала"
                     name="dateStart"
+                    min={DateLogic.getDateNow()}
                     error={error}
                     changeValue={logicFormValue}
                     errorBlur={blurError}

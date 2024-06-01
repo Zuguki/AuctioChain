@@ -6,7 +6,7 @@ const useGetAPI = <Res>(
     queryKey: unknown[],
     baseData: Res = {} as Res,
 ) => {
-    const { data, isSuccess, isLoading, error } = useQuery({
+    const { data, isSuccess, isLoading, error, ...props } = useQuery({
         queryKey,
         queryFn: () => response(),
         retry: 3,
@@ -19,6 +19,7 @@ const useGetAPI = <Res>(
         isSuccess,
         error,
         headers: data?.headers,
+        ...props,
     };
 };
 

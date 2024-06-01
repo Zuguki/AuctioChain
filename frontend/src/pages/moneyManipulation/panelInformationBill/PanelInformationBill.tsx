@@ -17,6 +17,7 @@ const PanelInformationBill: FC<IPanelInformationBill> = ({ bill }) => {
         data: { balance },
         isLoading: isLoadingBalance,
     } = useGetAPI(() => BalanceService.getBalanceUser(), ["balance"]);
+
     const isLoadingInfoBalance: boolean = !isLoading && !isLoadingBalance;
 
     return (

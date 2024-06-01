@@ -12,9 +12,16 @@ import styles from "./formEth.module.scss";
 import { Context } from "@/context/context.ts";
 import { roundNumber } from "@/auxiliaryTools/mathOperations.ts";
 import { observer } from "mobx-react-lite";
-import { NotificationAddMoney } from "@/appLogic/notificationLogic/VarietesNotifications.ts";
+import {
+    NotificationAddMoney,
+    NotificationWithdraw,
+} from "@/appLogic/notificationLogic/VarietesNotifications.ts";
 import { defaultErrorBlur } from "@/components/UI/inputs/IInput.ts";
 import stateFormImg from "../../../design/icons/changeStateForm.svg";
+import { useMutation } from "@tanstack/react-query";
+import IPostWithdraw from "@/API/interfaces/request/IPostWithdraw.ts";
+import BalanceService from "@/API/service/BalanceService.ts";
+import useGetAPI from "@/hooks/API/useGetAPI.ts";
 
 const Ac: number = LogicCurrency.ValueAc;
 type StateForm = "add" | "takeOf";
@@ -25,7 +32,22 @@ const FormEth = observer(() => {
         dataUser: { eph },
         logicFormValue,
     } = useDataUser<{ eph: string }>();
+    const [isSendEph, setIsSendEph] = useState<boolean>(false);
 
+    const {
+        mutateAsync: withdrawMove,
+        error,
+        isPending,
+    } = useMutation({
+        mutationFn: (variables: IPostWithdraw) =>
+            BalanceService.withdraw(variables),
+        mutationKey: ["withdraw"],
+    });
+    const { refetch } = useGetAPI(
+        () => BalanceService.getBalanceUser(),
+        ["balance"],
+    );
+    if (error) alert(error.message);
     const { stateApp } = useContext(Context);
     const [stateForm, setStateForm] = useState<StateForm>("add");
     const submitEth = async (): Promise<void> => {
@@ -35,16 +57,37 @@ const FormEth = observer(() => {
 
         switch (stateForm) {
             case "add": {
-                const addBalance: number | undefined =
-                    await MetaMaskLogic.sendEth(eph);
-                LocalStorageLogic.endLoadingTransaction();
-                if (addBalance) {
-                    stateApp.notification = NotificationAddMoney(addBalance);
+                try {
+                    setIsSendEph(() => true);
+                    const addBalance: number | undefined =
+                        await MetaMaskLogic.sendEth(eph);
+                    LocalStorageLogic.endLoadingTransaction();
+                    if (addBalance) {
+                        stateApp.notification =
+                            NotificationAddMoney(addBalance);
+                    }
+                } catch (e) {
+                    if (e instanceof Error) {
+                        alert(`Error ${e.message}`);
+                    }
+                    console.log(e);
+                } finally {
+                    setIsSendEph(() => false);
+                    refetch();
                 }
                 break;
             }
             case "takeOf": {
-                alert("недоступно!");
+                const ephFloat = Number.parseFloat(eph);
+                await withdrawMove({
+                    walletAddress: LocalStorageLogic.BILL,
+                    ethValue: ephFloat,
+                });
+                refetch();
+                stateApp.notification = NotificationWithdraw(
+                    ephFloat * LogicCurrency.ValueAc,
+                );
+                break;
             }
         }
     };
@@ -97,7 +140,7 @@ const FormEth = observer(() => {
                     </p>
                 </div>
             )}
-            <BaseButton type="submit" disabled={stateApp.notification !== null}>
+            <BaseButton type="submit" disabled={isPending || isSendEph}>
                 {stateForm === "add" ? "Пополнить" : "Снять"}
             </BaseButton>
         </Form>

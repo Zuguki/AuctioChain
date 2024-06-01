@@ -6,6 +6,7 @@ import { IBaseCard, IPropsCardDiv } from "@/interfaces/BaseCard.ts";
 import PathApp from "../../../../routes/pathApp/PathApp.ts";
 import defaultImage from "../../../../design/not image.svg";
 import sliceText from "@/auxiliaryTools/sliceText.ts";
+import { urlImg } from "@/auxiliaryTools/urlImg.ts";
 
 function CardDiv<T extends IBaseCard>({
     objCard,
@@ -22,7 +23,7 @@ function CardDiv<T extends IBaseCard>({
             <h5 className={styleCard.title}>{name}</h5>
             <img
                 className={styleCard.img}
-                src={image}
+                src={urlImg(image)}
                 onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {
                     e.currentTarget.onerror = null;
                     e.currentTarget.src = defaultImage;

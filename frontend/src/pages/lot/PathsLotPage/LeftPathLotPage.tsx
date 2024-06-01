@@ -11,6 +11,7 @@ import AuctionLogic from "../../../appLogic/logicAuction/AuctionLogic.ts";
 import BaseButton from "../../../components/UI/BaseButton/BaseButton.tsx";
 import LotService from "../../../API/service/LotService.ts";
 import { Context } from "@/context/context.ts";
+import { urlImg } from "@/auxiliaryTools/urlImg.ts";
 
 const { isCreation, isWaitBidding } = AuctionLogic;
 
@@ -40,7 +41,7 @@ const LeftPathLotPage: FC<IPathLotPage> = memo(({ lot }) => {
     };
     return (
         <div className={styleLot.left}>
-            <img className={styleLot.img} src={image} alt="lot" />
+            <img className={styleLot.img} src={urlImg(image)} alt="lot" />
             {username && auctionId && (
                 <>
                     <p className={styleLot.auxiliaryText}>

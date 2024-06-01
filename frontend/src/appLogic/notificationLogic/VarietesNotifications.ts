@@ -1,5 +1,6 @@
 import NotificationLogic from "./NotificationLogic.ts";
 import LogicCurrency from "../metamask/LogicCurrency.ts";
+import INotification from "@/appLogic/notificationLogic/INotification.ts";
 
 export const NotificationAddMoney = (balance: number): NotificationLogic => {
     return new NotificationLogic(
@@ -53,3 +54,9 @@ export const NotificationModeration: NotificationLogic = new NotificationLogic(
     "Успешно!",
     "Действия модератора были применены к аукциону.",
 );
+
+export const NotificationWithdraw = (ac: number): INotification =>
+    new NotificationLogic(
+        "Операция прошла успешно!",
+        `Было выведено ${ac} ${LogicCurrency.Ac}.`,
+    );

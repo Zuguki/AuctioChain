@@ -1,0 +1,36 @@
+.modal {
+    width: 280px;
+    height: 210px;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+    right: 50px;
+    position: fixed;
+    top: 130px;
+    z-index: 500;
+}
+
+.link {
+    color: #606060;
+    font-size: 20px;
+    line-height: 21px; /* 105% */
+    margin: 5px 0;
+    text-decoration: none;
+    display: block;
+    width: max-content;
+}
+
+.userName {
+    color: #818080;
+    font-size: 12px;
+    line-height: 16px; /* 133.333% */
+    margin: 10px 0 5px;
+}
+
+.link:hover {
+    color: #615ef3;
+}
+
+.position {
+    margin: 30px 0 0 45px;
+}

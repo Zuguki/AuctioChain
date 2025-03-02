@@ -1,0 +1,21 @@
+.btn {
+    border-radius: 10px;
+    border: 2px solid #615ef3;
+    width: 175px;
+    height: 40px;
+    background: #ffffff;
+    color: #615ef3;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.btn:hover {
+    background: #615ef3;
+    color: #ffffff;
+}

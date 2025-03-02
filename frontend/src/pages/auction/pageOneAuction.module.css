@@ -1,0 +1,75 @@
+.title {
+    margin: 25px 0 10px 0;
+}
+
+.userName {
+    color: #818080;
+    margin-bottom: 20px;
+}
+
+.informationFinish {
+    margin: 5px 0 0;
+    color: #d9d9d9;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+    width: 30%;
+}
+
+.position {
+    margin: 0 165px;
+}
+
+.positionButtonActive {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.positionCreateLot {
+    margin: 0 165px;
+    padding: 5px 0 10px 0;
+}
+
+.positionClose {
+    position: absolute;
+    right: 150px;
+    margin-top: 20px;
+}
+
+.informationLots {
+    color: #818080;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    margin: 10px 165px 15px;
+}
+
+.information {
+    color: #818080;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.description {
+    font-weight: bold;
+}
+
+.blockInformation {
+    word-break: break-word;
+    width: 60%;
+}
+
+.userLink {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.userName:hover {
+    color: #615ef3;
+}
+
+.positionButtonEdit {
+    margin-top: 10px;
+}

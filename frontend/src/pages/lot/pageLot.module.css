@@ -1,0 +1,135 @@
+.position {
+    margin: 70px 150px 0 100px;
+}
+
+.left {
+    float: left;
+    width: 40%;
+}
+
+.positionButton {
+    margin: 10px 0;
+}
+
+.textBets {
+    font-weight: bold;
+    display: inline-block;
+}
+
+.positionShowBet {
+    margin-left: 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.notBet {
+    color: #ff6e6e;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 140% */
+}
+
+.positionClose {
+    position: absolute;
+    right: 100px;
+    margin-top: 10px;
+}
+
+.right {
+    float: right;
+    width: 57%;
+}
+
+.information {
+    margin-bottom: 20px;
+}
+
+.information > p {
+    margin: 0 0 5px 0;
+}
+
+.img {
+    width: 650px;
+    height: 650px;
+    object-fit: cover;
+    margin-bottom: 30px;
+}
+
+.auxiliaryText {
+    color: #818080;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.linkLot {
+    color: #615ef3;
+    text-decoration: none;
+}
+
+.protectedText {
+    color: #d9d9d9;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.price {
+    font-weight: 900;
+}
+
+.btnArrow {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.informationBet {
+    font-size: 18px;
+    color: #b7b7b7;
+    margin-bottom: 0;
+}
+
+.backgroundInformation {
+    border-radius: 50px;
+    padding: 25px 20px 20px 50px;
+    background-color: white;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    margin-bottom: 30px;
+}
+
+.cannotAddBet {
+    background-color: #D72828;
+    border-radius: 25px;
+    padding: 10px 30px;
+    width: 600px;
+    height: 55px;
+    position: fixed;
+    bottom: 25px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.textCannotAddBet {
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    margin: 8px auto;
+}
+
+@media screen and (max-width: 1600px) {
+    .img {
+        width: 500px;
+        height: 500px;
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+}

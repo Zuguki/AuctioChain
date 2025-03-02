@@ -1,0 +1,17 @@
+.close {
+    background: url("../../design/icons/cancel.svg") no-repeat;
+    width: 35px;
+    height: 35px;
+    border: 0;
+    position: sticky;
+    top: 150px;
+    float: right;
+}
+
+.close:hover {
+    transform: scale(1.05);
+}
+
+.back {
+    background: url("../../design/icons/go back.svg") no-repeat;
+}

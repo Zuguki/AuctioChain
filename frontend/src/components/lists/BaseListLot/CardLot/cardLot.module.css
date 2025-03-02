@@ -1,0 +1,13 @@
+.price {
+    color: #606060;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px; /* 140% */
+}
+
+.priceNumber {
+    font-size: 18px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}

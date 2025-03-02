@@ -1,0 +1,45 @@
+.textArea {
+    width: 570px;
+    height: 200px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: #f5f5f5;
+    border: 0;
+    outline: 0;
+
+    color: #818080;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
+    font-size: 20px;
+    line-height: 28px; /* 140% */
+    padding: 20px 30px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.title {
+    color: #818080;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+    margin: 15px 0;
+    display: block;
+}
+
+.error {
+    border-radius: 10px;
+    background: #ffffff;
+    outline: 0;
+
+    color: #f76f7a;
+    border: 2px solid #f76f7a;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
+    font-size: 20px;
+    line-height: 28px; /* 140% */
+    padding-left: 30px;
+}

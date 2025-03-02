@@ -1,0 +1,24 @@
+.modal {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.err {
+    color: #f76f7a;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.text {
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.button {
+    background: url("../../design/reload.svg") no-repeat;
+    width: 70px;
+    height: 70px;
+    border: none;
+}

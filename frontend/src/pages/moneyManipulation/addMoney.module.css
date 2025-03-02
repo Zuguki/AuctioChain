@@ -1,0 +1,45 @@
+.position {
+    margin: 25px 0 25px 165px;
+}
+
+.positionAddWallet {
+    margin: 20px 0;
+}
+
+.title {
+    display: inline-block;
+    color: #606060;
+}
+
+.balance {
+    color: #818080;
+}
+
+
+.fox {
+    width: 50px;
+    vertical-align: text-bottom;
+    margin-left: 10px;
+}
+
+.attention {
+    color: #f76f7a;
+    font-size: 20px;
+    margin-top: 3px;
+}
+
+.bill {
+    color: #818080;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px 0 25px;
+}
+
+.titleBlock {
+    margin-bottom: 20px;
+}
+
+.panels {
+    display: flex;
+    justify-content: space-evenly;
+}

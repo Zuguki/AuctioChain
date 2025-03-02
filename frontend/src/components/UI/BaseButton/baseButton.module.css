@@ -1,0 +1,31 @@
+.base {
+    width: 250px;
+    height: 45px;
+    flex-shrink: 0;
+    background-color: #615ef3;
+    border: 0;
+    border-radius: 10px;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: normal;
+}
+
+.small {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.red {
+    background-color: #ce2d39;
+}
+
+.base:hover:enabled {
+    transform: scale(1.01);
+}

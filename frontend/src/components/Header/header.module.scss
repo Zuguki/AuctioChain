@@ -1,0 +1,98 @@
+.header {
+    width: 100%;
+    height: 90px;
+    background: #ffffff;
+    box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.25);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.fox {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+}
+
+ul:first-child {
+    padding-left: 20%;
+    @media screen and (max-width: 1024px) {
+        padding-left: 20px;
+    }
+}
+
+.positionUser {
+    padding-top: 0;
+    text-align: center;
+}
+
+.buttonAuth {
+    background: none;
+    border: none;
+}
+
+.positionUser:hover,
+.positionUserNot:hover {
+    transform: scale(1.03);
+}
+
+.positionUserNot {
+    height: 90px;
+    padding-top: 15px;
+    @media screen and (max-width: 1600px) {
+        height: 70px;
+        padding-top: 10px;
+    }
+
+    @media screen and (max-width: 1024px) {
+        height: 30px;
+    }
+}
+
+ul:last-child {
+    margin-right: 100px;
+    @media screen and (max-width: 1024px) {
+        margin-right: 20px;
+    }
+}
+
+ul li:nth-child(2) {
+    padding-left: 12%;
+    @media screen and (max-width: 1024px) {
+        padding-left: 0;
+    }
+}
+
+ul li:nth-child(2) img {
+    width: auto;
+    max-height: 30px;
+
+    @media screen and (max-width: 1024px) {
+        width: 150px;
+        height: auto;
+    }
+}
+
+.userName {
+    color: #818080;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    margin-bottom: 0;
+    text-align: center;
+
+    @media screen and (max-width: 1024px) {
+        height: 8px;
+    }
+}
+
+.mobileTitle {
+    width: 300px;
+}

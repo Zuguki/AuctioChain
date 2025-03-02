@@ -1,0 +1,44 @@
+.input::file-selector-button {
+    width: 270px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    border: 0;
+
+    color: #818080;
+    font-family:
+        SF Pro Display,
+        Montserrat,
+        sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.input {
+    width: 500px;
+    height: 60px;
+    font-size: 20px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.inputErr::file-selector-button {
+    color: #f76f7a;
+    border: 2px solid #f76f7a;
+}
+
+.title {
+    color: #818080;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+    margin: 15px 0;
+    display: block;
+}
+
+.titleErr {
+    color: #f76f7a;
+}

@@ -1,0 +1,163 @@
+.position {
+    margin: 0 100px 0 165px;
+}
+
+.blockTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.title {
+    text-align: center;
+    display: inline-block;
+    color: #606060;
+    font-size: 80px;
+    line-height: 70px;
+    margin-top: -200px;
+    overflow: hidden; /* Скрыть текст, который печатается */
+    white-space: nowrap; /* Печать текста посимвольно */
+    border-right: .05em solid #9187E5; /* Создание эффекта мигающего курсора */
+    animation: typing 3s steps(40, end), blink-caret .75s step-end 3s infinite; /* Анимация печати и мигания курсора */
+}
+
+/* Ключевая анимация для печати */
+@keyframes typing {
+    from {
+        width: 0
+    }
+    to {
+        width: 550px
+    }
+}
+
+/* Ключевая анимация для мигания курсора */
+@keyframes blink-caret {
+    from, to {
+        border-color: transparent
+    }
+    50% {
+        border-color: #9187E5;
+    }
+}
+
+.infoTitle {
+    text-align: center;
+    margin-left: 300px;
+    font-size: 24px;
+    font-weight: 900;
+    color: #818080;
+    animation: waveFade 3s infinite ease-in-out alternate;
+}
+
+@keyframes waveFade {
+    0% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1; /* Прозрачность картинки на конечном кадре */
+    }
+}
+
+.positionHorizontal {
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.positionVertical {
+    display: flex;
+    justify-content: center;
+}
+
+.cardAbout {
+    width: 1150px;
+    height: 270px;
+    border-radius: 50px;
+    background: #ffffff;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.cardAdvantagePosition {
+    width: 1250px;
+    flex-direction: row;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.logo {
+    margin-left: 90px;
+    margin-top: -70px;
+}
+
+.logo {
+    animation: fadeIn 5s infinite;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 5;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+
+.cardAdvantageRight {
+    margin: 40px 0 0 15px;
+}
+
+.cardAdvantageLeft {
+    margin-top: -20px;
+}
+
+.textAbout {
+    display: inline-block;
+    width: 600px;
+    margin: 50px 0 0 80px;
+    font-size: 22px;
+    line-height: 24px;
+}
+
+.cardAdvantage {
+    width: 600px;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    display: inline-block;
+}
+
+.cardAdvantage > div,
+h6,
+p {
+    font-size: 20px;
+}
+
+.cardAdvantage > div {
+    padding: 20px 20px 20px 35px;
+}
+
+.upToAuction {
+    margin: 30px 0;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px; /* 100% */
+}
+
+.positionInfo {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin: 10px;
+}

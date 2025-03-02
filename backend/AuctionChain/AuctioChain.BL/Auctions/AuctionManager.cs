@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctioChain.BL.Balance;
-using AuctioChain.BL.Publishers;
 using AuctioChain.BL.Services.Dto;
 using AuctioChain.DAL.EF;
 using AuctioChain.DAL.Models.Auction;
 using AuctioChain.DAL.Models.Auction.Dto;
-using AuctioChain.DAL.Models.Lot;
 using AuctioChain.DAL.Models.Pagination;
 using AutoMapper;
 using FluentResults;
-using Microsoft.AspNetCore.StaticFiles;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using Nest;
 using Result = FluentResults.Result;
 
 namespace AuctioChain.BL.Auctions;
@@ -27,19 +22,18 @@ public class AuctionManager : IAuctionManager
     private readonly DataContext _context;
     private readonly IMapper _mapper;
     private readonly IBalanceManager _balanceManager;
-    private readonly IPublisher<AuctionEndDto> _publisher;
-    private readonly IElasticClient _elastic;
+    private readonly IPublishEndpoint _publisher;
+    // private readonly IElasticClient _elastic;
 
     /// <summary>
     /// .ctor
     /// </summary>
-    public AuctionManager(DataContext context, IMapper mapper, IBalanceManager balanceManager, IPublisher<AuctionEndDto> publisher, IElasticClient elastic)
+    public AuctionManager(DataContext context, IMapper mapper, IBalanceManager balanceManager, IPublishEndpoint publisher)
     {
         _context = context;
         _mapper = mapper;
         _balanceManager = balanceManager;
         _publisher = publisher;
-        _elastic = elastic;
     }
 
     /// <inheritdoc />
@@ -66,10 +60,10 @@ public class AuctionManager : IAuctionManager
         {
             return Task.FromResult(orderByStatus switch
             {
-                OrderByAuctionStatus.Name => auctions.OrderBy(a => a.Name),
-                OrderByAuctionStatus.NameDescending => auctions.OrderByDescending(a => a.Name),
-                OrderByAuctionStatus.AuctionDateStart => auctions.OrderBy(a => a.DateStart),
-                OrderByAuctionStatus.AuctionDateEnd => auctions.OrderBy(a => a.DateEnd),
+                OrderByAuctionStatus.Name => auctions.OrderBy(a => a.Name).ToList(),
+                OrderByAuctionStatus.NameDescending => auctions.OrderByDescending(a => a.Name).ToList(),
+                OrderByAuctionStatus.AuctionDateStart => auctions.OrderBy(a => a.DateStart).ToList(),
+                OrderByAuctionStatus.AuctionDateEnd => auctions.OrderBy(a => a.DateEnd).ToList(),
                 _ => auctions
             });
         }
@@ -79,22 +73,23 @@ public class AuctionManager : IAuctionManager
 
     private async Task<IEnumerable<AuctionDal>> SearchAuctionsByNameOrAllAsync(string? name)
     {
-        var auctions = _context.Auctions.Include(a => a.Lots);
+        var auctions = await _context.Auctions.Include(a => a.Lots).ToListAsync();
         var auctionsList = new List<AuctionDal>();
         
         if (!string.IsNullOrWhiteSpace(name))
         {
             name = name.ToLower();
-            var searchResponse = await _elastic.SearchAsync<AuctionIndex>(s => s
-                .Query(q => q
-                    .Term(t => t.Name, name)));
+            // var searchResponse = await _elastic.SearchAsync<AuctionIndex>(s => s
+            //     .Query(q => q
+            //         .Term(t => t.Name, name)));
 
-            foreach (var auc in searchResponse.Documents)
-            {
-                var auctionDal = await auctions.FirstOrDefaultAsync(item => item.Id == auc.Id);
-                if (auctionDal is not null)
-                    auctionsList.Add(auctionDal);
-            }
+            return auctions.Where(item => item.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            // foreach (var auc in searchResponse.Documents)
+            // {
+            //     var auctionDal = await auctions.FirstOrDefaultAsync(item => item.Id == auc.Id);
+            //     if (auctionDal is not null)
+            //         auctionsList.Add(auctionDal);
+            // }
         }
         else
             auctionsList = auctions.ToList();
@@ -133,10 +128,10 @@ public class AuctionManager : IAuctionManager
             DateEnd = auction.DateEnd,
         };
 
-        var auctionIndex = _mapper.Map<AuctionIndex>(auction);
-        await _elastic.IndexDocumentAsync(auctionIndex);
+        // var auctionIndex = _mapper.Map<AuctionIndex>(auction);
+        // await _elastic.IndexDocumentAsync(auctionIndex);
         
-        await _publisher.Publish("topic", "auction.events", "auction.check-end", dto);
+        await _publisher.Publish(dto);
         await _context.Auctions.AddAsync(auction);
         await _context.SaveChangesAsync();
         
@@ -150,7 +145,7 @@ public class AuctionManager : IAuctionManager
             .Include(auc => auc.Lots)
             .FirstOrDefaultAsync(auc => auc.Id == model.Id);
         
-        if (auction is null || auction.Status != AuctionStatus.Complete)
+        if (auction is null || (int) auction.Status != (int) AuctionStatus.Complete)
             return Result.Ok();
 
         if (auction.Lots is null || auction.Lots.Count == 0)
@@ -182,17 +177,17 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> DeleteAsync(Guid request, Guid userId)
+    public async Task<Result> DeleteAsync(Guid request, Guid userId, bool isAdmin)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == request);
 
         if (auction is null)
             return Result.Ok();
         
-        if (auction.UserId != userId)
+        if (auction.UserId != userId && !isAdmin)
             return Result.Fail("У вас нет доступа к редактированию данного аукциона");
         
-        if (!auction.IsEditable)
+        if (!auction.IsEditable && !isAdmin)
             return Result.Fail("Данный аукцион нельзя удалить");
         
         _context.Auctions.Remove(auction);
@@ -201,14 +196,14 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> UpdateAsync(UpdateAuctionRequest model, Guid userId)
+    public async Task<Result> UpdateAsync(UpdateAuctionRequest model, Guid userId, bool isAdmin)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc.Id == model.AuctionId);
         
         if (auction is null)
             return Result.Fail("Аукцион не найден");
         
-        if (auction.UserId != userId)
+        if (auction.UserId != userId && !isAdmin)
             return Result.Fail("У вас нет доступа к редактированию данного аукциона");
         
         if (!auction.IsEditable)
@@ -225,13 +220,13 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> ChangeCreationStateAsync(Guid auctionId, Guid userId)
+    public async Task<Result> ChangeCreationStateAsync(Guid auctionId, Guid userId, bool isAdmin)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == auctionId);
         if (auction is null)
             return Result.Fail("Аукцион не найден");
 
-        if (auction.UserId != userId)
+        if (auction.UserId != userId && !isAdmin)
             return Result.Fail("У вас нет доступа к редактированию данного аукциона");
 
         if (!auction.IsEditable)
@@ -243,14 +238,14 @@ public class AuctionManager : IAuctionManager
     }
 
     /// <inheritdoc />
-    public async Task<Result> CancelAsync(Guid auctionId, Guid userId)
+    public async Task<Result> CancelAsync(Guid auctionId, Guid userId, bool isMember)
     {
         var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == auctionId);
 
         if (auction is null)
             return Result.Fail("Аукцион не найден");
         
-        if (auction.UserId != userId)
+        if (auction.UserId != userId && isMember)
             return Result.Fail("У вас нет доступа к редактированию данного аукциона");
 
         if (!auction.IsEditable)
@@ -259,5 +254,39 @@ public class AuctionManager : IAuctionManager
         auction.IsCanceled = true;
         await _context.SaveChangesAsync();
         return Result.Ok();
+    }
+
+    public async Task<Result> ApproveByIdAsync(Guid auctionId, Guid userId)
+    {
+        var auction = await _context.Auctions.FirstOrDefaultAsync(auc => auc!.Id == auctionId);
+
+        if (auction is null)
+            return Result.Fail("Аукцион не найден");
+        
+        if (!auction.IsEditable)
+            return Result.Fail("Данный аукцион нельзя отменить");
+        
+        if (auction.DateStart < DateTime.UtcNow)
+            return Result.Fail("Сначала настройте время так, чтобы аукцион начинался позже");
+
+        auction.IsApproved = true;
+        auction.ManagerId = userId;
+        await _context.SaveChangesAsync();
+        return Result.Ok();
+    }
+
+    public async Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAuctionsForApproveAsync(PaginationRequest pagination)
+    {
+        var auctionsList = await _context.Auctions.Include(auc => auc.Lots)
+            .ToListAsync();
+        
+        var auctions = auctionsList.Where(auc => (int)auc.Status == (int)AuctionStatus.Moderation).ToList();
+        var paginationMetadata = new PaginationMetadata(auctions.Count, pagination.Page, pagination.ItemsPerPage);
+        auctions = auctions
+            .Skip((pagination.Page - 1) * pagination.ItemsPerPage)
+            .Take(pagination.ItemsPerPage).ToList();
+
+        var response = new GetAuctionsResponse {Auctions = auctions.Select(a => _mapper.Map<AuctionResponse>(a))};
+        return Result.Ok((response, paginationMetadata));
     }
 }

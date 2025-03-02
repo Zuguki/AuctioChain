@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 
 namespace AuctioChain.BL.Publishers;
 
-public class BlockchainPublisher : IPublisher<CheckBalanceReplenishmentDto>
+public class BlockchainPublisher : IPublishers<CheckBalanceReplenishmentDto>
 {
     private readonly IConnectionFactory _connectionFactory;
 

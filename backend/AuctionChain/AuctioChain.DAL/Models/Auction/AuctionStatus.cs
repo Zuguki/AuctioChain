@@ -31,4 +31,9 @@ public enum AuctionStatus
     /// Аукцион отменен
     /// </summary>
     Canceled = 5,
+    
+    /// <summary>
+    /// Аукцион находится на модерации
+    /// </summary>
+    Moderation = 6,
 }

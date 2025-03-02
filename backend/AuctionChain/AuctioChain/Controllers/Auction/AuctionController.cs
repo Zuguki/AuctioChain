@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AuctioChain.BL.Auctions;
-using AuctioChain.DAL.Models;
-using AuctioChain.DAL.Models.Auction;
+using AuctioChain.DAL.Models.Admin.Dto;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
 using AuctioChain.Extensions;
@@ -38,7 +38,7 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> CreateAuctionAsync([FromBody] CreateAuctionRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
 
         if (request.DateStart >= request.DateEnd)
             return BadRequest("Дата завершения аукциона должна быть больше даты начала аукциона");
@@ -62,13 +62,18 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> CancelAuctionAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
 
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
             return Unauthorized();
-        
-        var result = await _manager.CancelAsync(id, (Guid) userId);
+
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        var result = await _manager.CancelAsync(id, (Guid)userId, !splited.Contains(RoleEnum.Moderator.ToString()) && !splited.Contains(RoleEnum.Administrator.ToString()));
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -83,13 +88,20 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> ChangeAuctionCreationStateAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
+        
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        var isAdmin = splited.Contains(RoleEnum.Administrator.ToString());
 
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
             return Unauthorized();
         
-        var result = await _manager.ChangeCreationStateAsync(id, (Guid) userId);
+        var result = await _manager.ChangeCreationStateAsync(id, (Guid) userId, isAdmin);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -104,13 +116,20 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> DeleteAuctionAsync([FromRoute] Guid id)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
+        
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        var isAdmin = splited.Contains(RoleEnum.Administrator.ToString());
         
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
             return Unauthorized();
 
-        var result = await _manager.DeleteAsync(id, (Guid) userId);
+        var result = await _manager.DeleteAsync(id, (Guid) userId, isAdmin);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -125,13 +144,20 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> UpdateAuctionAsync([FromBody] UpdateAuctionRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
+        
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        var isAdmin = splited.Contains(RoleEnum.Administrator.ToString());
         
         var userId = HttpContext.TryGetUserId();
         if (userId is null)
             return Unauthorized();
 
-        var result = await _manager.UpdateAsync(request, (Guid) userId);
+        var result = await _manager.UpdateAsync(request, (Guid) userId, isAdmin);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
@@ -145,7 +171,7 @@ public class AuctionController : ControllerBase
     public async Task<IActionResult> GetAuctionsAsync([FromQuery] PaginationRequest pagination, [FromQuery] GetAuctionsRequest request)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
         
         var result = await _manager.GetAllAsync(pagination, request);
         if (result.IsFailed)
@@ -159,15 +185,71 @@ public class AuctionController : ControllerBase
     /// Получение аукциона по Id
     /// </summary>
     [HttpGet("{id:guid}")]
+    [Authorize]
     public async Task<IActionResult> GetAuctionByIdAsync([FromRoute (Name = "id")] Guid id)
     {
         if (!ModelState.IsValid)
-            return BadRequest("Переданны некорректные данные");
+            return BadRequest("Переданы некорректные данные");
 
         var result = await _manager.GetByIdAsync(id);
         if (result.IsFailed)
             return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
         
         return Ok(result.Value);
+    }
+
+    /// <summary>
+    /// Подтвердить аукцион
+    /// </summary>
+    [HttpPatch("approve/{auctionId:guid}")]
+    [Authorize]
+    public async Task<IActionResult> ApproveAuctionByIdAsync([FromRoute] Guid auctionId)
+    {
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        if (!splited.Contains(RoleEnum.Moderator.ToString()) && !splited.Contains(RoleEnum.Administrator.ToString()))
+            return Unauthorized();
+        
+        if (!ModelState.IsValid)
+            return BadRequest("Переданы некорректные данные");
+        
+        var userId = HttpContext.TryGetUserId();
+        if (userId is null)
+            return Unauthorized();
+
+        var result = await _manager.ApproveByIdAsync(auctionId, userId.Value);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+        
+        return Ok();
+    }
+    
+    /// <summary>
+    /// Получить все аукциона на подтверждение
+    /// </summary>
+    [HttpGet("approve")]
+    [Authorize]
+    public async Task<IActionResult> GetAllForApproveAsync([FromQuery] PaginationRequest pagination)
+    {
+        var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+        if (claim is null)
+            return BadRequest("Переданы некорректные данные");
+            
+        var splited = claim.Value.Split(' ');
+        if (!splited.Contains(RoleEnum.Moderator.ToString()) && !splited.Contains(RoleEnum.Administrator.ToString()))
+            return Unauthorized();
+        
+        if (!ModelState.IsValid)
+            return BadRequest("Переданы некорректные данные");
+
+        var result = await _manager.GetAllAuctionsForApproveAsync(pagination);
+        if (result.IsFailed)
+            return BadRequest(string.Join(", ", result.Reasons.Select(r => r.Message)));
+
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(result.Value.Item2));
+        return Ok(result.Value.Item1);
     }
 }

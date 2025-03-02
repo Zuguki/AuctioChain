@@ -1,7 +1,7 @@
 using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Contracts;
 
-namespace AuctioChain.MQ.Blockchain.Functions;
+namespace AuctioChain.BL.Balance.Blockchain.Functions;
 
 [Function("getUserBalance", "uint")]
 public class GetUserBalanceFunction : FunctionMessage

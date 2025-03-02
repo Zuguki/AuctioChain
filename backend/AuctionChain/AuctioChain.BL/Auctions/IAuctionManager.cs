@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AuctioChain.BL.Services.Dto;
+using AuctioChain.DAL.Models.Admin.Dto;
 using AuctioChain.DAL.Models.Auction.Dto;
 using AuctioChain.DAL.Models.Pagination;
 using FluentResults;
@@ -36,24 +37,37 @@ public interface IAuctionManager
     /// <summary>
     /// Удалить модель
     /// </summary>
-    Task<Result> DeleteAsync(Guid id, Guid userId);
+    Task<Result> DeleteAsync(Guid id, Guid userId, bool isAdmin);
 
     /// <summary>
     /// Обновить модель
     /// </summary>
-    Task<Result> UpdateAsync(UpdateAuctionRequest model, Guid userId);
+    Task<Result> UpdateAsync(UpdateAuctionRequest model, Guid userId, bool isAdmin);
 
     /// <summary>
     /// Изменить состояние создания аукциона
     /// </summary>
     /// <param name="id">Id аукциона</param>
     /// <param name="userId">Id пользователя, который сделал запрос</param>
-    Task<Result> ChangeCreationStateAsync(Guid id, Guid userId);
+    Task<Result> ChangeCreationStateAsync(Guid id, Guid userId, bool isAdmin);
 
     /// <summary>
     /// Отменить аукцион
     /// </summary>
     /// <param name="id">Id аукциона</param>
     /// <param name="userId">Id пользователя, который сделал запрос</param>
-    Task<Result> CancelAsync(Guid id, Guid userId);
+    /// <param name="isMember">Это обычный пользователь?</param>
+    Task<Result> CancelAsync(Guid id, Guid userId, bool isMember);
+    
+    /// <summary>
+    /// Отменить аукцион
+    /// </summary>
+    /// <param name="id">Id аукциона</param>
+    /// <param name="userId">Id пользователя, который апрувнул аукцион</param>
+    Task<Result> ApproveByIdAsync(Guid id, Guid userId);
+    
+    /// <summary>
+    /// Отменить аукцион
+    /// </summary>
+    Task<Result<(GetAuctionsResponse, PaginationMetadata)>> GetAllAuctionsForApproveAsync(PaginationRequest pagination);
 }
